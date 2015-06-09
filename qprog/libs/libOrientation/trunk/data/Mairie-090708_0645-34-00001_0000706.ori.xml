@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="./XSLT/orientation_1_0.xsl"?>
+<orientation>
+<version> 1.0 </version>
+<auxiliarydata>
+<image_name>Mairie-090708_0645-34-00001_0000706</image_name>
+<stereopolis>
+<chantier>Mairie</chantier>
+<date>090708</date>
+<session>645</session>
+<section>1</section>
+<numero>706</numero>
+<position>34</position>
+<flatfield_name>FlatField_268927068_04_2009.tif</flatfield_name>
+</stereopolis>
+<image_date>
+<year>2009</year>
+<month>7</month>
+<day>8</day>
+<time_system> UTC </time_system>
+<hour>11</hour>
+<minute>2</minute>
+<second>36.38</second>
+</image_date>
+</auxiliarydata>
+<geometry>
+<extrinseque>
+<systeme>Lambert93</systeme>
+<grid_alti>Raf98</grid_alti>
+<sommet>
+<easting>655058.25</easting>
+<northing>6860258.57</northing>
+<altitude>40.42</altitude>
+</sommet>
+<rotation>
+<Image2Ground> true </Image2Ground>
+<mat3d> 
+<l1> 
+<pt3d> 
+<x> 0.184642814237 </x>
+<y> 0.515645127337 </y>
+<z> -0.836674359905 </z>
+</pt3d>
+</l1> 
+<l2> 
+<pt3d> 
+<x> 0.083348019230 </x>
+<y> -0.856456748673 </y>
+<z> -0.509448326717 </z>
+</pt3d>
+</l2> 
+<l3> 
+<pt3d> 
+<x> -0.979269931323 </x>
+<y> 0.024330595448 </y>
+<z> -0.201116472105 </z>
+</pt3d>
+</l3> 
+</mat3d>
+<quaternion> 
+<x> 0.748701548518 </x>
+<y> 0.200010654363 </y>
+<z> -0.606364543663 </z>
+<w> 0.178234879847 </w>
+</quaternion>
+</rotation>
+</extrinseque>
+<intrinseque>
+<sensor>
+<name> Pike_68 </name>
+<calibration_date> 4-3-2008 </calibration_date>
+<serial_number> 268927068 </serial_number>
+<image_size> 
+<width> 1920 </width>
+<height> 1080 </height>
+ </image_size>
+<ppa>
+<c> 951.545 </c>
+<l> 544.242 </l>
+<focale> 1397.302 </focale>
+</ppa>
+<distortion>
+<pps>
+<c> 952.132 </c>
+<l> 540.977 </l>
+</pps>
+<r3> -4.781653e-008</r3>
+<r5> 3.244089e-014</r5>
+<r7> -2.05137e-021</r7>
+</distortion>
+<pixel_size> 0.00000740</pixel_size>
+</sensor>
+</intrinseque>
+</geometry>
+</orientation>

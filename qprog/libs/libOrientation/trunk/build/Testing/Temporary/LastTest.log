@@ -1,0 +1,115 @@
+Start testing: Nov 16 10:33 CET
+----------------------------------------------------------
+Unable to find executable: /home/atty/Prog/libOrientation/trunk/build/bin/TestOrientationMATIS_NonValidFile
+1/7 Testing: io_NonValidFiles
+1/7 Test: io_NonValidFiles
+Command: "" "/home/atty/Prog/libOrientation/trunk/data/RoadSigns.xml"
+Directory: /home/atty/Prog/libOrientation/trunk/build
+"io_NonValidFiles" start time: 
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"io_NonValidFiles" end time: Nov 16 10:33 CET
+"io_NonValidFiles" time elapsed: 00:00:00
+----------------------------------------------------------
+
+Unable to find executable: /home/atty/Prog/libOrientation/trunk/build/bin/TestOrientationMATIS_IO
+2/7 Testing: io
+2/7 Test: io
+Command: "" "/home/atty/Prog/libOrientation/trunk/data/olivier.xml" "/home/atty/Prog/libOrientation/trunk/data/Sample_conic.xml" "/home/atty/Prog/libOrientation/trunk/data/Amiens296.ori" "/home/atty/Prog/libOrientation/trunk/data/Amiens296.xml" "/home/atty/Prog/libOrientation/trunk/data/Sample_WGS84.xml" "/home/atty/Prog/libOrientation/trunk/data/Amiens296_crope.xml" "/home/atty/Prog/libOrientation/trunk/data/Mairie-090708_0645-22-00001_0000704_1.xml" "/home/atty/Prog/libOrientation/trunk/data/Mairie-090708_0645-34-00001_0000706.ori.xml" "/home/atty/Prog/libOrientation/trunk/data/ORTHO.HDR"
+Directory: /home/atty/Prog/libOrientation/trunk/build
+"io" start time: 
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"io" end time: Nov 16 10:33 CET
+"io" time elapsed: 00:00:00
+----------------------------------------------------------
+
+Unable to find executable: /home/atty/Prog/libOrientation/trunk/build/bin/TestOrientationMATIS_samples
+3/7 Testing: samples
+3/7 Test: samples
+Command: "" "/home/atty/Prog/libOrientation/trunk/data/Sample_WGS84.xml" "/home/atty/Prog/libOrientation/trunk/data/olivier_Projective.xml" "/home/atty/Prog/libOrientation/trunk/data/Amiens296.xml" "/home/atty/Prog/libOrientation/trunk/data/orid.xml" "/home/atty/Prog/libOrientation/trunk/data/ori_test_projective.xml" "/home/atty/Prog/libOrientation/trunk/data/Pano_SampleFC.xml"
+Directory: /home/atty/Prog/libOrientation/trunk/build
+"samples" start time: 
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"samples" end time: Nov 16 10:33 CET
+"samples" time elapsed: 00:00:00
+----------------------------------------------------------
+
+Unable to find executable: /home/atty/Prog/libOrientation/trunk/build/bin/TestOrientationMATIS_Projection
+4/7 Testing: WorldToImageOldOri
+4/7 Test: WorldToImageOldOri
+Command: "" "/home/atty/Prog/libOrientation/trunk/data/Amiens296.ori"
+Directory: /home/atty/Prog/libOrientation/trunk/build
+"WorldToImageOldOri" start time: 
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"WorldToImageOldOri" end time: Nov 16 10:33 CET
+"WorldToImageOldOri" time elapsed: 00:00:00
+----------------------------------------------------------
+
+Unable to find executable: /home/atty/Prog/libOrientation/trunk/build/bin/TestOrientationMATIS_Projection
+5/7 Testing: Transfo2DOldOri
+5/7 Test: Transfo2DOldOri
+Command: "" "/home/atty/Prog/libOrientation/trunk/data/orid.ori"
+Directory: /home/atty/Prog/libOrientation/trunk/build
+"Transfo2DOldOri" start time: 
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"Transfo2DOldOri" end time: Nov 16 10:33 CET
+"Transfo2DOldOri" time elapsed: 00:00:00
+----------------------------------------------------------
+
+Unable to find executable: /home/atty/Prog/libOrientation/trunk/build/bin/Test_PairOrientation
+6/7 Testing: PairOrientation
+6/7 Test: PairOrientation
+Command: "" "/home/atty/Prog/libOrientation/trunk/data/st_antoine.txt" "/home/atty/Prog/libOrientation/trunk/data/orig_st_antoine.ori" "/home/atty/Prog/libOrientation/trunk/data/orid_st_antoine.ori"
+Directory: /home/atty/Prog/libOrientation/trunk/build
+"PairOrientation" start time: 
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"PairOrientation" end time: Nov 16 10:33 CET
+"PairOrientation" time elapsed: 00:00:00
+----------------------------------------------------------
+
+Unable to find executable: /home/atty/Prog/libOrientation/trunk/build/bin/Test_OldOriWriting
+7/7 Testing: Test_OldOriWriting
+7/7 Test: Test_OldOriWriting
+Command: "" "/home/atty/Prog/libOrientation/trunk/data/Amiens296.ori" "/home/atty/Prog/libOrientation/trunk/data/orid.ori"
+Directory: /home/atty/Prog/libOrientation/trunk/build
+"Test_OldOriWriting" start time: 
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"Test_OldOriWriting" end time: Nov 16 10:33 CET
+"Test_OldOriWriting" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 16 10:33 CET

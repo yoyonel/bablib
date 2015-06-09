@@ -1,0 +1,39 @@
+/** \defgroup proj_implementation proj4 implementation 
+*  \brief Developper for proj4 library
+*
+*  The PROJ4 library is a C implementation. Code are not structured by class or namespace therefore implementation file could be grouped by their functionnalities. 
+The different file groups are: 
+	- Projections: the different implementations of the real transformations between geographic coordinate and a specific projected coordinate system
+	- Parameters parsing: management of the coordinate systemes parameters (parsing the projection string definition and manage the configuration files)
+	- Coordinate transformation : the functions other than projections who deal with coordinate systemes algorithms.
+	- Planimetric datum : the files which manage specifcic task for datum transform (datum initialisation and gridshift support).
+	- Executable.  
+
+ */
+
+/*! \ingroup proj_implementation
+* \defgroup parameters parameters parsing and config files managements.
+*/
+
+/*!\ingroup proj_implementation 
+\defgroup nad_datum planimetric datum management.
+*/
+
+/*!\ingroup proj_implementation 
+\defgroup v_datum altimetric datum management.
+*/
+
+/*!\ingroup proj_implementation 
+\defgroup geod geodesic ligne computation.
+*/
+
+/*! \ingroup proj_implementation
+* \defgroup transform transformation functions between two coordinates system.
+*
+*/
+/*! \ingroup transform
+* \defgroup projection cartographic projections structure and implementation.
+*/
+/*! \ingroup transform
+* \defgroup approx_proj projections approximations and computation by tchebychev polynomial.
+*/

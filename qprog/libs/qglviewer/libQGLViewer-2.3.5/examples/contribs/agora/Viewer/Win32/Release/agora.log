@@ -1,0 +1,9 @@
+﻿Build started 12/08/2012 23:13:07.
+     1>Project "C:\Prog\bab_code_2010\qprog\libs\qglviewer\libQGLViewer-2.3.5\examples\contribs\agora\Viewer\agora.vcxproj" on node 4 (build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(298,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
+     1>InitializeBuildStatus:
+         Touching "Win32\Release\agora.unsuccessfulbuild".
+       CustomBuild:
+         All outputs are up-to-date.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\BIN\CL.exe /c /IC:\Qt\4.8.2\include\QtCore /IC:\Qt\4.8.2\include\QtGui /IC:\Qt\4.8.2\include\QtOpenGL /IC:\Qt\4.8.2\include\QtXml /IC:\Qt\4.8.2\include /I..\..\..\.. /IC:\Qt\4.8.2\include\ActiveQt /Imoc /I. /I"C:\Qt\4.8.2\mkspecs\win32-msvc2010" /I.\GeneratedFiles /Zi /nologo /W3 /WX- /O2 /Oy- /D _CONSOLE /D UNICODE /D WIN32 /D QT_LARGEFILE_SUPPORT /D QT_THREAD_SUPPORT /D QT_DLL /D QT_NO_DEBUG /D QT_NO_KEYWORDS /D QT_XML_LIB /D QT_OPENGL_LIB /D QT_GUI_LIB /D QT_CORE_LIB /D QT_HAVE_MMX /D QT_HAVE_3DNOW /D QT_HAVE_SSE /D QT_HAVE_MMXEXT /D QT_HAVE_SSE2 /D NDEBUG /Gm- /EHsc /MD /GS- /fp:precise /Zc:wchar_t- /Zc:forScope /GR /Fo"Win32\Release\\" /Fd"Win32\Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt agoraViewer.cpp board.cpp case.cpp computerPlayer.cpp main.cpp moc\moc_agoraViewer.cpp moc\moc_computerPlayer.cpp move.cpp undo.cpp -Zm200 -w34100 -w34189 

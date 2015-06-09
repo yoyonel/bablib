@@ -1,0 +1,25 @@
+!+
+!+--------------------------
+!+ HDR/A : Image Information
+!+--------------------------
+!+
+MAPUNITS               METERS
+ULXMAP  653998.95
+ULYMAP  6862001.05
+XDIM    0.10
+YDIM    0.10
+NROWS   10020
+NCOLS   10020
+NBANDS  3
+!+
+!+----------------------
+!+ HDR/C : File Encoding
+!+----------------------
+!+
+NBITS   16
+BYTEORDER   I
+SKIPBYTES               0
+RECORDSKIPBYTES         0
+LAYOUT               BIL
+SIGNE			             0
+PROJECTION    LAMBERT93

@@ -1,0 +1,335 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/libOrientation/!svn/ver/190/trunk/src
+END
+modeleprojectionphysique.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/libOrientation/!svn/ver/175/trunk/src/modeleprojectionphysique.hpp
+END
+modeleprojectioncarto.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/libOrientation/!svn/ver/95/trunk/src/modeleprojectioncarto.hpp
+END
+distortiongrillematis.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/libOrientation/!svn/ver/81/trunk/src/distortiongrillematis.hpp
+END
+systematismecylindrique.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/libOrientation/!svn/ver/165/trunk/src/systematismecylindrique.cpp
+END
+auxiliarydata.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/libOrientation/!svn/ver/148/trunk/src/auxiliarydata.cpp
+END
+projectivetransfo2D.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/libOrientation/!svn/ver/119/trunk/src/projectivetransfo2D.hpp
+END
+geodesieproj4.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/libOrientation/!svn/ver/160/trunk/src/geodesieproj4.cpp
+END
+systematismecylindrique.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/libOrientation/!svn/ver/165/trunk/src/systematismecylindrique.hpp
+END
+auxiliarydata.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/libOrientation/!svn/ver/189/trunk/src/auxiliarydata.hpp
+END
+transfo2d.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/libOrientation/!svn/ver/148/trunk/src/transfo2d.hpp
+END
+geodesieproj4.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/libOrientation/!svn/ver/105/trunk/src/geodesieproj4.hpp
+END
+outil_xml.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/libOrientation/!svn/ver/163/trunk/src/outil_xml.cpp
+END
+distortionpolynomeign.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/libOrientation/!svn/ver/172/trunk/src/distortionpolynomeign.cpp
+END
+solar.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/libOrientation/!svn/ver/148/trunk/src/solar.cpp
+END
+outil_xml.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/libOrientation/!svn/ver/163/trunk/src/outil_xml.hpp
+END
+noboost.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/libOrientation/!svn/ver/102/trunk/src/noboost.cpp
+END
+xmlreader.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/libOrientation/!svn/ver/180/trunk/src/xmlreader.cpp
+END
+distortionpolynomeign.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/libOrientation/!svn/ver/155/trunk/src/distortionpolynomeign.hpp
+END
+solar.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/libOrientation/!svn/ver/11/trunk/src/solar.hpp
+END
+modeleprojectionconique.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/libOrientation/!svn/ver/148/trunk/src/modeleprojectionconique.cpp
+END
+modeleprojectionrto.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/libOrientation/!svn/ver/148/trunk/src/modeleprojectionrto.cpp
+END
+modeleprojection_in.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/libOrientation/!svn/ver/180/trunk/src/modeleprojection_in.cpp
+END
+noboost.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/libOrientation/!svn/ver/184/trunk/src/noboost.hpp
+END
+modeleprojection_out.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/libOrientation/!svn/ver/172/trunk/src/modeleprojection_out.cpp
+END
+ConicStereoPair.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/libOrientation/!svn/ver/183/trunk/src/ConicStereoPair.cpp
+END
+modeleprojectionconique.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/libOrientation/!svn/ver/148/trunk/src/modeleprojectionconique.hpp
+END
+modeleprojectionrto.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/libOrientation/!svn/ver/95/trunk/src/modeleprojectionrto.hpp
+END
+xmlwriter.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/libOrientation/!svn/ver/171/trunk/src/xmlwriter.cpp
+END
+ConicStereoPair.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/libOrientation/!svn/ver/183/trunk/src/ConicStereoPair.hpp
+END
+systematismeaffine.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/libOrientation/!svn/ver/166/trunk/src/systematismeaffine.cpp
+END
+modeleprojectiongrille.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/libOrientation/!svn/ver/148/trunk/src/modeleprojectiongrille.cpp
+END
+euclidien.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/libOrientation/!svn/ver/163/trunk/src/euclidien.cpp
+END
+modeleprojection.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/libOrientation/!svn/ver/180/trunk/src/modeleprojection.cpp
+END
+geometrictransformation.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/libOrientation/!svn/ver/157/trunk/src/geometrictransformation.cpp
+END
+systematismeaffine.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/libOrientation/!svn/ver/166/trunk/src/systematismeaffine.hpp
+END
+modeleprojectiongrille.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/libOrientation/!svn/ver/95/trunk/src/modeleprojectiongrille.hpp
+END
+euclidien.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/libOrientation/!svn/ver/145/trunk/src/euclidien.hpp
+END
+modeleprojectionaxono.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/libOrientation/!svn/ver/148/trunk/src/modeleprojectionaxono.cpp
+END
+modeleprojection.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/libOrientation/!svn/ver/156/trunk/src/modeleprojection.hpp
+END
+geometrictransformation.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/libOrientation/!svn/ver/157/trunk/src/geometrictransformation.hpp
+END
+modeleprojectionaxono.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/libOrientation/!svn/ver/148/trunk/src/modeleprojectionaxono.hpp
+END
+orireader.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/libOrientation/!svn/ver/189/trunk/src/orireader.cpp
+END
+modeleprojectionvisitor.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/libOrientation/!svn/ver/148/trunk/src/modeleprojectionvisitor.cpp
+END
+transfo2delementaire.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/libOrientation/!svn/ver/90/trunk/src/transfo2delementaire.hpp
+END
+geodesie.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/libOrientation/!svn/ver/148/trunk/src/geodesie.cpp
+END
+oriwriter.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/libOrientation/!svn/ver/190/trunk/src/oriwriter.cpp
+END
+modeleprojectionvisitor.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/libOrientation/!svn/ver/148/trunk/src/modeleprojectionvisitor.hpp
+END
+homographie2d.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/libOrientation/!svn/ver/3/trunk/src/homographie2d.cpp
+END
+modeleprojectionspherique.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/libOrientation/!svn/ver/148/trunk/src/modeleprojectionspherique.cpp
+END
+geodesie.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/libOrientation/!svn/ver/125/trunk/src/geodesie.hpp
+END
+modeleprojectionphysique.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/libOrientation/!svn/ver/160/trunk/src/modeleprojectionphysique.cpp
+END
+modeleprojectioncarto.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/libOrientation/!svn/ver/114/trunk/src/modeleprojectioncarto.cpp
+END
+distortiongrillematis.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/libOrientation/!svn/ver/148/trunk/src/distortiongrillematis.cpp
+END
+homographie2d.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/libOrientation/!svn/ver/119/trunk/src/homographie2d.hpp
+END
+modeleprojectionspherique.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/libOrientation/!svn/ver/148/trunk/src/modeleprojectionspherique.hpp
+END

@@ -1,0 +1,16 @@
+# this file contains constants used by bablib classes
+# there are two ways to modify these values without modifying this file:
+#   1) define *some* of these values in the local .par file of the project
+#   2) define *all* these values in another (local) .par file, whose path is given by
+#      the "bablib.global.params.file" parameter defined in the local .par file of the project
+# this avoids modifying and recompiling the bablib when changing paths to shared ressources, e.g. to create a compiled standalone appli
+
+# <qprog> refers to the root of QPROG
+# <data> refers to the path defined by variable QPROG_DATA_PATH in <paths.pri>
+
+bablib.shaders.lib.dir     = <qprog> libs/bablib/shaders
+bablib.shaders.default.dir = shaders
+
+bablib.cubemaps.default.dir = <data> cube_maps
+bablib.images3D.default.dir = <data> images3D
+

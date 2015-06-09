@@ -1,0 +1,82 @@
+#ifndef __TAB_3D__
+#define __TAB_3D__
+
+#include "Message.h"
+#include <QString>
+#include <QFile>
+#include <QDataStream>
+
+BABLIB_NAMESPACE_BEGIN
+
+#define for3D(tab, index1, index2, index3) \
+    for (int index1 = 0; index1 < tab.N1(); index1++)   \
+    for (int index2 = 0; index2 < tab.N2(); index2++)   \
+    for (int index3 = 0; index3 < tab.N3(); index3++)   
+
+template<class Object>
+class Tab3D {
+    public:
+        Tab3D() : n1(-1), n2(-1), n3(-1), data(NULL) {}
+        Tab3D(int n1, int n2, int n3) : n1(n1), n2(n2), n3(n3), data(new Object[n1 * n2 * n3]) {}
+        Tab3D(QString fileName) : n1(-1), n2(-1), n3(-1), data(NULL) { load(fileName); }
+
+        void destroy() { if (data != NULL) { delete[] data; data = NULL; } }
+        void fill(Object value) { for (int c=0; c<n1*n2*n3; c++) data[c] = value; }
+        bool empty() const { return data == NULL; }
+        
+        inline       Object&  value(int i, int j, int k)          { return data[i + n1*(j + n2*k)]; }
+        inline const Object&  value(int i, int j, int k)    const { return data[i + n1*(j + n2*k)]; }
+        inline       Object&  operator()(int i, int j, int k)       { return value(i,j,k); }
+        inline const Object&  operator()(int i, int j, int k) const { return value(i,j,k); }
+
+        inline int N1() const { return n1; }
+        inline int N2() const { return n2; }
+        inline int N3() const { return n3; }
+        
+        inline       Object* getData()       { return data; }
+        inline const Object* getData() const { return data; }
+
+        void save(QString fileName) const {
+            QFile file(fileName);
+            if (file.open(QIODevice::WriteOnly)) {
+                QDataStream stream(&file);
+                stream << n1;
+                stream << n2;
+                stream << n3;
+                file.write(reinterpret_cast<const char*>(data), sizeof(Object) * n1 * n2 * n3);
+                file.close();
+                }
+            else
+                Message::error(QString("probleme d'ecriture : '%1'").arg(fileName));
+            }
+        
+        void load(QString fileName) {
+            QFile file(fileName);
+            if (file.open(QIODevice::ReadOnly)) {
+                destroy();
+                QDataStream stream(&file);
+                stream >> n1;
+                stream >> n2;
+                stream >> n3;
+                data = new Object[n1 * n2 * n3];
+                file.read(reinterpret_cast<char*>(data), sizeof(Object) * n1 * n2 * n3);
+                file.close();
+                }
+            else
+                Message::error(QString("probleme de lecture : '%1'").arg(fileName));
+            }
+                
+    private:
+        int n1, n2, n3;
+        Object *data;
+    };
+
+typedef Tab3D<int>    Int3D;
+typedef Tab3D<bool>   Bool3D;
+typedef Tab3D<float>  Float3D;
+typedef Tab3D<double> Double3D;
+
+BABLIB_NAMESPACE_END
+
+#endif
+

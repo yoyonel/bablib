@@ -1,0 +1,10 @@
+<FileOriMnt>
+      <NameFileMnt>/home/mdurupt/data/EtudeCSO/0_12/MEC/Z_Num7_DeZoom1_SimuComplBiCub.tif</NameFileMnt>
+      <NameFileMasque>/home/mdurupt/data/EtudeCSO/0_12/Pyram/Masq_SimuComplBiCub_DeZoom1.tif</NameFileMasque>
+      <NombrePixels>1830 1690</NombrePixels>
+      <OriginePlani>528073.050000000047 1843200.94999999995</OriginePlani>
+      <ResolutionPlani>0.0999999999767169356 -0.100000000093132257</ResolutionPlani>
+      <OrigineAlti>145</OrigineAlti>
+      <ResolutionAlti>0.200000000000000011</ResolutionAlti>
+      <Geometrie>eGeomMNTEuclid</Geometrie>
+</FileOriMnt>

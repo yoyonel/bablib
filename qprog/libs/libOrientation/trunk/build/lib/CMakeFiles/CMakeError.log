@@ -1,0 +1,45 @@
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: D:/PROG/QtSDK/mingw/bin/gcc.exe 
+Build flags: 
+Id flags: 
+
+The output was:
+1
+
+
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: D:/PROG/QtSDK/mingw/bin/gcc.exe 
+Build flags: 
+Id flags: -c
+
+The output was:
+1
+
+
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: D:/PROG/QtSDK/mingw/bin/gcc.exe 
+Build flags: 
+Id flags: -Aa
+
+The output was:
+1
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: D:/PROG/QtSDK/mingw/bin/g++.exe 
+Build flags: 
+Id flags: 
+
+The output was:
+1
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: D:/PROG/QtSDK/mingw/bin/g++.exe 
+Build flags: 
+Id flags: -c
+
+The output was:
+1
+
+

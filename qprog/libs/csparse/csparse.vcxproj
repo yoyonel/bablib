@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>
+    </ProjectGuid>
+    <RootNamespace>csparse</RootNamespace>
+    <Keyword>Qt4VSv1.0</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <OutputDirectory>..\..\bin\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <IntermediateDirectory>..\..\..\build\libstatic_csparse\obj\</IntermediateDirectory>
+    <PrimaryOutput>csparse</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">csparse</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</IgnoreImportLibrary>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>"$(QTDIR)\include\QtCore";"$(QTDIR)\include\QtGui";"$(QTDIR)\include";"src";"$(QTDIR)\include\ActiveQt";"..\..\..\build\libstatic_csparse\moc";c:\Qt\4.8.2\mkspecs\win32-msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zm200 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>..\..\..\build\libstatic_csparse\obj\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>_CONSOLE;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_THREAD_SUPPORT;QT_NO_DEBUG;QT_GUI_LIB;QT_CORE_LIB;QT_HAVE_MMX;QT_HAVE_3DNOW;QT_HAVE_SSE;QT_HAVE_MMXEXT;QT_HAVE_SSE2;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_CONSOLE;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_THREAD_SUPPORT;QT_NO_DEBUG;QT_GUI_LIB;QT_CORE_LIB;QT_HAVE_MMX;QT_HAVE_3DNOW;QT_HAVE_SSE;QT_HAVE_MMXEXT;QT_HAVE_SSE2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ResourceOutputFileName>$(OutDir)\$(InputName).res</ResourceOutputFileName>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\cs_add.c" />
+    <ClCompile Include="src\cs_amd.c" />
+    <ClCompile Include="src\cs_chol.c" />
+    <ClCompile Include="src\cs_cholsol.c" />
+    <ClCompile Include="src\cs_compress.c" />
+    <ClCompile Include="src\cs_counts.c" />
+    <ClCompile Include="src\cs_cumsum.c" />
+    <ClCompile Include="src\cs_dfs.c" />
+    <ClCompile Include="src\cs_dmperm.c" />
+    <ClCompile Include="src\cs_droptol.c" />
+    <ClCompile Include="src\cs_dropzeros.c" />
+    <ClCompile Include="src\cs_dupl.c" />
+    <ClCompile Include="src\cs_entry.c" />
+    <ClCompile Include="src\cs_ereach.c" />
+    <ClCompile Include="src\cs_etree.c" />
+    <ClCompile Include="src\cs_fkeep.c" />
+    <ClCompile Include="src\cs_gaxpy.c" />
+    <ClCompile Include="src\cs_happly.c" />
+    <ClCompile Include="src\cs_house.c" />
+    <ClCompile Include="src\cs_ipvec.c" />
+    <ClCompile Include="src\cs_leaf.c" />
+    <ClCompile Include="src\cs_load.c" />
+    <ClCompile Include="src\cs_lsolve.c" />
+    <ClCompile Include="src\cs_ltsolve.c" />
+    <ClCompile Include="src\cs_lu.c" />
+    <ClCompile Include="src\cs_lusol.c" />
+    <ClCompile Include="src\cs_malloc.c" />
+    <ClCompile Include="src\cs_maxtrans.c" />
+    <ClCompile Include="src\cs_multiply.c" />
+    <ClCompile Include="src\cs_norm.c" />
+    <ClCompile Include="src\cs_permute.c" />
+    <ClCompile Include="src\cs_pinv.c" />
+    <ClCompile Include="src\cs_post.c" />
+    <ClCompile Include="src\cs_print.c" />
+    <ClCompile Include="src\cs_pvec.c" />
+    <ClCompile Include="src\cs_qr.c" />
+    <ClCompile Include="src\cs_qrsol.c" />
+    <ClCompile Include="src\cs_randperm.c" />
+    <ClCompile Include="src\cs_reach.c" />
+    <ClCompile Include="src\cs_scatter.c" />
+    <ClCompile Include="src\cs_scc.c" />
+    <ClCompile Include="src\cs_schol.c" />
+    <ClCompile Include="src\cs_spsolve.c" />
+    <ClCompile Include="src\cs_sqr.c" />
+    <ClCompile Include="src\cs_symperm.c" />
+    <ClCompile Include="src\cs_tdfs.c" />
+    <ClCompile Include="src\cs_transpose.c" />
+    <ClCompile Include="src\cs_updown.c" />
+    <ClCompile Include="src\cs_usolve.c" />
+    <ClCompile Include="src\cs_util.c" />
+    <ClCompile Include="src\cs_utsolve.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\cs.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties QtVersion_x0020_Win32="4.8.2" UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
