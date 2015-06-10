@@ -1,0 +1,6 @@
+win32 {
+    CURRENT_LIB = libpng
+    include(lib_config.pri)
+    }
+# sinon conflit de versions avec libpng déja installée sous linux
+
