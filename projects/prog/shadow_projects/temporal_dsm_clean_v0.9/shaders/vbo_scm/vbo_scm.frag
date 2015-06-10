@@ -3,10 +3,10 @@
 #define DEPTH_BIAS	(-0.015 * 4.)
 
 #define GREEN	vec4( 0, 1, 0, 0 )
-#define RED	vec4( 1, 0, 0, 0 )
+#define RED		vec4( 1, 0, 0, 0 )
 #define BLUE	vec4( 0, 0, 1, 0 )
 
-#define EPSILON		(0.000001)		//@@ trouver l'epsilon des floats (autour de 0.)
+#define EPSILON		0.000001		//@@ trouver l'epsilon des floats (autour de 0.)
 
 
 #define IN_PENUMBRA(_coef_shadow, _seuil) ( ( (_coef_shadow) >= (_seuil) ) && ( (_coef_shadow) <= (1.0 - _seuil) ) )
@@ -22,12 +22,12 @@
 //#define DRAW_GRID
 //#define DRAW_CONFIDENCE
 //#define DRAW_FILTER_COLOR
-//#define DRAW_NEW_TEXEL
 
 #define USE_TEMPORAL_CONFIDENCE
+//#define DRAW_NEW_TEXEL
 
 //#define CLAMP_COEF_SHADOW
-float 	clamp_coef_shadow_seuil 	= 0.09;
+//float 	clamp_coef_shadow_seuil 	= 0.09;
 
 float	new_texel_distance_seuil	= 0.001; 	// si valeur trop grande, les pixels de bord prennent le dessus
 
@@ -46,8 +46,8 @@ float	coef_diff_for_new_texel	= 0.5;
 uniform sampler2DShadow	shadowMap;
 
 // - les textures tex_history_* pointent sur les résultats précédents
-uniform sampler2D	tex_history_visibility, 
-			tex_history_positions;
+uniform sampler2D tex_history_visibility;
+uniform sampler2D tex_history_positions;
 
 // - TAILLES DES TEXTURES
 uniform vec2 	v2_sm_size;
@@ -82,10 +82,10 @@ void main(void) {
 	#ifdef USE_SHADOW_PROJ
 		texelTextureLightSpace = texelLightSpace;
 		// Bias Uniform (non normalisé)
-		texelTextureLightSpace.z	+= coef_depth_bias * texelLightSpace.w;
+		texelTextureLightSpace.z += coef_depth_bias*texelLightSpace.w;
 	#else
 		// Normalisation manuelle (TODO: voir shadow2DProj)
-		vec4 texelLightSpaceNormalized 	= texelLightSpace / texelLightSpace.w;
+		vec4 texelLightSpaceNormalized = texelLightSpace/texelLightSpace.w;
 
 		// Bias Uniform (TODO: voir Gradient Shadow Map)
 		texelLightSpaceNormalized.z	+= coef_depth_bias;
@@ -103,7 +103,7 @@ void main(void) {
 		#ifdef USE_SHADOW_PROJ
 			shadow_PCF = shadow2DProj( shadowMap, texelTextureLightSpace ).r;	
 		#else
-	 		shadow_PCF = shadow2D( shadowMap, vec3(texelTextureLightSpace) ).r;	
+	 		shadow_PCF = shadow2D(shadowMap, vec3(texelTextureLightSpace)).r;
 	 	#endif
 		shadow = shadow_PCF;
 	#elif (SHADOW_TECHNIQUE == USE_SHADOW_BICUBIC)
@@ -126,15 +126,15 @@ void main(void) {
 		const float coef_confidence_color = 1.0;
 		vec4 confidence_color = vec4(BLUE + GREEN + RED) * confidence_sm * coef_confidence_color;
 		// - on veut afficher la grille sur les texels ombrés
-		out_color += shadow < (1-EPSILON) ? (1. - shadow) * confidence_color : vec4(0);
+		out_color += shadow < (1.0 - EPSILON) ? (1. - shadow) * confidence_color : vec4(0.0);
 	#endif
 
 	#ifdef USE_TEMPORAL_CONFIDENCE
 		//
-		vec4 	position_prev_normalized 	= position_prev / position_prev.w;
-			position_prev_normalized 	= (position_prev_normalized + vec4(1.)) * vec4(0.5); // [-1, +1] -> [0.0, 1.0] (Screen Space -> Texture Space)
+		vec4 position_prev_normalized = position_prev/position_prev.w;
+		position_prev_normalized = (position_prev_normalized + vec4(1.)) * vec4(0.5); // [-1, +1] -> [0.0, 1.0] (Screen Space -> Texture Space)
 		//
-		vec4 	texelWorldSpace_Normalized 	= texelWorldSpace / texelWorldSpace.w;
+		vec4 texelWorldSpace_Normalized = texelWorldSpace/texelWorldSpace.w;
 
 		// - Position Receiver
 		vec4	texel_pos_prev 	= texture2D( tex_history_positions, position_prev_normalized.xy );	// previous position in WorldSpace
@@ -148,9 +148,9 @@ void main(void) {
 		float	weight 		= pow( confidence_sm, coef_power_function );
 
 		#ifdef USE_EXPERIMENTAL_CORRECTION_FOR_MOVEMENT_DIFF_VIS
-			float 	variance_visibility	= abs(shadow - texel_vis_prev.x);
-			bool 	variance		= variance_visibility >= (coef_diff_for_new_texel - EPSILON);
-				new_receiver 		= IN_PENUMBRA(texel_vis_prev.x, EPSILON) && IN_PENUMBRA(shadow, EPSILON) ? new_receiver : new_receiver || variance;
+			float variance_visibility	= abs(shadow - texel_vis_prev.x);
+			bool variance = variance_visibility >= (coef_diff_for_new_texel - EPSILON);
+			new_receiver = IN_PENUMBRA(texel_vis_prev.x, EPSILON) && IN_PENUMBRA(shadow, EPSILON) ? new_receiver : new_receiver || variance;
 			// on stocke la moyenne de la variance (différence de visibilité d'une frame l'autre)
 			out_color.w = clamp(variance_visibility, 0.0, 1.0);
 		#endif

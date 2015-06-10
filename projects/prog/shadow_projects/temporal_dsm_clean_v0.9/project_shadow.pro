@@ -6,8 +6,8 @@ CONFIG *= bablib
 CONFIG *= gsl
 CONFIG *= scene3d
 
-HEADERS = sources\*.h
-SOURCES = sources\*.cpp
+HEADERS = sources/*.h
+SOURCES = sources/*.cpp
 
 PROJECT_PATH = $$PWD
 

@@ -19,7 +19,7 @@ uniform vec2 	v2_scm_size;
 uniform vec2	v2_screen_size;
 
 #define RENDER_SHADOW
-#define RENDER_COLOR
+//#define RENDER_COLOR
 //#define RENDER_VARIANCE
 
 //#define USE_FILTER_COLOR
@@ -68,7 +68,8 @@ void main(void) {
 	
 	gl_FragColor= out_color;
 }
-// Texture 2D
+
+// Texture 2D
 vec4 interpolate_bicubic_fast(sampler2D tex, vec2 _texCoord, vec2 _sizeTexture)
 {
 	float 	x = _texCoord.x * _sizeTexture.x,

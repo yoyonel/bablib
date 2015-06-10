@@ -4,7 +4,7 @@
 #define DEPTH_BIAS	(-0.015 * 4.)
 
 #define GREEN	vec4( 0, 1, 0, 0 )
-#define RED	vec4( 1, 0, 0, 0 )
+#define RED		vec4( 1, 0, 0, 0 )
 #define BLUE	vec4( 0, 0, 1, 0 )
 
 #define EPSILON		(0.000001)		//@@ trouver l'epsilon des floats (autour de 0.)
