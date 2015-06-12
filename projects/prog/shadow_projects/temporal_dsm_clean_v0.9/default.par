@@ -30,18 +30,19 @@ texture.dsm.filter		= GL_LINEAR
 texture.dsm.wrapmode		= GL_CLAMP_TO_BORDER
 texture.dsm.border_color	= 1 0 0 0
 
-
 // - Shadow Clip Map
 texture.scm.width 		= 512
 texture.scm.height		= 512
 //
-texture.scm.internalformat	= GL_INTENSITY_FLOAT16_ATI
-//texture.scm.internalformat	= GL_RGBA_FLOAT32_ATI
+//texture.scm.internalformat	= GL_INTENSITY_FLOAT16_ATI
+texture.scm.internalformat	= GL_RGBA_FLOAT32_ATI
 //
-texture.scm.filter		= GL_LINEAR
-//texture.scm.filter		= GL_NEAREST
+//texture.scm.filter		= GL_LINEAR
+texture.scm.filter		= GL_NEAREST
 //
-texture.scm.wrapmode		= GL_CLAMP
+//texture.scm.wrapmode		= GL_CLAMP
+texture.scm.wrapmode		= GL_CLAMP_TO_BORDER
+texture.scm.border_color	= 0 1 0 0
 
 // - Positions World Space
 texture.pws.width 		= 512

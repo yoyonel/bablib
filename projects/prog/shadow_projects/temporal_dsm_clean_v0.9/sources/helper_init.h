@@ -53,7 +53,7 @@ void Viewer::initTextures( bool bDestroy )
 
 	// -- second shadow clip map texture
 	for(int i=0; i<eSize; ++i) {
-		// 
+	// 
 		tex_shadow_clipmap[i] = Texture::createTex2D( 
 			PARAM(int, 	texture.scm.width), 
 			PARAM(int, 	texture.scm.height), 
@@ -61,6 +61,7 @@ void Viewer::initTextures( bool bDestroy )
 			PARAM(GLenum, 	texture.scm.filter),		// texture filter
 			PARAM(GLenum, 	texture.scm.wrapmode)
 			);
+		tex_shadow_clipmap[i].setBorderColor( PARAM(Float4, texture.scm.border_color) );
 		//
 		tex_positions_ws[i] = Texture::createTex2D( 
 			PARAM(int, 	texture.pws.width), 
@@ -73,7 +74,7 @@ void Viewer::initTextures( bool bDestroy )
 		fprintf(stderr, "tex_shadow_clipmap[%d]: init\n", i);
 		fprintf(stderr, "tex_positions_ws[%d]: init\n", i);
 	}
-	        
+
  	MSG_CHECK_GL;
 }
 
@@ -89,8 +90,11 @@ void Viewer::initFrameBuffers( bool bDestroy )
 
 	// - FrameBuffer pour rendre la shadow clip map
 	//fb_shadow_clipmap[eWrite] = FrameBuffer::create_Tex2D_Z( &tex_shadow_clipmap[eRead] );
+	// eRead  = 0
+	// eWrite = 1
 	for(int i=0; i<eSize; ++i) {
 		const int eInvRW = INVERT_RW(i);
+		//
 		fb_shadow_clipmap[i] = FrameBuffer( tex_shadow_clipmap[eInvRW].getWidth(), tex_shadow_clipmap[eInvRW].getHeight());
 		fb_shadow_clipmap[i].create();
 		//
@@ -98,11 +102,20 @@ void Viewer::initFrameBuffers( bool bDestroy )
 		fb_shadow_clipmap[i].attachTex2D(GL_COLOR_ATTACHMENT1_EXT, &tex_positions_ws[eInvRW], 	0, false);
 		//
 		fb_shadow_clipmap[i].attachRenderBuffer(GL_DEPTH_ATTACHMENT_EXT,  GL_DEPTH_COMPONENT24);
-		fb_shadow_clipmap[i].checkCompleteness(false);
+		//
+		fb_shadow_clipmap[i].checkCompleteness(true);
+		//
+		fb_shadow_clipmap[i].activate();
+		{
+			glClearColor(0, 0, 0, 1);
+			//
+			glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		
+		}
+		fb_shadow_clipmap[i].deactivate();
 		//
 		fprintf(stderr, "fb_shadow_clipmap[%d]: color0 = tex_shadow_clipmap[%d]\n", i, eInvRW);
 		fprintf(stderr, "fb_shadow_clipmap[%d]: color1 = tex_positions_ws[%d]\n", i, eInvRW);
-	}
+	}	
 
 	eCurrentFrame = eRead;
 
@@ -193,8 +206,8 @@ void Viewer::initVBO( bool bDestroy )
 	// remplissage et load de l'index buffer :
 	for (int i=0; i < ts->nt; i++) {
 		const int 	indice_vertex0 = ts->tri[i].index[0],
-				indice_vertex1 = ts->tri[i].index[1],
-				indice_vertex2 = ts->tri[i].index[2];			
+					indice_vertex1 = ts->tri[i].index[1],
+					indice_vertex2 = ts->tri[i].index[2];			
 		//
 		indexBuffer->set(3*i + 0, indice_vertex0);
 		indexBuffer->set(3*i + 1, indice_vertex1);

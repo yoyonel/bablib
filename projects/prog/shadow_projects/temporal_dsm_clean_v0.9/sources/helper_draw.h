@@ -4,17 +4,16 @@
 //
 void Viewer::drawScene() 
 {	
-	// -- récupération des dimensions des textures
+	// -- récupération des dimensions des textures	
 	ViewportGL viewport;
 	viewport.getGL();
-
-	const Vec2 v2_screen_size( viewport.w, viewport.h );	
-
+	
+	const Vec2 v2_screen_size( viewport.w, viewport.h );
 	const Vec2 v2_scm_size( tex_shadow_clipmap_current.getWidth(), tex_shadow_clipmap_current.getHeight() );
 
 	prog_draw_scene_with_scm.activate();
 	prog_draw_scene_with_scm.activateTextures();
-
+	{
 		prog_draw_scene_with_scm.setUniformVec2( "v2_screen_size", 	v2_screen_size, false );
 		prog_draw_scene_with_scm.setUniformVec2( "v2_scm_size", 	v2_scm_size, 	false );
 		
@@ -38,11 +37,12 @@ void Viewer::drawScene()
 		glEnd();
 		glPopMatrix();
 		glPopAttrib();
-	
+	}
 	prog_draw_scene_with_scm.deactivate();
 	
 	vbo->setProg( prog_draw_scene_with_scm );
 	prog_draw_scene_with_scm.activate();
+	{
 		prog_draw_scene_with_scm.setUniformVec2( "v2_screen_size", 	v2_screen_size, false );
 		prog_draw_scene_with_scm.setUniformVec2( "v2_scm_size", 	v2_scm_size, 	false );
 		glPushMatrix();
@@ -50,6 +50,7 @@ void Viewer::drawScene()
 			glMultMatrixd(qgl_mf_vbo.worldMatrix());
 			vbo->render(GL_TRIANGLES, indexBuffer);
 		glPopMatrix();
+	}
 	prog_draw_scene_with_scm.deactivate();
 }
 	

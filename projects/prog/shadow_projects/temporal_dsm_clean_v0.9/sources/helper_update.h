@@ -20,6 +20,7 @@ void Viewer::updateFrameBuffers()
 {
 	// Alternance Read/Write sur les buffers History (une sorte de PingPong Buffers)
 	eCurrentFrame = (eCurrentFrame == eRead) ? eWrite : eRead; 
+	const int ePrevFrame = (eCurrentFrame == eRead) ? eWrite : eRead;
 
 	// MAJ des cameras
 	qgl_cam_eyes[eCurrentFrame] 	= *camera();
@@ -43,28 +44,30 @@ void Viewer::updateFrameBuffers()
 
 		qgl_cam_light_rand.setUpVector( v_up );
 	}
-
-	tex_shadow_clipmap_current 	= tex_shadow_clipmap[INVERT_RW(eCurrentFrame)];
-
-	tex_history_visibility 		= tex_shadow_clipmap[ eCurrentFrame ];
-	tex_history_positions		= tex_positions_ws[ eCurrentFrame ];
+	
+	//
+	tex_shadow_clipmap_current 	= tex_shadow_clipmap[ePrevFrame];
+	//
+	tex_history_visibility 		= tex_shadow_clipmap[eCurrentFrame];
+	tex_history_positions		= tex_positions_ws[eCurrentFrame];
+	//
 	index_hs ++;
 
 
 	// - FRAME_BUFFERS: Maj des FBs et Render-Textures associées
 	//tq_update_shadow_map.begin();
-		// - update depth shadow map texture (light view)
-		updateShadowMap( fb_depth_shadow_map, qgl_cam_light_rand );
+	// - update depth shadow map texture (light view)
+	updateShadowMap( fb_depth_shadow_map, qgl_cam_light_rand );
 	//tq_update_shadow_map.end();
 	
 	//tq_update_shadow_clip_map.begin();
-		// - update shadow clip map (eyes view)
-		updateShadowClipMap( 
-			fb_shadow_clipmap[eCurrentFrame], 
-			tex_shadow_map, 
-			qgl_cam_light_rand, 		// light camera
-			qgl_cam_eyes		 	// eyes camera
-		);
+	// - update shadow clip map (eyes view)
+	updateShadowClipMap( 
+		fb_shadow_clipmap[ePrevFrame],
+		tex_shadow_map, 
+		qgl_cam_light_rand, 		// light camera
+		qgl_cam_eyes		 	// eyes camera
+	);
 	//tq_update_shadow_clip_map.end();
 
 
@@ -200,10 +203,12 @@ void Viewer::updateShadowClipMap(
 		/**/
 
 		setOpenGLStates();
+		glColorMask(~0x0, ~0x0, ~0x0, ~0x0);
 		
-		//glClearColor(1, 1, 1, 1);
+		glClearColor(0, 0, 0.5, 0);
 
 		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
+		//glClear(GL_DEPTH_BUFFER_BIT);
 
 		// -- récupération des dimensions des textures
 		const Vec2 v2_sm_size( _tex_shadow_map.getWidth(), _tex_shadow_map.getHeight() );
@@ -264,11 +269,13 @@ void Viewer::updateShadowClipMap(
 		_tex_shadow_map.bind();	
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
 
-		vbo->setProg(prog_vbo_scm);
 		prog_vbo_scm.activate();
 		prog_vbo_scm.activateTextures();
+		MSG_CHECK_GL;
 
-			ProjTransfo pt_cam_eyes_prev( _qgl_cam_eyes[ INVERT_RW(eCurrentFrame) ] );
+		// DRAW THE SCENE
+		{
+			ProjTransfo pt_cam_eyes_prev(_qgl_cam_eyes[INVERT_RW(eCurrentFrame)]);
 			prog_vbo_scm.setUniformMat4( "u_m4_mvp_prev", pt_cam_eyes_prev.coefs(), false);
 
 			const Vec4 v4_world_light_pos = Vec4( Vec3(qgl_cam_light.position()) );
@@ -294,12 +301,13 @@ void Viewer::updateShadowClipMap(
 				const ProjTransfo pt_world_mv_vbo = pt_mv_world_vbo.inv();
 				const Vec4 v4_mv_light_pos = pt_mv_world_vbo.inv() * v4_world_light_pos;
 				prog_vbo_scm.setUniformVec4( "u_v4_mv_light_pos", v4_mv_light_pos, false);
-		
+						
 				glPushMatrix();
 					pt_mv_world_vbo.glMultModelView();
+					//
+					vbo->setProg(prog_vbo_scm);
 					vbo->render(GL_TRIANGLES, indexBuffer);
 				glPopMatrix();
-				MSG_CHECK_GL;
 			}
 
 			/**/
@@ -357,6 +365,7 @@ void Viewer::updateShadowClipMap(
 				glPopAttrib();
 			}
 			/**/
+		}
 		prog_vbo_scm.deactivate();
 	
 		glPopAttrib(); // VIEWPORT_BITS

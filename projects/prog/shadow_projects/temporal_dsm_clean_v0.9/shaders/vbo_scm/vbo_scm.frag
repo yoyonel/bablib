@@ -24,7 +24,7 @@
 //#define DRAW_FILTER_COLOR
 
 #define USE_TEMPORAL_CONFIDENCE
-//#define DRAW_NEW_TEXEL
+//	#define DRAW_NEW_TEXEL
 
 //#define CLAMP_COEF_SHADOW
 //float 	clamp_coef_shadow_seuil 	= 0.09;
@@ -149,7 +149,7 @@ void main(void) {
 
 		#ifdef USE_EXPERIMENTAL_CORRECTION_FOR_MOVEMENT_DIFF_VIS
 			float variance_visibility	= abs(shadow - texel_vis_prev.x);
-			bool variance = variance_visibility >= (coef_diff_for_new_texel - EPSILON);
+			bool variance = variance_visibility >= coef_diff_for_new_texel;
 			new_receiver = IN_PENUMBRA(texel_vis_prev.x, EPSILON) && IN_PENUMBRA(shadow, EPSILON) ? new_receiver : new_receiver || variance;
 			// on stocke la moyenne de la variance (différence de visibilité d'une frame l'autre)
 			out_color.w = clamp(variance_visibility, 0.0, 1.0);
@@ -157,7 +157,13 @@ void main(void) {
 		// - Test de remise à 0 de l'historique
 		bool new_texel 	= new_receiver;
 		
-		out_color = new_texel ? out_color : mix( texel_vis_prev, out_color, weight );	
+		//out_color = new_texel ? out_color : mix( texel_vis_prev, out_color, weight );	
+		//
+		//out_color = texel_vis_prev;
+		out_color = vec4(shadow.x, 0, 0, 0);
+		//out_color = vec4(shadow.x, 1.0-texel_vis_prev.x, variance_visibility, 0) * vec4(0, 1, 0, 1);
+		//out_color = vec4(variance, 0, 0, 0);
+		//
 		//out_color.w = new_texel ? 3.0 : texel_vis_prev.w + 0.1;
 
 		// - Update History Buffers
@@ -167,7 +173,7 @@ void main(void) {
 	
 		// -
 		#ifdef DRAW_NEW_TEXEL
-			out_color = new_receiver ? vec4(1, 0, 0, 0) : out_color;
+			out_color = new_receiver ? vec4(1, 0, 0, 0) : vec4(0, 0, 0, 0);
 		#endif
 	#endif
 	
@@ -188,7 +194,6 @@ void main(void) {
 		// - on veut afficher la grille sur les texels ombrés
 		out_color += shadow < (1-EPSILON) ? (1. - shadow) * grid_color : vec4(0);
 	#endif
-
 
 	// Write result
 	// gl_FragData[0] : Visibility Buffer

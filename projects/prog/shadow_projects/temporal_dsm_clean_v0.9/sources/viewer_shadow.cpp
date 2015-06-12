@@ -80,11 +80,11 @@ void Viewer::init()
 
 // Draw the scene
 void Viewer::draw()
-{	
+{
 	// - update les FrameBuffers
 	updateFrameBuffers();
-	
-	drawScene();
+
+	drawScene();	
 	
 	// Dessine la camera attaché à la lumière
 	if (qgl_cam_light.frame()->isManipulated())
@@ -96,8 +96,7 @@ void Viewer::draw()
 	
 	// - Debug: affiche les textures (depth shadow map, shadow clipmap, shadow contour)
 	if ( PARAM(bool, draw_debug_textures) )
-		drawTextures();
-
+		drawTextures();	
 }
 
 void Viewer::keyPressEvent(QKeyEvent *e) {
