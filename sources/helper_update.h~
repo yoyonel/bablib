@@ -1,0 +1,189 @@
+#ifndef __HELPER_VIEWER_UPDATE__
+#define __HELPER_VIEWER_UPDATE__
+
+void Viewer::updateFBs()
+{
+	// - update depth shadow map texture (light view)
+	updateShadowMap( fb_depth_shadow_map, qgl_cam_light );
+	
+	//	
+	updateShadowContour( fb_shadow_contour );
+	
+	// - update shadow clip map (eyes view)
+	//updateShadowClipMap( fb_shadow_clipmap, tex_shadow_map, qgl_cam_light, *camera() );
+	updateShadowClipMap( fb_shadow_clipmap, tex_shadow_map, tex_shadow_contour, qgl_cam_light, *camera() );
+	}
+	
+void Viewer::updateShadowMap(
+	FrameBuffer& _framebuffer,
+	const qglviewer::Camera& _qgl_cam_light
+	)
+{
+	_framebuffer.activate();
+	
+		glPushAttrib( GL_ALL_ATTRIB_BITS );	
+
+		glViewport(0, 0, _framebuffer.width(), _framebuffer.height());
+
+		setOpenGLStates();		
+	
+		glColorMask(0x0, 0x0, 0x0, 0x0);
+	
+		glClear(GL_DEPTH_BUFFER_BIT);
+
+		// Set light's camera (OpenGL 1.x style)
+		// Sauvegarde des matrices de transformations
+		glMatrixMode(GL_PROJECTION);
+		glPushMatrix();
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+	
+		ProjTransfo pt_light;
+		pt_light.getProjectionFrom( _qgl_cam_light );	
+		pt_light.glLoadProjection();
+		pt_light.getModelViewFrom( _qgl_cam_light );
+		pt_light.glLoadModelView();
+	
+		// Draw scene
+		drawSpiral();
+	
+		// Restore the OpenGL Matrix
+		glMatrixMode(GL_PROJECTION);
+		glPopMatrix();
+		glMatrixMode(GL_MODELVIEW);
+		glPopMatrix();
+		//
+	
+		glPopAttrib();	
+
+	_framebuffer.deactivate();
+}
+
+void Viewer::updateShadowClipMap(
+	FrameBuffer& _framebuffer,
+	Texture& _tex_shadow_map,
+	Texture& _tex_shadow_contour,
+	const qglviewer::Camera& _qgl_cam_light,
+	const qglviewer::Camera& _qgl_cam_eyes
+	)
+{
+	ProjTransfo pt_eyes;
+	pt_eyes.getProjectionFrom( _qgl_cam_eyes );	
+	pt_eyes.glLoadProjection();
+	pt_eyes.getModelViewFrom( _qgl_cam_eyes );
+	pt_eyes.glLoadModelView();
+		
+	_framebuffer.activate();
+	CHECK_GL_ERRORS("updateShadowClipMap");
+	
+	glPushAttrib( GL_VIEWPORT_BIT );	
+
+	_framebuffer.viewport().setGL();
+
+	setOpenGLStates();	
+
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
+
+	// -- récupération des dimensions des textures
+	const Vec2 v2_sc_size( _tex_shadow_contour.getWidth(), _tex_shadow_contour.getHeight() );
+	const Vec2 v2_sm_size( _tex_shadow_map.getWidth(), _tex_shadow_map.getHeight() );	
+	
+	// -- active le mode de comparaison des profondeurs
+	_tex_shadow_map.bind();
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
+	
+	// [SHADER]
+	prog_depth_shadow_map.activate();
+	prog_depth_shadow_map.activateTextures();
+	
+	prog_depth_shadow_map.setUniformVec2( "v2_sc_size", v2_sc_size, false );
+	prog_depth_shadow_map.setUniformVec2( "v2_sm_size", v2_sm_size, false );
+	
+	prog_depth_shadow_map.setUniformMat4( "T", ProjTransfo( _qgl_cam_light ).coefs());
+	// - Dessine la scene
+	drawSpiral();
+	
+	// - receiver plane
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+	glDisable(GL_LIGHTING);
+	glDisable(GL_CULL_FACE);
+	
+	// Matrice de transformation de l'object (Object Space => World Space)	
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glRotatef(-90, 1, 0, 0);
+	glScalef( 5, 5, 1 );
+	glTranslatef( -0.5, -0.5, -1);
+	
+	ProjTransfo bablib_mat_modelview = ProjTransfo::getGLModelView();
+	ProjTransfo bablib_mat_sm = ProjTransfo( qgl_cam_light ) * bablib_mat_modelview;
+	//
+	prog_depth_shadow_map.setUniformMat4( "T", bablib_mat_sm.coefs());
+	glPopMatrix();
+	//
+	glColor3f(1, 1, 1);
+	
+	glPushMatrix();
+	glRotatef(-90, 1, 0, 0);
+	glScalef( 5, 5, 1 );
+	glTranslatef( -0.5, -0.5, -1);
+	glBegin(GL_QUADS);
+		glVertex3f(0, 0, 0);
+		glVertex3f(1, 0, 0);	
+		glVertex3f(1, 1, 0);
+		glVertex3f(0, 1, 0);		
+	glEnd();
+	glPopMatrix();
+	glPopAttrib();
+	
+	// - desactive le shader
+	prog_depth_shadow_map.deactivate();
+	
+	// - desactive le framebuffer
+	_framebuffer.deactivate();
+	
+	CHECK_GL_ERRORS("updateShadowClipMap");	
+
+	glPopAttrib();	
+}
+
+void Viewer::updateShadowContour(
+	FrameBuffer& _framebuffer
+	)
+{
+	_framebuffer.activate();
+	CHECK_GL_ERRORS("updateShadowContour - BindFrameBuffer - ");		
+
+	glPushAttrib( GL_ALL_ATTRIB_BITS );	
+
+	_framebuffer.viewport().setGL();
+	
+	setOpenGLStates();		
+
+	glDisable(GL_DEPTH_TEST);
+	glDepthMask(GL_FALSE);
+	
+	glClear( GL_COLOR_BUFFER_BIT );
+	
+	_framebuffer.viewport().pushScreenMatrices();
+	
+	// - active le shader et la texture associee
+	prog_shadow_contour.activate();
+	prog_shadow_contour.activateTextures();
+	//
+	_framebuffer.viewport().drawScreenQuad();
+	// - desactive le shader et la texture associee
+	prog_shadow_contour.deactivate();
+
+	// - restaure les matrices OpenGL
+	_framebuffer.viewport().popScreenMatrices();
+	
+	// - restaure les attributs
+	glPopAttrib();		
+	
+	_framebuffer.deactivate();
+	CHECK_GL_ERRORS("updateShadowContour - Restauration FB");	
+}
+
+#endif

@@ -1,0 +1,20 @@
+Notes:
+
+Il n'y a pas de MipMap possible avec les textures rectangles
+	- http://www.opengl.org/registry/specs/ARB/texture_rectangle.txt
+	5) Is mipmap filtering permitted?
+	
+	     Mipmap filtering is not permitted.  Since this is the case the
+	     default minification filter for GL_TEXTURE_RECTANGLE_ARB targets is
+	     GL_LINEAR.
+
+	http://www.songho.ca/opengl/gl_fbo.html
+   // # MOG: génération automatic mipmap
+    //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    //glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE); // automatic mipmap
+    // # MOG
+    // # MOG: génération automatic mipmap
+    //glGenerateMipmapEXT(GL_TEXTURE_RECTANGLE_ARB);
+    // # MOG
+    

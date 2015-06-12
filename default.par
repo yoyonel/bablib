@@ -1,0 +1,15 @@
+windowSize = 1024 1024
+
+texture.FileName = ../data/bitmap64.png
+//texture.FileName = ../data/leaf.png
+//
+texture.interp_mode = GL_LINEAR
+#texture.wrap = GL_CLAMP_TO_BORDER
+texture.wrap = GL_CLAMP_TO_EDGE
+texture.border_color = 0 0 1 1
+//
+texture.mipmap.min_filter = GL_LINEAR_MIPMAP_LINEAR
+texture.mipmap.mag_filter = GL_LINEAR
+
+shaderDir.prog_mipmap = [shaders]/GLSL/draw_mipmap
+
