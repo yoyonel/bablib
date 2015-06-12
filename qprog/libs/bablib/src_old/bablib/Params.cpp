@@ -381,8 +381,8 @@ if (val == "false" || val == "0") return false;
 
 	GET_VAL(GLenum, 1, GL_FALSE,
 	// formats d'interpolation de texture :
-	_(GL_NEAREST)_(GL_LINEAR)
-
+	_(GL_NEAREST)_(GL_LINEAR)_(GL_LINEAR_MIPMAP_LINEAR)
+ 
 	// formats de wraping de texture :
 	_(GL_REPEAT)_(GL_CLAMP)_(GL_CLAMP_TO_EDGE)_(GL_CLAMP_TO_BORDER)_(GL_MIRRORED_REPEAT)
 

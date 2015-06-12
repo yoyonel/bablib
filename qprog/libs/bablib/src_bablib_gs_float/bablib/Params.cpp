@@ -8,6 +8,7 @@
 #include <QFile>
 #include <QList>
 #include <string>
+
 BABLIB_NAMESPACE_BEGIN
 
 /***********************************************************************************************/
@@ -234,7 +235,7 @@ GET_VAL(Float4, 4, Float4(0,0,0,0),
 GET_VAL(GLenum, 1, GL_FALSE,
     #define _(c) if (val == #c) return c;
     // formats d'interpolation de texture :
-    _(GL_NEAREST)_(GL_LINEAR)
+    _(GL_NEAREST)_(GL_LINEAR)_(GL_LINEAR_MIPMAP_LINEAR)
 
     // formats de wraping de texture :
     _(GL_REPEAT)_(GL_CLAMP)_(GL_CLAMP_TO_EDGE)_(GL_CLAMP_TO_BORDER)_(GL_MIRRORED_REPEAT)
