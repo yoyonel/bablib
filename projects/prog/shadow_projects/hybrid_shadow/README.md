@@ -1,5 +1,5 @@
 # Hybrid shadow
-
+![2015_11_09_elephant_shadowvolume_gpu](screenshots/2015_11_09_elephant_shadowvolume_gpu.png)
 ## Idée de départ
 Utiliser un modèle de de gestion de lumière diffuse (gouraud: interpolation aux sommets) pour générer/détecter de nouvelles arêtes de contour.
 
