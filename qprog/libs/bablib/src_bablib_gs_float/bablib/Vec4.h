@@ -119,7 +119,8 @@ class Vec4 {
     //--------------------
         void glVertex() const;    // effectue le glVertex correspondant
         
-    private:
+    //private:
+    public:
         union {
             struct { float x, y, z, w; };
             float v[4];
