@@ -1,5 +1,5 @@
 # Hybrid shadow
-![2015_11_09_elephant_shadowvolume_gpu](screenshots/2015_11_09_elephant_shadowvolume_gpu.png)
+![2015_11_09_elephant_shadowvolume_gpu](/screenshots/2015_11_09_elephant_shadowvolume_gpu.png)
 ## Idée de départ
 Utiliser un modèle de de gestion de lumière diffuse (gouraud: interpolation aux sommets) pour générer/détecter de nouvelles arêtes de contour.
 
@@ -39,6 +39,8 @@ On peut retro-projeter par la suite la DSM dans la scène et affecter ainsi chaq
 
 
 # Shadow Volume Full GPU
+![2015_11_09_elephant_shadowvolume_gpu_edges_wedges](/screenshots/2015_11_09_elephant_shadowvolume_gpu_edges_wedges.png)
+
 Utilisation des arêtes de contours définies par rapport aux informations d'intensité lumineuse (iso courbe de surface).
 On peut détecter localement dans quels triangles passe l'iso courbe de frontière d'ombre (+/- 0).
 On construit dans un geometry shader les shadow volumes d'extensions (shadow-quad, near and far cap pour le Z-FAIL).
