@@ -21,3 +21,10 @@
 
 #### on Windows
 move the created ./release/QGLViewer2.dll to qprog/bin
+
+
+# Par rapport au *submodule* de GIT
+
+* [Git submodules: Specify a branch/tag](http://stackoverflow.com/questions/1777854/git-submodules-specify-a-branch-tag)
+* [6.6 Utilitaires Git - Sous-modules](https://git-scm.com/book/fr/v1/Utilitaires-Git-Sous-modules)
+* [Adding git submodule that contains another submodule?](http://stackoverflow.com/questions/4600835/adding-git-submodule-that-contains-another-submodule)
