@@ -1,0 +1,7 @@
+							      >	#include <OpenGL.h>
+							      >	#include "Chrono.h"
+    png_bytep row_pointers[h];				      |	    png_bytep *row_pointers = new png_bytep[h];
+							      >
+							      >		delete[] row_pointers;
+    png_bytep row_pointers[h];				      |	    png_bytep *row_pointers = new png_bytep[h];
+							      >		delete[] row_pointers;

@@ -15,19 +15,20 @@ class TriSoup {
         //TriSoup(QString fileName);
         TriSoup(int nv, int nt, QString fileName);
         ~TriSoup();
-        
+
         Vec3  getCenter() const;
         float getRadius() const;
-    
+
         AABox bbox() const { return box; }
-        
+
         static TriSoup* load(QString fileName);
-        
+
         QStringList infos() const;
-    
-    private:
+
+    //
+    protected:
         void postProcess();
-        
+
     public:
         int nv;     // number of vertices
         int nt;     // number of faces
@@ -38,12 +39,12 @@ class TriSoup {
         Vec3 center;
         float radius;
         AABox box;
-        
-    private:
+
+    protected:
         static QList<TriSoupLoader*> loaders;
     public:
         QString fileName;
-        
+
     friend class TriSoupLoader;
     };
 
@@ -57,4 +58,3 @@ class TriSoupLoader {
     };
 
 #endif
-

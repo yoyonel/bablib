@@ -1,0 +1,28 @@
+ProjTransfo::ProjTransfo( const qglviewer::Camera &camera ) { |	ProjTransfo::ProjTransfo(Vec3 T, Matrix3 R) {
+	GLdouble _mat[16];				      |	    for (int i=0; i<3; i++) {
+	camera.getModelViewProjectionMatrix( _mat );	      |	        coef(i,3) = T[i];
+	*this = ProjTransfo( _mat );			      |	        for (int j=0; j<3; j++)
+							      >	            coef(i,j) = R.coef(i,j);
+							      >	    for (int j=0; j<4; j++) coef(3,j) = (j==3) ? 1 : 0;
+							      >	    }
+							      >
+							      >	Matrix3 ProjTransfo::subMatrix3() const {
+							      >	    return Matrix3(
+							      >	        coef(0,0), coef(0,1), coef(0,2),
+							      >	        coef(1,0), coef(1,1), coef(1,2),
+							      >	        coef(2,0), coef(2,1), coef(2,2)
+							      >	        );
+							      >	    }
+							      >	        
+ProjTransfo ProjTransfo::getModelView(const qglviewer::Camera <
+	ProjTransfo res;				      <
+	res.getModelViewFrom( camera );			      <
+	return res;    					      <
+    }							      <
+							      <
+ProjTransfo ProjTransfo::getProjection(const qglviewer::Camer <
+	ProjTransfo res;				      <
+	res.getProjectionFrom( camera );		      <
+	return res;    					      <
+    }							      <
+							      <

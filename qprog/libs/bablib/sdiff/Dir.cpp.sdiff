@@ -1,0 +1,39 @@
+bool Dir::contains(QString fileName) {			      |	bool Dir::contains(QString fileName) const {
+							      >	bool Dir::makeSubDir(QString dirName) const {
+							      >	    return dir.mkdir(dirName);
+							      >	    }
+							      >
+							      >	bool Dir::checkSubDir(QString dirName) const {
+							      >	    return contains(dirName) || makeSubDir(dirName);
+							      >	    }
+							      >
+							      >	bool Dir::remove(QString fileName) {
+							      >	    return dir.remove(fileName);
+							      >	    }
+							      >	/************************************************************
+							      >
+							      >	Dir Dir::dirForFile(QString fileName) {
+							      >	    int i = fileName.lastIndexOf("/");
+							      >	    return Dir(i == -1 ? "." : fileName.left(i));
+							      >	    }
+							      >
+							      >	/*
+							      >	QString Dir::readingFileName(QString fileName, QString ext) c
+							      >	    if (fileName == QString::null) return QFileDialog::getOpe
+							      >	    if (!fileName.endsWith(ext)) fileName += ext;
+							      >	    return filePath(fileName);
+							      >	    }
+							      >
+							      >	QString Dir::writingFileName(QString fileName, QString ext) c
+							      >	    if (fileName == QString::null) return QFileDialog::getSav
+							      >	    if (!fileName.endsWith(ext)) fileName += ext;
+							      >	    return filePath(fileName);
+							      >	    }
+							      >	*/
+							      >
+							      >	    if (!contains(objectDirName)) {
+							      >	        MSG_ERROR("no subdirectory '%1' found in directory '%
+							      >	        return Dir();
+							      >	        }
+							      >	    
+							      >	    //return contains(objectDirName) ? Dir(dir, objectDirName

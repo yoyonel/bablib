@@ -1,0 +1,12 @@
+FrameBuffer FrameBuffer::create_RGBA8_Z(int w, int h, GLenum  |	FrameBuffer FrameBuffer::create_Color_Z(int w, int h, GLenum 
+    fb.attachRenderBuffer(GL_COLOR_ATTACHMENT0_EXT, GL_RGBA8) |	    fb.attachRenderBuffer(GL_COLOR_ATTACHMENT0_EXT, colorBuff
+FrameBuffer FrameBuffer::create_RGBA16(int w, int h) {	      |	FrameBuffer FrameBuffer::create_Color(int w, int h, GLenum co
+    fb.attachRenderBuffer(GL_COLOR_ATTACHMENT0_EXT, GL_RGBA16 |	    fb.attachRenderBuffer(GL_COLOR_ATTACHMENT0_EXT, colorBuff
+    fb.checkCompleteness(false);			      <
+    return fb;						      <
+    }							      <
+							      <
+FrameBuffer FrameBuffer::create_RGBA8(int w, int h) {	      <
+    FrameBuffer fb(w, h);				      <
+    fb.create();					      <
+    fb.attachRenderBuffer(GL_COLOR_ATTACHMENT0_EXT, GL_RGBA8) <
