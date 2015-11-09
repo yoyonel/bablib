@@ -48,8 +48,8 @@ texture.scm.border_color	= 0 1 0 0
 texture.pws.width 		= 512
 texture.pws.height		= 512
 //
-texture.pws.internalformat	= GL_RGBA_FLOAT16_ATI
-//texture.pws.internalformat	= GL_RGBA_FLOAT32_ATI
+//texture.pws.internalformat	= GL_RGBA_FLOAT16_ATI
+texture.pws.internalformat	= GL_RGBA_FLOAT32_ATI
 //
 //texture.pws.filter		= GL_LINEAR
 texture.pws.filter		= GL_NEAREST

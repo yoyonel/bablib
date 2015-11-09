@@ -24,7 +24,7 @@
 //#define DRAW_FILTER_COLOR
 
 #define USE_TEMPORAL_CONFIDENCE
-//	#define DRAW_NEW_TEXEL
+#define DRAW_NEW_TEXEL
 
 //#define CLAMP_COEF_SHADOW
 //float 	clamp_coef_shadow_seuil 	= 0.09;
@@ -160,7 +160,7 @@ void main(void) {
 		//out_color = new_texel ? out_color : mix( texel_vis_prev, out_color, weight );	
 		//
 		//out_color = texel_vis_prev;
-		out_color = vec4(shadow.x, 0, 0, 0);
+		//out_color = vec4(shadow.x, 0, 0, 0);
 		//out_color = vec4(shadow.x, 1.0-texel_vis_prev.x, variance_visibility, 0) * vec4(0, 1, 0, 1);
 		//out_color = vec4(variance, 0, 0, 0);
 		//
