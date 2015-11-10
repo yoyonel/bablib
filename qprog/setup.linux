@@ -2,3 +2,4 @@ qmake-qt4 -set QMAKEFEATURES   $PWD/qtfeatures/
 qmake-qt4 -set QPROG           $PWD/
 qmake-qt4 -set QPROG_CONFIG    $PWD/config_project.pri
 
+mkdir -p bin
