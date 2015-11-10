@@ -31,3 +31,21 @@ move the created ./release/QGLViewer2.dll to qprog/bin
 
 # Par rapport au *subtree* de GIT
 * [Comprendre et maîtriser les subtrees Git](http://www.git-attitude.fr/2015/01/30/git-subtrees/)
+
+### Sous Mint (Portable LENOVO)
+
+#### Packages installés
+```bash
+$ history | grep apt | grep install
+  35  sudo apt-get install build-essential
+  36  sudo apt-get install cmake cmake-qt-gui cmake-curses-gui
+ 426  sudo apt-get install qt4-qmake
+ 456  sudo apt-get install qt4-dev-tools
+ 457  sudo apt-get install qt4-default
+ 472  sudo apt-get install mesa-common-dev
+ 473  sudo apt-get install freeglut3-dev
+ 636  sudo apt-get install libpng12-dev
+ 763  sudo apt-get install libqt4-dev
+ 764  sudo apt-get install libqt4-opengl-dev
+ 850  sudo apt-get install libgsl0-dev
+```
