@@ -12,6 +12,12 @@
     2. libs configuration : on specific platforms, local libs possibly need to be configured differently. Local libs are configured in QT features files (.prf), located in the <qtfeatures> directory. To override some of these feature files, create a custom directory containing the desired modified feature files and append this directory's path to the QMAKEFEATURES variable of QT's environment (qmake -set QMAKEFEATURES <custom directory>:<default directory>)
 
 
+* il faut lancer le script setup.linux via:
+```bash
+$ source setup.linux
+```
+pour setter la variable d'env. *LD_LIBRARY_PATH* qui permet d'avoir un accès au build dynamique de *QGLViewer*
+
 # [QGLViewer](http://libqglviewer.com/)
 [![logo](http://libqglviewer.com/images/qglviewer.png)](http://libqglviewer.com/)
 
