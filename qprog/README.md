@@ -11,6 +11,7 @@
     1. paths : for a given install of QPROG, some paths can be customised. They are contained in the config/paths.pri file. To override these paths, copy <config/paths.pri> into <config/paths_local.pri> and modify the content as desired (do not modify paths.pri, as it is on the SVN).
     2. libs configuration : on specific platforms, local libs possibly need to be configured differently. Local libs are configured in QT features files (.prf), located in the <qtfeatures> directory. To override some of these feature files, create a custom directory containing the desired modified feature files and append this directory's path to the QMAKEFEATURES variable of QT's environment (qmake -set QMAKEFEATURES <custom directory>:<default directory>)
 
+
 # [QGLViewer](http://libqglviewer.com/)
 [![logo](http://libqglviewer.com/images/qglviewer.png)](http://libqglviewer.com/)
 
@@ -31,3 +32,8 @@ libQGLViewer.so.2.6.3
 * [How to check what libraries are used by a program or process on Linux](http://ask.xmodulo.com/check-library-dependency-program-process-linux.html)
 * [How to list library dependencies of a non-native binary?](http://stackoverflow.com/questions/10052041/how-to-list-library-dependencies-of-a-non-native-binary)
 * [How do I find the direct shared object dependencies of a Linux (ELF) binary?](http://stackoverflow.com/questions/6242761/how-do-i-find-the-direct-shared-object-dependencies-of-a-linux-elf-binary)
+
+
+# QGLViewer 2 le retour :p
+
+Du coup, j'ai laissé tomber les submodule pour passer en subtree et j'ai récupéré un dépot [libQGLViewer](https://github.com/yoyonel/libqglviewer) dans mon github (qui doit être un fork de la lib de Gilles sur GITHUB)
