@@ -1,5 +1,0 @@
-//
-// Prefix header for all source files of the 'libOrientation' target in the 'libOrientation' project.
-//
-
-#include <Carbon/Carbon.h>

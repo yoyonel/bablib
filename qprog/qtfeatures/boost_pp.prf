@@ -1,3 +1,0 @@
-CURRENT_LIB = boost_pp
-SOURCE_LIBS *= boost_pp     # because it consists only in headers
-include(lib_config.pri)

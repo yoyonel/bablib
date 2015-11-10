@@ -1,3 +1,0 @@
-[submodule "qprog/libs/qglviewer/libQGLViewer"]
-	path = qprog/libs/qglviewer/libQGLViewer
-	url = https://github.com/GillesDebunne/libQGLViewer.git

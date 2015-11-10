@@ -1,6 +1,0 @@
-#ifndef CONFIG_BOOST_H_
-#define CONFIG_BOOST_H_
-
-#define ORIENTATIONMATIS_USE_NOBOOST 1
-
-#endif /*CONFIG_BOOST_H_*/

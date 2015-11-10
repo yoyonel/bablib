@@ -1,7 +1,0 @@
- <samples> 
-	<sample TestType="TestTransfo2D" ci="964.942000" li="530.607000" cg="964.942000" lg="530.606734"/> 
-	<sample TestType="TestTransfo2D" ci="0.000000" li="0.000000" cg="-12.979893" lg="-7.376694"/> 
-	<sample TestType="TestTransfo2D" ci="0.000000" li="1079.000000" cg="-13.389330" lg="1086.362590"/> 
-	<sample TestType="TestTransfo2D" ci="1919.000000" li="0.000000" cg="1932.273391" lg="-7.629552"/> 
-	<sample TestType="TestTransfo2D" ci="1919.000000" li="1079.000000" cg="1932.662782" lg="1086.598666"/> 
- </samples> 

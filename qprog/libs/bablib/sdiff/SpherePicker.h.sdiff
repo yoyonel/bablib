@@ -1,2 +1,0 @@
-							      >	#include "Vec3d.h"
-							      >	        void pick(Vec3d origRay, Vec3d dirRay);

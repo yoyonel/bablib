@@ -1,3 +1,0 @@
-CURRENT_LIB = zlib
-include(lib_config.pri)
-

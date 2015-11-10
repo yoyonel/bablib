@@ -1,5 +1,0 @@
-							      <
-		virtual void setProg(const ProgGLSL &prog) =  <
-		//					      <
-		void setProg( const ProgGLSL& prog) { attrib- <
-							      <

@@ -1,9 +1,0 @@
-K 13
-svn:externals
-V 106
-tinyxml https://codes-matis.ign.fr/svn/extern/tinyxml
-proj4 https://codes-matis.ign.fr/svn/extern/proj4
-
-
-
-END
