@@ -3,3 +3,8 @@ qmake-qt4 -set QPROG           $PWD/
 qmake-qt4 -set QPROG_CONFIG    $PWD/config_project.pri
 
 mkdir -p bin
+
+export LD_LIBRARY_PATH="$PWD/bin:$LD_LIBRARY_PATH"
+echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+#export PATH=$PWD/bin:$PATH
+#echo "Rajout du repertoire $PWD/bin au PATH"
