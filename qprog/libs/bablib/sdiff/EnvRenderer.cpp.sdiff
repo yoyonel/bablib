@@ -1,0 +1,10 @@
+    /*							      <
+    if (lib)						      <
+        prog.load(ProgGLSL::globalDir.sourcesDir(shaderName)) <
+    else						      <
+        prog.loadDir(shaderName);			      <
+    */							      <
+    //prog.load((lib ? ProgGLSL::globalDir : ProgGLSL::dir).s <
+    //if (!writeZ) glDepthMask(true);			      <
+//EnvMapRenderer::EnvMapRenderer(Texture *texCubeMap, float * <
+    //prog.loadDir("back_envmap");			      <

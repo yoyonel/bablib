@@ -1,0 +1,379 @@
+#doxygen {
+font-family: Geneva,Arial,Georgia,sans-serif;
+  margin: 0px;
+  padding: 10px 20px 0px 10px;
+  background: #ffffff none repeat scroll 0% 50%;
+  float: right;
+  width: 870px;
+  min-height: 700px;
+  color: #333333;
+  text-align: left;
+}
+#doxygen h2{
+  border-bottom: thin solid #ebbc48;
+  color: #800000;
+  font-weight: normal;
+  text-transform: uppercase;
+  font-size: 1.6em;
+}
+#doxygen BODY,H1,H2,H3,H4,H5,H6,P,CENTER,TD,TH,UL,DL,DIV {
+	font-family: Geneva,Arial,Georgia,sans-serif;
+}
+#doxygen BODY,TD {
+       font-size: 100%;
+}
+#doxygen H1 {
+	text-align: center;
+       font-size: 160%;
+}
+
+#doxygen table{
+	width:  100%;
+}
+#doxygen CAPTION { font-weight: bold }
+#doxygen DIV.qindex {
+	width: 100%;
+	background-color: #e8eef2;
+	border: 1px solid #84b0c7;
+	text-align: center;
+	margin: 2px;
+	padding: 2px;
+	line-height: 140%;
+}
+#doxygen DIV.nav {
+	width: 100%;
+	background-color: #e8eef2;
+	border: 1px solid #84b0c7;
+	text-align: center;
+	margin: 2px;
+	padding: 2px;
+	line-height: 140%;
+}
+#doxygen DIV.navtab {
+       background-color: #e8eef2;
+       border: 1px solid #84b0c7;
+       text-align: center;
+       margin: 2px;
+       margin-right: 15px;
+       padding: 2px;
+}
+#doxygen TR  {
+     width: 100%;
+}
+
+#doxygen TD.navtab {
+       font-size: 70%;
+}
+#doxygen A.qindex {
+       text-decoration: none;
+       font-weight: bold;
+       color: #E29F2E;
+}
+#doxygen A.qindex:visited {
+       text-decoration: none;
+       font-weight: bold;
+       color: #E29F2E
+}
+#doxygen A.qindex:hover {
+	text-decoration: none;
+	background-color: #ddddff;
+}
+#doxygen A.qindexHL {
+	text-decoration: none;
+	font-weight: bold;
+	background-color: #6666cc;
+	color: #ffffff;
+	border: 1px double #9295C2;
+}
+#doxygen A.qindexHL:hover {
+	text-decoration: none;
+	background-color: #6666cc;
+	color: #ffffff;
+}
+#doxygen A.qindexHL:visited { text-decoration: none; background-color: #6666cc; color: #ffffff }
+#doxygen A.el { text-decoration: none; font-weight: bold }
+#doxygen A.elRef { font-weight: bold }
+#doxygen A.code:link { text-decoration: none; font-weight: normal; color: #E29F2E}
+#doxygen A.code:visited { text-decoration: none; font-weight: normal; color: #E29F2E}
+#doxygen A.codeRef:link { font-weight: normal; color: #E29F2E}
+#doxygen A.codeRef:visited { font-weight: normal; color: #E29F2E}
+#doxygen A:hover { text-decoration: none; background-color: #f2f2ff }
+#doxygen DL.el { margin-left: -1cm }
+
+#doxygen .fragment {
+       font-family: monospace, fixed;
+       font-size: 95%;
+}
+#doxygen PRE.fragment {
+	border: 1px solid #CCCCCC;
+	background-color: #f5f5f5;
+	margin-top: 4px;
+	margin-bottom: 4px;
+	margin-left: 2px;
+	margin-right: 8px;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+#doxygen DIV.ah { background-color: black; font-weight: bold; color: #ffffff; margin-bottom: 3px; margin-top: 3px }
+
+#doxygen DIV.groupHeader {
+       margin-left: 16px;
+       margin-top: 12px;
+       margin-bottom: 6px;
+       font-weight: bold;
+}
+#doxygen DIV.groupText { margin-left: 16px; font-style: italic; font-size: 90% }
+#doxygen BODY {
+	background: white;
+	color: black;
+	margin-right: 20px;
+	margin-left: 20px;
+}
+#doxygen TD.indexkey {
+	background-color: #DDDDCC;
+	font-weight: bold;
+	padding-right  : 10px;
+	padding-top    : 2px;
+	padding-left   : 10px;
+	padding-bottom : 2px;
+	margin-left    : 0px;
+	margin-right   : 0px;
+	margin-top     : 0px;
+	margin-bottom  : 0px;
+	border: 1px solid #9D9D9D;
+}
+#doxygen TD.indexvalue {
+	background-color: #DDDDCC;
+	font-style: italic;
+	padding-right  : 10px;
+	padding-top    : 2px;
+	padding-left   : 10px;
+	padding-bottom : 2px;
+	margin-left    : 0px;
+	margin-right   : 0px;
+	margin-top     : 0px;
+	margin-bottom  : 0px;
+	border: 1px solid #9D9D9D;
+}
+#doxygen TR.memlist {
+   background-color: #f0f0f0; 
+}
+#doxygen P.formulaDsp { text-align: center; }
+#doxygen IMG.formulaDsp { }
+#doxygen IMG.formulaInl { vertical-align: middle; }
+#doxygen SPAN.keyword       { color: #008000 }
+#doxygen SPAN.keywordtype   { color: #604020 }
+#doxygen SPAN.keywordflow   { color: #e08000 }
+#doxygen SPAN.comment       { color: #800000 }
+#doxygen SPAN.preprocessor  { color: #806020 }
+#doxygen SPAN.stringliteral { color: #002080 }
+#doxygen SPAN.charliteral   { color: #008080 }
+#doxygen .mdescLeft {
+       padding: 0px 8px 4px 8px;
+	font-size: 100%;
+	font-style: italic;
+	background-color: #DDDDCC;
+	border-top: 1px none #9D9D9D;
+	border-right: 1px none #9D9D9D;
+	border-bottom: 1px none #9D9D9D;
+	border-left: 1px none #9D9D9D;
+	margin: 0px;
+}
+#doxygen .mdescRight {
+       padding: 0px 8px 4px 8px;
+	font-size: 100%;
+	font-style: italic;
+	background-color: #DDDDCC;
+	border-top: 1px none #9D9D9D;
+	border-right: 1px none #9D9D9D;
+	border-bottom: 1px none #9D9D9D;
+	border-left: 1px none #9D9D9D;
+	margin: 0px;
+}
+#doxygen .memItemLeft {
+	padding: 1px 0px 0px 8px;
+	margin: 4px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-color: #9D9D9D;
+	border-right-color: #9D9D9D;
+	border-bottom-color: #9D9D9D;
+	border-left-color: #9D9D9D;
+	border-top-style: solid;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	background-color: #DDDDCC;
+	font-size: 100%;
+}
+#doxygen .memItemRight {
+	padding: 1px 8px 0px 8px;
+	margin: 4px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-color: #9D9D9D;
+	border-right-color: #9D9D9D;
+	border-bottom-color: #9D9D9D;
+	border-left-color: #9D9D9D;
+	border-top-style: solid;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	background-color: #DDDDCC;
+	font-size: 100%;
+}
+#doxygen .memTemplItemLeft {
+	padding: 1px 0px 0px 8px;
+	margin: 4px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-color: #9D9D9D;
+	border-right-color: #9D9D9D;
+	border-bottom-color: #9D9D9D;
+	border-left-color: #9D9D9D;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	background-color: #DDDDCC;
+	font-size: 100%;
+}
+#doxygen .memTemplItemRight {
+	padding: 1px 8px 0px 8px;
+	margin: 4px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-color: #9D9D9D;
+	border-right-color: #9D9D9D;
+	border-bottom-color: #9D9D9D;
+	border-left-color: #9D9D9D;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	background-color: #DDDDCC;
+	font-size: 100%;
+}
+#doxygen .memTemplParams {
+	padding: 1px 0px 0px 8px;
+	margin: 4px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-color: #9D9D9D;
+	border-right-color: #9D9D9D;
+	border-bottom-color: #9D9D9D;
+	border-left-color: #9D9D9D;
+	border-top-style: solid;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+       color: #606060;
+	background-color: #DDDDCC;
+	font-size: 100%;
+}
+#doxygen .search     { color: #003399;
+              font-weight: bold;
+}
+#doxygen FORM.search {
+              margin-bottom: 0px;
+              margin-top: 0px;
+}
+#doxygen INPUT.search { font-size: 75%;
+               color: #000080;
+               font-weight: normal;
+               background-color: #e8eef2;
+}
+#doxygen TD.tiny      { font-size: 90%;
+}
+#doxygen a {
+	color: #A00000;
+}
+#doxygen a:visited {
+	color: #A00000;
+}
+#doxygen .dirtab { padding: 4px;
+          border-collapse: collapse;
+          border: 1px solid #84b0c7;
+}
+#doxygen TH.dirtab { background: #e8eef2;
+            font-weight: bold;
+}
+#doxygen HR { height: 1px;
+     border: none;
+     border-top: 1px solid black;
+}
+
+/* Style for detailed member documentation */
+#doxygen .memtemplate {
+  font-size: 100%;
+  color: #606060;
+  font-weight: normal;
+} 
+#doxygen .memnav { 
+  background-color: #e8eef2;
+  border: 1px solid #84b0c7;
+  text-align: center;
+  margin: 2px;
+  margin-right: 15px;
+  padding: 2px;
+}
+#doxygen .memitem {
+  margin: 10px 5px 0px 5px;
+  padding: 4px 4px 4px 4px;
+  background-color: #faedbe;
+  border-width: 1px;
+  border-style: 4px solid #84b0c7;
+  -moz-border-radius: 8px 8px 8px 8px;
+}
+#doxygen .memname {
+  white-space: nowrap;
+  font-weight: bold;
+}
+#doxygen .memdoc{
+  padding-left: 10px;
+}
+#doxygen .memproto {
+  background-color: #ffe894;
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ebbc48;
+  font-weight: bold;
+  -moz-border-radius: 8px 8px 8px 8px;
+}
+#doxygen .paramkey {
+  text-align: right;
+}
+#doxygen .paramtype {
+  white-space: nowrap;
+}
+#doxygen .paramname {
+  color: #602020;
+  font-style: italic;
+  white-space: nowrap;
+}
+/* End Styling for detailed member documentation */
+
+/* for the tree view */
+#doxygen .ftvtree {
+	font-family: sans-serif;
+	margin:0.5em;
+}
+#doxygen .directory { font-size: 9pt; font-weight: bold; }
+#doxygen .directory h3 { margin: 0px; margin-top: 1em; font-size: 11pt; }
+#doxygen .directory > h3 { margin-top: 0; }
+#doxygen .directory p { margin: 0px; white-space: nowrap; }
+#doxygen .directory div { display: none; margin: 0px; }
+#doxygen .directory img { vertical-align: -30%; }

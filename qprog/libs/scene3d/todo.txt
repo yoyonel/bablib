@@ -1,0 +1,33 @@
+- solve compilation warnings
+- handle polygon-soups
+- mesh:
+    * generic attributes attached to vertices / edges / faces
+- trisoup loaders:
+    * handling of normals : don't compute if given in file / force recompute
+- scene3d:
+    * format specific parameters
+        --> ParamSet / ParamString argument, containing possibly shared parameters
+    * lighting setup
+    * conversion to polygon soup
+- ply:
+    * seg. faults on big files
+- interface with existing libs:
+    * OpenSceneGraph
+    * OpenMesh
+
+- trisoup viewer:
+    * primitives ID rendering
+    * light setup : sphere + dyn / static
+    * wire / polygons
+    * rendering shaders : normals, phong, wire, flat (facets)
+    * fps stats
+    * cull back/front (+ light model two sides)
+    * env (map/shader)
+    
+- scene3d viewer:
+    * render raw? (simple/user-defined lighting + shading) --> diffuse + 1 light, no shading, user-defined shader
+    * convert to tri soup?
+    * wireframe rendering?
+    * print infos
+    * env (map/shader)
+

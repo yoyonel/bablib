@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/testing
+END
+TestOrientationMATIS_IO.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/testing/TestOrientationMATIS_IO.cpp
+END
+Test_crop.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/testing/Test_crop.cpp
+END
+testing.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/testing/testing.py
+END
+TestOrientationMATIS_Projection.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/testing/TestOrientationMATIS_Projection.cpp
+END
+TestOrientationMATIS_samples.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/testing/TestOrientationMATIS_samples.cpp
+END

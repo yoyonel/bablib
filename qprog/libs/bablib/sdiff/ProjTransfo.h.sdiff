@@ -1,0 +1,13 @@
+							      >	#include "Matrix3.h"
+//							      <
+#include <QGLViewer/camera.h>				      <
+							      >	        ProjTransfo(Vec3 T, Matrix3 R);     // affine transfo
+		//					      <
+		ProjTransfo( const qglviewer::Camera &camera  <
+							      <
+							      >	        Matrix3 subMatrix3() const;      // upper left sub-ma
+							      >	        
+		static ProjTransfo getModelView(const qglview <
+		static ProjTransfo getProjection(const qglvie <
+		//					      <
+							      >	        friend class Proj3d;

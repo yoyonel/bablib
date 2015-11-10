@@ -1,0 +1,3 @@
+<WGS84VD> +vd_id=WGS84VD +vd_type=HEIGHT +z_shift=0.0,1.0 +geoidgrids=hnull +h_title=height from WGS84 datum <>
+<EGM96> +vd_id=EGM96 +vd_type=ALT +z_shift=0.0,1.0 +geoidgrids=WW15MGH.DAC +h_title=altitude from EGM96 geoid mondial datum <>
+<IGN69> +vd_id=IGN69 +vd_type=ALT +z_shift=0.0,1.0 +geoidgrids=raf98.gra  +h_title=altitude for french vertical datum <>

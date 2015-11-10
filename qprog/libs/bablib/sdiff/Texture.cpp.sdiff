@@ -1,0 +1,30 @@
+							      >
+							      >	static int log2i(unsigned x) {
+							      >	    int l = -1; // mylog2(0) will return -1
+							      >	    while (x != 0u) {
+							      >	        x = x >> 1u;
+							      >	        ++l;
+							      >	    }
+							      >	    return l;
+							      >	}
+							      >
+Texture Texture::createTex2DRect(int w, int h, GLint internal <
+    Texture tex(GL_TEXTURE_RECTANGLE_ARB, interpMode, wrapMod <
+    tex.init();						      <
+    glTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, internalFormat, <
+    tex.loaded = true;					      <
+    return tex;						      <
+    }							      <
+							      <
+Texture Texture::createTex2DShadow(int w, int h, GLint intern <
+    Texture tex(GL_TEXTURE_2D, interpMode, wrapMode);	      <
+    tex.init();						      <
+    glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, w, h, 0, G <
+    tex.loaded = true;					      <
+    return tex;						      <
+    }							      <
+							      <
+	GLint n_mipmaps = _max_levels;			      |		m_n_mipmaps= _max_levels;
+		n_mipmaps = (GLint)( fmax( log2f(getWidth()), |			m_n_mipmaps = (GLint)( fmax( log2i(getWidth()
+		Message::info( QString("# Nb MipMap to genera |			Message::info( QString("# Nb MipMap to genera
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL,  |		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 

@@ -1,0 +1,13 @@
+	GLenum typeEnum;				      |	    GLenum typeEnum = (type == VERTEX ? GL_VERTEX_SHADER : GL
+	switch( type ) {				      <
+	case VERTEX:					      <
+		typeEnum = GL_VERTEX_SHADER;		      <
+		break;					      <
+	case FRAGMENT:					      <
+		typeEnum = GL_FRAGMENT_SHADER;		      <
+		break;					      <
+	default: //case GEOMETRY:			      <
+		typeEnum = GL_GEOMETRY_SHADER_ARB;	      <
+		break;					      <
+	};						      <
+							      <

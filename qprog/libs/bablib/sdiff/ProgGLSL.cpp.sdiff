@@ -1,0 +1,54 @@
+        return (type == ShaderGLSL::VERTEX) ? "vertex" : (typ |	        return (type == ShaderGLSL::VERTEX) ? "vertex" : "fra
+        ProgGLSL::Locator locator(".vert", ".frag", ".geom"); |	        ProgGLSL::Locator locator(".vert", ".frag");
+    //							      <
+    if (source.type == ShaderGLSL::GEOMETRY) {		      <
+	setGeometryInputType( glInputType );		      <
+	setGeometryOutputType( glOutputType );		      <
+	setGeometryVerticesOut( verticesOut );		      <
+	}						      <
+    //							      <
+// methodes pour configurer le geometry shader :	      <
+							      <
+void ProgGLSL::setGeometryInputType( GLenum glInputType ) {   <
+	glProgramParameteriEXT( id, GL_GEOMETRY_INPUT_TYPE_EX <
+}							      <
+							      <
+void ProgGLSL::setGeometryOutputType( GLenum glOutputType ) { <
+	glProgramParameteriEXT( id, GL_GEOMETRY_OUTPUT_TYPE_E <
+}							      <
+							      <
+void ProgGLSL::setGeometryVerticesOut( GLint verticesOut ) {  <
+	glProgramParameteriEXT( id, GL_GEOMETRY_VERTICES_OUT_ <
+}							      <
+							      <
+void ProgGLSL::loadDir(QString dirName, bool sub, bool loadGe |	void ProgGLSL::loadDir(QString dirName, bool sub)            
+	if (loadGeometryShader) {			      |	void ProgGLSL::load(QString name)                            
+		glInputType = _glInputType;		      <
+		glOutputType = _glOutputType;		      <
+		verticesOut = _verticesOut;		      <
+		}					      <
+	load(locator.sourcesDir(dirName, sub, loadGeometrySha <
+	}						      <
+							      <
+void ProgGLSL::load(QString name, bool loadGeometryShader)    <
+void ProgGLSL::load(QString vertName, QString fragName, QStri <
+							      >	    bool modif = false;
+							      >	                else
+							      >	                    modif = true;
+    return newCode;					      |	    return modif ? preprocess(newCode) : newCode;   // to han
+ProgGLSL::Locator::Locator(QString vertExt, QString fragExt,  |	ProgGLSL::Locator::Locator(QString vertExt, QString fragExt) 
+    vertExt(vertExt), fragExt(fragExt), geomExt(geomExt) {    |	    vertExt(vertExt), fragExt(fragExt) {
+ProgGLSL::SourceSet ProgGLSL::Locator::sources(QString fileNa |	ProgGLSL::SourceSet ProgGLSL::Locator::sources(QString fileNa
+    if (loadGeometryShader)				      <
+	res << Source(ShaderGLSL::GEOMETRY, sourceName(fileNa <
+ProgGLSL::SourceSet ProgGLSL::Locator::sources(QString vertNa |	ProgGLSL::SourceSet ProgGLSL::Locator::sourcesDir(QString dir
+    SourceSet res = sources(vertName, fragName);	      <
+    res << Source(ShaderGLSL::GEOMETRY, sourceName(geomName)) <
+    return res;						      <
+    }							      <
+							      <
+ProgGLSL::SourceSet ProgGLSL::Locator::sourcesDir(QString dir <
+    SourceSet res = sourcesDir(ShaderGLSL::VERTEX, dirName) + |	    return sourcesDir(ShaderGLSL::VERTEX, dirName) + sourcesD
+    if (loadGeometryShader) res += sourcesDir(ShaderGLSL::GEO <
+    return res;						      <
+QString ProgGLSL::Locator::suffix(ShaderGLSL::Type type)      |	QString ProgGLSL::Locator::suffix(ShaderGLSL::Type type)     

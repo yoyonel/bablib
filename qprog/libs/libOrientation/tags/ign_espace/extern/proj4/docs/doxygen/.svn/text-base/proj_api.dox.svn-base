@@ -1,0 +1,191 @@
+//*****************************************************************************************
+/** @name low-level API functions (a.k.a old api) 
+ */
+
+/*!
+ \ingroup proj_API
+ \fn projXY pj_fwd(projLP, projPJ)
+    \brief forward projection
+    \return projXY an X,Y (or East,North) coordinates
+    \param projLP Lambda Phi coordinates.
+    \param projPJ projection.
+*/
+
+/*!
+ \ingroup proj_API
+ \fn projLP pj_inv(projXY, projPJ)
+    \brief inverse projection
+    \return projLP an Lambda, Phi coordinates
+    \param projXY X Y coordinates.
+    \param projPJ projection.
+*/
+
+/*!
+ \ingroup proj_API
+   \fn int pj_geocentric_to_geodetic( double a, double es, long point_count, int point_offset, double *x, double *y, double *z )
+   \brief conversion between geocentric (X, Y, Z from ellipsoide center) and geodetic (latitude, longitude,height) coordinates
+   \return int error code, int=0 if all is fine 
+   \param a 
+   \param es Square of ellipsoid eccentricity
+   \param long point_count
+   \param int point_offset
+    \param double* x: array of x coordinates 
+    \param double* y: array of y coordinates 
+    \param double* z: array of z coordinates 
+*/
+
+/*!
+ \ingroup proj_API 
+ \fn int pj_geodetic_to_geocentric( double a, double es, long point_count, int point_offset, double *x, double *y, double *z )
+ \brief conversion between geodetic (latitude, longitude,height) and geocentric (X, Y, Z from ellipsoide center) coordinates
+   \return int error code, int=0 if all is fine 
+   \param a 
+   \param es Square of ellipsoid eccentricity
+   \param long point_count
+   \param int point_offset
+    \param double* x: array of latitude coordinates 
+    \param double* y: array of longitude coordinates 
+    \param double* z: array of height coordinates 
+*/
+
+/*!
+ \ingroup proj_API 
+ \fn int pj_compare_datums( projPJ srcdefn, projPJ dstdefn )
+*/
+
+/*!
+ \ingroup proj_API 
+ \fn int pj_apply_gridshift( const char *, int, long point_count, int point_offset, double *x, double *y, double *z )
+*/
+
+/*!
+ \ingroup proj_API 
+ \fn void pj_deallocate_grids(void)
+ */
+
+/*!
+ \ingroup proj_API 
+ \fn void pj_set_finder( const char *(*)(const char *) )
+*/
+
+/*!
+ \ingroup proj_API 
+ \fn void pj_set_searchpath ( int count, const char **path )
+*/
+
+/*!
+ \ingroup proj_API 
+ \fn projPJ pj_latlong_from_proj( projPJ )
+ */
+
+/*!
+ \ingroup proj_API 
+ \fn void *pj_malloc(size_t)
+ */
+
+/*!
+ \ingroup proj_API 
+ \fn void pj_dalloc(void *)
+ */
+
+/*!
+ \ingroup proj_API 
+ \fn char *pj_strerrno(int)
+ */
+
+/*!
+ \ingroup proj_API 
+ \fn int *pj_get_errno_ref(void)
+ */
+
+/*!
+ \ingroup proj_API 
+ \fn const char *pj_get_release(void)
+ */
+
+//*****************************************************************************************
+/** @name high level API functions 
+ 	*/
+/*!
+ \ingroup proj_API
+ \fn int pj_transform(projPJ src, projPJ dst, long point_count, int point_offset, double *x, double *y, double *z )
+    \brief coordinate transformation from src projection to dst projection.
+    \return int error code, int=0 if all is fine 
+    \param projPJ src: initial projection
+    \param projPJ dst: final projection.
+    \param long point_count: number of point to be converted
+    \param int point_offset: offset between each new coordinate
+    \param double* x: array of x coordinates 
+    \param double* y: array of y coordinates 
+    \param double* z: array of z coordinates 
+*/
+
+/*!
+ \ingroup proj_API
+   \fn int pj_datum_transform( projPJ src, projPJ dst, long point_count, int point_offset, double *x, double *y, double *z )
+    \brief datum transformation from src datum to dst datum.
+    \return int error code, int=0 if all is fine 
+    \param projPJ src: initial projection
+    \param projPJ dst: final projection.
+    \param long point_count: number of point to be converted
+    \param int point_offset: offset between each new coordinate
+    \param double* x: array of x coordinates 
+    \param double* y: array of y coordinates 
+    \param double* z: array of z coordinates 
+*/
+
+/*!
+ \ingroup proj_API 
+ \fn int pj_is_latlong(projPJ)
+ \brief test if a projection PJ is a latitude/longitude projection
+ \return int 0 if test is False 1 if test is true (to check..)
+ \param projPJ projection to test
+*/
+
+/*!
+ \ingroup proj_API 
+ \fn int pj_is_geocent(projPJ)
+ \brief test if a projection PJ is a geocentric projection (coordinates are X Y Z from the elliposide center)
+ \return int 0 if test is False 1 if test is true (to check..)
+ \param projPJ projection to test
+*/
+
+/*!
+ \ingroup proj_API 
+ \fn void pj_pr_list(projPJ)
+ \brief Print the coordinate system definition to stdout.
+ \param projPJ projection 
+*/
+
+/*!
+ \ingroup proj_API 
+ \fn void pj_free(projPJ)
+ \brief desalloc the projPJ structure
+ \param projPJ projection to desalloc
+*/
+
+/*!
+ \ingroup proj_API 
+ \fn projPJ pj_init(int, char **)
+ \brief initialize a new projPJ structure
+ \return projPJ the new projection
+*/
+
+/*!
+ \ingroup proj_API 
+ \fn projPJ pj_init_plus(const char *)
+ \brief initialize a new projPJ structure
+ \return projPJ the new projection
+ */
+
+/*!
+ \ingroup proj_API 
+ \fn  char *pj_get_def(projPJ, int)
+ \brief get definition of a projection
+ \return char* string definition of 
+ \param projPJ projection to test
+ */
+
+
+
+

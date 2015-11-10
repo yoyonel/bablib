@@ -1,0 +1,102 @@
+﻿Build started 12/08/2012 23:46:16.
+     1>Project "C:\Prog\bab_code_2010\qprog\libs\libpng\libpng.vcxproj" on node 2 (build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(298,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
+     1>InitializeBuildStatus:
+         Creating "Win32\Release\libpng.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\BIN\CL.exe /c /IC:\Qt\4.8.2\include\QtCore /IC:\Qt\4.8.2\include\QtGui /IC:\Qt\4.8.2\include /Isources /I..\zlib\sources /IC:\Qt\4.8.2\include\ActiveQt /I..\..\..\build\libstatic_libpng\moc /I"c:\Qt\4.8.2\mkspecs\win32-msvc2010" /Zi /nologo /W3 /WX- /O2 /Oy- /D _CONSOLE /D UNICODE /D WIN32 /D QT_LARGEFILE_SUPPORT /D QT_THREAD_SUPPORT /D QT_NO_DEBUG /D QT_GUI_LIB /D QT_CORE_LIB /D QT_HAVE_MMX /D QT_HAVE_3DNOW /D QT_HAVE_SSE /D QT_HAVE_MMXEXT /D QT_HAVE_SSE2 /D NDEBUG /Gm- /EHsc /MD /GS- /fp:precise /Zc:wchar_t- /Zc:forScope /GR /Fo"Win32\Release\\" /Fd"Win32\Release\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt sources\example.c sources\png.c sources\pngerror.c sources\pnggccrd.c sources\pngget.c sources\pngmem.c sources\pngpread.c sources\pngread.c sources\pngrio.c sources\pngrtran.c sources\pngrutil.c sources\pngset.c sources\pngtest.c sources\pngtrans.c sources\pngvcrd.c sources\pngwio.c sources\pngwrite.c sources\pngwtran.c sources\pngwutil.c -Zm200 -w34100 -w34189 
+         example.c
+         png.c
+     1>sources\png.c(695): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(363) : see declaration of '_snprintf'
+         pngerror.c
+         pnggccrd.c
+         pngget.c
+         pngmem.c
+         pngpread.c
+         pngread.c
+     1>sources\pngread.c(127): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(363) : see declaration of '_snprintf'
+     1>sources\pngread.c(132): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(363) : see declaration of '_snprintf'
+     1>sources\pngread.c(210): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(363) : see declaration of '_snprintf'
+     1>sources\pngread.c(215): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(363) : see declaration of '_snprintf'
+         pngrio.c
+         pngrtran.c
+     1>sources\pngrtran.c(1311): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(363) : see declaration of '_snprintf'
+         pngrutil.c
+     1>sources\pngrutil.c(340): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(363) : see declaration of '_snprintf'
+     1>sources\pngrutil.c(345): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(363) : see declaration of '_snprintf'
+     1>sources\pngrutil.c(350): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(363) : see declaration of '_snprintf'
+     1>sources\pngrutil.c(384): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(363) : see declaration of '_snprintf'
+         pngset.c
+         pngtest.c
+     1>sources\pngtest.c(715): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(234) : see declaration of 'fopen'
+     1>sources\pngtest.c(726): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(234) : see declaration of 'fopen'
+     1>sources\pngtest.c(1353): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(234) : see declaration of 'fopen'
+     1>sources\pngtest.c(1364): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(234) : see declaration of 'fopen'
+         pngtrans.c
+         pngvcrd.c
+         pngwio.c
+         pngwrite.c
+     1>sources\pngwrite.c(444): warning C4996: 'gmtime': This function or variable may be unsafe. Consider using gmtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\time.inl(99) : see declaration of 'gmtime'
+     1>sources\pngwrite.c(542): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(363) : see declaration of '_snprintf'
+     1>sources\pngwrite.c(547): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(363) : see declaration of '_snprintf'
+     1>sources\pngwrite.c(614): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(363) : see declaration of '_snprintf'
+     1>sources\pngwrite.c(619): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(363) : see declaration of '_snprintf'
+         pngwtran.c
+         pngwutil.c
+     1>sources\pngwutil.c(197): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(363) : see declaration of '_snprintf'
+     1>sources\pngwutil.c(1260): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(363) : see declaration of '_snprintf'
+     1>sources\pngwutil.c(1650): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(363) : see declaration of '_snprintf'
+     1>sources\pngwutil.c(1652): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(363) : see declaration of '_snprintf'
+         Generating Code...
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\BIN\Lib.exe /OUT:"..\..\bin\libpng.lib" /NOLOGO Win32\Release\example.obj
+         Win32\Release\png.obj
+         Win32\Release\pngerror.obj
+         Win32\Release\pnggccrd.obj
+         Win32\Release\pngget.obj
+         Win32\Release\pngmem.obj
+         Win32\Release\pngpread.obj
+         Win32\Release\pngread.obj
+         Win32\Release\pngrio.obj
+         Win32\Release\pngrtran.obj
+         Win32\Release\pngrutil.obj
+         Win32\Release\pngset.obj
+         Win32\Release\pngtest.obj
+         Win32\Release\pngtrans.obj
+         Win32\Release\pngvcrd.obj
+         Win32\Release\pngwio.obj
+         Win32\Release\pngwrite.obj
+         Win32\Release\pngwtran.obj
+         Win32\Release\pngwutil.obj
+         libpng.vcxproj -> C:\Prog\bab_code_2010\qprog\libs\libpng\..\..\bin\libpng.lib
+       FinalizeBuildStatus:
+         Deleting file "Win32\Release\libpng.unsuccessfulbuild".
+         Touching "Win32\Release\libpng.lastbuildstate".
+     1>Done Building Project "C:\Prog\bab_code_2010\qprog\libs\libpng\libpng.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.89

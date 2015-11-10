@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/libOrientation/!svn/ver/190/trunk/testing
+END
+TestOrientationMATIS_ProjectionCarto.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/libOrientation/!svn/ver/190/trunk/testing/TestOrientationMATIS_ProjectionCarto.cpp
+END
+TestOrientationMATIS_IO.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/libOrientation/!svn/ver/119/trunk/testing/TestOrientationMATIS_IO.cpp
+END
+Test_crop.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/libOrientation/!svn/ver/113/trunk/testing/Test_crop.cpp
+END
+TestOrientationMATIS_NonValidFile.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/libOrientation/!svn/ver/169/trunk/testing/TestOrientationMATIS_NonValidFile.cpp
+END
+testing.py
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/libOrientation/!svn/ver/57/trunk/testing/testing.py
+END
+TestOrientationMATIS_Projection.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/libOrientation/!svn/ver/155/trunk/testing/TestOrientationMATIS_Projection.cpp
+END
+TestPairOrientation.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/libOrientation/!svn/ver/181/trunk/testing/TestPairOrientation.cpp
+END
+con2ori.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/libOrientation/!svn/ver/173/trunk/testing/con2ori.cpp
+END
+TestOldOriWriting.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/libOrientation/!svn/ver/182/trunk/testing/TestOldOriWriting.cpp
+END
+TestOrientationMATIS_samples.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/libOrientation/!svn/ver/180/trunk/testing/TestOrientationMATIS_samples.cpp
+END

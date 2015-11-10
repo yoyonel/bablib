@@ -1,0 +1,17 @@
+/** \defgroup proj_API proj4 API 
+*  \brief API documentation for PROJ4 Library
+*
+* proj4 API is composed of only one file and few functions so is quite simple to use.
+*
+* The API function could be split on two different group depending on their abstraction level. The hight level API is dedicated to the initialisation of projection and the simple trasnformation between two coordinate systeme. The low level API enabled to apply simple transformation on coordinate, as direct or forward projection, datum transform and conversion between geodetic and geocentrique coordinate.
+
+*
+*/
+
+/** \addtogroup proj_API
+** \section High_level_API
+*	
+*
+*	\section Low_level_API
+*
+*/

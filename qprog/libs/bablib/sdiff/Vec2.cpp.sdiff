@@ -1,0 +1,10 @@
+							      >	const Vec2 Vec2::ZERO   (0.0f, 0.0f);
+							      >	const Vec2 Vec2::ONE    (1.0f, 1.0f);
+							      >	const Vec2 Vec2::X      (1.0f, 0.0f);
+							      >	const Vec2 Vec2::Y      (0.0f, 1.0f);
+							      >
+							      >	/************************************************************
+							      >
+Vec2  Vec2::polar() const { return Vec2(norm(), arg()); }     |	Vec2  Vec2::toPolar() const { return Vec2(norm(), arg()); }
+							      >	Vec2 Vec2::polar(float radius, float theta) { return Vec2(rad
+							      >	Vec2 Vec2::polar(const Vec2 &p) { return polar(p.x, p.y); }

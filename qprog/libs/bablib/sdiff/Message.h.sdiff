@@ -1,0 +1,24 @@
+							      >	#include "Vec2d.h"
+							      >	#include "Vec3d.h"
+							      >	#include "Vec4d.h"
+							      >	#include "Chrono.h"
+        static QTextStream				      |	        static void init();
+            errorStream,				      |	        
+            warningStream,				      |	    private:
+            infoStream,					      |	        static QTextStream *errorStream;
+            debugStream;				      |	        static QTextStream *warningStream;
+							      >	        static QTextStream *infoStream;
+							      >	        static QTextStream *debugStream;
+							      >	        /*
+							      >	        */
+							      >	    CONV_TO_QS_SPECIALIZE(Vec2d)
+							      >	    CONV_TO_QS_SPECIALIZE(Vec3d)
+							      >	    CONV_TO_QS_SPECIALIZE(Vec4d)
+							      >	#define MSG_POINT (QString("%1, line %2").arg(__FILE__).arg(_
+							      >
+							      >	struct MsgInfoProcess {
+							      >	    MsgInfoProcess(QString msg, int sub=0) : prefix(4*sub, ' 
+							      >	    void done() { MSG_INFO(prefix + "> done : %1 s.", (chrono
+							      >	    Chrono chrono;
+							      >	    QString prefix;
+							      >	    };

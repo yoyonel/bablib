@@ -1,0 +1,251 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src
+END
+modeleprojectionphysique.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/modeleprojectionphysique.hpp
+END
+modeleprojectioncarto.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/modeleprojectioncarto.hpp
+END
+distortiongrillematis.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/distortiongrillematis.hpp
+END
+auxiliarydata.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/auxiliarydata.cpp
+END
+projectivetransfo2D.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/projectivetransfo2D.hpp
+END
+auxiliarydata.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/auxiliarydata.hpp
+END
+transfo2d.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/transfo2d.hpp
+END
+outil_xml.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/outil_xml.cpp
+END
+distortionpolynomeign.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/distortionpolynomeign.cpp
+END
+solar.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/solar.cpp
+END
+outil_xml.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/outil_xml.hpp
+END
+noboost.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/noboost.cpp
+END
+xmlreader.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/xmlreader.cpp
+END
+distortionpolynomeign.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/distortionpolynomeign.hpp
+END
+solar.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/solar.hpp
+END
+modeleprojectionconique.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/modeleprojectionconique.cpp
+END
+modeleprojectionrto.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/modeleprojectionrto.cpp
+END
+noboost.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/noboost.hpp
+END
+modeleprojection_io.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/modeleprojection_io.cpp
+END
+modeleprojectionconique.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/modeleprojectionconique.hpp
+END
+modeleprojectionrto.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/modeleprojectionrto.hpp
+END
+xmlwriter.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/xmlwriter.cpp
+END
+modeleprojectiongrille.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/modeleprojectiongrille.cpp
+END
+modeleprojection.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/modeleprojection.cpp
+END
+geometrictransformation.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/geometrictransformation.cpp
+END
+modeleprojectiongrille.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/modeleprojectiongrille.hpp
+END
+modeleprojection.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/modeleprojection.hpp
+END
+modeleprojectionaxono.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/modeleprojectionaxono.cpp
+END
+geometrictransformation.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/geometrictransformation.hpp
+END
+modeleprojectionaxono.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/modeleprojectionaxono.hpp
+END
+orireader.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/orireader.cpp
+END
+transfo2delementaire.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/transfo2delementaire.hpp
+END
+geodesie.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/geodesie.cpp
+END
+modeleprojectionspherique.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/modeleprojectionspherique.cpp
+END
+homographie2d.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/homographie2d.cpp
+END
+geodesie.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/geodesie.hpp
+END
+modeleprojectionphysique.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/modeleprojectionphysique.cpp
+END
+modeleprojectioncarto.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/modeleprojectioncarto.cpp
+END
+distortiongrillematis.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/distortiongrillematis.cpp
+END
+modeleprojectionspherique.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/modeleprojectionspherique.hpp
+END
+homographie2d.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/libOrientation/!svn/ver/92/tags/ign_espace/src/homographie2d.hpp
+END

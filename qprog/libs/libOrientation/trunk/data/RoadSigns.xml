@@ -1,0 +1,90 @@
+<Objects>
+    <roadsign category="Indication" attribute="C1a">
+        <geometry geodesic_system="">
+            <center x="655237.927281" y="6860102.227879" z="45.700000" />
+            <vecto_rhorizontal x="0.999774" y="-0.021272" z="0.000000" />
+            <vector_vertical x="0.000000" y="0.000000" z="1.000000" />
+            <polygon3d number_of_points="4">
+                <pt3d x="655237.927281" y="6860102.227879" z="45.700000" />
+                <pt3d x="655237.927281" y="6860102.227879" z="46.300000" />
+                <pt3d x="655238.527145" y="6860102.215116" z="46.300000" />
+                <pt3d x="655238.527145" y="6860102.215116" z="45.700000" />
+            </polygon3d>
+        </geometry>
+        <virtual_texture image_file_name="C1a.tif" number_of_points="4">
+            <polygon2d number_of_points="4">
+                <pt2d x="11.000000" y="96.000000" />
+                <pt2d x="11.000000" y="11.000000" />
+                <pt2d x="96.000000" y="11.000000" />
+                <pt2d x="96.000000" y="96.000000" />
+            </polygon2d>
+        </virtual_texture>
+        <roadsign2Ds />
+    </roadsign>
+    <roadsign category="Indication" attribute="C27">
+        <geometry geodesic_system="">
+            <center x="655257.228473" y="6860110.788179" z="46.700000" />
+            <vecto_rhorizontal x="0.543251" y="-0.839570" z="0.000000" />
+            <vector_vertical x="0.000000" y="0.000000" z="1.000000" />
+            <polygon3d number_of_points="4">
+                <pt3d x="655257.228473" y="6860110.788179" z="46.700000" />
+                <pt3d x="655257.228473" y="6860110.788179" z="47.300000" />
+                <pt3d x="655257.554424" y="6860110.284437" z="47.300000" />
+                <pt3d x="655257.554424" y="6860110.284437" z="46.700000" />
+            </polygon3d>
+        </geometry>
+        <virtual_texture image_file_name="C27.tif" number_of_points="4">
+            <polygon2d number_of_points="4">
+                <pt2d x="11.000000" y="96.000000" />
+                <pt2d x="11.000000" y="11.000000" />
+                <pt2d x="96.000000" y="11.000000" />
+                <pt2d x="96.000000" y="96.000000" />
+            </polygon2d>
+        </virtual_texture>
+        <roadsign2Ds />
+    </roadsign>
+    <roadsign category="Indication" attribute="C109">
+        <geometry geodesic_system="">
+            <center x="655271.608598" y="6860109.373740" z="46.700000" />
+            <vecto_rhorizontal x="0.467888" y="-0.883788" z="0.000000" />
+            <vector_vertical x="0.000000" y="0.000000" z="1.000000" />
+            <polygon3d number_of_points="4">
+                <pt3d x="655271.608598" y="6860109.373740" z="46.700000" />
+                <pt3d x="655271.608598" y="6860109.373740" z="47.100000" />
+                <pt3d x="655271.795753" y="6860109.020225" z="47.100000" />
+                <pt3d x="655271.795753" y="6860109.020225" z="46.700000" />
+            </polygon3d>
+        </geometry>
+        <virtual_texture image_file_name="C109.tif" number_of_points="4">
+            <polygon2d number_of_points="4">
+                <pt2d x="11.000000" y="96.000000" />
+                <pt2d x="11.000000" y="11.000000" />
+                <pt2d x="96.000000" y="11.000000" />
+                <pt2d x="96.000000" y="96.000000" />
+            </polygon2d>
+        </virtual_texture>
+        <roadsign2Ds />
+    </roadsign>
+    <roadsign category="Danger" attribute="C20a">
+        <geometry geodesic_system="">
+            <center x="655237.750476" y="6860102.168944" z="46.500000" />
+            <vecto_rhorizontal x="0.802233" y="0.597011" z="0.000000" />
+            <vector_vertical x="0.000000" y="0.000000" z="1.000000" />
+            <polygon3d number_of_points="4">
+                <pt3d x="655237.750476" y="6860102.168944" z="46.500000" />
+                <pt3d x="655237.750476" y="6860102.168944" z="96.500000" />
+                <pt3d x="655277.862137" y="6860132.019482" z="96.500000" />
+                <pt3d x="655277.862137" y="6860132.019482" z="46.500000" />
+            </polygon3d>
+        </geometry>
+        <virtual_texture image_file_name="C20a.tif" number_of_points="4">
+            <polygon2d number_of_points="4">
+                <pt2d x="11.000000" y="96.000000" />
+                <pt2d x="11.000000" y="11.000000" />
+                <pt2d x="96.000000" y="11.000000" />
+                <pt2d x="96.000000" y="96.000000" />
+            </polygon2d>
+        </virtual_texture>
+        <roadsign2Ds />
+    </roadsign>
+</Objects>

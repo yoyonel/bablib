@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>
+    </ProjectGuid>
+    <RootNamespace>scene3d</RootNamespace>
+    <Keyword>Qt4VSv1.0</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <OutputDirectory>..\..\bin\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <IntermediateDirectory>..\..\..\build\libstatic_scene3d\obj\</IntermediateDirectory>
+    <PrimaryOutput>scene3d</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">scene3d</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</IgnoreImportLibrary>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>"$(QTDIR)\include\QtCore";"$(QTDIR)\include\QtGui";"$(QTDIR)\include\QtOpenGL";"$(QTDIR)\include\QtXml";"$(QTDIR)\include";"src";"..\lib3ds";"..\glew\src";"..\bablib\src\bablib";"..\boost_pp\src";"..\libpng\sources";"..\zlib\sources";"..\qglviewer\libQGLViewer-2.3.5";"..\constants";"$(QTDIR)\include\ActiveQt";"..\..\..\build\libstatic_scene3d\moc";c:\Qt\4.8.2\mkspecs\win32-msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zm200 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>..\..\..\build\libstatic_scene3d\obj\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>_CONSOLE;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;PLY_SUPPORT;GLEW_STATIC;BABLIB_NAMESPACE_BEGIN=;BABLIB_NAMESPACE_END=;BABLIB_NAMESPACE_USE=;"BABLIB_NAMESPACE_NAME(name)=name";BABLIB_DEFAULT_PARAMS_FILE=default.par;BABLIB_GLOBAL_DATA_PATH=C:/Prog/bab_code_2010/qprog/data;BABLIB_GLOBAL_PARAMS_FILE=C:/Prog/bab_code_2010/qprog/config/bablib.par;BABLIB_GLOBAL_QPROG_PATH=C:/Prog/bab_code_2010/qprog;QT_THREAD_SUPPORT;QT_NO_DEBUG;QT_XML_LIB;QT_OPENGL_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_HAVE_MMX;QT_HAVE_3DNOW;QT_HAVE_SSE;QT_HAVE_MMXEXT;QT_HAVE_SSE2;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_CONSOLE;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;PLY_SUPPORT;GLEW_STATIC;BABLIB_NAMESPACE_BEGIN=;BABLIB_NAMESPACE_END=;BABLIB_NAMESPACE_USE=;"BABLIB_NAMESPACE_NAME(name)=name";BABLIB_DEFAULT_PARAMS_FILE=default.par;BABLIB_GLOBAL_DATA_PATH=C:/Prog/bab_code_2010/qprog/data;BABLIB_GLOBAL_PARAMS_FILE=C:/Prog/bab_code_2010/qprog/config/bablib.par;BABLIB_GLOBAL_QPROG_PATH=C:/Prog/bab_code_2010/qprog;QT_THREAD_SUPPORT;QT_NO_DEBUG;QT_XML_LIB;QT_OPENGL_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_HAVE_MMX;QT_HAVE_3DNOW;QT_HAVE_SSE;QT_HAVE_MMXEXT;QT_HAVE_SSE2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ResourceOutputFileName>$(OutDir)\$(InputName).res</ResourceOutputFileName>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\scene3d\obj\LoaderOBJ.cpp" />
+    <ClCompile Include="src\scene3d\off\LoaderOFF.cpp" />
+    <ClCompile Include="src\scene3d\ply\LoaderPLY.cpp" />
+    <ClCompile Include="src\scene3d\Scene3D.cpp" />
+    <ClCompile Include="src\scene3d\3ds\Scene3DS.cpp" />
+    <ClCompile Include="src\scene3d\TriMesh.cpp" />
+    <ClCompile Include="src\scene3d\TriSoup.cpp" />
+    <ClCompile Include="src\scene3d\TriSoupRenderer.cpp" />
+    <ClCompile Include="src\scene3d\ply\ply.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\scene3d\AABox.h" />
+    <ClInclude Include="src\scene3d\obj\LoaderOBJ.h" />
+    <ClInclude Include="src\scene3d\off\LoaderOFF.h" />
+    <ClInclude Include="src\scene3d\ply\LoaderPLY.h" />
+    <ClInclude Include="src\scene3d\Scene3D.h" />
+    <ClInclude Include="src\scene3d\3ds\Scene3DS.h" />
+    <ClInclude Include="src\scene3d\Tri.h" />
+    <ClInclude Include="src\scene3d\TriMesh.h" />
+    <ClInclude Include="src\scene3d\TriSoup.h" />
+    <ClInclude Include="src\scene3d\TriSoupRenderer.h" />
+    <ClInclude Include="src\scene3d\ply\ply.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties QtVersion_x0020_Win32="4.8.2" UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,32 @@
+							      >	// UByte1 :
+							      >
+							      >	//UByte1::UByte1(GLubyte x) : x(x) {}
+							      >	UByte1::UByte1(const GLubyte *c) : x(c[0]) {}
+							      >	UByte1::UByte1(QRgb c) : r(qRed(c)) {}
+							      >	QRgb UByte1::toQRgb() const { return qRgba(r,toInt(0.0f),toIn
+							      >
+							      >	UByte1 operator+(const UByte1 &a, const UByte1 &b) { return U
+							      >	UByte1 operator-(const UByte1 &a, const UByte1 &b) { return U
+							      >	UByte1 operator*(const UByte1 &a, const UByte1 &b) { return U
+							      >	UByte1 operator/(const UByte1 &a, const UByte1 &b) { return U
+							      >
+							      >	UByte1 operator*(float s, const UByte1 &a) { return UByte1(mu
+							      >	UByte1 operator*(const UByte1 &a, float s) { return s * a; }
+							      >	UByte1 operator/(const UByte1 &a, float s) { return UByte1(di
+							      >	UByte1 operator/(float s, const UByte1 &a) { return UByte1(di
+							      >
+							      >	UByte1 UByte1::operator+=(const UByte1 &a) { x+=a.x; return *
+							      >	UByte1 UByte1::operator-=(const UByte1 &a) { x-=a.x; return *
+							      >	UByte1 UByte1::operator*=(const UByte1 &a) { x*=a.x; return *
+							      >	UByte1 UByte1::operator/=(const UByte1 &a) { x/=a.x; return *
+							      >	UByte1 UByte1::operator*=(float s) { x=mul(s,x); return *this
+							      >	UByte1 UByte1::operator/=(float s) { x=div(x,s); return *this
+							      >
+							      >	void UByte1::reset(float r, float , float , float) { this->r=
+							      >
+							      >	//UInt3 UByte1::toUInt3() const { return UInt3(r, g, b); }
+							      >	//void UByte1::setGL() const { glColor3ub(r,g,b); }
+							      >
+							      >	/************************************************************
+UInt2::UInt2(QRgb c) : r(toFloat(qRed(c))), g(toFloat(qGreen( |	//UInt2::UInt2(QRgb c) : r(toFloat(qRed(c))), g(toFloat(qGree
+							      >	UInt2::UInt2(QRgb c) : r(qRed(c)), g(qGreen(c)) {}

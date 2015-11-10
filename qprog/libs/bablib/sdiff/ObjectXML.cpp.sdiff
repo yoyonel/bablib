@@ -1,0 +1,6 @@
+							      >	double ObjectXML::getDoubleAttrib(const QDomElement &e, const
+							      >	    bool ok;
+							      >	    double res = e.attribute(name, QString::number(defaultVal
+							      >	    return ok ? res : defaultValue;
+							      >	    }
+							      >

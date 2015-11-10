@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href=".\XSLT\orientation_1_0.xsl"?>
+<orientation>
+<version> 1.0 </version>
+<auxiliarydata>
+<image_name>Paris_12-080428_0807-11-00001_0000001</image_name>
+<stereopolis>
+<chantier>Paris_12</chantier>
+<date> 80428</date>
+<session>807</session>
+<section>1</section>
+<numero>1</numero>
+<position>11</position>
+<time_base_ms> 1 </time_base_ms>
+<shutter>1740</shutter>
+<flatfield_name>ff_test.tif</flatfield_name>
+</stereopolis>
+<image_date>
+<year>2008</year>
+<month>4</month>
+<day>28</day>
+<time_system> UTC </time_system>
+<hour>13</hour>
+<minute>40</minute>
+<second>35.71</second>
+</image_date>
+</auxiliarydata>
+<geometry>
+<extrinseque>
+<systeme>Lambert93</systeme>
+<grid_alti>Raf98</grid_alti>
+<sommet>
+<easting>653811.20</easting>
+<northing>6861641.98</northing>
+<altitude>38.59</altitude>
+</sommet>
+<rotation>
+<Image2Ground> true </Image2Ground>
+<mat3d> 
+<l1> 
+<pt3d> 
+<x> 0.689742325088 </x>
+<y> -0.145388673080 </y>
+<z> 0.709307886874 </z>
+</pt3d>
+</l1> 
+<l2> 
+<pt3d> 
+<x> 0.723501674248 </x>
+<y> 0.176683257190 </y>
+<z> -0.667329321005 </z>
+</pt3d>
+</l2> 
+<l3> 
+<pt3d> 
+<x> -0.028300541343 </x>
+<y> 0.973470676660 </y>
+<z> 0.227054844531 </z>
+</pt3d>
+</l3> 
+</mat3d>
+<quaternion> 
+<x> 0.567010627145 </x>
+<y> 0.254895062205 </y>
+<z> 0.300262104741 </z>
+<w> 0.723443229771 </w>
+</quaternion>
+</rotation>
+</extrinseque>
+<intrinseque>
+<sensor>
+<name> Pike_66 </name>
+<calibration_date> 27-2-2008 </calibration_date>
+<serial_number> 268927066 </serial_number>
+<image_size> 
+<width> 1920 </width>
+<height> 1080 </height>
+ </image_size>
+<ppa>
+<c> 955.954 </c>
+<l> 549.175 </l>
+<focale> 1399.127 </focale>
+</ppa>
+<distortion>
+<pps>
+<c> 951.097 </c>
+<l> 546.986 </l>
+</pps>
+<r3> -5.536119e-008</r3>
+<r5> 4.674133e-014</r5>
+<r7> -9.881582e-021</r7>
+</distortion>
+<pixel_size> 0.00000740</pixel_size>
+</sensor>
+</intrinseque>
+</geometry>
+</orientation>

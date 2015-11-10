@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="Orientation" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;CMake Files\extern\;CMake Files\extern\cmake\;CMake Files\config\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="Orientation">
+         <Option output="/home/atty/Prog/libOrientation/trunk/qtcreator-build/lib/libOrientation.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/atty/Prog/libOrientation/trunk" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/proj4" />
+            <Add directory="/usr/local/include/TinyXML_STL" />
+            <Add directory="/home/atty/Prog/libOrientation/trunk/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; Orientation" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="Orientation/fast">
+         <Option output="/home/atty/Prog/libOrientation/trunk/qtcreator-build/lib/libOrientation.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/atty/Prog/libOrientation/trunk" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/proj4" />
+            <Add directory="/usr/local/include/TinyXML_STL" />
+            <Add directory="/home/atty/Prog/libOrientation/trunk/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; Orientation/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="TestOrientationMATIS_IO">
+         <Option output="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin/TestOrientationMATIS_IO" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/atty/Prog/libOrientation/trunk" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/proj4" />
+            <Add directory="/usr/local/include/TinyXML_STL" />
+            <Add directory="/home/atty/Prog/libOrientation/trunk/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; TestOrientationMATIS_IO" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="TestOrientationMATIS_IO/fast">
+         <Option output="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin/TestOrientationMATIS_IO" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/atty/Prog/libOrientation/trunk" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/proj4" />
+            <Add directory="/usr/local/include/TinyXML_STL" />
+            <Add directory="/home/atty/Prog/libOrientation/trunk/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; TestOrientationMATIS_IO/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="TestOrientationMATIS_NonValidFile">
+         <Option output="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin/TestOrientationMATIS_NonValidFile" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/atty/Prog/libOrientation/trunk" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/proj4" />
+            <Add directory="/usr/local/include/TinyXML_STL" />
+            <Add directory="/home/atty/Prog/libOrientation/trunk/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; TestOrientationMATIS_NonValidFile" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="TestOrientationMATIS_NonValidFile/fast">
+         <Option output="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin/TestOrientationMATIS_NonValidFile" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/atty/Prog/libOrientation/trunk" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/proj4" />
+            <Add directory="/usr/local/include/TinyXML_STL" />
+            <Add directory="/home/atty/Prog/libOrientation/trunk/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; TestOrientationMATIS_NonValidFile/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="TestOrientationMATIS_Projection">
+         <Option output="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin/TestOrientationMATIS_Projection" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/atty/Prog/libOrientation/trunk" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/proj4" />
+            <Add directory="/usr/local/include/TinyXML_STL" />
+            <Add directory="/home/atty/Prog/libOrientation/trunk/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; TestOrientationMATIS_Projection" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="TestOrientationMATIS_Projection/fast">
+         <Option output="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin/TestOrientationMATIS_Projection" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/atty/Prog/libOrientation/trunk" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/proj4" />
+            <Add directory="/usr/local/include/TinyXML_STL" />
+            <Add directory="/home/atty/Prog/libOrientation/trunk/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; TestOrientationMATIS_Projection/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="TestOrientationMATIS_samples">
+         <Option output="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin/TestOrientationMATIS_samples" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/atty/Prog/libOrientation/trunk" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/proj4" />
+            <Add directory="/usr/local/include/TinyXML_STL" />
+            <Add directory="/home/atty/Prog/libOrientation/trunk/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; TestOrientationMATIS_samples" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="TestOrientationMATIS_samples/fast">
+         <Option output="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin/TestOrientationMATIS_samples" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/atty/Prog/libOrientation/trunk" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/proj4" />
+            <Add directory="/usr/local/include/TinyXML_STL" />
+            <Add directory="/home/atty/Prog/libOrientation/trunk/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; TestOrientationMATIS_samples/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="Test_OldOriWriting">
+         <Option output="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin/Test_OldOriWriting" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/atty/Prog/libOrientation/trunk" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/proj4" />
+            <Add directory="/usr/local/include/TinyXML_STL" />
+            <Add directory="/home/atty/Prog/libOrientation/trunk/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; Test_OldOriWriting" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="Test_OldOriWriting/fast">
+         <Option output="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin/Test_OldOriWriting" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/atty/Prog/libOrientation/trunk" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/proj4" />
+            <Add directory="/usr/local/include/TinyXML_STL" />
+            <Add directory="/home/atty/Prog/libOrientation/trunk/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; Test_OldOriWriting/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="Test_PairOrientation">
+         <Option output="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin/Test_PairOrientation" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/atty/Prog/libOrientation/trunk" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/proj4" />
+            <Add directory="/usr/local/include/TinyXML_STL" />
+            <Add directory="/home/atty/Prog/libOrientation/trunk/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; Test_PairOrientation" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="Test_PairOrientation/fast">
+         <Option output="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin/Test_PairOrientation" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/atty/Prog/libOrientation/trunk" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/proj4" />
+            <Add directory="/usr/local/include/TinyXML_STL" />
+            <Add directory="/home/atty/Prog/libOrientation/trunk/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; Test_PairOrientation/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="Test_crop">
+         <Option output="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin/Test_crop" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/atty/Prog/libOrientation/trunk" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/proj4" />
+            <Add directory="/usr/local/include/TinyXML_STL" />
+            <Add directory="/home/atty/Prog/libOrientation/trunk/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; Test_crop" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="Test_crop/fast">
+         <Option output="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin/Test_crop" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/atty/Prog/libOrientation/trunk" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/local/include" />
+            <Add directory="/usr/local/include/proj4" />
+            <Add directory="/usr/local/include/TinyXML_STL" />
+            <Add directory="/home/atty/Prog/libOrientation/trunk/src" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; Test_crop/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="doc">
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; doc" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="install">
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; install" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="install/local">
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; install/local" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="install/strip">
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; install/strip" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="libORI_doxygen">
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; libORI_doxygen" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="list_install_components">
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; list_install_components" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; rebuild_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test">
+         <Option working_dir="/home/atty/Prog/libOrientation/trunk/qtcreator-build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; test" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/atty/Prog/libOrientation/trunk/qtcreator-build/Makefile&quot; clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/ConicStereoPair.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/auxiliarydata.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/distortiongrillematis.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/distortionpolynomeign.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/euclidien.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/geodesie.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/geodesieproj4.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/geometrictransformation.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/homographie2d.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/modeleprojection.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/modeleprojection_in.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/modeleprojection_out.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/modeleprojectionaxono.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/modeleprojectioncarto.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/modeleprojectionconique.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/modeleprojectiongrille.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/modeleprojectionphysique.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/modeleprojectionrto.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/modeleprojectionspherique.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/modeleprojectionvisitor.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/noboost.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/orireader.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/oriwriter.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/outil_xml.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/solar.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/systematismeaffine.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/systematismecylindrique.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/xmlreader.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/xmlwriter.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/testing/TestOldOriWriting.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/testing/TestOrientationMATIS_IO.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/testing/TestOrientationMATIS_NonValidFile.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/testing/TestOrientationMATIS_Projection.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/testing/TestOrientationMATIS_samples.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/testing/TestPairOrientation.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/testing/Test_crop.cpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/ConicStereoPair.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/auxiliarydata.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/distortiongrillematis.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/distortionpolynomeign.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/euclidien.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/geodesie.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/geodesieproj4.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/geometrictransformation.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/homographie2d.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/modeleprojection.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/modeleprojectionaxono.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/modeleprojectioncarto.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/modeleprojectionconique.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/modeleprojectiongrille.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/modeleprojectionphysique.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/modeleprojectionrto.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/modeleprojectionspherique.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/modeleprojectionvisitor.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/noboost.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/outil_xml.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/projectivetransfo2D.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/solar.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/systematismeaffine.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/systematismecylindrique.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/transfo2d.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/src/transfo2delementaire.hpp">
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/Orientation-doc.cmake">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/Orientation_install.cmake">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/extern/cmake/MatisMacros.cmake">
+          <Option virtualFolder="CMake Files\extern\cmake\" />
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/extern/cmake/MatisDoxygenMacros.cmake">
+          <Option virtualFolder="CMake Files\extern\cmake\" />
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/extern/cmake/MatisConfig.cmake.in">
+          <Option virtualFolder="CMake Files\extern\cmake\" />
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/config/config_boost.hpp.cmake.in">
+          <Option virtualFolder="CMake Files\config\" />
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/config/config_proj4.hpp.cmake.in">
+          <Option virtualFolder="CMake Files\config\" />
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/config/config_xerces.hpp.cmake.in">
+          <Option virtualFolder="CMake Files\config\" />
+      </Unit>
+      <Unit filename="/home/atty/Prog/libOrientation/trunk/config/config_cgal.hpp.cmake.in">
+          <Option virtualFolder="CMake Files\config\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>

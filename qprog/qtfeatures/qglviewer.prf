@@ -1,0 +1,2 @@
+include($$LIBS_PATH/qglviewer/config.pri)
+

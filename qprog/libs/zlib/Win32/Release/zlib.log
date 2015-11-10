@@ -1,0 +1,88 @@
+﻿Build started 12/08/2012 23:52:44.
+     1>Project "C:\Prog\bab_code_2010\qprog\libs\zlib\zlib.vcxproj" on node 2 (build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(298,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
+     1>InitializeBuildStatus:
+         Creating "Win32\Release\zlib.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\BIN\CL.exe /c /IC:\Qt\4.8.2\include\QtCore /IC:\Qt\4.8.2\include\QtGui /IC:\Qt\4.8.2\include /Isources /IC:\Qt\4.8.2\include\ActiveQt /I..\..\..\build\libstatic_zlib\moc /I"c:\Qt\4.8.2\mkspecs\win32-msvc2010" /Zi /nologo /W3 /WX- /O2 /Oy- /D _CONSOLE /D UNICODE /D WIN32 /D QT_LARGEFILE_SUPPORT /D QT_THREAD_SUPPORT /D QT_NO_DEBUG /D QT_GUI_LIB /D QT_CORE_LIB /D QT_HAVE_MMX /D QT_HAVE_3DNOW /D QT_HAVE_SSE /D QT_HAVE_MMXEXT /D QT_HAVE_SSE2 /D NDEBUG /Gm- /EHsc /MD /GS- /fp:precise /Zc:wchar_t- /Zc:forScope /GR /Fo"Win32\Release\\" /Fd"Win32\Release\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt sources\adler32.c sources\compress.c sources\crc32.c sources\deflate.c sources\example.c sources\gzio.c sources\infback.c sources\inffast.c sources\inflate.c sources\inftrees.c sources\minigzip.c sources\trees.c sources\uncompr.c sources\zutil.c -Zm200 -w34100 -w34189 
+         adler32.c
+         compress.c
+         crc32.c
+         deflate.c
+         example.c
+     1>sources\example.c(69): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>sources\example.c(120): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>sources\example.c(214): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>sources\example.c(310): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>sources\example.c(389): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>sources\example.c(470): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+         gzio.c
+     1>sources\gzio.c(131): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>sources\gzio.c(181): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(234) : see declaration of 'fopen'
+     1>sources\gzio.c(226): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(371) : see declaration of 'sprintf'
+     1>sources\gzio.c(627): warning C4996: '_vsnprintf': This function or variable may be unsafe. Consider using _vsnprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(363) : see declaration of '_vsnprintf'
+     1>sources\gzio.c(1001): warning C4996: 'strerror': This function or variable may be unsafe. Consider using strerror_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\string.h(157) : see declaration of 'strerror'
+     1>sources\gzio.c(1008): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>sources\gzio.c(1009): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>sources\gzio.c(1010): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+         infback.c
+         inffast.c
+         inflate.c
+         inftrees.c
+         minigzip.c
+     1>sources\minigzip.c(201): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>sources\minigzip.c(202): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>sources\minigzip.c(204): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(234) : see declaration of 'fopen'
+     1>sources\minigzip.c(216): warning C4996: 'unlink': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _unlink. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(299) : see declaration of 'unlink'
+     1>sources\minigzip.c(232): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>sources\minigzip.c(241): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>sources\minigzip.c(248): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(234) : see declaration of 'fopen'
+     1>sources\minigzip.c(256): warning C4996: 'unlink': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _unlink. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(299) : see declaration of 'unlink'
+     1>sources\minigzip.c(277): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+     1>sources\minigzip.c(301): warning C4996: 'setmode': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _setmode. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\io.h(314) : see declaration of 'setmode'
+     1>sources\minigzip.c(301): warning C4996: 'fileno': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _fileno. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(723) : see declaration of 'fileno'
+     1>sources\minigzip.c(302): warning C4996: 'setmode': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _setmode. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\io.h(314) : see declaration of 'setmode'
+     1>sources\minigzip.c(304): warning C4996: 'fileno': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _fileno. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(723) : see declaration of 'fileno'
+     1>sources\minigzip.c(308): warning C4996: 'fileno': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _fileno. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\INCLUDE\stdio.h(723) : see declaration of 'fileno'
+         trees.c
+         uncompr.c
+         zutil.c
+         Generating Code...
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\BIN\Lib.exe /OUT:"..\..\bin\zlib.lib" /NOLOGO Win32\Release\adler32.obj
+         Win32\Release\compress.obj
+         Win32\Release\crc32.obj
+         Win32\Release\deflate.obj
+         Win32\Release\example.obj
+         Win32\Release\gzio.obj
+         Win32\Release\infback.obj
+         Win32\Release\inffast.obj
+         Win32\Release\inflate.obj
+         Win32\Release\inftrees.obj
+         Win32\Release\minigzip.obj
+         Win32\Release\trees.obj
+         Win32\Release\uncompr.obj
+         Win32\Release\zutil.obj
+     1>example.obj : warning LNK4006: _main already defined in minigzip.obj; second definition ignored
+         zlib.vcxproj -> C:\Prog\bab_code_2010\qprog\libs\zlib\..\..\bin\zlib.lib
+       FinalizeBuildStatus:
+         Deleting file "Win32\Release\zlib.unsuccessfulbuild".
+         Touching "Win32\Release\zlib.lastbuildstate".
+     1>Done Building Project "C:\Prog\bab_code_2010\qprog\libs\zlib\zlib.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.88

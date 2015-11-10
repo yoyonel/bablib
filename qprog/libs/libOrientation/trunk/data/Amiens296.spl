@@ -1,0 +1,6 @@
+<samples>
+            <sample TestType="WorldToImage" systeme_geodesique="+init=IGNF:LAMB1C" x="597311.724200" y="243928.679200" z="31.627100" c="2050.254764" l="3268.046859" />
+            <sample TestType="WorldToImage" systeme_geodesique="+init=IGNF:LAMB1C" x="597311.966100" y="243929.149500" z="31.642300" c="2051.938514" l="3269.403540" />
+            <sample TestType="WorldToImage" systeme_geodesique="+init=IGNF:LAMB1C" x="597309.464700" y="243930.821100" z="31.646100" c="2060.674928" l="3260.716066" />
+            <sample TestType="WorldToImage" systeme_geodesique="+init=IGNF:LAMB1C" x="597309.219000" y="243930.365900" z="31.626800" c="2059.054105" l="3259.352784" />
+</samples>

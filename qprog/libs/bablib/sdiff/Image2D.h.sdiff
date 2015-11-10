@@ -1,0 +1,4 @@
+#include <OpenGL.h>					      |	//#include <OpenGL.h>
+							      >	#define for_image2D(image_name, index1_name, index2_name) \
+							      >	    for (int index1_name=0; index1_name<image_name.width(); i
+							      >	    for (int index2_name=0; index2_name<image_name.height(); 

@@ -1,0 +1,36 @@
+							      >	// #undef fminf
+							      >	// #undef fmaxf
+							      >	// #undef fmin
+							      >	// #undef fmax
+							      >
+							      >	// #ifndef fminf
+							      >	// #define fminf(_a, _b) (_a) < (_b) ? (_a) : (_b)
+							      >	// #define fmaxf(_a, _b) fminf(_b, _a)
+							      >	// #ifndef fmax
+							      >	// #define fmax fmaxf
+							      >	// #endif
+							      >	// #ifndef fmin
+							      >	// #define fmin fminf
+							      >	// #endif
+							      >	// #endif
+							      >
+							      >	#ifndef M_PI
+							      >	#define M_PI 3.1415926535897932384626433832795f
+							      >	#endif
+							      >
+        Vec2 polar() const;     // retourne les coordonnées po |	        Vec2 toPolar() const;     // retourne les coordonnées 
+							      >	        static Vec2 polar(float radius, float theta);
+							      >	        static Vec2 polar(const Vec2 &p);
+        friend Vec2 min(const Vec2 &a, const Vec2 &b);	      |	        //friend Vec2 min(const Vec2 &a, const Vec2 &b);
+        friend Vec2 min(const Vec2 &a, float b);	      |	        //friend Vec2 min(const Vec2 &a, float b);
+        friend Vec2 max(const Vec2 &a, const Vec2 &b);	      |	        //friend Vec2 max(const Vec2 &a, const Vec2 &b);
+        friend Vec2 max(const Vec2 &a, float b);	      |	        //friend Vec2 max(const Vec2 &a, float b);
+        friend float min(const Vec2 &a);    // minimum des co |	        //friend float min(const Vec2 &a);    // minimum des 
+        friend float max(const Vec2 &a);    // maximum des co |	        //friend float max(const Vec2 &a);    // maximum des 
+							      >	    
+							      >	    // useful constants :
+							      >	    //-------------------
+							      >	        static const Vec2 ZERO;
+							      >	        static const Vec2 ONE;
+							      >	        static const Vec2 X;
+							      >	        static const Vec2 Y;

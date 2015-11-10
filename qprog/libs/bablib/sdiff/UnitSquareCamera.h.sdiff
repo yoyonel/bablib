@@ -1,0 +1,2 @@
+        virtual double 	zNear() const { return -1.; }	      |	        virtual float 	zNear() const { return -1; }
+        virtual double 	zFar()  const { return  1.; }	      |	        virtual float 	zFar()  const { return  1; }
