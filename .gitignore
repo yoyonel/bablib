@@ -5,6 +5,7 @@ qprog/bin/*
 # on rajoute les repertoires des sub[module|tree] pour eviter d'avoir des pbs de conflits
 # si on modifie ces repertoires dans le project 'conteneur'
 # bablib_projects
-projects/*
+projects/**
+
 # libQGLViewer
-qprog/libs/qglviewer/*
+qprog/libs/qglviewer/**
