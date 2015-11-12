@@ -15,7 +15,7 @@ void Viewer::drawScene() {
         const Vec2 v2_screen_size( viewport.w, viewport.h );
 
         glLightfv( GL_LIGHT0, GL_POSITION, v4_light_position_in_world );
-        float f_coef_ambient_light = 1.f - PARAM(float, shadow_volume.coef_alpha);
+        const float f_coef_ambient_light = 1.f - PARAM(float, shadow_volume.coef_alpha);
         Vec4 v4_color_ambient_light = Vec4( f_coef_ambient_light );
         glLightfv( GL_LIGHT0, GL_AMBIENT, v4_color_ambient_light );
         Vec4 v4_color_diffuse_light = Vec4( 1.f );
@@ -26,126 +26,126 @@ void Viewer::drawScene() {
         if (PARAM(bool, plane.render)) {
             glMatrixMode(GL_MODELVIEW);
             glPushMatrix();
-                pt_object_to_world_plane.glMultModelView();
-                drawPlane();
+            pt_object_to_world_plane.glMultModelView();
+            drawPlane();
             glPopMatrix();
         }
 
         glPushMatrix();
-            glMultMatrixd(qgl_mf_vbo.worldMatrix());
+        glMultMatrixd(qgl_mf_vbo.worldMatrix());
 
-            glPushAttrib(GL_ALL_ATTRIB_BITS);
-                PARAM(bool, vbo.enable_cull_face) ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
+        glPushAttrib(GL_ALL_ATTRIB_BITS);
+        PARAM(bool, vbo.enable_cull_face) ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
 
-                if ( PARAM(bool, vbo.render_caster) ) {
-                    //
-                    vbo->setProg(prog_vbo);
-                    prog_vbo.activate();
-                        prog_vbo.setUniformVec3( "u_v3_light_pos_in_object", v4_light_position_in_object_vbo, false);
-                        prog_vbo.setUniform( "u_f_coef_ambient_lighting", f_coef_ambient_light, false );
-                        vbo->render(GL_TRIANGLES, indexBuffer);
-                    prog_vbo.deactivate();
-                }               
+        if ( PARAM(bool, vbo.render_caster) ) {
+            //
+            vbo->setProg(prog_vbo);
+            prog_vbo.activate();
+            prog_vbo.setUniformVec3( "u_v3_light_pos_in_object", v4_light_position_in_object_vbo, false);
+            prog_vbo.setUniform( "u_f_coef_ambient_lighting", f_coef_ambient_light, false );
+            vbo->render(GL_TRIANGLES, indexBuffer);
+            prog_vbo.deactivate();
+        }
 
-                if (PARAM(bool, vbo.enable_polygon_offset)) {
-                    glEnable(GL_POLYGON_OFFSET_FILL);
-                    glPolygonOffset( PARAM(float, vbo.polygon_offset_scale), PARAM(float, vbo.polygon_offset_bias) );
-                }
+        if (PARAM(bool, vbo.enable_polygon_offset)) {
+            glEnable(GL_POLYGON_OFFSET_FILL);
+            glPolygonOffset( PARAM(float, vbo.polygon_offset_scale), PARAM(float, vbo.polygon_offset_bias) );
+        }
 
-                if (PARAM(bool, shadow_volume.render_shadow_volume_polygons) ) {
-                    if (PARAM(bool, vbo.enable_blend_for_extrusion)) {
-                        glEnable(GL_BLEND);
-                        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                        glDepthMask( GL_FALSE );
-                    }
+        if (PARAM(bool, shadow_volume.render_shadow_volume_polygons) ) {
+            if (PARAM(bool, vbo.enable_blend_for_extrusion)) {
+                glEnable(GL_BLEND);
+                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                glDepthMask( GL_FALSE );
+            }
 
-                    float f_coef_alpha = PARAM(float, vbo.coef_alpha);
+            float f_coef_alpha = PARAM(float, vbo.coef_alpha);
 
-                    if (!PARAM(bool, shadow_volume.render_shadow_volume_polygons.use_culling))
-                        glDisable(GL_CULL_FACE);
+            if (!PARAM(bool, shadow_volume.render_shadow_volume_polygons.use_culling))
+                glDisable(GL_CULL_FACE);
 
-                    const float f_sv_coef_extrusion = PARAM(float, shadow_volume.coef_extrusion);
+            const float f_sv_coef_extrusion = PARAM(float, shadow_volume.coef_extrusion);
 
-                    glColor4f(0, 1, 0, f_coef_alpha);
-                    if (PARAM(bool, shadow_volume.use_geometry_shader))
-                        renderShadowVolumePolygonsWithGeometryShader(f_sv_coef_extrusion);
-                    else
-                        renderShadowVolumePolygons(f_sv_coef_extrusion);
-                }
+            glColor4f(0, 1, 0, f_coef_alpha);
+            if (PARAM(bool, shadow_volume.use_geometry_shader))
+                renderShadowVolumePolygonsWithGeometryShader(f_sv_coef_extrusion);
+            else
+                renderShadowVolumePolygons(f_sv_coef_extrusion);
+        }
 
-                if (PARAM(bool, smoothies.render_smoothies_polygons) ) {
-                    if (PARAM(bool, vbo.enable_blend_for_extrusion)) {
-                        glEnable(GL_BLEND);
-                        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                        glDepthMask( GL_FALSE );
-                    }
+        if (PARAM(bool, smoothies.render_smoothies_polygons) ) {
+            if (PARAM(bool, vbo.enable_blend_for_extrusion)) {
+                glEnable(GL_BLEND);
+                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                glDepthMask( GL_FALSE );
+            }
 
-                    float f_coef_alpha = PARAM(float, vbo.coef_alpha);
+            float f_coef_alpha = PARAM(float, vbo.coef_alpha);
 
-                    if (!PARAM(bool, smoothies.render_smoothies_polygons.use_culling))
-                        glDisable(GL_CULL_FACE);
+            if (!PARAM(bool, smoothies.render_smoothies_polygons.use_culling))
+                glDisable(GL_CULL_FACE);
 
-                    const float f_smoothies_coef_extrusion = PARAM(float, smoothies.coef_extrusion);
+            const float f_smoothies_coef_extrusion = PARAM(float, smoothies.coef_extrusion);
 
-                    glColor4f(0, 1, 0, f_coef_alpha);
-                    if (PARAM(bool, smoothies.use_geometry_shader))
-                        renderSmoothiesPolygonsWithGeometryShader(f_smoothies_coef_extrusion);
-                }
+            glColor4f(0, 1, 0, f_coef_alpha);
+            if (PARAM(bool, smoothies.use_geometry_shader))
+                renderSmoothiesPolygonsWithGeometryShader(f_smoothies_coef_extrusion);
+        }
 
-                if (PARAM(bool, shadow_volume.render_shadow)) {
-                    const float f_sv_coef_extrusion = PARAM(float, shadow_volume.coef_extrusion);
+        if (PARAM(bool, shadow_volume.render_shadow)) {
+            const float f_sv_coef_extrusion = PARAM(float, shadow_volume.coef_extrusion);
 
-                    if (PARAM(bool, shadow_volume.depth_bounds.activate)) {
-                        glEnable(GL_DEPTH_BOUNDS_TEST_EXT);
-                        glDepthBoundsEXT( PARAM(float, shadow_volume.depth_bounds.zmin), PARAM(float, shadow_volume.depth_bounds.zmax) );
-                    }
-                    const GLuint N = 1;
-                    GLuint queries[N];
-                    GLuint sampleCount;
-                    GLint available;
-                    GLuint bitsSupported;
+            if (PARAM(bool, shadow_volume.depth_bounds.activate)) {
+                glEnable(GL_DEPTH_BOUNDS_TEST_EXT);
+                glDepthBoundsEXT( PARAM(float, shadow_volume.depth_bounds.zmin), PARAM(float, shadow_volume.depth_bounds.zmax) );
+            }
+            const GLuint N = 1;
+            GLuint queries[N];
+            GLuint sampleCount;
+            GLint available;
+            GLuint bitsSupported;
 
-                    // check to make sure functionality is supported
-                    glGetQueryiv(GL_SAMPLES_PASSED_ARB, GL_QUERY_COUNTER_BITS_ARB, (GLint*)(&bitsSupported));
+            // check to make sure functionality is supported
+            glGetQueryiv(GL_SAMPLES_PASSED_ARB, GL_QUERY_COUNTER_BITS_ARB, (GLint*)(&bitsSupported));
 
-                    glGenQueriesARB(N, queries);
-                    glBeginQueryARB(GL_SAMPLES_PASSED_ARB, queries[0]);
-                            renderShadowVolume( f_sv_coef_extrusion, PARAM(bool, shadow_volume.use_zfail) );
-                    glEndQuery(GL_SAMPLES_PASSED_ARB);
+            glGenQueriesARB(N, queries);
+            glBeginQueryARB(GL_SAMPLES_PASSED_ARB, queries[0]);
+            renderShadowVolume( f_sv_coef_extrusion, PARAM(bool, shadow_volume.use_zfail) );
+            glEndQuery(GL_SAMPLES_PASSED_ARB);
 
-                    glDepthMask(GL_FALSE);
-                    glColorMask(1,1,1,1);
-                    glEnable(GL_BLEND);
-                    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                    glEnable(GL_STENCIL_TEST);
-                    glStencilOp(GL_KEEP,            // stencil test fail
-                                GL_KEEP,            // depth test fail
-                                GL_KEEP);  	// depth test pass
-                    glStencilMask(~0);
-                    glStencilFunc(GL_NOTEQUAL, i_init_stencil, ~0);
-                    viewport.pushScreenMatrices();
-                        glColor4f(0.f, 0.f, 0.f, 1.f - f_coef_ambient_light);
-                        viewport.drawScreenQuad();
-                    viewport.popScreenMatrices();
+            glDepthMask(GL_FALSE);
+            glColorMask(1,1,1,1);
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            glEnable(GL_STENCIL_TEST);
+            glStencilOp(GL_KEEP,            // stencil test fail
+                        GL_KEEP,            // depth test fail
+                        GL_KEEP);  	// depth test pass
+            glStencilMask(~0);
+            glStencilFunc(GL_NOTEQUAL, i_init_stencil, ~0);
+            viewport.pushScreenMatrices();
+            glColor4f(0.f, 0.f, 0.f, 1.f - f_coef_ambient_light);
+            viewport.drawScreenQuad();
+            viewport.popScreenMatrices();
 
-                    if (PARAM(bool, shadow_volume.depth_bounds.activate)) {
-                        glDisable( GL_DEPTH_BOUNDS_TEST_EXT );
-                    }
+            if (PARAM(bool, shadow_volume.depth_bounds.activate)) {
+                glDisable( GL_DEPTH_BOUNDS_TEST_EXT );
+            }
 
-                    do {
-                        glGetQueryObjectivARB(queries[0], GL_QUERY_RESULT_AVAILABLE_ARB, &available);
-                    } while (!available);
-                    glGetQueryObjectuivARB(queries[0], GL_QUERY_RESULT_ARB, &sampleCount);
-                    QString result;
-                    QTextStream(&result) << "# Occlusion Query => renderShadowVolumePolygons: "  << (float)(sampleCount) / (1000.f*1000.f) << " MegaPixels";
-//					qglviewer::Vec screenPos = camera()->projectedCoordinatesOf(qgl_mf_vbo.position() + qglviewer::Vec(+1., 0, 0));
-                    qglviewer::Vec screenPos(0.f, 16.f * 2, 0.f);
-                    glDisable(GL_LIGHTING);
-                    glColor3f(0, 1, .2f);
-                    drawText((int)screenPos[0], (int)screenPos[1], result);
-                    glDeleteQueriesARB(N, queries);
-                }
-            glPopAttrib();
+            do {
+                glGetQueryObjectivARB(queries[0], GL_QUERY_RESULT_AVAILABLE_ARB, &available);
+            } while (!available);
+            glGetQueryObjectuivARB(queries[0], GL_QUERY_RESULT_ARB, &sampleCount);
+            QString result;
+            QTextStream(&result) << "# Occlusion Query => renderShadowVolumePolygons: "  << (float)(sampleCount) / (1000.f*1000.f) << " MegaPixels";
+            //					qglviewer::Vec screenPos = camera()->projectedCoordinatesOf(qgl_mf_vbo.position() + qglviewer::Vec(+1., 0, 0));
+            qglviewer::Vec screenPos(0.f, 16.f * 2, 0.f);
+            glDisable(GL_LIGHTING);
+            glColor3f(0, 1, .2f);
+            drawText((int)screenPos[0], (int)screenPos[1], result);
+            glDeleteQueriesARB(N, queries);
+        }
+        glPopAttrib();
         glPopMatrix();
     }
 }
@@ -157,11 +157,11 @@ void Viewer::renderShadowVolumePolygons(VertexDataBufferGL* _vbo_sv, IndexBuffer
     // render vbo shadow volume polygons
     _vbo_sv->setProg( _prog_vbo_sv );
     _prog_vbo_sv.activate();
-        _prog_vbo_sv.setUniformVec3( 	"u_v3_light_pos_in_object", v4_light_position_in_object_vbo, false);
-        _prog_vbo_sv.setUniform( 	"u_f_coef_extrusion", _f_coef_extrusion, false);
-        _prog_vbo_sv.setUniform( 	"u_f_seuil_iso", f_coef_seuil_iso, false);
-        _prog_vbo_sv.setUniformVec4( 	"u_v4_color", v4_color, false);
-        _vbo_sv->render(GL_TRIANGLES, _indexBuffer_sv);
+    _prog_vbo_sv.setUniformVec3( 	"u_v3_light_pos_in_object", v4_light_position_in_object_vbo, false);
+    _prog_vbo_sv.setUniform( 	"u_f_coef_extrusion", _f_coef_extrusion, false);
+    _prog_vbo_sv.setUniform( 	"u_f_seuil_iso", f_coef_seuil_iso, false);
+    _prog_vbo_sv.setUniformVec4( 	"u_v4_color", v4_color, false);
+    _vbo_sv->render(GL_TRIANGLES, _indexBuffer_sv);
     _prog_vbo_sv.deactivate();
     MSG_CHECK_GL;
 }
@@ -179,47 +179,47 @@ void Viewer::renderShadowVolumePolygonsWithGeometryShader( float _f_coef_extrusi
 
 void Viewer::renderShadowVolume( float f_coef_extrusion, bool b_use_zfail ) {
     glPushAttrib(GL_ALL_ATTRIB_BITS);
-        glDepthMask(GL_FALSE);
-        glColorMask(0,0,0,0);
-        glDisable(GL_CULL_FACE);
-        glEnable(GL_STENCIL_TEST);
-        glEnable(GL_STENCIL_TEST_TWO_SIDE_EXT);
+    glDepthMask(GL_FALSE);
+    glColorMask(0,0,0,0);
+    glDisable(GL_CULL_FACE);
+    glEnable(GL_STENCIL_TEST);
+    glEnable(GL_STENCIL_TEST_TWO_SIDE_EXT);
 
-        if (b_use_zfail) {
-            glActiveStencilFaceEXT(GL_BACK);
-            glStencilOp(GL_KEEP,            // stencil test fail
-                        GL_INCR_WRAP_EXT,   // depth test fail
-                        GL_KEEP);           // depth test pass
-            glStencilMask(~0);
-            glStencilFunc(GL_ALWAYS, 0, ~0);
+    if (b_use_zfail) {
+        glActiveStencilFaceEXT(GL_BACK);
+        glStencilOp(GL_KEEP,            // stencil test fail
+                    GL_INCR_WRAP_EXT,   // depth test fail
+                    GL_KEEP);           // depth test pass
+        glStencilMask(~0);
+        glStencilFunc(GL_ALWAYS, 0, ~0);
 
-            glActiveStencilFaceEXT(GL_FRONT);
-            glStencilOp(GL_KEEP,            // stencil test fail
-                        GL_DECR_WRAP_EXT,   // depth test fail
-                        GL_KEEP);           // depth test pass
-            glStencilMask(~0);
-            glStencilFunc(GL_ALWAYS, 0, ~0);
-        }
-        else {
-            glActiveStencilFaceEXT(GL_BACK);
-            glStencilOp(GL_KEEP,            // stencil test fail
-                        GL_KEEP,            // depth test fail
-                        GL_DECR_WRAP_EXT);  // depth test pass
-            glStencilMask(~0);
-            glStencilFunc(GL_ALWAYS, 0, ~0);
+        glActiveStencilFaceEXT(GL_FRONT);
+        glStencilOp(GL_KEEP,            // stencil test fail
+                    GL_DECR_WRAP_EXT,   // depth test fail
+                    GL_KEEP);           // depth test pass
+        glStencilMask(~0);
+        glStencilFunc(GL_ALWAYS, 0, ~0);
+    }
+    else {
+        glActiveStencilFaceEXT(GL_BACK);
+        glStencilOp(GL_KEEP,            // stencil test fail
+                    GL_KEEP,            // depth test fail
+                    GL_DECR_WRAP_EXT);  // depth test pass
+        glStencilMask(~0);
+        glStencilFunc(GL_ALWAYS, 0, ~0);
 
-            glActiveStencilFaceEXT(GL_FRONT);
-            glStencilOp(GL_KEEP,            // stencil test fail
-                        GL_KEEP,            // depth test fail
-                        GL_INCR_WRAP_EXT);  // depth test pass
-            glStencilMask(~0);
-            glStencilFunc(GL_ALWAYS, 0, ~0);
-        }
+        glActiveStencilFaceEXT(GL_FRONT);
+        glStencilOp(GL_KEEP,            // stencil test fail
+                    GL_KEEP,            // depth test fail
+                    GL_INCR_WRAP_EXT);  // depth test pass
+        glStencilMask(~0);
+        glStencilFunc(GL_ALWAYS, 0, ~0);
+    }
 
-        if (PARAM(bool, shadow_volume.use_geometry_shader))
-            renderShadowVolumePolygonsWithGeometryShader( f_coef_extrusion );
-        else
-            renderShadowVolumePolygons(f_coef_extrusion);
+    if (PARAM(bool, shadow_volume.use_geometry_shader))
+        renderShadowVolumePolygonsWithGeometryShader( f_coef_extrusion );
+    else
+        renderShadowVolumePolygons(f_coef_extrusion);
     glPopAttrib();
 }
 
@@ -233,22 +233,22 @@ void Viewer::drawPlane() {
 
     // RENDER
     glPushAttrib(GL_ALL_ATTRIB_BITS);
-        glDisable(GL_CULL_FACE);
-        //
-        glColor3f(1, 1, 1);
-        for(int i=0; i<i_nb_quad_patch; i++) {
-            f_x = 0.f;
-            for(int j=0; j<i_nb_quad_patch; j++) {
-                glBegin(GL_QUADS);
-                    glNormal3f(0, 0, 1);	glVertex3f(f_x, f_y, 0);
-                    glNormal3f(0, 0, 1);	glVertex3f(f_x + f_incr_x, f_y, 0);
-                    glNormal3f(0, 0, 1);	glVertex3f(f_x + f_incr_x, f_y + f_incr_y, 0);
-                    glNormal3f(0, 0, 1);	glVertex3f(f_x, f_y + f_incr_y, 0);
-                glEnd();
-                f_x += f_incr_x;
-            }
-            f_y += f_incr_y;
+    glDisable(GL_CULL_FACE);
+    //
+    glColor3f(1, 1, 1);
+    for(int i=0; i<i_nb_quad_patch; i++) {
+        f_x = 0.f;
+        for(int j=0; j<i_nb_quad_patch; j++) {
+            glBegin(GL_QUADS);
+            glNormal3f(0, 0, 1);	glVertex3f(f_x, f_y, 0);
+            glNormal3f(0, 0, 1);	glVertex3f(f_x + f_incr_x, f_y, 0);
+            glNormal3f(0, 0, 1);	glVertex3f(f_x + f_incr_x, f_y + f_incr_y, 0);
+            glNormal3f(0, 0, 1);	glVertex3f(f_x, f_y + f_incr_y, 0);
+            glEnd();
+            f_x += f_incr_x;
         }
+        f_y += f_incr_y;
+    }
     glPopAttrib();
 }
 
@@ -271,10 +271,10 @@ void Viewer::drawTexture(Texture tex, int x, int y, int w, int h) const {
     view.setUnitSquare(subView);
     tex.activate();
     glBegin(GL_QUADS);
-        glTexCoord2f(1,0); glVertex2f(1,0);
-        glTexCoord2f(1,1); glVertex2f(1,1);
-        glTexCoord2f(0,1); glVertex2f(0,1);
-        glTexCoord2f(0,0); glVertex2f(0,0);
+    glTexCoord2f(1,0); glVertex2f(1,0);
+    glTexCoord2f(1,1); glVertex2f(1,1);
+    glTexCoord2f(0,1); glVertex2f(0,1);
+    glTexCoord2f(0,0); glVertex2f(0,0);
     glEnd();
     tex.deactivate();
     TransfoGL::pop();
@@ -298,17 +298,17 @@ void Viewer::drawTextures() {
 
 void Viewer::drawLightCamera( float _fCoef_Alpha ) {
     glPushAttrib(GL_ALL_ATTRIB_BITS);
-        // Disable Culling
-        glDisable(GL_CULL_FACE);
-        // Enable semi-transparent culling planes
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glDisable(GL_LIGHTING);
-        glDepthMask(GL_FALSE);
-        glLineWidth(4.0);
-        glColor4f(1.0, 1.0, 1.0, _fCoef_Alpha );
-        // Draws the light's camera
-        qgl_cam_light_mf.draw();
+    // Disable Culling
+    glDisable(GL_CULL_FACE);
+    // Enable semi-transparent culling planes
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glDisable(GL_LIGHTING);
+    glDepthMask(GL_FALSE);
+    glLineWidth(4.0);
+    glColor4f(1.0, 1.0, 1.0, _fCoef_Alpha );
+    // Draws the light's camera
+    qgl_cam_light_mf.draw();
     // restore OpenGL attributes
     glPopAttrib();
 }
@@ -320,11 +320,11 @@ void Viewer::renderSmoothiesPolygons(VertexDataBufferGL* _vbo, IndexBufferUI* _i
     // render vbo shadow volume polygons
     _vbo->setProg( _prog_vbo );
     _prog_vbo.activate();
-        _prog_vbo.setUniformVec3("u_v3_light_pos_in_object", v4_light_position_in_object_vbo, false);
-        _prog_vbo.setUniform("u_f_coef_extrusion", _f_coef_extrusion, false);
-        _prog_vbo.setUniform("u_f_seuil_iso", f_coef_seuil_iso, false);
-        _prog_vbo.setUniformVec4("u_v4_color", v4_color, false);
-        _vbo->render(GL_TRIANGLES, _indexBuffer);
+    _prog_vbo.setUniformVec3("u_v3_light_pos_in_object", v4_light_position_in_object_vbo, false);
+    _prog_vbo.setUniform("u_f_coef_extrusion", _f_coef_extrusion, false);
+    _prog_vbo.setUniform("u_f_seuil_iso", f_coef_seuil_iso, false);
+    _prog_vbo.setUniformVec4("u_v4_color", v4_color, false);
+    _vbo->render(GL_TRIANGLES, _indexBuffer);
     _prog_vbo.deactivate();
     MSG_CHECK_GL;
 }
@@ -340,16 +340,16 @@ void Viewer::renderSmoothiesPolygonsWithGeometryShader( float _f_coef_extrusion 
     MSG_CHECK_GL;
 }
 
-void Viewer::renderSmoothies( float f_coef_extrusion, bool b_use_zfail ) {
+void Viewer::renderSmoothies( float f_coef_extrusion, bool /**b_use_zfail**/ ) {
     glPushAttrib(GL_ALL_ATTRIB_BITS);
-        glDepthMask(GL_FALSE);
-        glColorMask(0,0,0,0);
-        glDisable(GL_CULL_FACE);
-        glEnable(GL_STENCIL_TEST);
-        glEnable(GL_STENCIL_TEST_TWO_SIDE_EXT);
+    glDepthMask(GL_FALSE);
+    glColorMask(0,0,0,0);
+    glDisable(GL_CULL_FACE);
+    glEnable(GL_STENCIL_TEST);
+    glEnable(GL_STENCIL_TEST_TWO_SIDE_EXT);
 
-        if (PARAM(bool, shadow_volume.use_geometry_shader))
-            renderSmoothiesPolygonsWithGeometryShader( f_coef_extrusion );
+    if (PARAM(bool, shadow_volume.use_geometry_shader))
+        renderSmoothiesPolygonsWithGeometryShader( f_coef_extrusion );
     glPopAttrib();
 }
 

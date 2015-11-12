@@ -22,10 +22,10 @@ windowSize = 1024 768
 //model.default		= ../../data/models/OBJ/tiny_venus.obj
 //
 //model.default		= ../../data/models/OBJ/tiny_triceratops.obj
-model.default		= ../../data/models/OBJ/elephant-poses/elephant-01.obj
+//model.default		= ../../data/models/OBJ/elephant-poses/elephant-01.obj
 //model.default		= ../../data/models/OBJ/sphere.obj
 //model.default		= ../../data/models/OBJ/feline.obj	// griffon
-//model.default		= ../../data/models/OBJ/knot.obj
+model.default		= ../../data/models/OBJ/knot.obj
 //model.default		= ../../data/models/OBJ/santa.obj
 //model.default		= ../../data/models/OBJ/horse.obj
 // - OFF
@@ -92,24 +92,24 @@ vbo.render_caster                                       = true
 //
 shadow_volume.render_shadow                             = true
 shadow_volume.coef_extrusion                            = 10.0
-shadow_volume.render_shadow_volume_polygons             = false
+shadow_volume.render_shadow_volume_polygons             = true
 shadow_volume.render_shadow_volume_polygons.use_culling = false
-shadow_volume.coef_alpha                                = 1.0
-shadow_volume.color_shadow_volume_polygons              = 0.2 0.8 0.1 0.3
+shadow_volume.coef_alpha                                = 0.75
+shadow_volume.color_shadow_volume_polygons              = 0.2 0.8 0.1 0.1
 // - Depth Bounds Tests
 shadow_volume.depth_bounds.activate		= false
 shadow_volume.depth_bounds.zmin			= 0.0
-shadow_volume.depth_bounds.zmax			= 0.0
+shadow_volume.depth_bounds.zmax			= 0.50
 //
 shadow_volume.use_geometry_shader		= true
 //
-shadow_volume.use_zfail				= false
+shadow_volume.use_zfail				= true
 
 // -------------- SMOOTHIES --------------  //
 smoothies.render_smoothies                      = false
 smoothies.coef_extrusion                        = 0.025
 //
-smoothies.render_smoothies_polygons             = true
+smoothies.render_smoothies_polygons             = false
 smoothies.render_smoothies_polygons.use_culling = false
 //
 smoothies.coef_alpha                            = 1.0

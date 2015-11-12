@@ -23,7 +23,8 @@ void Viewer::updateFrameBuffers() {
 
 void Viewer::updateShadowMap( FrameBuffer& _framebuffer	) {
     const GLenum clearBufferBits = GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT;
-    const GLboolean colorMask[] = {~0x0, ~0x0, ~0x0, ~0x0};
+    const GLboolean GL_ALL_BITS = GLboolean(~0x0);
+    const GLboolean colorMask[] = {GL_ALL_BITS, GL_ALL_BITS, GL_ALL_BITS, GL_ALL_BITS};
 
     glPushAttrib( GL_ALL_ATTRIB_BITS );
         _framebuffer.activate();

@@ -84,8 +84,11 @@ void main()
 }
 
 void compute_edge(in float f_coef_lighting, out bool b_is_edge, out float f_coef_edge) {
+    // Parametres qui affecte le rendu des 'edges'
+    //float f_seuil_iso = 0.4;
+    //float f_ecart_iso = 0.0275;
     //
-    float f_seuil_iso = 0.4;
+    float f_seuil_iso = 0.0;
     float f_ecart_iso = 0.0275;
     //
     float f_max_seuil = f_seuil_iso + f_ecart_iso / 2.;

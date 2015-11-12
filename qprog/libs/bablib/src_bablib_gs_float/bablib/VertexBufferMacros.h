@@ -167,7 +167,7 @@ class AbstractVertexAttrib {
     #define ADD_UNIT_SIZE(attrib_class,  attrib_name, attrib_init)  unit += attrib_name.size();
     #define INIT_ATTRIB(attrib_class, attrib_name, attrib_init)     attrib_name = attrib_class( attrib_init );
     #define LINK_ATTRIB(attrib_class, attrib_name, attrib_init)     attrib_name.setOffset(offset); attrib_name.setStride(unit); attrib_name.setBuffer(dataPtr + offset); offset += attrib_name.size();
-    #define SET_POINTER(attrib_class, attrib_name, attrib_init)     attrib_name.setPointer((void*)(attrib_name.offset));
+    #define SET_POINTER(attrib_class, attrib_name, attrib_init)     attrib_name.setPointer(reinterpret_cast<void*>(attrib_name.offset));
     #define SET_PROG(attrib_class, attrib_name, attrib_init)        attrib_name.setProg(prog, #attrib_name);
 #else
     #define DECL_ATTRIB(attrib_class, attrib_name, attrib_init)     attrib_class attrib_name;
