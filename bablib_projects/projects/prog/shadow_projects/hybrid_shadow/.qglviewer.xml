@@ -5,23 +5,15 @@
     <backgroundColor red="51" blue="51" green="51"/>
   </State>
   <Display axisIsDrawn="false" gridIsDrawn="false" FPSIsDisplayed="true" cameraIsEdited="false"/>
-  <Geometry fullScreen="false" width="1024" posX="448" height="768" posY="156"/>
+  <Geometry fullScreen="false" width="1024" posX="892" height="768" posY="216"/>
   <Camera>
-    <Parameters fieldOfView="0.785398" sceneRadius="10" Type="PERSPECTIVE" zNearCoefficient="0.005" orthoCoef="2.15901" zClippingCoefficient="1.73205">
+    <Parameters fieldOfView="0.785398" sceneRadius="10" Type="PERSPECTIVE" zNearCoefficient="0.005" orthoCoef="0.414214" zClippingCoefficient="1.73205">
       <SceneCenter x="0" y="0" z="0"/>
     </Parameters>
     <Stereo focusDistance="24.1421" physScreenWidth="0.5" IODist="0.062"/>
     <ManipulatedCameraFrame>
-<<<<<<< HEAD
-      <position x="-0.967346" y="-1.31794" z="2.03856"/>
-      <orientation q0="0.271755" q1="-0.189969" q2="-0.02178" q3="0.943179"/>
-||||||| parent of d917651... [bablib_projects/projects/prog/shadow_projects/hybrid_shadow]: fix dans le code, unpeu de clean dans les setups, et shaders.
-      <position x="-0.674568" y="-1.51659" z="1.37099"/>
-      <orientation q0="-0.419862" q1="0.0728058" q2="0.221027" q3="-0.877247"/>
-=======
-      <position x="-1.83534" y="2.73265" z="0.362031"/>
-      <orientation q0="0.0693357" q1="0.5099" q2="0.770013" q3="-0.377193"/>
->>>>>>> d917651... [bablib_projects/projects/prog/shadow_projects/hybrid_shadow]: fix dans le code, unpeu de clean dans les setups, et shaders.
+      <position x="-0.441002" y="-2.0661" z="1.53791"/>
+      <orientation q0="0.438156" q1="-0.117273" q2="0.0456367" q3="0.890047"/>
       <ManipulatedParameters transSens="1" zoomSens="1" rotSens="1" wheelSens="1" spinSens="0.3"/>
       <ManipulatedCameraParameters zoomsOnPivotPoint="false" flySpeed="0.1" rotatesAroundUpVector="false">
         <sceneUpVector x="0" y="1" z="0"/>
@@ -29,16 +21,11 @@
     </ManipulatedCameraFrame>
   </Camera>
   <ManipulatedFrame>
-<<<<<<< HEAD
-    <position x="0" y="0" z="0"/>
-    <orientation q0="0.367369" q1="-0.535427" q2="-0.0960145" q3="-0.754413"/>
-||||||| parent of d917651... [bablib_projects/projects/prog/shadow_projects/hybrid_shadow]: fix dans le code, unpeu de clean dans les setups, et shaders.
-    <position x="0" y="0" z="0"/>
-    <orientation q0="-0.362891" q1="-0.873126" q2="0.0239155" q3="0.324637"/>
-=======
-    <position x="-1.00041" y="0.632149" z="0.125419"/>
-    <orientation q0="-0.0704844" q1="-0.0212132" q2="-0.984035" q3="-0.162042"/>
->>>>>>> d917651... [bablib_projects/projects/prog/shadow_projects/hybrid_shadow]: fix dans le code, unpeu de clean dans les setups, et shaders.
+    <position x="0" y="0" z="2.61313"/>
+    <orientation q0="0" q1="0" q2="0" q3="1"/>
     <ManipulatedParameters transSens="1" zoomSens="1" rotSens="1" wheelSens="1" spinSens="0.3"/>
+    <ManipulatedCameraParameters zoomsOnPivotPoint="false" flySpeed="0.01" rotatesAroundUpVector="false">
+      <sceneUpVector x="0" y="1" z="0"/>
+    </ManipulatedCameraParameters>
   </ManipulatedFrame>
 </QGLViewer>
