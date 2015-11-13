@@ -1,4 +1,0 @@
-#LIBS *= -l3ds
-CURRENT_LIB = lib3ds
-include(lib_config.pri)
-

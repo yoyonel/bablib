@@ -1,7 +1,0 @@
-            bool contains(QString fileName);            // re |	            bool contains(QString fileName) const;      // re
-							      >	            static Dir dirForFile(QString fileName);        /
-							      >	            bool makeSubDir(QString dirName) const;
-							      >	            bool checkSubDir(QString dirName) const;
-							      >	            
-							      >	            bool remove(QString fileName);
-            //  - returnds QString::null if no file name is s |	            //  - returns QString::null if no file name is se

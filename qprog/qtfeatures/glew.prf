@@ -1,2 +1,0 @@
-CURRENT_LIB = glew
-include(lib_config.pri)

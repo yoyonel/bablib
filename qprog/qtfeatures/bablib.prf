@@ -1,7 +1,0 @@
-CURRENT_LIB = bablib
-include(lib_config.pri)
-
-# fix le probleme de dependance a GLU pour bablib
-# ya une histoire d'ordre dans l'inclusion des libs
-# du coup faut un peu bidouiller pour libGLU 'au bon endroit'
-LIBS *= -lGLU

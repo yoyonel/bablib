@@ -1,9 +1,0 @@
-        Texture() : id(0), texData(NULL), loaded(false) {}    |	        Texture() : id(0), texData(NULL), texMode(GL_TEXTURE_
-		//					      <
-		static Texture createTex2DRect(int w, int h,  <
-		static Texture createTex2DShadow(int w, int h <
-			GLenum _mag_filter = GL_NEAREST, cons |				GLenum _mag_filter = GL_NEAREST, 
-							      >				GLint	_max_levels = -1, 
-							      >			inline GLuint getTextureMaxLevel() const { re
-							      >
-							      >			GLuint m_n_mipmaps;

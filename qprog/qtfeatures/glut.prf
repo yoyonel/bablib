@@ -1,7 +1,0 @@
-unix {
-    LIBS *= -lglut
-    }
-else {
-    LIBS *= -lglut32 -lopengl32
-    }
-

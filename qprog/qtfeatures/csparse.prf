@@ -1,4 +1,0 @@
-#LIBS *= -l3ds
-CURRENT_LIB = csparse
-include(lib_config.pri)
-
