@@ -18,27 +18,27 @@ class Vec3 {
         Vec3(Vec2 v, float z = 0);
         Vec3(float x, Vec2 yz);
         Vec3(const float *v);   // tableau de 3 valeurs
-        Vec3(Vec4 vec);         // fait la division par la 4�me composante avant d'affecter les composantes (x,y,z)
+        Vec3(Vec4 vec);         // fait la division par la 4ÃÂ¨me composante avant d'affecter les composantes (x,y,z)
         Vec3(const QDomElement &element);
         
-    // op�rateurs de conversion :
+    // opÃÂ©rateurs de conversion :
     //---------------------------
-        // op�rateurs de conversion automatique :
+        // opÃÂ©rateurs de conversion automatique :
         inline operator const float* () const { return v; }     // cast en const float*
         inline operator       float* ()       { return v; }     // cast en float*
         // autres conversions :
         QString toQString() const;
         Vec4    toVec4()    const;
-        // lecture / �criture d'un �l�ment XML :
+        // lecture / ÃÂ©criture d'un ÃÂ©lÃÂ©ment XML :
         void initFromDOMElement(const QDomElement &element);
         QDomElement domElement(const QString &name, QDomDocument &document) const;
 
-    // op�rations g�om�triques :
+    // opÃÂ©rations gÃÂ©omÃÂ©triques :
     //--------------------------
         float norm() const;         // norme
-        float norm2() const;        // norme au carr�
+        float norm2() const;        // norme au carrÃÂ©
         void  normalize();          // normalise le vecteur
-        Vec3  normalized() const;   // retourne le vecteur normalis�
+        Vec3  normalized() const;   // retourne le vecteur normalisÃÂ©
 
         friend Vec3  vec(const Vec3 &a, const Vec3 &b);    // produit vectoriel
         friend float dot(const Vec3 &a, const Vec3 &b);    // produit scalaire
@@ -48,26 +48,26 @@ class Vec3 {
         friend float dist(Vec3 v1, Vec3 v2);    // distance euclidienne
         friend Vec3 triangleNormal(const Vec3 &a, const Vec3 &b, const Vec3 &c);    // normale du triangle (a,b,c), dans le sens trigo
 
-        Vec3 ortho() const;     // retourne un vecteur orthogonal � celui-ci
+        Vec3 ortho() const;     // retourne un vecteur orthogonal ÃÂ  celui-ci
 
-    // op�rateurs arithm�tiques :
+    // opÃÂ©rateurs arithmÃÂ©tiques :
     //---------------------------
-        // op�rateurs arithm�tiques unaires :
+        // opÃÂ©rateurs arithmÃÂ©tiques unaires :
         friend Vec3 operator-(const Vec3 &a);
 
-        // op�rateurs arithm�tiques binaires :
+        // opÃÂ©rateurs arithmÃÂ©tiques binaires :
         friend Vec3 operator+(const Vec3 &a, const Vec3 &b);
         friend Vec3 operator-(const Vec3 &a, const Vec3 &b);
         friend Vec3 operator*(const Vec3 &a, const Vec3 &b);
         friend Vec3 operator/(const Vec3 &a, const Vec3 &b);
             
-        // op�rations avec un scalaire :
+        // opÃÂ©rations avec un scalaire :
         friend Vec3 operator*(float s, const Vec3 &a);
         friend Vec3 operator*(const Vec3 &a, float s);
         friend Vec3 operator/(float s, const Vec3 &a);
         friend Vec3 operator/(const Vec3 &a, float s);
         
-        // op�rateurs de modification :
+        // opÃÂ©rateurs de modification :
         Vec3& operator+=(const Vec3 &a);
         Vec3& operator-=(const Vec3 &a);
         Vec3& operator*=(const Vec3 &a);
@@ -75,11 +75,11 @@ class Vec3 {
         Vec3& operator*=(float s);
         Vec3& operator/=(float s);
     
-    // op�rateurs de comparaison :
+    // opÃÂ©rateurs de comparaison :
     //----------------------------
-        friend bool operator==(const Vec3 &a, const Vec3 &b);   // comparaison � 1e-10 pr�s
-        friend bool operator!=(const Vec3 &a, const Vec3 &b);   // comparaison � 1e-10 pr�s
-        // les comparaisons suivantes sont le <et> bool�en des comparaisons sur les composantes :
+        friend bool operator==(const Vec3 &a, const Vec3 &b);   // comparaison ÃÂ  1e-10 prÃÂ¨s
+        friend bool operator!=(const Vec3 &a, const Vec3 &b);   // comparaison ÃÂ  1e-10 prÃÂ¨s
+        // les comparaisons suivantes sont le <et> boolÃÂ©en des comparaisons sur les composantes :
         friend bool operator>=(const Vec3 &a, const Vec3 &b);
         friend bool operator<=(const Vec3 &a, const Vec3 &b);
         friend bool operator>(const Vec3 &a, const Vec3 &b);
@@ -109,7 +109,7 @@ class Vec3 {
         friend float min(const Vec3 &a);    // minimum des composantes
         friend float max(const Vec3 &a);    // maximum des composantes
     
-    // op�rateurs de swizzle :
+    // opÃÂ©rateurs de swizzle :
     //------------------------
         Vec2 xx() const; //{ return Vec2(x,x); }
         Vec2 xy() const; //{ return Vec2(x,y); }
@@ -124,15 +124,15 @@ class Vec3 {
         Vec3 yzx() const; // { return Vec3(y,z,x); }
         Vec3 zxy() const; // { return Vec3(z,x,y); }
         
-    // calcul de vecteurs al�atoires (variables uniformes) :
+    // calcul de vecteurs alÃÂ©atoires (variables uniformes) :
     //------------------------------------------------------
         static Vec3 random();                       // valeurs dans [0,1]
         static Vec3 random(float min, float max);   // valeurs dans [min,max]
         static Vec3 random(Vec3 min, Vec3 max);     // bornes par composantes
-        static Vec3 randomDir();                    // retourne un point al�atoire de la sph�re unit�
+        static Vec3 randomDir();                    // retourne un point alÃÂ©atoire de la sphÃÂ¨re unitÃÂ©
     
 
-    // op�rations OpenGL :
+    // opÃÂ©rations OpenGL :
     //--------------------
         void glVertex() const;    // effectue le glVertex correspondant
         void glNormal() const;    // effectue le glNormal correspondant

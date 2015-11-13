@@ -79,7 +79,7 @@ void Viewer::init()
 
 	bFirstInit = false;
 	
-	// On vérifie les erreurs
+	// On vÃÂÃÂ©rifie les erreurs
 	MSG_CHECK_GL;
 }
 
@@ -103,7 +103,7 @@ void Viewer::draw()
 	
 	drawScene();
 
-	// Dessine la camera attaché �  la lumière
+	// Dessine la camera attachÃÂÃÂ© ÃÂ  la lumiÃÂÃÂ¨re
 	if ( PARAM(bool, light_camera.draw) ) 
 	{
 		if (qgl_cam_light_mf.frame()->isManipulated())

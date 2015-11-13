@@ -30,11 +30,11 @@ move the created ./release/QGLViewer2.dll to qprog/bin
 * [Adding git submodule that contains another submodule?](http://stackoverflow.com/questions/4600835/adding-git-submodule-that-contains-another-submodule)
 
 # Par rapport au *subtree* de GIT
-* [Comprendre et maîtriser les subtrees Git](http://www.git-attitude.fr/2015/01/30/git-subtrees/)
+* [Comprendre et maÃ®triser les subtrees Git](http://www.git-attitude.fr/2015/01/30/git-subtrees/)
 
 ### Sous Mint (Portable LENOVO)
 
-#### Packages installés
+#### Packages installÃ©s
 ```bash
 $ history | grep apt | grep install
   35  sudo apt-get install build-essential

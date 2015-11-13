@@ -1,4 +1,4 @@
 # the path to QPROG's root is given by $$ROOT_PATH
-QPROG_DATA_PATH     = $$ROOT_PATH/data           # repertoire où sont placées les ressources utilisées par les libs
-QPROG_BUILD_PATH    = $$ROOT_PATH/../build       # répertoire où stocker les fichiers générés par la compilation
+QPROG_DATA_PATH     = $$ROOT_PATH/data           # repertoire oÃ¹ sont placÃ©es les ressources utilisÃ©es par les libs
+QPROG_BUILD_PATH    = $$ROOT_PATH/../build       # rÃ©pertoire oÃ¹ stocker les fichiers gÃ©nÃ©rÃ©s par la compilation
 

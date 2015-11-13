@@ -342,7 +342,7 @@ void pj_Convert_Geocentric_To_Geodetic (GeocentricInfo *gi,
 /*
 * Reference...
 * ============
-* Wenzel, H.-G.(1985): Hochauflösende Kugelfunktionsmodelle für
+* Wenzel, H.-G.(1985): HochauflÃÂÃÂÃÂÃÂ¶sende Kugelfunktionsmodelle fÃÂÃÂÃÂÃÂ¼r
 * das Gravitationspotential der Erde. Wiss. Arb. Univ. Hannover
 * Nr. 137, p. 130-131.
 
@@ -419,7 +419,7 @@ void pj_Convert_Geocentric_To_Geodetic (GeocentricInfo *gi,
 
 /* --------------------------------------------------------------
  * Following iterative algorithm was developped by
- * "Institut für Erdmessung", University of Hannover, July 1988.
+ * "Institut fÃÂÃÂÃÂÃÂ¼r Erdmessung", University of Hannover, July 1988.
  * Internet: www.ife.uni-hannover.de
  * Iterative computation of CPHI,SPHI and Height.
  * Iteration of CPHI and SPHI to 10**-12 radian resp.

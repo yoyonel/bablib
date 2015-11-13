@@ -19,8 +19,8 @@ namespace OrientationMATIS
 //--------------------------------------------------------------------------
 // Modif D. BOLDO 14/02/2000
 //#define orkMeridienDeParis    2.0+20.0/60.0+16.0/3600.0
-// 2°20'16'' Est
-#define orkMeridienDeParis      2.0+20.0/60.0+14.025/3600.0     //2°20'14.02500''
+// 2Â°20'16'' Est
+#define orkMeridienDeParis      2.0+20.0/60.0+14.025/3600.0     //2Â°20'14.02500''
 
 /*
  Constantes pour le parametre Fuseau

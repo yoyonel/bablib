@@ -17,25 +17,25 @@ class Vec2d {
         Vec2d(const double *v);   // tableau de 2 valeurs
         Vec2d(const QDomElement &element);
         
-    // op�rateurs de conversion :
+    // opÃÂ©rateurs de conversion :
     //---------------------------
-        // op�rateurs de conversion automatique :
+        // opÃÂ©rateurs de conversion automatique :
         inline operator const double* () const { return v; }     // cast en const double*
         inline operator       double* ()       { return v; }     // cast en double*
         // autres conversions :
         QString toQString() const;
-        // lecture / �criture d'un �l�ment XML :
+        // lecture / ÃÂ©criture d'un ÃÂ©lÃÂ©ment XML :
         void initFromDOMElement(const QDomElement &element);
         QDomElement domElement(const QString &name, QDomDocument &document) const;
 
         Vec2 toVec2f() const;
         
-    // op�rations g�om�triques :
+    // opÃÂ©rations gÃÂ©omÃÂ©triques :
     //--------------------------
         double norm() const;         // norme
-        double norm2() const;        // norme au carr�
+        double norm2() const;        // norme au carrÃÂ©
         void  normalize();          // normalise le vecteur
-        Vec2d  normalized() const;   // retourne le vecteur normalis�
+        Vec2d  normalized() const;   // retourne le vecteur normalisÃÂ©
 
         friend double dist(Vec2d v1, Vec2d v2);    // distance euclidienne
         
@@ -45,31 +45,31 @@ class Vec2d {
         friend double operator|(const Vec2d &a, const Vec2d &b);    // produit scalaire
         friend Vec3d  operator^(const Vec2d &a, const Vec2d &b);    // produit vectoriel
 
-        double arg() const;      // retourne l'angle par rapport � l'axe des abscisses (dans ]-Pi,Pi])
-        Vec2d polar() const;     // retourne les coordonn�es polaires (r, th�ta)
+        double arg() const;      // retourne l'angle par rapport ÃÂ  l'axe des abscisses (dans ]-Pi,Pi])
+        Vec2d polar() const;     // retourne les coordonnÃÂ©es polaires (r, thÃÂ©ta)
         
         Vec2d ortho() const;     // rotation of +pi/2
         
         static Vec2d dir(double theta);     // vecteur unitaire d'angle theta (en radians)
         
-    // op�rateurs arithm�tiques :
+    // opÃÂ©rateurs arithmÃÂ©tiques :
     //---------------------------
-        // op�rateurs arithm�tiques unaires :
+        // opÃÂ©rateurs arithmÃÂ©tiques unaires :
         friend Vec2d operator-(const Vec2d &a);
 
-        // op�rateurs arithm�tiques binaires :
+        // opÃÂ©rateurs arithmÃÂ©tiques binaires :
         friend Vec2d operator+(const Vec2d &a, const Vec2d &b);
         friend Vec2d operator-(const Vec2d &a, const Vec2d &b);
         friend Vec2d operator*(const Vec2d &a, const Vec2d &b);
         friend Vec2d operator/(const Vec2d &a, const Vec2d &b);
             
-        // op�rations avec un scalaire :
+        // opÃÂ©rations avec un scalaire :
         friend Vec2d operator*(double s, const Vec2d &a);
         friend Vec2d operator*(const Vec2d &a, double s);
         friend Vec2d operator/(double s, const Vec2d &a);
         friend Vec2d operator/(const Vec2d &a, double s);
         
-        // op�rateurs de modification :
+        // opÃÂ©rateurs de modification :
         Vec2d& operator+=(const Vec2d &a);
         Vec2d& operator-=(const Vec2d &a);
         Vec2d& operator*=(const Vec2d &a);
@@ -77,11 +77,11 @@ class Vec2d {
         Vec2d& operator*=(double s);
         Vec2d& operator/=(double s);
     
-    // op�rateurs de comparaison :
+    // opÃÂ©rateurs de comparaison :
     //----------------------------
-        friend bool operator==(const Vec2d &a, const Vec2d &b);   // comparaison � 1e-10 pr�s
-        friend bool operator!=(const Vec2d &a, const Vec2d &b);   // comparaison � 1e-10 pr�s
-        // les comparaisons suivantes sont le <et> bool�en des comparaisons sur les composantes :
+        friend bool operator==(const Vec2d &a, const Vec2d &b);   // comparaison ÃÂ  1e-10 prÃÂ¨s
+        friend bool operator!=(const Vec2d &a, const Vec2d &b);   // comparaison ÃÂ  1e-10 prÃÂ¨s
+        // les comparaisons suivantes sont le <et> boolÃÂ©en des comparaisons sur les composantes :
         friend bool operator>=(const Vec2d &a, const Vec2d &b);
         friend bool operator<=(const Vec2d &a, const Vec2d &b);
         friend bool operator>(const Vec2d &a, const Vec2d &b);
@@ -111,13 +111,13 @@ class Vec2d {
         //friend double min(const Vec2d &a);    // minimum des composantes
         //friend double max(const Vec2d &a);    // maximum des composantes
     
-    // calcul de vecteurs al�atoires (variables uniformes) :
+    // calcul de vecteurs alÃÂ©atoires (variables uniformes) :
     //------------------------------------------------------
         static Vec2d random();                       // valeurs dans [0,1]
         static Vec2d random(double min, double max);   // valeurs dans [min,max]
         static Vec2d random(Vec2d min, Vec2d max);     // bornes par composantes
 
-    // op�rations OpenGL :
+    // opÃÂ©rations OpenGL :
     //--------------------
         void glVertex() const;    // effectue le glVertex correspondant
 

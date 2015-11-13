@@ -40,7 +40,7 @@ vec4 debug_edge()
 	// Lighting Gouraud
 	float f_coef_lighting = v_f_coef_lighting;
 
-	// Si une arête de silhouette passe par un triangle, tous ces sommets sont actifs
+	// Si une arÃÂÃÂªte de silhouette passe par un triangle, tous ces sommets sont actifs
 	vec4 v4_color = ( v_f_is_triangle_silhouette >= (1. - EPSILON) ) ? //(2./3.) ) ? 
 			v_v4_color*0.6 : //RED*0.6 : 
 			(BLUE*0.4 + GREEN*0.2);
@@ -51,7 +51,7 @@ vec4 debug_edge()
 		out_color = v4_color * (v_f_is_triangle_silhouette > 0.5 ? 1. : f_coef_ambient_lighting);
 	#endif
 
-	// Silhouette de silhouette analogique (iso courbe du champs de potentiel de la lumière sur le mesh)
+	// Silhouette de silhouette analogique (iso courbe du champs de potentiel de la lumiÃÂÃÂ¨re sur le mesh)
 	bool b_is_edge;
 	float f_coef_edge;
 	compute_edge ( f_coef_lighting, b_is_edge, f_coef_edge );

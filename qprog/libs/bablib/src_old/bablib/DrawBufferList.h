@@ -20,7 +20,7 @@ class DrawBufferList {
     
     private:
         int n;
-        QVector<GLenum> buffers;    // contient la liste des buffers qui doivent �tre dessin�s
+        QVector<GLenum> buffers;    // contient la liste des buffers qui doivent ÃÂªtre dessinÃÂ©s
     };
 
 

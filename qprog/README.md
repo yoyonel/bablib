@@ -16,17 +16,17 @@
 ```bash
 $ source setup.linux
 ```
-pour setter la variable d'env. *LD_LIBRARY_PATH* qui permet d'avoir un accès au build dynamique de *QGLViewer*
+pour setter la variable d'env. *LD_LIBRARY_PATH* qui permet d'avoir un accÃ¨s au build dynamique de *QGLViewer*
 
 # [QGLViewer](http://libqglviewer.com/)
 [![logo](http://libqglviewer.com/images/qglviewer.png)](http://libqglviewer.com/)
 
 [GitHub](https://github.com/GillesDebunne/libQGLViewer) de la lib  
-Utilisation de la fonctionnalité submodule de GIT pour avoir une notion de dépendance de la BabLib à QGLViewer
+Utilisation de la fonctionnalitÃ© submodule de GIT pour avoir une notion de dÃ©pendance de la BabLib Ã  QGLViewer
 * [6.6 Utilitaires Git - Sous-modules](https://git-scm.com/book/fr/v1/Utilitaires-Git-Sous-modules)
 * [How to remove a directory in my GitHub repository?](http://stackoverflow.com/questions/6313126/how-to-remove-a-directory-in-my-github-repository)
 
-J'ai copié les resultats de build dans le répertoire qprob/bin
+J'ai copiÃ© les resultats de build dans le rÃ©pertoire qprob/bin
 ```bash
 /qprog$ ls -a bin/ | grep libQGL
 libQGLViewer.so
@@ -42,4 +42,4 @@ libQGLViewer.so.2.6.3
 
 # QGLViewer 2 le retour :p
 
-Du coup, j'ai laissé tomber les submodule pour passer en subtree et j'ai récupéré un dépot [libQGLViewer](https://github.com/yoyonel/libqglviewer) dans mon github (qui doit être un fork de la lib de Gilles sur GITHUB)
+Du coup, j'ai laissÃ© tomber les submodule pour passer en subtree et j'ai rÃ©cupÃ©rÃ© un dÃ©pot [libQGLViewer](https://github.com/yoyonel/libqglviewer) dans mon github (qui doit Ãªtre un fork de la lib de Gilles sur GITHUB)

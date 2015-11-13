@@ -179,8 +179,8 @@ void Viewer::initVBO( bool bDestroy )
 		destroyVBO();
 	}
 
-	// definition VBO avec classes génériques (bablib v2)
-	// pour une définition "intègre" OpenGL, il faut les customs attribs (génériques attribs) soient présents dans les shaders
+	// definition VBO avec classes gÃÂÃÂ©nÃÂÃÂ©riques (bablib v2)
+	// pour une dÃÂÃÂ©finition "intÃÂÃÂ¨gre" OpenGL, il faut les customs attribs (gÃÂÃÂ©nÃÂÃÂ©riques attribs) soient prÃÂÃÂ©sents dans les shaders
 	// sinon il n'est pas possible d'attribuer un id pour les attributs (prog.getAttribID(#name) renvoie -1)
 	VERTEX_DATA_SUBCLASS(VDataDef,
 	    	DEF_ATTRIB(Vertex, float, 3)

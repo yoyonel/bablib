@@ -48,7 +48,7 @@ E      817717.80       N:212387.42     h:732.27
 
 int main(int argc, char **argv)
 {
-//on declare les projections à utiliser
+//on declare les projections Ã  utiliser
 	projPJ Lambert93;
 
 	std::cout.precision(9);

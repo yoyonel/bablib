@@ -129,7 +129,7 @@ int RoadmarkReader::RelativeToAbsolute(BandSetType & Bandset, std::string nomori
 	boost::shared_ptr<ModeleProjection> ori = ModeleProjection::ReadFile(nomori);
 	const boost::shared_ptr<ModeleProjectionPhysique> mpp =
 			boost::dynamic_pointer_cast<ModeleProjectionPhysique>(ori);
-	if (!mpp) {return 0;} // A partir de là on sait q'on a un ModeleProjectionPhysique mpp
+	if (!mpp) {return 0;} // A partir de lÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ  on sait q'on a un ModeleProjectionPhysique mpp
 	const boost::shared_ptr<ModelePhysiqueExtrinseque> mpp_ext = mpp->GetExtrinseque();
 	if (!mpp_ext ) return 0;
 	//typedef itk::Matrix <double,3,3> MatrixType;

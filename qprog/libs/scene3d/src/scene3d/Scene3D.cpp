@@ -4,7 +4,7 @@
 #include <Message.h>
 
 /**************************************************************************************************/
-// partie � modifier � chaque ajout de nouveau loader :
+// partie ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ  modifier ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ  chaque ajout de nouveau loader :
 
 //#include "wrl/SceneWRL.h"
 #include "3ds/Scene3DS.h"
@@ -63,7 +63,7 @@ Scene3D* Scene3D::load(QString fileName) {
         if (fileName.endsWith("." + loader->suffix(), Qt::CaseInsensitive))
             return loader->load(fileName);
         }
-    Message::error(QString("format de fichier non support� : %1").arg(fileName));
+    Message::error(QString("format de fichier non supportÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© : %1").arg(fileName));
     return NULL;
     }
 

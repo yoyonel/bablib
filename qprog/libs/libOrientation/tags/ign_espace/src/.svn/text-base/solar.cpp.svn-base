@@ -239,7 +239,7 @@ namespace OrientationMATIS
 
 		Echantillon de reference (source 3615 BDL) :
 		--------------------------------------------
-		Lieu du calcul : Paris (2�20'E,48�50'N)
+		Lieu du calcul : Paris (2ï¿½20'E,48ï¿½50'N)
 		Annee du calcul: 1996
 		Jour  du calcul: 15 de chaque mois
 		Heure du calcul: 10h00 (TU)
@@ -249,18 +249,18 @@ namespace OrientationMATIS
 		Donnees BDL :
 				Mois		Azimut Est		Hauteur
 
-				1			28�49'			15�05'
-				2			33�08'			22�28'
-				3			36�26'			33�02'
-				4			40�06'			44�47'
-				5			45�16'			53�12'
-				6			50�40'			56�24'
-				7			50�42'			54�08'
-				8			44�05'			47�50'
-				9			34�46'			38�47'
-				10			27�24'			28�44'
-				11			23�56'			19�21'
-				12			24�59'			14�10'
+				1			28ï¿½49'			15ï¿½05'
+				2			33ï¿½08'			22ï¿½28'
+				3			36ï¿½26'			33ï¿½02'
+				4			40ï¿½06'			44ï¿½47'
+				5			45ï¿½16'			53ï¿½12'
+				6			50ï¿½40'			56ï¿½24'
+				7			50ï¿½42'			54ï¿½08'
+				8			44ï¿½05'			47ï¿½50'
+				9			34ï¿½46'			38ï¿½47'
+				10			27ï¿½24'			28ï¿½44'
+				11			23ï¿½56'			19ï¿½21'
+				12			24ï¿½59'			14ï¿½10'
 		Pour les deux angles, emq = 0.25 minutes d'arc sur l'echantillon ci-dessus (compatible
 		avec la simple erreur de quantification)
 
@@ -272,21 +272,21 @@ namespace OrientationMATIS
 	  D. BOLDO
 	  (15/02/2000) TESTS 3615 BDL :
 
-	  longitude 2�20' E
-	  latitude 48�50' N
-	  15/10/1999 10h00 TU	27�32'			28�58'
+	  longitude 2ï¿½20' E
+	  latitude 48ï¿½50' N
+	  15/10/1999 10h00 TU	27ï¿½32'			28ï¿½58'
 
-	  longitude 1�00' E
-	  latitude 48�50' N
-	  15/10/1999 10h00 TU	28�58'			28�34'
+	  longitude 1ï¿½00' E
+	  latitude 48ï¿½50' N
+	  15/10/1999 10h00 TU	28ï¿½58'			28ï¿½34'
 
-	  longitude 2�20' E
-	  latitude 47�00' N
-	  15/10/1999 10h00 TU	28�02'			30�36'
+	  longitude 2ï¿½20' E
+	  latitude 47ï¿½00' N
+	  15/10/1999 10h00 TU	28ï¿½02'			30ï¿½36'
 
-	  longitude 2�16' E
+	  longitude 2ï¿½16' E
 	  latitude 49'53' N
-	  13/10/1999 10h31 TU	19�11'			30�41'
+	  13/10/1999 10h31 TU	19ï¿½11'			30ï¿½41'
 	*/
 
 	/*=========================================================================================*/

@@ -21,12 +21,12 @@ class TransfoGL {
         
         static void push();
         static void pop();
-        static void pushAndInit();  // met les matrices � l'identit�
-        // effet de bord de ces trois m�thodes : le matrix-mode est GL_PROJECTION
+        static void pushAndInit();  // met les matrices ÃÂ  l'identitÃÂ©
+        // effet de bord de ces trois mÃÂ©thodes : le matrix-mode est GL_PROJECTION
         
         ProjTransfo transfo() const;
-        Vec4 viewPoint() const;         // renvoie un point � l'infini si la projection est orthogonale
-        float screenRatio() const;      // retourne le rapport hauteur/largeur de l'�cran correspondant � cette transformation
+        Vec4 viewPoint() const;         // renvoie un point ÃÂ  l'infini si la projection est orthogonale
+        float screenRatio() const;      // retourne le rapport hauteur/largeur de l'ÃÂ©cran correspondant ÃÂ  cette transformation
         
     public:
         ProjTransfo modelView, projection;

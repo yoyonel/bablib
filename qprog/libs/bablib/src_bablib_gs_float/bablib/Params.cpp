@@ -12,7 +12,7 @@
 BABLIB_NAMESPACE_BEGIN
 
 /***********************************************************************************************/
-// impl�mentation de Params :
+// implÃÂ©mentation de Params :
 
 // fonctions statiques :
 QString Params::defaultFileName() { return BablibConstants::default_params_file(); }
@@ -34,7 +34,7 @@ void Params::parseShaderLocations() {
 
         
 /***********************************************************************************************/
-// impl�mentation de GlobalParams :
+// implÃÂ©mentation de GlobalParams :
 
 ParamSet& GlobalParams::params() { static ParamSet *obj = new ParamSet(); return *obj; }    // warning: <obj> is never deleted
 
@@ -61,7 +61,7 @@ QString GlobalParams::getPath(QString name, bool warn) {
     }
 
 /***********************************************************************************************/
-// impl�mentation de ParamSet :
+// implÃÂ©mentation de ParamSet :
 
 void ParamSet::load(QString fileName) {
     this->fileName = fileName;
@@ -70,7 +70,7 @@ void ParamSet::load(QString fileName) {
 
 void ParamSet::reload() {
     if (!defined())
-        Message::error("aucun fichier n'a encore �t� charg�");
+        Message::error("aucun fichier n'a encore ÃÂ©tÃÂ© chargÃÂ©");
     else {
         QFile file(fileName);
         if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -82,13 +82,13 @@ void ParamSet::reload() {
                 QString line = stream.readLine().simplified().section("//", 0 , 0).section("#", 0, 0);
                 if (line.isEmpty()) continue;
                 if (!line.contains('=')) {
-                    Message::warning(QString("erreur de syntaxe � la ligne %1 du fichier '%2' : pas de symbole '='").arg(n).arg(fileName));
+                    Message::warning(QString("erreur de syntaxe ÃÂ  la ligne %1 du fichier '%2' : pas de symbole '='").arg(n).arg(fileName));
                     continue;
                     }
                 QString name  = line.section('=', 0, 0).trimmed(),
                         value = line.section('=', 1).trimmed();
                 if (name.isEmpty()) {
-                    Message::warning(QString("erreur de syntaxe � la ligne %1 du fichier '%2' : le nom ne peut pas �tre vide").arg(n).arg(fileName));
+                    Message::warning(QString("erreur de syntaxe ÃÂ  la ligne %1 du fichier '%2' : le nom ne peut pas ÃÂªtre vide").arg(n).arg(fileName));
                     continue;
                     }
                 table.insert(name, value);
@@ -124,8 +124,8 @@ void ParamSet::parseShaderLocations() const {
         
 /***********************************************************************************************/
 
-void ParamSet::errorFormat(QString name, QString format) const { Message::error(QString("le param�tre '%1' doit �tre au format <%2>").arg(name).arg(format)); }
-void ParamSet::errorNotDef(QString name) const { Message::warning(QString("le param�tre '%1' n'est pas d�fini dans le fichier '%2'").arg(name).arg(fileName)); }
+void ParamSet::errorFormat(QString name, QString format) const { Message::error(QString("le paramÃÂ¨tre '%1' doit ÃÂªtre au format <%2>").arg(name).arg(format)); }
+void ParamSet::errorNotDef(QString name) const { Message::warning(QString("le paramÃÂ¨tre '%1' n'est pas dÃÂ©fini dans le fichier '%2'").arg(name).arg(fileName)); }
 
 /***********************************************************************************************/
 

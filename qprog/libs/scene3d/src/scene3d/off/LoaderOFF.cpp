@@ -9,7 +9,7 @@ TriSoup* LoaderOFF::loadRaw(QString fileName) const {
     int nv = 0, nf = 0;
     
     if (fileName.isEmpty()) {
-        Message::error(QString("le nom de fichier sp�cifi� est vide"));
+        Message::error(QString("le nom de fichier spÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©cifiÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© est vide"));
         return NULL;
         }
     QFile file(fileName);
@@ -41,8 +41,8 @@ TriSoup* LoaderOFF::loadRaw(QString fileName) const {
         
     if (words.size() > 1) {
         file.close();
-        if (words[1] != "BINARY") FORMAT_ERROR("le deuxi�me mot (optionnel) doit �tre BINARY");
-        if (words.size() > 2)     FORMAT_ERROR("mots inconnus pr�sents apr�s BINARY");
+        if (words[1] != "BINARY") FORMAT_ERROR("le deuxiÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¨me mot (optionnel) doit ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂªtre BINARY");
+        if (words.size() > 2)     FORMAT_ERROR("mots inconnus prÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©sents aprÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¨s BINARY");
 
         // BINARY mode
         //------------
@@ -54,7 +54,7 @@ TriSoup* LoaderOFF::loadRaw(QString fileName) const {
             char c = '\0';
             while (c != '\n') datastream.readRawData(&c, 1); 
         
-            int ne;     // nombre d'ar�tes, pas utilis�
+            int ne;     // nombre d'arÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂªtes, pas utilisÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©
             datastream >> nv;
             datastream >> nf;
             datastream >> ne;
@@ -71,7 +71,7 @@ TriSoup* LoaderOFF::loadRaw(QString fileName) const {
                 datastream >> n;
                 //int *index = new int[n];
                 if (n != 3) {
-                    Message::error("faces autres que triangles non support�es");
+                    Message::error("faces autres que triangles non supportÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©es");
                     delete res;
                     file.close();
                     return NULL;
@@ -91,7 +91,7 @@ TriSoup* LoaderOFF::loadRaw(QString fileName) const {
         SPLIT_LINE
         bool ok1; nv = word[0].toInt(&ok1);
         bool ok2; nf = word[1].toInt(&ok2);
-        if (!(ok1 && ok2)) FORMAT_ERROR("probl�me de lecture des entiers sur la deuxi�me ligne");
+        if (!(ok1 && ok2)) FORMAT_ERROR("problÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¨me de lecture des entiers sur la deuxiÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¨me ligne");
 
         /*
         vertex = new Vec3[nv];
@@ -120,7 +120,7 @@ TriSoup* LoaderOFF::loadRaw(QString fileName) const {
             bool ok; int n = word[0].toInt(&ok); if (!ok) FORMAT_ERROR("probleme format face");
             if (n < 3) FORMAT_ERROR("face a moins de 3 aretes");
             if (n != 3) {
-                Message::error("faces autres que triangles non support�es");
+                Message::error("faces autres que triangles non supportÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©es");
                 delete res;
                 file.close();
                 return NULL;

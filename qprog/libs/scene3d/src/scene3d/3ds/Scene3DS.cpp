@@ -40,7 +40,7 @@ Scene3DS::Scene3DS(QString fileName) : Scene3D(fileName), displist(0), center(0,
         radius = dist(center, bmax);
         }
     else
-        Message::error(QString("probl�me pour charger le fichier '%1'").arg(fileName));
+        Message::error(QString("problÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¨me pour charger le fichier '%1'").arg(fileName));
     }
 
 Scene3DS::~Scene3DS() {

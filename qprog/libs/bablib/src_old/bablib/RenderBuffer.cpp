@@ -33,7 +33,7 @@ bool RenderBuffer::create(int w, int h, GLenum format) {
         bind();
         glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, format, dim.width(), dim.height());
         
-        //@ checker les �ventuelles erreurs GL
+        //@ checker les ÃÂ©ventuelles erreurs GL
         return true;
         }
     else {
@@ -56,11 +56,11 @@ void RenderBuffer::bind() const {
     }
 
 /************************************************************************************************************/
-// m�thodes de FrameBufferAttachable :
+// mÃÂ©thodes de FrameBufferAttachable :
 
 void RenderBuffer::attach(GLenum attachment) {
     if (!created() && !create())
-        Message::error("impossible de cr�er le renderbuffer pour l'attacher");
+        Message::error("impossible de crÃÂ©er le renderbuffer pour l'attacher");
     else
         glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, attachment, GL_RENDERBUFFER_EXT, id);
     }

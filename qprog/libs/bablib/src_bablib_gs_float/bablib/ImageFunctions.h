@@ -17,9 +17,9 @@ namespace {
         }
     int modulo(int x, int m) {
         //int a = x >= 0 ? x % m : m + x % m;
-        // on ne peut pas utiliser l'op�rateur % sur une op�rande n�gative car le comportement dans ce cas l�
-        // est d�fini comme d�pendant de l'impl�mentation (!!) --> cf. http://en.wikipedia.org/wiki/Modulo_operation
-        return x >= 0 ? x % m : (m - (-x) % m) % m;     //deuxi�me modulo n�cessaire car m - (-k*m) % m = m
+        // on ne peut pas utiliser l'opÃÂ©rateur % sur une opÃÂ©rande nÃÂ©gative car le comportement dans ce cas lÃÂ 
+        // est dÃÂ©fini comme dÃÂ©pendant de l'implÃÂ©mentation (!!) --> cf. http://en.wikipedia.org/wiki/Modulo_operation
+        return x >= 0 ? x % m : (m - (-x) % m) % m;     //deuxiÃÂ¨me modulo nÃÂ©cessaire car m - (-k*m) % m = m
         }
     int mirror(int x, int m) {
         const int a = modulo(x, 2*m);

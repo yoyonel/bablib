@@ -9,7 +9,7 @@ BABLIB_NAMESPACE_BEGIN
 template<class Color>
 class ColorFilter {
     public:
-        virtual ~ColorFilter() {}   // pour �viter les warnings
+        virtual ~ColorFilter() {}   // pour ÃÂ©viter les warnings
         virtual void apply(Color &c) const = 0;
         //virtual Color filter(Color &c) const { Color res = c; apply(res); return res; }
     };
@@ -41,7 +41,7 @@ class ColorClamp : public ColorFilter<Color> {
         float c0, c1;
     };
 
-// cette classe permet d'appliquer la m�me fonction <transfo> a chaque composante d'une couleur
+// cette classe permet d'appliquer la mÃÂªme fonction <transfo> a chaque composante d'une couleur
 template<class Color>
 class ColorTransfoComp : public ColorFilter<Color> {
     public:

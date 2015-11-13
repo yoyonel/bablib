@@ -41,7 +41,7 @@ void main(void) {
 	vec4 texelTextureLightSpace;
 	#ifdef USE_SHADOW_PROJ
 		texelTextureLightSpace = texelLightSpace;
-		// Bias Uniform (non normalisé)
+		// Bias Uniform (non normalisÃÂÃÂ©)
 		texelTextureLightSpace.z	+= coef_depth_bias * teexelLightSpace.w;
 	#else
 		// Normalisation manuelle (TODO: voir shadow2DProj)
@@ -99,7 +99,7 @@ void main(void) {
 		float grid_sm = Compute_Grid( vec2(texelTextureLightSpace), v2_sm_size );
 		//out_color += coef_grid_color * ( /**(out_color.x >= -EPSILON) && /**/ (out_color.x <= EPSILON*20000 ) ? (BLUE + GREEN) * grid_sm : out_color);
 		vec4 grid_color = (BLUE + GREEN) * grid_sm * coef_grid_color;
-		// - on veut afficher la grille sur les texels ombrés
+		// - on veut afficher la grille sur les texels ombrÃÂÃÂ©s
 		out_color += shadow < (1-EPSILON) ? (1. - shadow) * grid_color : vec4(0);
 	#endif
 	//
@@ -196,7 +196,7 @@ float Compute_Grid( vec2 texelTextureLightSpace, vec2 _sizeTexture )
 	float tex_width = _sizeTexture.x;
 	float tex_height = _sizeTexture.y;
 	
-	// Grille de projection de la shadow map (i.e grille de rasterisation projetée sur la scene)
+	// Grille de projection de la shadow map (i.e grille de rasterisation projetÃÂÃÂ©e sur la scene)
 	float grid_sm_x = texelTextureLightSpace.x * tex_width;
 	grid_sm_x -= 0.5;
 	grid_sm_x -= floor(grid_sm_x);	
@@ -215,7 +215,7 @@ vec4 filterColor( in float coef_shadow )
 {
 	vec4 iso_color;
 	
-	// exhibe 3 frontières (3 courbes iso)
+	// exhibe 3 frontiÃÂÃÂ¨res (3 courbes iso)
 	/**/
 	//const float fCoef_Width = 0.5;
 	const float fCoef_Width = 0.1;

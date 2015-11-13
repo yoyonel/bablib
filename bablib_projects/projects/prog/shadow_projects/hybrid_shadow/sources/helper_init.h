@@ -149,8 +149,8 @@ void Viewer::initVBO( bool bDestroy )
 	}
 
 	{
-		// definition VBO avec classes génériques (bablib v2)
-		// pour une définition "intègre" OpenGL, il faut les customs attribs (génériques attribs) soient présents dans les shaders
+		// definition VBO avec classes gÃÂÃÂ©nÃÂÃÂ©riques (bablib v2)
+		// pour une dÃÂÃÂ©finition "intÃÂÃÂ¨gre" OpenGL, il faut les customs attribs (gÃÂÃÂ©nÃÂÃÂ©riques attribs) soient prÃÂÃÂ©sents dans les shaders
 		// sinon il n'est pas possible d'attribuer un id pour les attributs (prog.getAttribID(#name) renvoie -1)
 		VERTEX_DATA_SUBCLASS(VDataDef,
 		    	DEF_ATTRIB(Vertex, float, 3)
@@ -189,8 +189,8 @@ void Viewer::initVBO( bool bDestroy )
 
 	if (!PARAM(bool, shadow_volume.use_geometry_shader))
 	{
-		// definition VBO avec classes génériques (bablib v2)
-		// pour une définition "intègre" OpenGL, il faut les customs attribs (génériques attribs) soient présents dans les shaders
+		// definition VBO avec classes gÃÂÃÂ©nÃÂÃÂ©riques (bablib v2)
+		// pour une dÃÂÃÂ©finition "intÃÂÃÂ¨gre" OpenGL, il faut les customs attribs (gÃÂÃÂ©nÃÂÃÂ©riques attribs) soient prÃÂÃÂ©sents dans les shaders
 		// sinon il n'est pas possible d'attribuer un id pour les attributs (prog.getAttribID(#name) renvoie -1)
 		VERTEX_DATA_SUBCLASS(VDataDef,
 		    	DEF_ATTRIB(Vertex, float, 3)		// Vertex i
@@ -226,24 +226,24 @@ void Viewer::initVBO( bool bDestroy )
 			//
 
 			// Vertex0
-			// - Positions des vertex consécutifs formant les 2 arêtes du triangle (possèdant le Vertex0)
+			// - Positions des vertex consÃÂÃÂ©cutifs formant les 2 arÃÂÃÂªtes du triangle (possÃÂÃÂ¨dant le Vertex0)
 			vd->texCoord0.set( indice_vertex0, ts->vertex[indice_vertex1] );
 			vd->texCoord1.set( indice_vertex0, ts->vertex[indice_vertex2] );
-			// - Normales associées �  ses vertex
+			// - Normales associÃÂÃÂ©es ÃÂ¯ÃÂ¿ÃÂ½  ses vertex
 			vd->texCoord2.set( indice_vertex0, ts->normal[indice_vertex1] );
 			vd->texCoord3.set( indice_vertex0, ts->normal[indice_vertex2] );
 
-			// - Positions des vertex consécutifs formant les 2 arêtes du triangle (possèdant le Vertex1)
+			// - Positions des vertex consÃÂÃÂ©cutifs formant les 2 arÃÂÃÂªtes du triangle (possÃÂÃÂ¨dant le Vertex1)
 			vd->texCoord0.set( indice_vertex1, ts->vertex[indice_vertex2] );
 			vd->texCoord1.set( indice_vertex1, ts->vertex[indice_vertex0] );
-			// - Normales associées �  ses vertex
+			// - Normales associÃÂÃÂ©es ÃÂ¯ÃÂ¿ÃÂ½  ses vertex
 			vd->texCoord2.set( indice_vertex1, ts->normal[indice_vertex2] );
 			vd->texCoord3.set( indice_vertex1, ts->normal[indice_vertex0] );
 
-			// - Positions des vertex consécutifs formant les 2 arêtes du triangle (possèdant le Vertex2)
+			// - Positions des vertex consÃÂÃÂ©cutifs formant les 2 arÃÂÃÂªtes du triangle (possÃÂÃÂ¨dant le Vertex2)
 			vd->texCoord0.set( indice_vertex2, ts->vertex[indice_vertex0] );
 			vd->texCoord1.set( indice_vertex2, ts->vertex[indice_vertex1] );
-			// - Normales associées �  ses vertex
+			// - Normales associÃÂÃÂ©es ÃÂ¯ÃÂ¿ÃÂ½  ses vertex
 			vd->texCoord2.set( indice_vertex2, ts->normal[indice_vertex0] );
 			vd->texCoord3.set( indice_vertex2, ts->normal[indice_vertex1] );
 		}

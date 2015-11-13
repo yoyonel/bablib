@@ -115,7 +115,7 @@ This example demonstrates the basic components of the header.  Each part of
 the header is a carraige-return terminated ASCII string that begins with a
 keyword.  Even the start and end of the header ("ply<cr>" and
 "end_header<cr>") are in this form.  The characters "ply<cr>" must be the
-first four characters of the file, since they serve as the file�s magic
+first four characters of the file, since they serve as the fileÃÂ¯ÃÂ¿ÃÂ½s magic
 number.  Following the start of the header is the keyword "format" and a
 specification of either ASCII or binary format, followed by a version
 number.  Next is the description of each of the elements in the polygon

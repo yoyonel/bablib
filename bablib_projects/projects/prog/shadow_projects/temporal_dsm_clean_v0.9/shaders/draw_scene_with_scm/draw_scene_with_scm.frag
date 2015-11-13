@@ -112,7 +112,7 @@ vec4 interpolate_bicubic_fast(sampler2D tex, vec2 _texCoord, vec2 _sizeTexture)
 
 vec4 filterColor( vec4 out_color )
 {
-	// exhibe 3 frontières (3 courbes iso)
+	// exhibe 3 frontiÃÂÃÂ¨res (3 courbes iso)
 	/**/
 	vec4 out_color_iso0 	= abs( out_color.x - 0.05) <= 0.04 ? vec4(abs( out_color.x - 0.05) / 0.04, 0, 0, 0) : vec4(0.0);
 	vec4 out_color_iso1 	= abs( out_color.x - 0.95) <= 0.04 ? vec4( 0, abs(out_color.x - 0.95) / 0.04, 0, 0) : vec4(0.0);

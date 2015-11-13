@@ -5,12 +5,12 @@ BABLIB_NAMESPACE_BEGIN
 
 class Kernel3D {
     public:
-        //Kernel3D(int R = -1, int* tab = NULL);   // pr�condition : <R> >= 0 et {<tab> == NULL ou <tab> est de taille (2R+1)*(2R+1)*(2R+1)}
-        Kernel3D(int R = -1);   // pr�condition : <R> >= 0 et {<tab> == NULL ou <tab> est de taille (2R+1)*(2R+1)*(2R+1)}
+        //Kernel3D(int R = -1, int* tab = NULL);   // prÃÂ©condition : <R> >= 0 et {<tab> == NULL ou <tab> est de taille (2R+1)*(2R+1)*(2R+1)}
+        Kernel3D(int R = -1);   // prÃÂ©condition : <R> >= 0 et {<tab> == NULL ou <tab> est de taille (2R+1)*(2R+1)*(2R+1)}
         void destroy();
         
         int radius() const { return R; }
-        float& operator()(int i, int j, int k) { return tab[N*(N*(i+R) + (j+R)) + (k+R)]; }    // pr�condition : tab != NULL
+        float& operator()(int i, int j, int k) { return tab[N*(N*(i+R) + (j+R)) + (k+R)]; }    // prÃÂ©condition : tab != NULL
         
         //@@ faire fonction convolution
         

@@ -289,7 +289,7 @@ void ScenePLY::init() {
             indexes += object->flist[i]->verts[2];
             }
         else
-            Message::info(QString("- attention : le modele contient des polygones � %1 cot�s (pas support� pour l'instant)").arg(object->flist[i]->nverts));
+            Message::info(QString("- attention : le modele contient des polygones ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ  %1 cotÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©s (pas supportÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© pour l'instant)").arg(object->flist[i]->nverts));
         }
 
     geometry = new GLAsset::Mesh(GL_TRIANGLES, vertexArray.mappedToGPU(), indexes.mappedToGPU());

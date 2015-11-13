@@ -53,8 +53,8 @@ using namespace std;
 #include <VertexBuffer.h>
 
 // [eSize=2] => Lecture/Ecriture
-// Lecture: résultat précédent
-// Ecriture: résultat courant (en cours de calcul)
+// Lecture: rÃÂÃÂ©sultat prÃÂÃÂ©cÃÂÃÂ©dent
+// Ecriture: rÃÂÃÂ©sultat courant (en cours de calcul)
 typedef enum { 
 	eRead = 0, 
 	eWrite, 
@@ -150,7 +150,7 @@ private :
 	ProgGLSL prog_draw_scene_with_scm;
 	//
 	ProgGLSL prog_vbo_dsm;	// rendu du vbo pour la depth shadow map (texture de profondeur)
-	ProgGLSL prog_vbo_scm;	// rendu du vbo utilisant la depth shadow map (texture de luminosité => shadow clip map)
+	ProgGLSL prog_vbo_scm;	// rendu du vbo utilisant la depth shadow map (texture de luminositÃÂÃÂ© => shadow clip map)
 
 	// CAMERAS QGLViewer
 	qglviewer::Camera qgl_cam_light;

@@ -35,7 +35,7 @@ float f_coef_ambiant_shadow = 0.05;
 
 // -------------------------------------
 // - SUBPIXEL - Tests
-// - lié directement avec [vbo_scm.frag]
+// - liÃÂÃÂ© directement avec [vbo_scm.frag]
 // -------------------------------------
 //#define __USE_EXPERIMENTAL_SUBPIXEL_SHADOWED
 // -------------------------------------
@@ -155,22 +155,22 @@ vec4 compute_subpixel_test1(in vec4 _inputs)
 			if ( bool(pixel_is_shadowed_by_plane) )
 			{
 				// + BLUE (+ GRENN + RED) = WHITE
-				// => pixel-eyes 	est ombré par un texel-sm
-				// => pixel-projeté 	est inclu la projection du triangle occulteur (sur le near plane de camera_light)
-				// => pixel-world	est du coté "ombré" du plan support du triangle-occulteur
-				// <=> le pixel-world est ombré par le triangle-occulteur (world space)
-				// <=> "ombré"
+				// => pixel-eyes 	est ombrÃÂÃÂ© par un texel-sm
+				// => pixel-projetÃÂÃÂ© 	est inclu la projection du triangle occulteur (sur le near plane de camera_light)
+				// => pixel-world	est du cotÃÂÃÂ© "ombrÃÂÃÂ©" du plan support du triangle-occulteur
+				// <=> le pixel-world est ombrÃÂÃÂ© par le triangle-occulteur (world space)
+				// <=> "ombrÃÂÃÂ©"
 				out_color = BLUE + GREEN + RED;
 			}
 			else
 			{
 				// (+ GREEN + RED) = YELLOW
-				// => pixel-eyes 	est ombré par un texel-sm
-				// => pixel-projeté 	est inclue la projection du triangle occulteur (sur le near plane de camera_light)
-				// => pixel-world	est du coté "non-ombré" du plan support du triangle 
-				// <=> le pixel-world est n'est pas ombré par le triangle-occulteur (world space)
-				// <=> Devrait correspondre au texel-eyes en auto-ombrage erroné
-				// <=> ! "non-ombré" !
+				// => pixel-eyes 	est ombrÃÂÃÂ© par un texel-sm
+				// => pixel-projetÃÂÃÂ© 	est inclue la projection du triangle occulteur (sur le near plane de camera_light)
+				// => pixel-world	est du cotÃÂÃÂ© "non-ombrÃÂÃÂ©" du plan support du triangle 
+				// <=> le pixel-world est n'est pas ombrÃÂÃÂ© par le triangle-occulteur (world space)
+				// <=> Devrait correspondre au texel-eyes en auto-ombrage erronÃÂÃÂ©
+				// <=> ! "non-ombrÃÂÃÂ©" !
 				out_color = GREEN + RED;
 				out_color *= 0.25;
 			}
@@ -183,25 +183,25 @@ vec4 compute_subpixel_test1(in vec4 _inputs)
 				if ( bool(pixels_RO_are_closer) )
 				{
 					// +BLUE +GREEN = TURQUOISE
-					// => pixel-eyes 	est ombré par un texel-sm
-					// => pixel-projeté 	est n'est pas inclu la projection du triangle-occulteur (sur le near plane de camera_light)
-					// => pixel-world	est du cote "ombré" du plan support du triangle-occulteur (associcié au texel-sm)
-					// => pixel-eyes	est pas "trop près" du texel-SM
-					// <=> On peut le considérer comme "bad-self-shadow" car il est ombré (texel-sm, plane support du triangle-occulteur) mais est très près (trop près)
+					// => pixel-eyes 	est ombrÃÂÃÂ© par un texel-sm
+					// => pixel-projetÃÂÃÂ© 	est n'est pas inclu la projection du triangle-occulteur (sur le near plane de camera_light)
+					// => pixel-world	est du cote "ombrÃÂÃÂ©" du plan support du triangle-occulteur (associciÃÂÃÂ© au texel-sm)
+					// => pixel-eyes	est pas "trop prÃÂÃÂ¨s" du texel-SM
+					// <=> On peut le considÃÂÃÂ©rer comme "bad-self-shadow" car il est ombrÃÂÃÂ© (texel-sm, plane support du triangle-occulteur) mais est trÃÂÃÂ¨s prÃÂÃÂ¨s (trop prÃÂÃÂ¨s)
 					// <=> du plan-occulteur (i.e triangle-occulteur, micro-quad-occulteur)
-					// <=> ? "non-ombré" ?
+					// <=> ? "non-ombrÃÂÃÂ©" ?
 					out_color = BLUE + GREEN;
 					out_color *= 0.4;
 				}
 				else
 				{
 					// + BLUE (+RED) = PURPLE
-					// => pixel-eyes 	est ombré par un texel-sm
-					// => pixel-projeté 	est n'est pas inclu la projection du triangle-occulteur (sur le near plane de camera_light)
-					// => pixel-world	est du cote "ombré" du plan support du triangle-occulteur (associcié au texel-sm)
-					// => pixel-eyes	n'est pas "trop près" du texel-SM
-					// <=> Devrait correspondre au texel-eyes dont on ne dispose pas (encore) d'assez d'information pour établir son status
-					// <=> ? "ombré" ?
+					// => pixel-eyes 	est ombrÃÂÃÂ© par un texel-sm
+					// => pixel-projetÃÂÃÂ© 	est n'est pas inclu la projection du triangle-occulteur (sur le near plane de camera_light)
+					// => pixel-world	est du cote "ombrÃÂÃÂ©" du plan support du triangle-occulteur (associciÃÂÃÂ© au texel-sm)
+					// => pixel-eyes	n'est pas "trop prÃÂÃÂ¨s" du texel-SM
+					// <=> Devrait correspondre au texel-eyes dont on ne dispose pas (encore) d'assez d'information pour ÃÂÃÂ©tablir son status
+					// <=> ? "ombrÃÂÃÂ©" ?
 					out_color = BLUE + RED;
 					out_color *= 0.6;
 				}
@@ -209,11 +209,11 @@ vec4 compute_subpixel_test1(in vec4 _inputs)
 			else
 			{
 				// (+RED) = RED
-				// => pixel-eyes 	est ombré par un texel-sm
-				// => pixel-projeté 	est n'est pas inclu la projection du triangle-occulteur (sur le near plane de camera_light)
-				// => pixel-world	est du cote "non-ombré" du plan support du triangle-occulteur (associcié au texel-sm)
-				// <=> Devrait correspondre au texel-eyes dont on ne dispose pas (encore) d'assez d'information pour établir son status
-				// <=> ? "non-ombré" ?
+				// => pixel-eyes 	est ombrÃÂÃÂ© par un texel-sm
+				// => pixel-projetÃÂÃÂ© 	est n'est pas inclu la projection du triangle-occulteur (sur le near plane de camera_light)
+				// => pixel-world	est du cote "non-ombrÃÂÃÂ©" du plan support du triangle-occulteur (associciÃÂÃÂ© au texel-sm)
+				// <=> Devrait correspondre au texel-eyes dont on ne dispose pas (encore) d'assez d'information pour ÃÂÃÂ©tablir son status
+				// <=> ? "non-ombrÃÂÃÂ©" ?
 				out_color = RED;
 				out_color *= 0.4;
 			}
@@ -221,9 +221,9 @@ vec4 compute_subpixel_test1(in vec4 _inputs)
 	}
 	else
 	{
-		// Object_Color grisé
-		// => pixel-eyes	n'est pas ombré par un texel-sm
-		// <=> "non-ombré"
+		// Object_Color grisÃÂÃÂ©
+		// => pixel-eyes	n'est pas ombrÃÂÃÂ© par un texel-sm
+		// <=> "non-ombrÃÂÃÂ©"
 		out_color = object_color * 0.0;
 	}
 
@@ -232,42 +232,42 @@ vec4 compute_subpixel_test1(in vec4 _inputs)
 
 vec4 compute_subpixel_test2(in vec4 _inputs)
 {
-//			- Est ce qu'il est très proche de son occluder ?
+//			- Est ce qu'il est trÃÂÃÂ¨s proche de son occluder ?
 //			* si oui: forte chance de se trouver dans un cas de self-shadowing
 //				
 //				* si oui:
-//					- Est ce qu'il est du coté ombré du plan supportant le triangle occulteur ?
+//					- Est ce qu'il est du cotÃÂÃÂ© ombrÃÂÃÂ© du plan supportant le triangle occulteur ?
 //					* si oui: 
 //						=> (1) Cas ambigu: 
-//							Pixel ombré correctement théoriquement
+//							Pixel ombrÃÂÃÂ© correctement thÃÂÃÂ©oriquement
 //							En pratique, ce cas n'est pas possible, 
-//							car le texel doit être très proche du triangle-caster,
-//							du coté ombré du plan support du triangle-caster,
-//							et être dans la projection du triangle.
-//							Les seuls texels possibles sont les texels inclus dans le volume (d'ombre) "infinitésimale" 
-//							de la projection du triangle-caster par rapport à la source de lumière"
-//							Si des texels de ce type apparaissent, ils sont surement du à une erreur de précision
-//							=> A priori ces texels doivent être non-ombrés (cas de self-shadowing)
+//							car le texel doit ÃÂÃÂªtre trÃÂÃÂ¨s proche du triangle-caster,
+//							du cotÃÂÃÂ© ombrÃÂÃÂ© du plan support du triangle-caster,
+//							et ÃÂÃÂªtre dans la projection du triangle.
+//							Les seuls texels possibles sont les texels inclus dans le volume (d'ombre) "infinitÃÂÃÂ©simale" 
+//							de la projection du triangle-caster par rapport ÃÂÃÂ  la source de lumiÃÂÃÂ¨re"
+//							Si des texels de ce type apparaissent, ils sont surement du ÃÂÃÂ  une erreur de prÃÂÃÂ©cision
+//							=> A priori ces texels doivent ÃÂÃÂªtre non-ombrÃÂÃÂ©s (cas de self-shadowing)
 //					* si non: 
-//						=> (2) Pixel ombré incorrectement, il est dans le volume de projection du triangle mais pas dans son volume d'ombre !
+//						=> (2) Pixel ombrÃÂÃÂ© incorrectement, il est dans le volume de projection du triangle mais pas dans son volume d'ombre !
 //				* si non: 
-//						=> (3) Pixel potentiellement non-ombré, le triangle rasterisé dans le texel-SM ne permet de fixer le statut du texel-receiver
+//						=> (3) Pixel potentiellement non-ombrÃÂÃÂ©, le triangle rasterisÃÂÃÂ© dans le texel-SM ne permet de fixer le statut du texel-receiver
 //			* si non: peu de chance de se trouver dans un cas de self-shadowing
 //				- Est ce qu'il est dans la projection de ce triangle ?
 //				* si oui:
-//					- Est ce qu'il est du coté ombré du plan supportant le triangle occulteur ?
+//					- Est ce qu'il est du cotÃÂÃÂ© ombrÃÂÃÂ© du plan supportant le triangle occulteur ?
 //					* si oui: 
-//						=> (4) Pixel ombré correctement
+//						=> (4) Pixel ombrÃÂÃÂ© correctement
 //					* si non: 
-//						=> (5) Pixel potentiellement ombré, le triangle rasterisé dans le texel-SM ne permet de fixer le statut du texel-receiver
+//						=> (5) Pixel potentiellement ombrÃÂÃÂ©, le triangle rasterisÃÂÃÂ© dans le texel-SM ne permet de fixer le statut du texel-receiver
 //				* si non:
-//					- Est ce qu'il est du coté ombré du plan supportant le triangle occulteur ?
+//					- Est ce qu'il est du cotÃÂÃÂ© ombrÃÂÃÂ© du plan supportant le triangle occulteur ?
 //					* si oui: 
-//						=> (6) Pixel potentiellement ombré, le triangle rasterisé dans le texel-SM ne permet pas de définir son statut.	
+//						=> (6) Pixel potentiellement ombrÃÂÃÂ©, le triangle rasterisÃÂÃÂ© dans le texel-SM ne permet pas de dÃÂÃÂ©finir son statut.	
 //					* si non: 
-//						=> (7) Pixel potentiellement ombré, le triangle rasterisé dans le texel-SM ne permet pas de définir son statut.
+//						=> (7) Pixel potentiellement ombrÃÂÃÂ©, le triangle rasterisÃÂÃÂ© dans le texel-SM ne permet pas de dÃÂÃÂ©finir son statut.
 //		si non: 
-//			=> (8) à priori pas de sushis, du moins il n'y a aucune informations (triangle occulteur rasterisé) exploitables pour l'instant
+//			=> (8) ÃÂÃÂ  priori pas de sushis, du moins il n'y a aucune informations (triangle occulteur rasterisÃÂÃÂ©) exploitables pour l'instant
 
 	vec4	out_color;
 
@@ -333,28 +333,28 @@ vec4 compute_subpixel_test2(in vec4 _inputs)
 
 vec4 compute_subpixel_test3(in vec4 _inputs)
 {
-//	Ordres de priorités:
-//		- Est ce que le texel-receiver courant est ombré ?
+//	Ordres de prioritÃÂÃÂ©s:
+//		- Est ce que le texel-receiver courant est ombrÃÂÃÂ© ?
 //		* si oui:	
 //			- Est ce qu'il est dans la projection du triangle-caster ?
 //			* si oui: 
-//				- Est ce qu'il est du coté ombré du plan supportant le triangle-caster ?
+//				- Est ce qu'il est du cotÃÂÃÂ© ombrÃÂÃÂ© du plan supportant le triangle-caster ?
 //				* si oui:
-//					=> Texel ombré (correctement)
+//					=> Texel ombrÃÂÃÂ© (correctement)
 //				* si non:
-//					=> Texel éclairé
+//					=> Texel ÃÂÃÂ©clairÃÂÃÂ©
 //			* si non:
-//				- Est ce qu'il est du coté ombré du plan supportant le triangle-caster ?
+//				- Est ce qu'il est du cotÃÂÃÂ© ombrÃÂÃÂ© du plan supportant le triangle-caster ?
 //				* si oui:
-//					- Est ce qu'il est très proche de son occluder ?
+//					- Est ce qu'il est trÃÂÃÂ¨s proche de son occluder ?
 //					* si oui:
-//						=> Texel éclairé
+//						=> Texel ÃÂÃÂ©clairÃÂÃÂ©
 //					* si non:
-//						=> Texel ombré
+//						=> Texel ombrÃÂÃÂ©
 //				* si non:
-//					=> Texel éclairé
+//					=> Texel ÃÂÃÂ©clairÃÂÃÂ©
 //		* si non:
-//			=> pas du sushis, texel éclairé
+//			=> pas du sushis, texel ÃÂÃÂ©clairÃÂÃÂ©
 
 	vec4	out_color;
 
@@ -462,7 +462,7 @@ vec4 interpolate_bicubic_fast(sampler2D tex, vec2 _texCoord, vec2 _sizeTexture)
 
 vec4 filterColor( vec4 out_color )
 {
-	// exhibe 3 frontières (3 courbes iso)
+	// exhibe 3 frontiÃÂÃÂ¨res (3 courbes iso)
 	/**/
 	vec4 out_color_iso0 	= abs( out_color.x - 0.05) <= 0.04 ? vec4(abs( out_color.x - 0.05) / 0.04, 0, 0, 0) : vec4(0.0);
 	vec4 out_color_iso1 	= abs( out_color.x - 0.95) <= 0.04 ? vec4( 0, abs(out_color.x - 0.95) / 0.04, 0, 0) : vec4(0.0);

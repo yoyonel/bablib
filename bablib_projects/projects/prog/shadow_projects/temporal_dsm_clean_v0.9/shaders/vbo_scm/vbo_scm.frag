@@ -45,7 +45,7 @@ float	coef_diff_for_new_texel	= 0.5;
 // - SAMPLERs
 uniform sampler2DShadow	shadowMap;
 
-// - les textures tex_history_* pointent sur les résultats précédents
+// - les textures tex_history_* pointent sur les rÃÂÃÂ©sultats prÃÂÃÂ©cÃÂÃÂ©dents
 uniform sampler2D tex_history_visibility;
 uniform sampler2D tex_history_positions;
 
@@ -81,7 +81,7 @@ void main(void) {
 
 	#ifdef USE_SHADOW_PROJ
 		texelTextureLightSpace = texelLightSpace;
-		// Bias Uniform (non normalisé)
+		// Bias Uniform (non normalisÃÂÃÂ©)
 		texelTextureLightSpace.z += coef_depth_bias*texelLightSpace.w;
 	#else
 		// Normalisation manuelle (TODO: voir shadow2DProj)
@@ -125,7 +125,7 @@ void main(void) {
 	#ifdef DRAW_CONFIDENCE
 		const float coef_confidence_color = 1.0;
 		vec4 confidence_color = vec4(BLUE + GREEN + RED) * confidence_sm * coef_confidence_color;
-		// - on veut afficher la grille sur les texels ombrés
+		// - on veut afficher la grille sur les texels ombrÃÂÃÂ©s
 		out_color += shadow < (1.0 - EPSILON) ? (1. - shadow) * confidence_color : vec4(0.0);
 	#endif
 
@@ -151,10 +151,10 @@ void main(void) {
 			float variance_visibility	= abs(shadow - texel_vis_prev.x);
 			bool variance = variance_visibility >= coef_diff_for_new_texel;
 			new_receiver = IN_PENUMBRA(texel_vis_prev.x, EPSILON) && IN_PENUMBRA(shadow, EPSILON) ? new_receiver : new_receiver || variance;
-			// on stocke la moyenne de la variance (différence de visibilité d'une frame l'autre)
+			// on stocke la moyenne de la variance (diffÃÂÃÂ©rence de visibilitÃÂÃÂ© d'une frame l'autre)
 			out_color.w = clamp(variance_visibility, 0.0, 1.0);
 		#endif
-		// - Test de remise à 0 de l'historique
+		// - Test de remise ÃÂÃÂ  0 de l'historique
 		bool new_texel 	= new_receiver;
 		
 		//out_color = new_texel ? out_color : mix( texel_vis_prev, out_color, weight );	
@@ -191,7 +191,7 @@ void main(void) {
 		float grid_sm = Compute_Grid( vec2(texelTextureLightSpace), v2_sm_size );
 		//out_color += coef_grid_color * ( /**(out_color.x >= -EPSILON) && /**/ (out_color.x <= EPSILON*20000 ) ? (BLUE + GREEN) * grid_sm : out_color);
 		vec4 grid_color = (BLUE + GREEN) * grid_sm * coef_grid_color;
-		// - on veut afficher la grille sur les texels ombrés
+		// - on veut afficher la grille sur les texels ombrÃÂÃÂ©s
 		out_color += shadow < (1-EPSILON) ? (1. - shadow) * grid_color : vec4(0);
 	#endif
 
@@ -205,7 +205,7 @@ float Compute_Confidence( vec4 texelTextureLightSpace, vec4 texelLightSpaceNorma
 	float tex_width = _sizeTexture.x;
 	float tex_height = _sizeTexture.y;
 	
-	// Grille de projection de la shadow map (i.e grille de rasterisation projetée sur la scene)
+	// Grille de projection de la shadow map (i.e grille de rasterisation projetÃÂÃÂ©e sur la scene)
 	vec2 confidence_sm 	= vec2(texelTextureLightSpace) * _sizeTexture;
 	vec2 confidence_sm_bias = confidence_sm; //- vec2(0.5) * 0;	// erreur de MERDE: pas de bias !!!
 	confidence_sm 		= abs((confidence_sm_bias - floor(confidence_sm_bias)) - vec2(0.5));
@@ -273,7 +273,7 @@ float Compute_Grid( vec2 texelTextureLightSpace, vec2 _sizeTexture )
 	float tex_width = _sizeTexture.x;
 	float tex_height = _sizeTexture.y;
 	
-	// Grille de projection de la shadow map (i.e grille de rasterisation projetée sur la scene)
+	// Grille de projection de la shadow map (i.e grille de rasterisation projetÃÂÃÂ©e sur la scene)
 	float grid_sm_x = texelTextureLightSpace.x * tex_width;
 	grid_sm_x -= floor(grid_sm_x);
 	grid_sm_x = 1. - grid_sm_x;
@@ -292,7 +292,7 @@ vec4 filterColor( in float coef_shadow )
 {
 	vec4 iso_color;
 	
-	// exhibe 3 frontières (3 courbes iso)
+	// exhibe 3 frontiÃÂÃÂ¨res (3 courbes iso)
 	const float fCoef_Width = 0.1;
 	vec3 v3CoefISOs;
 	//

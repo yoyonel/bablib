@@ -109,7 +109,7 @@ bool operator< (const Vec3 &a, float  b) { return a.x <  b && a.y <  b && a.z < 
 /*********************************************************************************************/
 #endif
 
-// d�finition de fonctions de base :
+// dÃÂ©finition de fonctions de base :
 namespace {
     float sign(float a) { return a > 0 ? 1 : (a < 0 ? -1 : 0); }
     float fract(float a) { return a - floorf(a); }

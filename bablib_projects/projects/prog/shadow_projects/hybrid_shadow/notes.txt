@@ -1,31 +1,31 @@
-Idée: Utiliser un modèle de de gestion de lumière diffuse (gouraud: interpolation aux sommets) pour générer/détecter de nouvelles arêtes de contour.
-Ces arêtes de contour correspondent Ã  des cycles d'iso courbes (pour les ombres aux environs +- 0.0).
-L'avantage est que ces arêtes de contours sont entièrement définies par les valeurs d'éclairages localement Ã  chaque triangle (donc plus besoin d'infos de connectivités).
+IdÃÂÃÂ©e: Utiliser un modÃÂÃÂ¨le de de gestion de lumiÃÂÃÂ¨re diffuse (gouraud: interpolation aux sommets) pour gÃÂÃÂ©nÃÂÃÂ©rer/dÃÂÃÂ©tecter de nouvelles arÃÂÃÂªtes de contour.
+Ces arÃÂÃÂªtes de contour correspondent ÃÂÃÂ  des cycles d'iso courbes (pour les ombres aux environs +- 0.0).
+L'avantage est que ces arÃÂÃÂªtes de contours sont entiÃÂÃÂ¨rement dÃÂÃÂ©finies par les valeurs d'ÃÂÃÂ©clairages localement ÃÂÃÂ  chaque triangle (donc plus besoin d'infos de connectivitÃÂÃÂ©s).
 
-Problèmes:
-- Le modèle de base pour détecter les arêtes de contour s'appuient sur les arêtes des triangles et leur appartenance Ã  deux types opposées de triangle,
-un triangle éclairé et un second non éclairé par la source de lumière.
-Une autre faÃ§on de voir est de considérer la visibilité des triangles pour la source de lumière,
-un des triangles est visible ou orienté vers la source de lumière (demi espace défini par le plan supportant le triangle et sa normale)
+ProblÃÂÃÂ¨mes:
+- Le modÃÂÃÂ¨le de base pour dÃÂÃÂ©tecter les arÃÂÃÂªtes de contour s'appuient sur les arÃÂÃÂªtes des triangles et leur appartenance ÃÂÃÂ  deux types opposÃÂÃÂ©es de triangle,
+un triangle ÃÂÃÂ©clairÃÂÃÂ© et un second non ÃÂÃÂ©clairÃÂÃÂ© par la source de lumiÃÂÃÂ¨re.
+Une autre faÃÂÃÂÃÂÃÂ§on de voir est de considÃÂÃÂ©rer la visibilitÃÂÃÂ© des triangles pour la source de lumiÃÂÃÂ¨re,
+un des triangles est visible ou orientÃÂÃÂ© vers la source de lumiÃÂÃÂ¨re (demi espace dÃÂÃÂ©fini par le plan supportant le triangle et sa normale)
 et le second non visible.
-On peut voir cette définition comme la frontière/iso courbe (~0) sur un modèle flat-shading (une normale par face).
-Dans ce modèle, l'éclairage (flat) et la vibilité sont communs, donc quand une arête est de contour, elle correspond aussi Ã  une arête de contour de visibilité.
-Ce qui induit que les volumes d'ombres extrudés n'englobent (pas forcément) les zones d'ombres dures liés au modele triangulaire.
+On peut voir cette dÃÂÃÂ©finition comme la frontiÃÂÃÂ¨re/iso courbe (~0) sur un modÃÂÃÂ¨le flat-shading (une normale par face).
+Dans ce modÃÂÃÂ¨le, l'ÃÂÃÂ©clairage (flat) et la vibilitÃÂÃÂ© sont communs, donc quand une arÃÂÃÂªte est de contour, elle correspond aussi ÃÂÃÂ  une arÃÂÃÂªte de contour de visibilitÃÂÃÂ©.
+Ce qui induit que les volumes d'ombres extrudÃÂÃÂ©s n'englobent (pas forcÃÂÃÂ©ment) les zones d'ombres dures liÃÂÃÂ©s au modele triangulaire.
 
-Le FB eyes contient tout les receivers de la scène et un sous ensemble de casters.
-Un FB light (DSM) contient une discrétisation de (presque) tout les casters et aucun receivers.
+Le FB eyes contient tout les receivers de la scÃÂÃÂ¨ne et un sous ensemble de casters.
+Un FB light (DSM) contient une discrÃÂÃÂ©tisation de (presque) tout les casters et aucun receivers.
 Lors de la construction de la DSM, on peut distinguer 3 types de texel:
-- (1): totalement inactif, donc aucun caster dans le frustum lié au texel
+- (1): totalement inactif, donc aucun caster dans le frustum liÃÂÃÂ© au texel
 - actif
 	- (2-a): ne contenant pas de "silhouettes": la DSM contient alors la profondeur minimale du caster recouvrant (en partie) le texel. 
-        - (2-b): contenant au moins une "silhouette": Un contour (au moins) est présent dans le frustum lié Ã  ce texel.
-On peut retroprojeter par la suite la DSM dans la scène et affecter ainsi chaque texel receiver d'un coefficient de visibilité.
-Tous les texels-eyes se trouvant dans le frustum du 1er cas (1) sont totalement illuminés (aucunes occlusions).
-Tous les texels-eyes se trouvant dans le frustum du 2nd cas (2-a) sont totalement ombrés (occlusion totale).
-Ces deux premiers cas ne nécessitent aucunes informations de contour (silhouettes des casters),
+        - (2-b): contenant au moins une "silhouette": Un contour (au moins) est prÃÂÃÂ©sent dans le frustum liÃÂÃÂ© ÃÂÃÂ  ce texel.
+On peut retroprojeter par la suite la DSM dans la scÃÂÃÂ¨ne et affecter ainsi chaque texel receiver d'un coefficient de visibilitÃÂÃÂ©.
+Tous les texels-eyes se trouvant dans le frustum du 1er cas (1) sont totalement illuminÃÂÃÂ©s (aucunes occlusions).
+Tous les texels-eyes se trouvant dans le frustum du 2nd cas (2-a) sont totalement ombrÃÂÃÂ©s (occlusion totale).
+Ces deux premiers cas ne nÃÂÃÂ©cessitent aucunes informations de contour (silhouettes des casters),
 donc n'ont pas besoin des infos fournies par le ShadowVolume.
-Le 3ème cas (2-b) nécessitent des informations de contours.
-On peut (et on doit) appliquer le ShadowVolume (extrusion) (que) sur les texels-eyes dans les frustums associés Ã  ces texels.
+Le 3ÃÂÃÂ¨me cas (2-b) nÃÂÃÂ©cessitent des informations de contours.
+On peut (et on doit) appliquer le ShadowVolume (extrusion) (que) sur les texels-eyes dans les frustums associÃÂÃÂ©s ÃÂÃÂ  ces texels.
 
 
 
@@ -33,61 +33,61 @@ On peut (et on doit) appliquer le ShadowVolume (extrusion) (que) sur les texels-
 
 Shadow Volume Full GPU
 
-Utilisation des arêtes de contours définies par rapport aux informations d'intensité lumineuse (iso courbe de surface).
-On peut détecter localement dans quels triangles passe l'iso courbe de frontière d'ombre (+/- 0).
+Utilisation des arÃÂÃÂªtes de contours dÃÂÃÂ©finies par rapport aux informations d'intensitÃÂÃÂ© lumineuse (iso courbe de surface).
+On peut dÃÂÃÂ©tecter localement dans quels triangles passe l'iso courbe de frontiÃÂÃÂ¨re d'ombre (+/- 0).
 On construit dans un geometry shader les shadow volumes d'extensions (shadow-quad, near and far cap pour le Z-FAIL).
 
- - Problèmes:
-    La technique de base pour construire localement les near&far cap des volumes d'ombre s'appuie directement sur les triangles occulteurs (illuminés, ombrés).
-    Les Shadow-Quads s'appuient sur le modèle d'iso courbe.
-    Il y a donc une différence de modèle qui induit des erreurs pour reformer correctement le volume d'ombre.
+ - ProblÃÂÃÂ¨mes:
+    La technique de base pour construire localement les near&far cap des volumes d'ombre s'appuie directement sur les triangles occulteurs (illuminÃÂÃÂ©s, ombrÃÂÃÂ©s).
+    Les Shadow-Quads s'appuient sur le modÃÂÃÂ¨le d'iso courbe.
+    Il y a donc une diffÃÂÃÂ©rence de modÃÂÃÂ¨le qui induit des erreurs pour reformer correctement le volume d'ombre.
 - Solution:
-    Ramener la création des near&far caps sur un modèle utilisant la courbe d'iso valeur sur l'intensité lumineuse.
-    Toujours utiliser l'information de visibilité de la face et savoir si une iso courbe de silhouette passe par le triangle.
+    Ramener la crÃÂÃÂ©ation des near&far caps sur un modÃÂÃÂ¨le utilisant la courbe d'iso valeur sur l'intensitÃÂÃÂ© lumineuse.
+    Toujours utiliser l'information de visibilitÃÂÃÂ© de la face et savoir si une iso courbe de silhouette passe par le triangle.
 
     3 types de triangle:
-        (1) triangle totalement illuminé    => near cap (geom. shad. 3)
-        (2) triangle totalement ombré       => far cap (geom. shad. 3)
-        (3) triangle partiellement ombre/illumé
+        (1) triangle totalement illuminÃÂÃÂ©    => near cap (geom. shad. 3)
+        (2) triangle totalement ombrÃÂÃÂ©       => far cap (geom. shad. 3)
+        (3) triangle partiellement ombre/illumÃÂÃÂ©
             L'iso courbe de silhouette passe par le triangle.
-            Le triangle est donc coupé en 1 quadrilatère et un triangle.
+            Le triangle est donc coupÃÂÃÂ© en 1 quadrilatÃÂÃÂ¨re et un triangle.
             Avec le Shadow-Quad, on a donc pour le geom. shad.: 4 + 4 + 3 = 11
-    Il faut faire des tests de perf. pour savoir s'il faut décomposer le rendu (2 rendu avec un traitement séparé, ou 1 rendu avec des if et un vertices_out au max (= 11)).
+    Il faut faire des tests de perf. pour savoir s'il faut dÃÂÃÂ©composer le rendu (2 rendu avec un traitement sÃÂÃÂ©parÃÂÃÂ©, ou 1 rendu avec des if et un vertices_out au max (= 11)).
 
-Autres problèmes:
-    - Z-Fight lié à la différence entre les frontières de visibilité (servant aussi de frontière d'ombre pour l'éclairage FLAT (classique des shadow-volumes))
-        et celle lié au modèle d'éclairage GOURAUD/PHONG.
-        Autrement dit le problème vient que le volume d'ombre ou le quad englobant le volume d'ombre coupe le triangle occulteur (générateur) au niveau de la frontière d'éclairage.
-    - Problèmes de précision pour caractériser les faces illumées/auto-ombrées.
-        Normale quasi perpendiculaire avec le vecteur directeur reliant un point de la face et la position de la lumière.
-        Problème lié au partionnement local des triangles.
+Autres problÃÂÃÂ¨mes:
+    - Z-Fight liÃÂÃÂ© ÃÂÃÂ  la diffÃÂÃÂ©rence entre les frontiÃÂÃÂ¨res de visibilitÃÂÃÂ© (servant aussi de frontiÃÂÃÂ¨re d'ombre pour l'ÃÂÃÂ©clairage FLAT (classique des shadow-volumes))
+        et celle liÃÂÃÂ© au modÃÂÃÂ¨le d'ÃÂÃÂ©clairage GOURAUD/PHONG.
+        Autrement dit le problÃÂÃÂ¨me vient que le volume d'ombre ou le quad englobant le volume d'ombre coupe le triangle occulteur (gÃÂÃÂ©nÃÂÃÂ©rateur) au niveau de la frontiÃÂÃÂ¨re d'ÃÂÃÂ©clairage.
+    - ProblÃÂÃÂ¨mes de prÃÂÃÂ©cision pour caractÃÂÃÂ©riser les faces illumÃÂÃÂ©es/auto-ombrÃÂÃÂ©es.
+        Normale quasi perpendiculaire avec le vecteur directeur reliant un point de la face et la position de la lumiÃÂÃÂ¨re.
+        ProblÃÂÃÂ¨me liÃÂÃÂ© au partionnement local des triangles.
 Remarques:
-    Aucun problème en Z-PASS, avec le rendu (seul) des shadow-quads (sans near et far caps, en particulier near-caps).
+    Aucun problÃÂÃÂ¨me en Z-PASS, avec le rendu (seul) des shadow-quads (sans near et far caps, en particulier near-caps).
     Intuitions:
-        - séparer les pass de rendu des shadow-quads, et des caps
+        - sÃÂÃÂ©parer les pass de rendu des shadow-quads, et des caps
         - utiliser pour les caps un polygon-offset fill
-    Ecrire au clair ce qu'il ne va pas, ce qu'on fait (en particulier avec les caps), les problèmes de z-fighting, etc ...
+    Ecrire au clair ce qu'il ne va pas, ce qu'on fait (en particulier avec les caps), les problÃÂÃÂ¨mes de z-fighting, etc ...
 Solutions:
-    - Z-Fight "classique" lié à l'utilisation des caps near/far en ZFail. Le polygon offset semble être la solution standard à ce problème.
-    - Manque de Précision pour caractériser les faces venait directement d'un manque de cohérence dans les modèles d'éclairages/visibilités utilisés.
-        Dans un cas: détection des edges, j'utilise un modèle gouraud d'éclairage et la courbe de silhouette résultante (iso courbe)
-        Dans l'autre cas: détection des faces illuminés, j'utilisais un modèle dit "flat" (une normale par face, appartenance au sous-espace délimité par la face).
-        Pour supprimer le problème de précision, il suffisait de ramener le deuxième cas dans le modèle d'éclairage gouraud, donc de prendre en compte les normales
-        associées aux sommets (plutot que la normale associée à la face).
-Problèmes:
-    Le problème de Z-Fight n'est pas solutionné (en fait).
+    - Z-Fight "classique" liÃÂÃÂ© ÃÂÃÂ  l'utilisation des caps near/far en ZFail. Le polygon offset semble ÃÂÃÂªtre la solution standard ÃÂÃÂ  ce problÃÂÃÂ¨me.
+    - Manque de PrÃÂÃÂ©cision pour caractÃÂÃÂ©riser les faces venait directement d'un manque de cohÃÂÃÂ©rence dans les modÃÂÃÂ¨les d'ÃÂÃÂ©clairages/visibilitÃÂÃÂ©s utilisÃÂÃÂ©s.
+        Dans un cas: dÃÂÃÂ©tection des edges, j'utilise un modÃÂÃÂ¨le gouraud d'ÃÂÃÂ©clairage et la courbe de silhouette rÃÂÃÂ©sultante (iso courbe)
+        Dans l'autre cas: dÃÂÃÂ©tection des faces illuminÃÂÃÂ©s, j'utilisais un modÃÂÃÂ¨le dit "flat" (une normale par face, appartenance au sous-espace dÃÂÃÂ©limitÃÂÃÂ© par la face).
+        Pour supprimer le problÃÂÃÂ¨me de prÃÂÃÂ©cision, il suffisait de ramener le deuxiÃÂÃÂ¨me cas dans le modÃÂÃÂ¨le d'ÃÂÃÂ©clairage gouraud, donc de prendre en compte les normales
+        associÃÂÃÂ©es aux sommets (plutot que la normale associÃÂÃÂ©e ÃÂÃÂ  la face).
+ProblÃÂÃÂ¨mes:
+    Le problÃÂÃÂ¨me de Z-Fight n'est pas solutionnÃÂÃÂ© (en fait).
     Utiliser le self-shadowing avec un polygon ofsset semble etre un bon "hack" si l'ambiant est nulle (ombre dur 0 ou 1).
-    On peut utiliser cet hack pour créer un lit-buffer (ou shadow-buffer) et remapper ensuite ce buffer sur la scèné (via un processus defered).
-    Le problème reste toutefois présent, c'est à dire que le volume d'ombre généré (shadow-quad) auto-intersecte la face génératrice (triangle qui possède la silhouette de contour).
+    On peut utiliser cet hack pour crÃÂÃÂ©er un lit-buffer (ou shadow-buffer) et remapper ensuite ce buffer sur la scÃÂÃÂ¨nÃÂÃÂ© (via un processus defered).
+    Le problÃÂÃÂ¨me reste toutefois prÃÂÃÂ©sent, c'est ÃÂÃÂ  dire que le volume d'ombre gÃÂÃÂ©nÃÂÃÂ©rÃÂÃÂ© (shadow-quad) auto-intersecte la face gÃÂÃÂ©nÃÂÃÂ©ratrice (triangle qui possÃÂÃÂ¨de la silhouette de contour).
 
 Remarques:
     Notions de:
-        - Premier "récepteur"
-        - Silhouette Edge Pixel in ScreenSpace <=> un rayon (unique) vers la source de lumière intercepté par la ligne de silhouette sur l'occulteur
+        - Premier "rÃÂÃÂ©cepteur"
+        - Silhouette Edge Pixel in ScreenSpace <=> un rayon (unique) vers la source de lumiÃÂÃÂ¨re interceptÃÂÃÂ© par la ligne de silhouette sur l'occulteur
 
 Une silhouette de contour en LightSpace peut recouvrir plusieurs texels.
-Il faut relier les texels d'une silhouette à un seul texel (une sorte de redirection)
-Toutes les opérations doivent être conservatives (rasterisation des segments conservatives!)
-L'information qu'on souhaite déterminer est:
-    - pour un texel-silhouette (possèdant/représentant une ou plusieurs silhouettes) qu'elle est la profondeur min/max des receivers.
-        (on pourra décomposer le problème en deux au départ min et max)
+Il faut relier les texels d'une silhouette ÃÂÃÂ  un seul texel (une sorte de redirection)
+Toutes les opÃÂÃÂ©rations doivent ÃÂÃÂªtre conservatives (rasterisation des segments conservatives!)
+L'information qu'on souhaite dÃÂÃÂ©terminer est:
+    - pour un texel-silhouette (possÃÂÃÂ¨dant/reprÃÂÃÂ©sentant une ou plusieurs silhouettes) qu'elle est la profondeur min/max des receivers.
+        (on pourra dÃÂÃÂ©composer le problÃÂÃÂ¨me en deux au dÃÂÃÂ©part min et max)

@@ -54,13 +54,13 @@ $EXE +init=${INIT_FILE}:LAMBE +to +init=${INIT_FILE}:LAMB93 -E $RES -v >> ${OUT}
 EOF
 head -23 ${OUT}.part1
 echo " ----------------------------"
-echo " coordonnées réelles:                                          "
+echo " coordonnÃ©es rÃ©elles:                                          "
 echo " L2E   E=600000.000  N=2600545.4523  h=0.0000                  "	
 echo " L93   E=652760.737  N=7033791.244   h=0.000                   "
 echo " test proj :                                                   "
 tail -2 ${OUT}.part1 | head -1
 echo " ----------------------------"
-echo " coordonnées réelles:                                          "
+echo " coordonnÃ©es rÃ©elles:                                          "
 echo " L2E   E=135638.3592  N=2418760.4094  h=0.0000                 "	
 echo " L93   E=187194.062  N=6855928.882   h=0.000                   "
 echo " test proj :                                                   "
@@ -102,13 +102,13 @@ $EXE +init=${INIT_FILE}:LAMB3C +to +init=${INIT_FILE}:LAMB93 -E $RES -v >>${OUT}
 EOF
 head -23 ${OUT}.part2
 echo " ----------------------------"
-echo " coordonnées réelles:                                          "
+echo " coordonnÃ©es rÃ©elles:                                          "
 echo " L3C   E=846254.09  N=313870.54  h=191.13          "	
 echo " L93   E=892556.27  N=6245637.81   h=191.13                 "
 echo " test proj :                                                   "
 tail -2 ${OUT}.part2 | head -1
 echo " ----------------------------"
-echo " coordonnées réelles:                                          "
+echo " coordonnÃ©es rÃ©elles:                                          "
 echo " L3C   E=817717.80   N=3212387.42  h=732.27 		     "	
 echo " L93   E=864691.44  N=6344379.28   h=732.27                    "
 echo " test proj :                                                   "
@@ -151,15 +151,15 @@ $EXE +init=${INIT_FILE}:LAMB1 +to +init=${INIT_FILE}:RGF93G -E $RES -v >>${OUT}.
 EOF
 head -19 ${OUT}.part3
 echo " ----------------------------"
-echo " coordonnées réelles:                                          "
+echo " coordonnÃ©es rÃ©elles:                                          "
 echo "  L1   E=597463.81  N=243917.77  h=34.4                 "	
 echo "  RGF93G   Lon: 02d18'04,3616''E Lat:49d53'41.4145''N H: 78.27  "
 echo " test proj :                                                   "
 tail -2 ${OUT}.part3 | head -1
 echo " ----------------------------"
-echo " coordonnées réelles:                                          "
+echo " coordonnÃ©es rÃ©elles:                                          "
 echo "  L1   E=593560.86   N=250950.16  h=72.188                      "	
-echo "  RGF93G   Lon: 2°14'48,37224''E  Lat: 49°57'28,93760''N  H:116,056  "
+echo "  RGF93G   Lon: 2Â°14'48,37224''E  Lat: 49Â°57'28,93760''N  H:116,056  "
 echo " test proj :       "
 tail -1 ${OUT}.part3 | head -1
 /bin/rm -f ${OUT}.part3
@@ -200,15 +200,15 @@ $EXE +init=${INIT_FILE}:LAMB1_EGM96 +to +init=${INIT_FILE}:RGF93G -E $RES -v >>$
 EOF
 head -19 ${OUT}.part4
 echo " ----------------------------"
-echo " coordonnées réelles:                                          "
+echo " coordonnÃ©es rÃ©elles:                                          "
 echo "  L1_IGN69   E=597463.81  N=243917.77  h=34.4                 "	
 echo "  RGF93G   Lon: 02d18'04,3616''E Lat:49d53'41.4145''N H: 78.27  "
 echo " test proj :                                                   "
 tail -2 ${OUT}.part4 | head -1
 echo " ----------------------------"
-echo " coordonnées réelles:                                          "
+echo " coordonnÃ©es rÃ©elles:                                          "
 echo "  L1_IGN69   E=593560.86   N=250950.16  h=72.188                      "	
-echo "  RGF93G   Lon: 2°14'48,37224''E  Lat: 49°57'28,93760''N  H:116,056  "
+echo "  RGF93G   Lon: 2Â°14'48,37224''E  Lat: 49Â°57'28,93760''N  H:116,056  "
 echo " test proj :       "
 tail -1 ${OUT}.part4 | head -1
 /bin/rm -f ${OUT}.part4

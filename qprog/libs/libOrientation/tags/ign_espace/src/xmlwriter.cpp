@@ -27,7 +27,7 @@ bool spheric_xml_writer(const shared_ptr<ModeleProjectionSpherique> mps, const s
 
 bool conic_xml_writer(const shared_ptr<ModeleProjectionConique> mpc, const std::string & filename)
 {
-		// A partir de là on sait q'on a un ModeleProjectionConique mpc
+		// A partir de lÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ  on sait q'on a un ModeleProjectionConique mpc
 //	std::cout<<"cast bien passe!"<<std::endl;
 
 //std::cout << "Temp_OriXmlWriter fichier " << filename<<std::endl;
@@ -180,7 +180,7 @@ bool conic_xml_writer(const shared_ptr<ModeleProjectionConique> mpc, const std::
 		h_rotation->LinkEndChild(h_mat3d);
 	
 	XmlHandler::WriteMat3D(h_mat3d, mpc->GetExtrinseque().GetRotation(0), mpc->GetExtrinseque().GetRotation(1), mpc->GetExtrinseque().GetRotation(2));
-//	std::cout<<"hey après!"<<std::endl;
+//	std::cout<<"hey aprÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¨s!"<<std::endl;
 	/* quaternion */
 	TiXmlElement * h_quaternion = new TiXmlElement("quaternion");
 	h_rotation->LinkEndChild(h_quaternion);
@@ -279,7 +279,7 @@ bool conic_xml_writer(const shared_ptr<ModeleProjectionConique> mpc, const std::
 		else if (typeid(*te) == typeid(DistortionGrilleMATIS))
 		{
 //			std::cout<<"problem "<<std::endl;
-			throw std::logic_error("DistortionGrilleMATIS non géré ! ");
+			throw std::logic_error("DistortionGrilleMATIS non gÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©rÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© ! ");
 			//			exit(0);
 		}
 		else if (typeid(*te) == typeid(Homographie2D))
@@ -296,7 +296,7 @@ bool conic_xml_writer(const shared_ptr<ModeleProjectionConique> mpc, const std::
 		else
 		{
 //			std::cout<<"problem "<<std::endl;
-			throw std::logic_error("type de tranformation elementaire non géré ! ");
+			throw std::logic_error("type de tranformation elementaire non gÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©rÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© ! ");
 			//			exit(0);
 		}
 //		std::cout<<"non problem "<<std::endl;

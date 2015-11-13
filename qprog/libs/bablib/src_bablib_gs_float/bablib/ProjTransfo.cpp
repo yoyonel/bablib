@@ -102,11 +102,11 @@ ProjTransfo ProjTransfo::inv() const {
     }
 */
 
-// calcul de la transpos�e de la comatrice divis�e par le d�terminant :
+// calcul de la transposÃÂ©e de la comatrice divisÃÂ©e par le dÃÂ©terminant :
 ProjTransfo ProjTransfo::inv() const {
     ProjTransfo res;
     #define det2(i1, i2, j1, j2)  coef(i1,j1) * coef(i2,j2) - coef(i2,j1) * coef(i1,j2)
-    // d�terminants 2x2 entre les colonnes 0 et 1 :
+    // dÃÂ©terminants 2x2 entre les colonnes 0 et 1 :
     #define det2a(i1, i2)  det2(i1, i2, 0, 1)
     const float a01 = det2a(0,1);
     const float a02 = det2a(0,2);
@@ -114,7 +114,7 @@ ProjTransfo ProjTransfo::inv() const {
     const float a12 = det2a(1,2);
     const float a13 = det2a(1,3);
     const float a23 = det2a(2,3);
-    // d�terminants 2x2 entre les colonnes 2 et 3 :
+    // dÃÂ©terminants 2x2 entre les colonnes 2 et 3 :
     #define det2b(i1, i2)  det2(i1, i2, 2, 3)
     const float b01 = det2b(0,1);
     const float b02 = det2b(0,2);
@@ -123,22 +123,22 @@ ProjTransfo ProjTransfo::inv() const {
     const float b13 = det2b(1,3);
     const float b23 = det2b(2,3);
     
-    // 1�re ligne :
+    // 1ÃÂ¨re ligne :
     res(0,0) = + coef(1,1) * b23 - coef(2,1) * b13 + coef(3,1) * b12;
     res(0,1) = - coef(0,1) * b23 + coef(2,1) * b03 - coef(3,1) * b02;
     res(0,2) = + coef(0,1) * b13 - coef(1,1) * b03 + coef(3,1) * b01;
     res(0,3) = - coef(0,1) * b12 + coef(1,1) * b02 - coef(2,1) * b01;
-    // 2�me ligne :
+    // 2ÃÂ¨me ligne :
     res(1,0) = - coef(1,0) * b23 + coef(2,0) * b13 - coef(3,0) * b12;
     res(1,1) = + coef(0,0) * b23 - coef(2,0) * b03 + coef(3,0) * b02;
     res(1,2) = - coef(0,0) * b13 + coef(1,0) * b03 - coef(3,0) * b01;
     res(1,3) = + coef(0,0) * b12 - coef(1,0) * b02 + coef(2,0) * b01;
-    // 3�me ligne :
+    // 3ÃÂ¨me ligne :
     res(2,0) = + coef(1,3) * a23 - coef(2,3) * a13 + coef(3,3) * a12;
     res(2,1) = - coef(0,3) * a23 + coef(2,3) * a03 - coef(3,3) * a02;
     res(2,2) = + coef(0,3) * a13 - coef(1,3) * a03 + coef(3,3) * a01;
     res(2,3) = - coef(0,3) * a12 + coef(1,3) * a02 - coef(2,3) * a01;
-    // 4�me ligne :
+    // 4ÃÂ¨me ligne :
     res(3,0) = - coef(1,2) * a23 + coef(2,2) * a13 - coef(3,2) * a12;
     res(3,1) = + coef(0,2) * a23 - coef(2,2) * a03 + coef(3,2) * a02;
     res(3,2) = - coef(0,2) * a13 + coef(1,2) * a03 - coef(3,2) * a01;
@@ -289,7 +289,7 @@ void ProjTransfo::drawBox(float xMin, float xMax, float yMin, float yMax, float 
     }
 
 /*********************************************************************************************/
-// lecture / �criture d'un �l�ment XML :
+// lecture / ÃÂ©criture d'un ÃÂ©lÃÂ©ment XML :
 
 ProjTransfo::ProjTransfo(const QDomElement &element) {
     initFromDOMElement(element);
@@ -376,7 +376,7 @@ ProjTransfo ProjTransfo::rotation(Vec3 src, Vec3 dst, bool normalized) {
     Vec3 n = vec(src, dst);
     const float s = n.norm2(),
                 c = sqrtf(1 - s),
-                d = (s > 1e-8f) ? (1 - c) / s : 0.5f;  // d�veloppement limit� � l'ordre 1 par rapport � s (en z�ro)
+                d = (s > 1e-8f) ? (1 - c) / s : 0.5f;  // dÃÂ©veloppement limitÃÂ© ÃÂ  l'ordre 1 par rapport ÃÂ  s (en zÃÂ©ro)
     return ProjTransfo(
         d*n.x*n.x + c   , d*n.x*n.y - n.z , d*n.x*n.z + n.y ,  0,
         d*n.y*n.x + n.z , d*n.y*n.y + c   , d*n.y*n.z - n.x ,  0,

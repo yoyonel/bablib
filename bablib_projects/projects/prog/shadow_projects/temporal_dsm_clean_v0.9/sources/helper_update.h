@@ -29,10 +29,10 @@ void Viewer::updateFrameBuffers()
 	qgl_cam_light_rand = qgl_cam_light;
 
 	if ( PARAM(bool, light.jittered) && PARAM(bool, light.jittered.rotation)) {				
-		// On génère une nouvelle suite de nombres (pseudo)-aléatoires (séquence d'Halton)
+		// On gÃÂÃÂ©nÃÂÃÂ¨re une nouvelle suite de nombres (pseudo)-alÃÂÃÂ©atoires (sÃÂÃÂ©quence d'Halton)
 		gsl_qrng_get (q, v);
 
-		// - Version avec rotation aléatoire (halton séquence générée par gsl)
+		// - Version avec rotation alÃÂÃÂ©atoire (halton sÃÂÃÂ©quence gÃÂÃÂ©nÃÂÃÂ©rÃÂÃÂ©e par gsl)
 		const Vec2	v_angles_rand = Vec2(v[0], v[1]) * PARAM(double, light.jittered.max_angle);
 
 		qglviewer::Vec	v_up = qglviewer::Vec( cosf(v_angles_rand.x) , sinf(v_angles_rand.y) , 0. );
@@ -54,7 +54,7 @@ void Viewer::updateFrameBuffers()
 	index_hs ++;
 
 
-	// - FRAME_BUFFERS: Maj des FBs et Render-Textures associées
+	// - FRAME_BUFFERS: Maj des FBs et Render-Textures associÃÂÃÂ©es
 	//tq_update_shadow_map.begin();
 	// - update depth shadow map texture (light view)
 	updateShadowMap( fb_depth_shadow_map, qgl_cam_light_rand );
@@ -210,7 +210,7 @@ void Viewer::updateShadowClipMap(
 		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
 		//glClear(GL_DEPTH_BUFFER_BIT);
 
-		// -- récupération des dimensions des textures
+		// -- rÃÂÃÂ©cupÃÂÃÂ©ration des dimensions des textures
 		const Vec2 v2_sm_size( _tex_shadow_map.getWidth(), _tex_shadow_map.getHeight() );
 
 		//
@@ -313,7 +313,7 @@ void Viewer::updateShadowClipMap(
 			/**/
 			{
 				// MODEL_SPACE -> WORLD_SPACE
-				const ProjTransfo pt_mv_world_spiral; // matrice identité
+				const ProjTransfo pt_mv_world_spiral; // matrice identitÃÂÃÂ©
 				prog_vbo_scm.setUniformMat4( "u_m4_modelview", pt_mv_world_spiral.coefs(), false);
 
 				// MODEL_SPACE -> WORLD_SPACE -> LIGHT_SPACE_TEXTURE

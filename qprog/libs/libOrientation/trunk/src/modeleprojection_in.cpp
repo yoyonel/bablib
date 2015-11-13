@@ -81,7 +81,7 @@ namespace OrientationMATIS
         MapReaderModeleProjection::const_iterator it_ext = GetReaders().lower_bound(ext);
         MapReaderModeleProjection::const_iterator it = it_ext;
 
-        // D'abord ceux qui gèrent à peu près la même extension
+        // D'abord ceux qui gÃÂÃÂÃÂÃÂ¨rent ÃÂÃÂÃÂÃÂ  peu prÃÂÃÂÃÂÃÂ¨s la mÃÂÃÂÃÂÃÂªme extension
         for (it = it_ext; it != GetReaders().end(); ++it)
         {
 

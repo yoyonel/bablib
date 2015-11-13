@@ -33,7 +33,7 @@
 #define GLATOM_SUFFIX(type)   GLATOM_MEMBER(type, 2)
 #define GLATOM_GLENUM(type)   GLATOM_MEMBER(type, 3)
 
-//@ pas top, � voir
+//@ pas top, ÃÂ  voir
 #define GLVEC_NAME(type, channels)      CONCAT3(Vec, GLATOM_MAJ(type), channels)
 //#define GLVEC_NAME(type, channels)      CONCAT3(Vec, channels, GLATOM_SUFFIX(type))
 //#define GLVEC_NAME(type, channels)      CONCAT2(GLATOM_MAJ(type), channels)

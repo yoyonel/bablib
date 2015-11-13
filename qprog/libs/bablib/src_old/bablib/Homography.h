@@ -22,7 +22,7 @@ class Homography {
         Homography(const double M[9], bool deleteArray = false);  // column-wise : m_ij = M[i + 3*j]  (OpenGL order)
         Homography(Vec3 O, Vec3 X, Vec3 Y, bool relative=false);    // affine transform
         Homography(Vec2 O, Vec2 X, Vec2 Y, bool relative=false);    // affine transform
-        Homography(float xmin, float xmax, float ymin, float ymax); // [xmin,xmax]*[ymin,ymax] --> [0,1]�
+        Homography(float xmin, float xmax, float ymin, float ymax); // [xmin,xmax]*[ymin,ymax] --> [0,1]ÃÂ²
         
     // common transforms :
     //--------------------
@@ -40,12 +40,12 @@ class Homography {
         static Homography scalingAndTranslation(float s, float t);   // uniform scaling then uniform translation
 
         /*
-        static Homography rotation(float theta, Vec3 n, bool isNormed = false);    // pr�condition : isNormed ou ||n||=1
+        static Homography rotation(float theta, Vec3 n, bool isNormed = false);    // prÃÂ©condition : isNormed ou ||n||=1
         static Homography rotation(Vec3 d);    // rotation autour de d, d'angle ||d||
         static Homography rotation(Vec3 src, Vec3 dst, bool normalized = true);    // rotation d'angle minimal faisant tourner la direction de <src> sur celle de <dst>
         */
-        static Homography U2C();   // unit [0,1]� --> centered [-1,1]�
-        static Homography C2U();   // centered [-1,1]� --> unit [0,1]�
+        static Homography U2C();   // unit [0,1]ÃÂ² --> centered [-1,1]ÃÂ²
+        static Homography C2U();   // centered [-1,1]ÃÂ² --> unit [0,1]ÃÂ²
         
     // matrix operations :
     //--------------------
@@ -82,18 +82,18 @@ class Homography {
         void glMultModelView() const;
         void glMultProjection() const;
         
-    // r�cup�ration de transformations d�finies dans une qglviewer::Camera :
+    // rÃÂ©cupÃÂ©ration de transformations dÃÂ©finies dans une qglviewer::Camera :
     //----------------------------------------------------------------------
         void getModelViewFrom(const qglviewer::Camera &camera);
         void getProjectionFrom(const qglviewer::Camera &camera);
     */
         
     /*
-    // autres m�thodes pratiques :
+    // autres mÃÂ©thodes pratiques :
     //----------------------------
-        // le rapport largeur/hauteur d'une cam�ra utilisant cette transfo :
+        // le rapport largeur/hauteur d'une camÃÂ©ra utilisant cette transfo :
         float screenRatio(float xMin = -1, float xMax = 1, float yMin = -1, float yMax = 1, float z = 0) const;
-        // affichage de la transformation inverse d'une bo�te rectangulaire :
+        // affichage de la transformation inverse d'une boÃÂ®te rectangulaire :
         void drawBox(float xMin = 0, float xMax = 1, float yMin = 0, float yMax = 1, float zMin = 0, float zMax = 1) const;
     */
     

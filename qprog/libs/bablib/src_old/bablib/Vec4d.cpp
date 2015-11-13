@@ -88,7 +88,7 @@ bool operator< (const Vec4d &a, double  b) { return a.x <  b && a.y <  b && a.z 
 
 /*********************************************************************************************/
 
-// d�finition de fonctions de base :
+// dÃÂ©finition de fonctions de base :
 namespace {
     double sign(double a) { return a > 0 ? 1 : (a < 0 ? -1 : 0); }
     double fract(double a) { return a - floor(a); }
@@ -123,7 +123,7 @@ Vec4d Vec4d::random(double min, double max) { return min + (max - min) * random(
 Vec4d Vec4d::random(Vec4d  min, Vec4d  max) { return min + (max - min) * random(); }
 
 /*********************************************************************************************/
-// lecture / �criture XML :
+// lecture / ÃÂ©criture XML :
 
 Vec4d::Vec4d(const QDomElement &element) {
     initFromDOMElement(element);

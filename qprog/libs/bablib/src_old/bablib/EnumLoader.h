@@ -27,14 +27,14 @@
 #include <QStringList>
 #include <QInputDialog>
 
-// cette macro sert � d�finir une enum <EnumName> et une classe <EnumName>Loader qui fournit des m�thodes
-// permettant de faire la conversion entre une enum et sa repr�sentation en cha�ne de caract�res.
-// ne pas oublier dans le fichier cpp � faire un #define __ENUM_LOADER_CPP__ pour l'impl�mentation de la classe.
+// cette macro sert ÃÂ  dÃÂ©finir une enum <EnumName> et une classe <EnumName>Loader qui fournit des mÃÂ©thodes
+// permettant de faire la conversion entre une enum et sa reprÃÂ©sentation en chaÃÂ®ne de caractÃÂ¨res.
+// ne pas oublier dans le fichier cpp ÃÂ  faire un #define __ENUM_LOADER_CPP__ pour l'implÃÂ©mentation de la classe.
 //------------------------
 // arguments de la macro :
 //------------------------
 //  - nom de l'enum
-//  - valeur par d�faut
+//  - valeur par dÃÂ©faut
 //  - nombre de valeurs
 //  - liste des enums
 #define DEFINE_ENUM(EnumName, defaultValue, n, enums...) \
@@ -42,8 +42,8 @@
     DEF_ENUM_LOADER(EnumName, defaultValue) \
     DEF_ENUM_STRING_LIST(EnumName, n, enums)
 
-// macro interm�diaire :
-// d�finition de la classe <EnumName>Loader :
+// macro intermÃÂ©diaire :
+// dÃÂ©finition de la classe <EnumName>Loader :
 #define DEF_ENUM_LOADER(EnumName, defaultValue)    \
     class EnumName##Loader { \
         public: \
@@ -66,8 +66,8 @@
 
     //return (i >= 0) ? static_cast<EnumName>(i) : defaultValue;
     
-// macro interm�diaire :
-// d�finition �ventuelle (si on se trouve dans le cpp) de la liste de noms de l'enum :
+// macro intermÃÂ©diaire :
+// dÃÂ©finition ÃÂ©ventuelle (si on se trouve dans le cpp) de la liste de noms de l'enum :
 #ifdef __ENUM_LOADER_CPP__
     #define PROCESS_STRING(a) << QString(#a).toLower()
     #define DEF_ENUM_STRING_LIST(EnumName, n, enums...) \

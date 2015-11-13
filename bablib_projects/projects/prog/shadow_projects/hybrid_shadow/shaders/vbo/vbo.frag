@@ -69,7 +69,7 @@ void main()
         #endif
 
 	#ifdef __RENDER_ANALOGIC_EDGE__
-                // Silhouette de silhouette analogique (iso courbe du champs de potentiel de la lumière sur le mesh)
+                // Silhouette de silhouette analogique (iso courbe du champs de potentiel de la lumiÃÂÃÂ¨re sur le mesh)
                 bool    b_is_edge;
                 float   f_coef_edge;
 		// - Diffuse Lighting Per Vertex

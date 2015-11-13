@@ -259,7 +259,7 @@ if( BUILD_TESTS )
 
 
     add_test( io_NonValidFiles ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/TestOrientationMATIS_NonValidFile
-    # ${CMAKE_CURRENT_SOURCE_DIR}/data/Pano.xml  ## implémentation de spheric_xml_reader  FC
+    # ${CMAKE_CURRENT_SOURCE_DIR}/data/Pano.xml  ## implÃÂÃÂÃÂÃÂ©mentation de spheric_xml_reader  FC
      ${CMAKE_CURRENT_SOURCE_DIR}/data/RoadSigns.xml)
 
 
@@ -283,7 +283,7 @@ if( BUILD_TESTS )
     ${CMAKE_CURRENT_SOURCE_DIR}/data/Amiens296.xml 
     ${CMAKE_CURRENT_SOURCE_DIR}/data/orid.xml  
     ${CMAKE_CURRENT_SOURCE_DIR}/data/ori_test_projective.xml
-    ${CMAKE_CURRENT_SOURCE_DIR}/data/Pano_SampleFC.xml  ## implémentation de spheric_xml_reader  FC
+    ${CMAKE_CURRENT_SOURCE_DIR}/data/Pano_SampleFC.xml  ## implÃÂÃÂÃÂÃÂ©mentation de spheric_xml_reader  FC
     )
     
     add_test( WorldToImageOldOri

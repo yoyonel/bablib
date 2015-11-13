@@ -12,7 +12,7 @@
 #include <GL/gl.h>
 
 /**************************************************************************************************/
-// partie � modifier � chaque ajout de nouveau loader :
+// partie ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ  modifier ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ  chaque ajout de nouveau loader :
 
 #include "obj/LoaderOBJ.h"
 #include "off/LoaderOFF.h"
@@ -41,7 +41,7 @@ TriSoup* TriSoup::load(QString fileName) {
             }
         */
         }
-    Message::error(QString("format de fichier non support� : %1").arg(fileName));
+    Message::error(QString("format de fichier non supportÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© : %1").arg(fileName));
     return NULL;
     }
 

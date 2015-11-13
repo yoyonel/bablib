@@ -16,21 +16,21 @@ void AbstractImage2D::save(QString fileName) const {
     // on deduit le format a utiliser a partir de l'extension du fichier :
     QByteArray format = fileName.section('.', -1).toLower().toLatin1();
 
-    // on verifie d'abord que le format d'image est support� :
+    // on verifie d'abord que le format d'image est supportÃÂ© :
     QList<QByteArray> supportedFormats = QImageWriter::supportedImageFormats();
     if (!supportedFormats.contains(format)) {
         Message::error(QString("le format '%1' n'est pas supporte").arg(QString(format)));
         QString formatsList;
         foreach (QByteArray f, supportedFormats)
             formatsList += QString(" ") + f;
-        Message::info(QString("> formats support�s :") + formatsList);
+        Message::info(QString("> formats supportÃÂ©s :") + formatsList);
         return;
         }
     
-    // on �crit le fichier :
+    // on ÃÂ©crit le fichier :
     QImage image = toQImage();
     if (!image.save(fileName, format))
-        Message::error(QString("la sauvegarde de l'image '%1' a echou�").arg(fileName));
+        Message::error(QString("la sauvegarde de l'image '%1' a echouÃÂ©").arg(fileName));
     }
 
 namespace {
@@ -96,7 +96,7 @@ float* AbstractImage2D::loadPNG16Data(QString fileName, int channels, int &w, in
          case PNG_COLOR_TYPE_GRAY_ALPHA : inputChannels = 2; break;
          case PNG_COLOR_TYPE_RGB        : inputChannels = 3; break;
          case PNG_COLOR_TYPE_RGB_ALPHA  : inputChannels = 4; break;
-         default: ERROR("format de couleurs non support�e : color_type=%1", color_type);
+         default: ERROR("format de couleurs non supportÃÂ©e : color_type=%1", color_type);
          }
     //@ possible de supporter PNG_COLOR_TYPE_PALETTE
 
@@ -161,7 +161,7 @@ void AbstractImage2D::savePNG16Data(QString fileName, int channels, int w, int h
     #define ERROR(m,a) { Message::error(QString(m).arg(a)); if (file != NULL) fclose(file); return; }
     //@@ cleanup avant return..
     FILE *file = fopen(fileName.toLatin1(), "wb");
-    if (file == NULL) ERROR("probleme lors de l'�criture du fichier '%1'", fileName);
+    if (file == NULL) ERROR("probleme lors de l'ÃÂ©criture du fichier '%1'", fileName);
     
     png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
     //png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, (png_voidp)user_error_ptr, user_error_fn, user_warning_fn);
@@ -185,7 +185,7 @@ void AbstractImage2D::savePNG16Data(QString fileName, int channels, int w, int h
          case 2: color_type = PNG_COLOR_TYPE_GRAY_ALPHA ; break;
          case 3: color_type = PNG_COLOR_TYPE_RGB        ; break;
          case 4: color_type = PNG_COLOR_TYPE_RGB_ALPHA  ; break;
-         default: ERROR("nombre de canaux non support� : channels=%1", channels);
+         default: ERROR("nombre de canaux non supportÃÂ© : channels=%1", channels);
          }
        
     png_set_IHDR(png_ptr, info_ptr,

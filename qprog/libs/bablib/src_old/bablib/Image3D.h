@@ -57,30 +57,30 @@ class Image3D : public AbstractImage3D {
         // acquisition d'une texture 3D :
         static Image3D<Color> readTexture(Texture *tex);
         
-        // d�finition de l'�chantillonnage aux bords de l'image :
+        // dÃÂ©finition de l'ÃÂ©chantillonnage aux bords de l'image :
         void setBorderColor(Color border);
         void setWrapMode(WrapMode wrapMode);
         void setupBorder(WrapMode wrapMode, Color border);
         
         // fonctions d'acces aux pixels :
         //-------------------------------
-        inline       Color& texel(int i, int j, int k)       { return data[i + (j + k*h)*w]; }    // pr�condition : this->contains(i,j,k)
-        inline const Color& texel(int i, int j, int k) const { return data[i + (j + k*h)*w]; }    // pr�condition : this->contains(i,j,k)
+        inline       Color& texel(int i, int j, int k)       { return data[i + (j + k*h)*w]; }    // prÃÂ©condition : this->contains(i,j,k)
+        inline const Color& texel(int i, int j, int k) const { return data[i + (j + k*h)*w]; }    // prÃÂ©condition : this->contains(i,j,k)
         inline       Color& operator()(int i, int j, int k)       { return texel(i,j,k); }
         inline const Color& operator()(int i, int j, int k) const { return texel(i,j,k); }
-        Color sample(int i, int j, int k) const;                // si !this->contains(i,j,k), le r�sultat d�pend de <borderColor> et de <wrapMode>
-        Color interp(float x, float y, float z) const;          // interpolation trilin�aire : image mapp�e sur [0,w[*[0,h[*[0,d[
+        Color sample(int i, int j, int k) const;                // si !this->contains(i,j,k), le rÃÂ©sultat dÃÂ©pend de <borderColor> et de <wrapMode>
+        Color interp(float x, float y, float z) const;          // interpolation trilinÃÂ©aire : image mappÃÂ©e sur [0,w[*[0,h[*[0,d[
         Color operator()(float x, float y, float z) const { return interp(x,y,z); }
         
         // fonctions de traitement de l'image :
         //-------------------------------------
-        void subSample(int factor);                             // pr�condition : <factor> divise 'width()', 'height()' et 'depth()',
-        void subSample(int factor, Pix3DEvaluator &pixeval);    // pr�condition : <factor> divise 'width()', 'height()' et 'depth()'
-        void growClass(Pix3DEvaluator &pixeval, int value);     // �tend la classe de pixels <value>
-        void applyFilter(ColorFilter<Color> &filter);                                                  // applique le filtre <filter> � tous les pixels
-        void applyFilter(Pix3DEvaluator &pixeval, int value, ColorFilter<Color> &filter);              // de m�me mais uniquement sur les pixels de classe <value>
-        void applyFilter(Pix3DEvaluator &pixeval, int value, ColorFilter<Color> &filter1, ColorFilter<Color> &filter2);   // de m�me avec <filter2> appliqu� sur les pixels restants
-        void applyKernel(Kernel3D kernel, bool ignoreBorders = true);   // si <ignoreBorders>==false, les valeurs de bords sont sp�cifi�es par le <wrapMode>
+        void subSample(int factor);                             // prÃÂ©condition : <factor> divise 'width()', 'height()' et 'depth()',
+        void subSample(int factor, Pix3DEvaluator &pixeval);    // prÃÂ©condition : <factor> divise 'width()', 'height()' et 'depth()'
+        void growClass(Pix3DEvaluator &pixeval, int value);     // ÃÂ©tend la classe de pixels <value>
+        void applyFilter(ColorFilter<Color> &filter);                                                  // applique le filtre <filter> ÃÂ  tous les pixels
+        void applyFilter(Pix3DEvaluator &pixeval, int value, ColorFilter<Color> &filter);              // de mÃÂªme mais uniquement sur les pixels de classe <value>
+        void applyFilter(Pix3DEvaluator &pixeval, int value, ColorFilter<Color> &filter1, ColorFilter<Color> &filter2);   // de mÃÂªme avec <filter2> appliquÃÂ© sur les pixels restants
+        void applyKernel(Kernel3D kernel, bool ignoreBorders = true);   // si <ignoreBorders>==false, les valeurs de bords sont spÃÂ©cifiÃÂ©es par le <wrapMode>
         int* histogram(Pix3DEvaluator &pixeval) const;                  // retourne un tableau de taille pixeval->valuesNumber()
 
     private:
@@ -88,7 +88,7 @@ class Image3D : public AbstractImage3D {
         Color borderColor;
         WrapMode wrapMode;
         
-        static const QString defaultDirName;    // r�pertoire par d�faut pour les images 3D
+        static const QString defaultDirName;    // rÃÂ©pertoire par dÃÂ©faut pour les images 3D
     };
 
 typedef Image3D<UByte4> Image3DUByte4;

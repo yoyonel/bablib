@@ -6,10 +6,10 @@
 
 BABLIB_NAMESPACE_BEGIN
 
-// cette interface repr�sente les types d'images attachables � un frame-buffer (render-buffers et textures) :
+// cette interface reprÃÂ©sente les types d'images attachables ÃÂ  un frame-buffer (render-buffers et textures) :
 class FrameBufferAttachable {
     public:
-        virtual ~FrameBufferAttachable() {}     // pour �viter les warnings
+        virtual ~FrameBufferAttachable() {}     // pour ÃÂ©viter les warnings
         virtual void attach(GLenum attachment) = 0;
         virtual void detach(GLenum attachment) = 0;
         virtual Dim2D size() const = 0;
