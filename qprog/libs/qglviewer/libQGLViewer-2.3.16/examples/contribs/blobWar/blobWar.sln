@@ -1,0 +1,28 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "blobWarAI", "C:/Users/atty/Desktop/Prog/bab_code_2010/qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/blobWar/AI\blobWarAI.vcproj", "{87867EBA-F1F3-347A-8EAA-4D3BAEA73F41}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "blobWar", "C:/Users/atty/Desktop/Prog/bab_code_2010/qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/blobWar/Viewer\blobWar.vcproj", "{1CD2F960-417B-3604-8180-E16F67818A5D}"
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug|Win32
+		ConfigName.1 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{87867EBA-F1F3-347A-8EAA-4D3BAEA73F41}.Debug|Win32.ActiveCfg = Debug|Win32
+		{87867EBA-F1F3-347A-8EAA-4D3BAEA73F41}.Debug|Win32.Build.0 = Debug|Win32
+		{87867EBA-F1F3-347A-8EAA-4D3BAEA73F41}.Release|Win32.ActiveCfg = Release|Win32
+		{87867EBA-F1F3-347A-8EAA-4D3BAEA73F41}.Release|Win32.Build.0 = Release|Win32
+		{1CD2F960-417B-3604-8180-E16F67818A5D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1CD2F960-417B-3604-8180-E16F67818A5D}.Debug|Win32.Build.0 = Debug|Win32
+		{1CD2F960-417B-3604-8180-E16F67818A5D}.Release|Win32.ActiveCfg = Release|Win32
+		{1CD2F960-417B-3604-8180-E16F67818A5D}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

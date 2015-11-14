@@ -1,0 +1,82 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "anaglyph", "C:/Users/atty/Desktop/Prog/bab_code_2010/qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/anaglyph\anaglyph.vcproj", "{4BFB8A27-80B4-35DF-AAE7-EA1D293A48C3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "backgroundImage", "C:/Users/atty/Desktop/Prog/bab_code_2010/qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/backgroundImage\backgroundImage.vcproj", "{F783501F-3FBE-3521-92BD-08E42B4E883D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cornerAxis", "C:/Users/atty/Desktop/Prog/bab_code_2010/qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/cornerAxis\cornerAxis.vcproj", "{02CCD942-33FF-3B90-A91E-81D564CEF5AF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dvonn", "C:/Users/atty/Desktop/Prog/bab_code_2010/qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/dvonn\dvonn.vcproj", "{AE67CE42-3ADF-3F44-BE42-EFBF2C5B02BA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "terrain", "C:/Users/atty/Desktop/Prog/bab_code_2010/qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/terrain\terrain.vcproj", "{799D5D08-E5CE-36A5-9FB9-301FE16D0962}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "textureViewer", "C:/Users/atty/Desktop/Prog/bab_code_2010/qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/textureViewer\textureViewer.vcproj", "{C0494CA0-E745-3241-8CBD-69975F617CE9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "thumbnail", "C:/Users/atty/Desktop/Prog/bab_code_2010/qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/thumbnail\thumbnail.vcproj", "{2B146C20-01FE-3370-8CF9-FBC87048D262}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "agoraAI", "C:/Users/atty/Desktop/Prog/bab_code_2010/qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/agora/AI\agoraAI.vcproj", "{1C3A3231-0343-398D-A824-9B8C7B47DFC8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "agora", "C:/Users/atty/Desktop/Prog/bab_code_2010/qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/agora/Viewer\agora.vcproj", "{5EAD5A59-23A5-3E4B-BF4F-2DCE3E7E1A78}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "blobWarAI", "C:/Users/atty/Desktop/Prog/bab_code_2010/qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/blobWar/AI\blobWarAI.vcproj", "{87867EBA-F1F3-347A-8EAA-4D3BAEA73F41}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "blobWar", "C:/Users/atty/Desktop/Prog/bab_code_2010/qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/blobWar/Viewer\blobWar.vcproj", "{1CD2F960-417B-3604-8180-E16F67818A5D}"
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug|Win32
+		ConfigName.1 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{4BFB8A27-80B4-35DF-AAE7-EA1D293A48C3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4BFB8A27-80B4-35DF-AAE7-EA1D293A48C3}.Debug|Win32.Build.0 = Debug|Win32
+		{4BFB8A27-80B4-35DF-AAE7-EA1D293A48C3}.Release|Win32.ActiveCfg = Release|Win32
+		{4BFB8A27-80B4-35DF-AAE7-EA1D293A48C3}.Release|Win32.Build.0 = Release|Win32
+		{F783501F-3FBE-3521-92BD-08E42B4E883D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F783501F-3FBE-3521-92BD-08E42B4E883D}.Debug|Win32.Build.0 = Debug|Win32
+		{F783501F-3FBE-3521-92BD-08E42B4E883D}.Release|Win32.ActiveCfg = Release|Win32
+		{F783501F-3FBE-3521-92BD-08E42B4E883D}.Release|Win32.Build.0 = Release|Win32
+		{02CCD942-33FF-3B90-A91E-81D564CEF5AF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{02CCD942-33FF-3B90-A91E-81D564CEF5AF}.Debug|Win32.Build.0 = Debug|Win32
+		{02CCD942-33FF-3B90-A91E-81D564CEF5AF}.Release|Win32.ActiveCfg = Release|Win32
+		{02CCD942-33FF-3B90-A91E-81D564CEF5AF}.Release|Win32.Build.0 = Release|Win32
+		{AE67CE42-3ADF-3F44-BE42-EFBF2C5B02BA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AE67CE42-3ADF-3F44-BE42-EFBF2C5B02BA}.Debug|Win32.Build.0 = Debug|Win32
+		{AE67CE42-3ADF-3F44-BE42-EFBF2C5B02BA}.Release|Win32.ActiveCfg = Release|Win32
+		{AE67CE42-3ADF-3F44-BE42-EFBF2C5B02BA}.Release|Win32.Build.0 = Release|Win32
+		{799D5D08-E5CE-36A5-9FB9-301FE16D0962}.Debug|Win32.ActiveCfg = Debug|Win32
+		{799D5D08-E5CE-36A5-9FB9-301FE16D0962}.Debug|Win32.Build.0 = Debug|Win32
+		{799D5D08-E5CE-36A5-9FB9-301FE16D0962}.Release|Win32.ActiveCfg = Release|Win32
+		{799D5D08-E5CE-36A5-9FB9-301FE16D0962}.Release|Win32.Build.0 = Release|Win32
+		{C0494CA0-E745-3241-8CBD-69975F617CE9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C0494CA0-E745-3241-8CBD-69975F617CE9}.Debug|Win32.Build.0 = Debug|Win32
+		{C0494CA0-E745-3241-8CBD-69975F617CE9}.Release|Win32.ActiveCfg = Release|Win32
+		{C0494CA0-E745-3241-8CBD-69975F617CE9}.Release|Win32.Build.0 = Release|Win32
+		{2B146C20-01FE-3370-8CF9-FBC87048D262}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2B146C20-01FE-3370-8CF9-FBC87048D262}.Debug|Win32.Build.0 = Debug|Win32
+		{2B146C20-01FE-3370-8CF9-FBC87048D262}.Release|Win32.ActiveCfg = Release|Win32
+		{2B146C20-01FE-3370-8CF9-FBC87048D262}.Release|Win32.Build.0 = Release|Win32
+		{1C3A3231-0343-398D-A824-9B8C7B47DFC8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1C3A3231-0343-398D-A824-9B8C7B47DFC8}.Debug|Win32.Build.0 = Debug|Win32
+		{1C3A3231-0343-398D-A824-9B8C7B47DFC8}.Release|Win32.ActiveCfg = Release|Win32
+		{1C3A3231-0343-398D-A824-9B8C7B47DFC8}.Release|Win32.Build.0 = Release|Win32
+		{5EAD5A59-23A5-3E4B-BF4F-2DCE3E7E1A78}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5EAD5A59-23A5-3E4B-BF4F-2DCE3E7E1A78}.Debug|Win32.Build.0 = Debug|Win32
+		{5EAD5A59-23A5-3E4B-BF4F-2DCE3E7E1A78}.Release|Win32.ActiveCfg = Release|Win32
+		{5EAD5A59-23A5-3E4B-BF4F-2DCE3E7E1A78}.Release|Win32.Build.0 = Release|Win32
+		{87867EBA-F1F3-347A-8EAA-4D3BAEA73F41}.Debug|Win32.ActiveCfg = Debug|Win32
+		{87867EBA-F1F3-347A-8EAA-4D3BAEA73F41}.Debug|Win32.Build.0 = Debug|Win32
+		{87867EBA-F1F3-347A-8EAA-4D3BAEA73F41}.Release|Win32.ActiveCfg = Release|Win32
+		{87867EBA-F1F3-347A-8EAA-4D3BAEA73F41}.Release|Win32.Build.0 = Release|Win32
+		{1CD2F960-417B-3604-8180-E16F67818A5D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1CD2F960-417B-3604-8180-E16F67818A5D}.Debug|Win32.Build.0 = Debug|Win32
+		{1CD2F960-417B-3604-8180-E16F67818A5D}.Release|Win32.ActiveCfg = Release|Win32
+		{1CD2F960-417B-3604-8180-E16F67818A5D}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
