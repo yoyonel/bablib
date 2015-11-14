@@ -1,3 +1,0 @@
-make | nogrep "^g++" | nogrep "^/usr/bin/moc-qt4" | nogrep "^make" | nogrep "^cd " | nogrep "^/usr/bin/uic" | nogrep "^ln " | nogrep "^rm "
-
-compil qgl first so that designer qmake does not complain

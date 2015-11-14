@@ -1,0 +1,1428 @@
+gcc -c -m64 -pipe -O2 -fPIC -Wall -W -D_REENTRANT -DGLEW_STATIC -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED -I/usr/share/qt4/mkspecs/linux-g++-64 -I. -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4 -Isrc -I../../../build/libstatic_glew/moc -o ../../../build/libstatic_glew/obj/glew.o src/glew.c
+In file included from src/glew.c:32:0:
+src/GL/glew.h:221:0: error: unterminated #ifndef
+ #ifndef GL_VERSION_1_1
+ ^
+In file included from src/glew.c:32:0:
+src/GL/glew.h:79:0: error: unterminated #ifndef
+ #ifndef __glew_h__
+ ^
+In file included from /usr/include/x86_64-linux-gnu/sys/types.h:29:0,
+                 from /usr/include/X11/Xlib.h:38,
+                 from src/GL/glxew.h:94,
+                 from src/glew.c:36:
+/usr/include/x86_64-linux-gnu/bits/types.h:30:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘typedef’
+ typedef unsigned char __u_char;
+ ^
+In file included from /usr/include/X11/Xlib.h:38:0,
+                 from src/GL/glxew.h:94,
+                 from src/glew.c:36:
+/usr/include/x86_64-linux-gnu/sys/types.h:33:1: error: unknown type name ‘__u_char’
+ typedef __u_char u_char;
+ ^
+In file included from src/GL/glxew.h:97:0,
+                 from src/glew.c:36:
+src/GL/glew.h:221:0: error: unterminated #ifndef
+ #ifndef GL_VERSION_1_1
+ ^
+src/GL/glew.h:79:0: error: unterminated #ifndef
+ #ifndef __glew_h__
+ ^
+In file included from src/glew.c:36:0:
+src/GL/glxew.h:864:1: error: unterminated comment
+ /* ---------------------- GLX_SGIS_shared_multisam
+ ^
+In file included from src/glew.c:36:0:
+src/GL/glxew.h:79:0: error: unterminated #ifndef
+ #ifndef __glxew_h__
+ ^
+src/glew.c:224:1: error: unknown type name ‘PFNGLCOPYTEXSUBIMAGE3DPROC’
+ PFNGLCOPYTEXSUBIMAGE3DPROC __glewCopyTexSubImage3D = NULL;
+ ^
+src/glew.c:225:1: error: unknown type name ‘PFNGLDRAWRANGEELEMENTSPROC’
+ PFNGLDRAWRANGEELEMENTSPROC __glewDrawRangeElements = NULL;
+ ^
+src/glew.c:226:1: error: unknown type name ‘PFNGLTEXIMAGE3DPROC’
+ PFNGLTEXIMAGE3DPROC __glewTexImage3D = NULL;
+ ^
+src/glew.c:227:1: error: unknown type name ‘PFNGLTEXSUBIMAGE3DPROC’
+ PFNGLTEXSUBIMAGE3DPROC __glewTexSubImage3D = NULL;
+ ^
+src/glew.c:229:1: error: unknown type name ‘PFNGLACTIVETEXTUREPROC’
+ PFNGLACTIVETEXTUREPROC __glewActiveTexture = NULL;
+ ^
+src/glew.c:230:1: error: unknown type name ‘PFNGLCLIENTACTIVETEXTUREPROC’
+ PFNGLCLIENTACTIVETEXTUREPROC __glewClientActiveTexture = NULL;
+ ^
+src/glew.c:231:1: error: unknown type name ‘PFNGLCOMPRESSEDTEXIMAGE1DPROC’
+ PFNGLCOMPRESSEDTEXIMAGE1DPROC __glewCompressedTexImage1D = NULL;
+ ^
+src/glew.c:232:1: error: unknown type name ‘PFNGLCOMPRESSEDTEXIMAGE2DPROC’
+ PFNGLCOMPRESSEDTEXIMAGE2DPROC __glewCompressedTexImage2D = NULL;
+ ^
+src/glew.c:233:1: error: unknown type name ‘PFNGLCOMPRESSEDTEXIMAGE3DPROC’
+ PFNGLCOMPRESSEDTEXIMAGE3DPROC __glewCompressedTexImage3D = NULL;
+ ^
+src/glew.c:234:1: error: unknown type name ‘PFNGLCOMPRESSEDTEXSUBIMAGE1DPROC’
+ PFNGLCOMPRESSEDTEXSUBIMAGE1DPROC __glewCompressedTexSubImage1D = NULL;
+ ^
+src/glew.c:235:1: error: unknown type name ‘PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC’
+ PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC __glewCompressedTexSubImage2D = NULL;
+ ^
+src/glew.c:236:1: error: unknown type name ‘PFNGLCOMPRESSEDTEXSUBIMAGE3DPROC’
+ PFNGLCOMPRESSEDTEXSUBIMAGE3DPROC __glewCompressedTexSubImage3D = NULL;
+ ^
+src/glew.c:237:1: error: unknown type name ‘PFNGLGETCOMPRESSEDTEXIMAGEPROC’
+ PFNGLGETCOMPRESSEDTEXIMAGEPROC __glewGetCompressedTexImage = NULL;
+ ^
+src/glew.c:238:1: error: unknown type name ‘PFNGLLOADTRANSPOSEMATRIXDPROC’
+ PFNGLLOADTRANSPOSEMATRIXDPROC __glewLoadTransposeMatrixd = NULL;
+ ^
+src/glew.c:239:1: error: unknown type name ‘PFNGLLOADTRANSPOSEMATRIXFPROC’
+ PFNGLLOADTRANSPOSEMATRIXFPROC __glewLoadTransposeMatrixf = NULL;
+ ^
+src/glew.c:240:1: error: unknown type name ‘PFNGLMULTTRANSPOSEMATRIXDPROC’
+ PFNGLMULTTRANSPOSEMATRIXDPROC __glewMultTransposeMatrixd = NULL;
+ ^
+src/glew.c:241:1: error: unknown type name ‘PFNGLMULTTRANSPOSEMATRIXFPROC’
+ PFNGLMULTTRANSPOSEMATRIXFPROC __glewMultTransposeMatrixf = NULL;
+ ^
+src/glew.c:242:1: error: unknown type name ‘PFNGLMULTITEXCOORD1DPROC’
+ PFNGLMULTITEXCOORD1DPROC __glewMultiTexCoord1d = NULL;
+ ^
+src/glew.c:243:1: error: unknown type name ‘PFNGLMULTITEXCOORD1DVPROC’
+ PFNGLMULTITEXCOORD1DVPROC __glewMultiTexCoord1dv = NULL;
+ ^
+src/glew.c:244:1: error: unknown type name ‘PFNGLMULTITEXCOORD1FPROC’
+ PFNGLMULTITEXCOORD1FPROC __glewMultiTexCoord1f = NULL;
+ ^
+src/glew.c:245:1: error: unknown type name ‘PFNGLMULTITEXCOORD1FVPROC’
+ PFNGLMULTITEXCOORD1FVPROC __glewMultiTexCoord1fv = NULL;
+ ^
+src/glew.c:246:1: error: unknown type name ‘PFNGLMULTITEXCOORD1IPROC’
+ PFNGLMULTITEXCOORD1IPROC __glewMultiTexCoord1i = NULL;
+ ^
+src/glew.c:247:1: error: unknown type name ‘PFNGLMULTITEXCOORD1IVPROC’
+ PFNGLMULTITEXCOORD1IVPROC __glewMultiTexCoord1iv = NULL;
+ ^
+src/glew.c:248:1: error: unknown type name ‘PFNGLMULTITEXCOORD1SPROC’
+ PFNGLMULTITEXCOORD1SPROC __glewMultiTexCoord1s = NULL;
+ ^
+src/glew.c:249:1: error: unknown type name ‘PFNGLMULTITEXCOORD1SVPROC’
+ PFNGLMULTITEXCOORD1SVPROC __glewMultiTexCoord1sv = NULL;
+ ^
+src/glew.c:250:1: error: unknown type name ‘PFNGLMULTITEXCOORD2DPROC’
+ PFNGLMULTITEXCOORD2DPROC __glewMultiTexCoord2d = NULL;
+ ^
+src/glew.c:251:1: error: unknown type name ‘PFNGLMULTITEXCOORD2DVPROC’
+ PFNGLMULTITEXCOORD2DVPROC __glewMultiTexCoord2dv = NULL;
+ ^
+src/glew.c:252:1: error: unknown type name ‘PFNGLMULTITEXCOORD2FPROC’
+ PFNGLMULTITEXCOORD2FPROC __glewMultiTexCoord2f = NULL;
+ ^
+src/glew.c:253:1: error: unknown type name ‘PFNGLMULTITEXCOORD2FVPROC’
+ PFNGLMULTITEXCOORD2FVPROC __glewMultiTexCoord2fv = NULL;
+ ^
+src/glew.c:254:1: error: unknown type name ‘PFNGLMULTITEXCOORD2IPROC’
+ PFNGLMULTITEXCOORD2IPROC __glewMultiTexCoord2i = NULL;
+ ^
+src/glew.c:255:1: error: unknown type name ‘PFNGLMULTITEXCOORD2IVPROC’
+ PFNGLMULTITEXCOORD2IVPROC __glewMultiTexCoord2iv = NULL;
+ ^
+src/glew.c:256:1: error: unknown type name ‘PFNGLMULTITEXCOORD2SPROC’
+ PFNGLMULTITEXCOORD2SPROC __glewMultiTexCoord2s = NULL;
+ ^
+src/glew.c:257:1: error: unknown type name ‘PFNGLMULTITEXCOORD2SVPROC’
+ PFNGLMULTITEXCOORD2SVPROC __glewMultiTexCoord2sv = NULL;
+ ^
+src/glew.c:258:1: error: unknown type name ‘PFNGLMULTITEXCOORD3DPROC’
+ PFNGLMULTITEXCOORD3DPROC __glewMultiTexCoord3d = NULL;
+ ^
+src/glew.c:259:1: error: unknown type name ‘PFNGLMULTITEXCOORD3DVPROC’
+ PFNGLMULTITEXCOORD3DVPROC __glewMultiTexCoord3dv = NULL;
+ ^
+src/glew.c:260:1: error: unknown type name ‘PFNGLMULTITEXCOORD3FPROC’
+ PFNGLMULTITEXCOORD3FPROC __glewMultiTexCoord3f = NULL;
+ ^
+src/glew.c:261:1: error: unknown type name ‘PFNGLMULTITEXCOORD3FVPROC’
+ PFNGLMULTITEXCOORD3FVPROC __glewMultiTexCoord3fv = NULL;
+ ^
+src/glew.c:262:1: error: unknown type name ‘PFNGLMULTITEXCOORD3IPROC’
+ PFNGLMULTITEXCOORD3IPROC __glewMultiTexCoord3i = NULL;
+ ^
+src/glew.c:263:1: error: unknown type name ‘PFNGLMULTITEXCOORD3IVPROC’
+ PFNGLMULTITEXCOORD3IVPROC __glewMultiTexCoord3iv = NULL;
+ ^
+src/glew.c:264:1: error: unknown type name ‘PFNGLMULTITEXCOORD3SPROC’
+ PFNGLMULTITEXCOORD3SPROC __glewMultiTexCoord3s = NULL;
+ ^
+src/glew.c:265:1: error: unknown type name ‘PFNGLMULTITEXCOORD3SVPROC’
+ PFNGLMULTITEXCOORD3SVPROC __glewMultiTexCoord3sv = NULL;
+ ^
+src/glew.c:266:1: error: unknown type name ‘PFNGLMULTITEXCOORD4DPROC’
+ PFNGLMULTITEXCOORD4DPROC __glewMultiTexCoord4d = NULL;
+ ^
+src/glew.c:267:1: error: unknown type name ‘PFNGLMULTITEXCOORD4DVPROC’
+ PFNGLMULTITEXCOORD4DVPROC __glewMultiTexCoord4dv = NULL;
+ ^
+src/glew.c:268:1: error: unknown type name ‘PFNGLMULTITEXCOORD4FPROC’
+ PFNGLMULTITEXCOORD4FPROC __glewMultiTexCoord4f = NULL;
+ ^
+src/glew.c:269:1: error: unknown type name ‘PFNGLMULTITEXCOORD4FVPROC’
+ PFNGLMULTITEXCOORD4FVPROC __glewMultiTexCoord4fv = NULL;
+ ^
+src/glew.c:270:1: error: unknown type name ‘PFNGLMULTITEXCOORD4IPROC’
+ PFNGLMULTITEXCOORD4IPROC __glewMultiTexCoord4i = NULL;
+ ^
+src/glew.c:271:1: error: unknown type name ‘PFNGLMULTITEXCOORD4IVPROC’
+ PFNGLMULTITEXCOORD4IVPROC __glewMultiTexCoord4iv = NULL;
+ ^
+src/glew.c:272:1: error: unknown type name ‘PFNGLMULTITEXCOORD4SPROC’
+ PFNGLMULTITEXCOORD4SPROC __glewMultiTexCoord4s = NULL;
+ ^
+src/glew.c:273:1: error: unknown type name ‘PFNGLMULTITEXCOORD4SVPROC’
+ PFNGLMULTITEXCOORD4SVPROC __glewMultiTexCoord4sv = NULL;
+ ^
+src/glew.c:274:1: error: unknown type name ‘PFNGLSAMPLECOVERAGEPROC’
+ PFNGLSAMPLECOVERAGEPROC __glewSampleCoverage = NULL;
+ ^
+src/glew.c:276:1: error: unknown type name ‘PFNGLBLENDCOLORPROC’
+ PFNGLBLENDCOLORPROC __glewBlendColor = NULL;
+ ^
+src/glew.c:277:1: error: unknown type name ‘PFNGLBLENDEQUATIONPROC’
+ PFNGLBLENDEQUATIONPROC __glewBlendEquation = NULL;
+ ^
+src/glew.c:278:1: error: unknown type name ‘PFNGLBLENDFUNCSEPARATEPROC’
+ PFNGLBLENDFUNCSEPARATEPROC __glewBlendFuncSeparate = NULL;
+ ^
+src/glew.c:279:1: error: unknown type name ‘PFNGLFOGCOORDPOINTERPROC’
+ PFNGLFOGCOORDPOINTERPROC __glewFogCoordPointer = NULL;
+ ^
+src/glew.c:280:1: error: unknown type name ‘PFNGLFOGCOORDDPROC’
+ PFNGLFOGCOORDDPROC __glewFogCoordd = NULL;
+ ^
+src/glew.c:281:1: error: unknown type name ‘PFNGLFOGCOORDDVPROC’
+ PFNGLFOGCOORDDVPROC __glewFogCoorddv = NULL;
+ ^
+src/glew.c:282:1: error: unknown type name ‘PFNGLFOGCOORDFPROC’
+ PFNGLFOGCOORDFPROC __glewFogCoordf = NULL;
+ ^
+src/glew.c:283:1: error: unknown type name ‘PFNGLFOGCOORDFVPROC’
+ PFNGLFOGCOORDFVPROC __glewFogCoordfv = NULL;
+ ^
+src/glew.c:284:1: error: unknown type name ‘PFNGLMULTIDRAWARRAYSPROC’
+ PFNGLMULTIDRAWARRAYSPROC __glewMultiDrawArrays = NULL;
+ ^
+src/glew.c:285:1: error: unknown type name ‘PFNGLMULTIDRAWELEMENTSPROC’
+ PFNGLMULTIDRAWELEMENTSPROC __glewMultiDrawElements = NULL;
+ ^
+src/glew.c:286:1: error: unknown type name ‘PFNGLPOINTPARAMETERFPROC’
+ PFNGLPOINTPARAMETERFPROC __glewPointParameterf = NULL;
+ ^
+src/glew.c:287:1: error: unknown type name ‘PFNGLPOINTPARAMETERFVPROC’
+ PFNGLPOINTPARAMETERFVPROC __glewPointParameterfv = NULL;
+ ^
+src/glew.c:288:1: error: unknown type name ‘PFNGLPOINTPARAMETERIPROC’
+ PFNGLPOINTPARAMETERIPROC __glewPointParameteri = NULL;
+ ^
+src/glew.c:289:1: error: unknown type name ‘PFNGLPOINTPARAMETERIVPROC’
+ PFNGLPOINTPARAMETERIVPROC __glewPointParameteriv = NULL;
+ ^
+src/glew.c:290:1: error: unknown type name ‘PFNGLSECONDARYCOLOR3BPROC’
+ PFNGLSECONDARYCOLOR3BPROC __glewSecondaryColor3b = NULL;
+ ^
+src/glew.c:291:1: error: unknown type name ‘PFNGLSECONDARYCOLOR3BVPROC’
+ PFNGLSECONDARYCOLOR3BVPROC __glewSecondaryColor3bv = NULL;
+ ^
+src/glew.c:292:1: error: unknown type name ‘PFNGLSECONDARYCOLOR3DPROC’
+ PFNGLSECONDARYCOLOR3DPROC __glewSecondaryColor3d = NULL;
+ ^
+src/glew.c:293:1: error: unknown type name ‘PFNGLSECONDARYCOLOR3DVPROC’
+ PFNGLSECONDARYCOLOR3DVPROC __glewSecondaryColor3dv = NULL;
+ ^
+src/glew.c:294:1: error: unknown type name ‘PFNGLSECONDARYCOLOR3FPROC’
+ PFNGLSECONDARYCOLOR3FPROC __glewSecondaryColor3f = NULL;
+ ^
+src/glew.c:295:1: error: unknown type name ‘PFNGLSECONDARYCOLOR3FVPROC’
+ PFNGLSECONDARYCOLOR3FVPROC __glewSecondaryColor3fv = NULL;
+ ^
+src/glew.c:296:1: error: unknown type name ‘PFNGLSECONDARYCOLOR3IPROC’
+ PFNGLSECONDARYCOLOR3IPROC __glewSecondaryColor3i = NULL;
+ ^
+src/glew.c:297:1: error: unknown type name ‘PFNGLSECONDARYCOLOR3IVPROC’
+ PFNGLSECONDARYCOLOR3IVPROC __glewSecondaryColor3iv = NULL;
+ ^
+src/glew.c:298:1: error: unknown type name ‘PFNGLSECONDARYCOLOR3SPROC’
+ PFNGLSECONDARYCOLOR3SPROC __glewSecondaryColor3s = NULL;
+ ^
+src/glew.c:299:1: error: unknown type name ‘PFNGLSECONDARYCOLOR3SVPROC’
+ PFNGLSECONDARYCOLOR3SVPROC __glewSecondaryColor3sv = NULL;
+ ^
+src/glew.c:300:1: error: unknown type name ‘PFNGLSECONDARYCOLOR3UBPROC’
+ PFNGLSECONDARYCOLOR3UBPROC __glewSecondaryColor3ub = NULL;
+ ^
+src/glew.c:301:1: error: unknown type name ‘PFNGLSECONDARYCOLOR3UBVPROC’
+ PFNGLSECONDARYCOLOR3UBVPROC __glewSecondaryColor3ubv = NULL;
+ ^
+src/glew.c:302:1: error: unknown type name ‘PFNGLSECONDARYCOLOR3UIPROC’
+ PFNGLSECONDARYCOLOR3UIPROC __glewSecondaryColor3ui = NULL;
+ ^
+src/glew.c:303:1: error: unknown type name ‘PFNGLSECONDARYCOLOR3UIVPROC’
+ PFNGLSECONDARYCOLOR3UIVPROC __glewSecondaryColor3uiv = NULL;
+ ^
+src/glew.c:304:1: error: unknown type name ‘PFNGLSECONDARYCOLOR3USPROC’
+ PFNGLSECONDARYCOLOR3USPROC __glewSecondaryColor3us = NULL;
+ ^
+src/glew.c:305:1: error: unknown type name ‘PFNGLSECONDARYCOLOR3USVPROC’
+ PFNGLSECONDARYCOLOR3USVPROC __glewSecondaryColor3usv = NULL;
+ ^
+src/glew.c:306:1: error: unknown type name ‘PFNGLSECONDARYCOLORPOINTERPROC’
+ PFNGLSECONDARYCOLORPOINTERPROC __glewSecondaryColorPointer = NULL;
+ ^
+src/glew.c:307:1: error: unknown type name ‘PFNGLWINDOWPOS2DPROC’
+ PFNGLWINDOWPOS2DPROC __glewWindowPos2d = NULL;
+ ^
+src/glew.c:308:1: error: unknown type name ‘PFNGLWINDOWPOS2DVPROC’
+ PFNGLWINDOWPOS2DVPROC __glewWindowPos2dv = NULL;
+ ^
+src/glew.c:309:1: error: unknown type name ‘PFNGLWINDOWPOS2FPROC’
+ PFNGLWINDOWPOS2FPROC __glewWindowPos2f = NULL;
+ ^
+src/glew.c:310:1: error: unknown type name ‘PFNGLWINDOWPOS2FVPROC’
+ PFNGLWINDOWPOS2FVPROC __glewWindowPos2fv = NULL;
+ ^
+src/glew.c:311:1: error: unknown type name ‘PFNGLWINDOWPOS2IPROC’
+ PFNGLWINDOWPOS2IPROC __glewWindowPos2i = NULL;
+ ^
+src/glew.c:312:1: error: unknown type name ‘PFNGLWINDOWPOS2IVPROC’
+ PFNGLWINDOWPOS2IVPROC __glewWindowPos2iv = NULL;
+ ^
+src/glew.c:313:1: error: unknown type name ‘PFNGLWINDOWPOS2SPROC’
+ PFNGLWINDOWPOS2SPROC __glewWindowPos2s = NULL;
+ ^
+src/glew.c:314:1: error: unknown type name ‘PFNGLWINDOWPOS2SVPROC’
+ PFNGLWINDOWPOS2SVPROC __glewWindowPos2sv = NULL;
+ ^
+src/glew.c:315:1: error: unknown type name ‘PFNGLWINDOWPOS3DPROC’
+ PFNGLWINDOWPOS3DPROC __glewWindowPos3d = NULL;
+ ^
+src/glew.c:316:1: error: unknown type name ‘PFNGLWINDOWPOS3DVPROC’
+ PFNGLWINDOWPOS3DVPROC __glewWindowPos3dv = NULL;
+ ^
+src/glew.c:317:1: error: unknown type name ‘PFNGLWINDOWPOS3FPROC’
+ PFNGLWINDOWPOS3FPROC __glewWindowPos3f = NULL;
+ ^
+src/glew.c:318:1: error: unknown type name ‘PFNGLWINDOWPOS3FVPROC’
+ PFNGLWINDOWPOS3FVPROC __glewWindowPos3fv = NULL;
+ ^
+src/glew.c:319:1: error: unknown type name ‘PFNGLWINDOWPOS3IPROC’
+ PFNGLWINDOWPOS3IPROC __glewWindowPos3i = NULL;
+ ^
+src/glew.c:320:1: error: unknown type name ‘PFNGLWINDOWPOS3IVPROC’
+ PFNGLWINDOWPOS3IVPROC __glewWindowPos3iv = NULL;
+ ^
+src/glew.c:321:1: error: unknown type name ‘PFNGLWINDOWPOS3SPROC’
+ PFNGLWINDOWPOS3SPROC __glewWindowPos3s = NULL;
+ ^
+src/glew.c:322:1: error: unknown type name ‘PFNGLWINDOWPOS3SVPROC’
+ PFNGLWINDOWPOS3SVPROC __glewWindowPos3sv = NULL;
+ ^
+src/glew.c:324:1: error: unknown type name ‘PFNGLBEGINQUERYPROC’
+ PFNGLBEGINQUERYPROC __glewBeginQuery = NULL;
+ ^
+src/glew.c:325:1: error: unknown type name ‘PFNGLBINDBUFFERPROC’
+ PFNGLBINDBUFFERPROC __glewBindBuffer = NULL;
+ ^
+src/glew.c:326:1: error: unknown type name ‘PFNGLBUFFERDATAPROC’
+ PFNGLBUFFERDATAPROC __glewBufferData = NULL;
+ ^
+src/glew.c:327:1: error: unknown type name ‘PFNGLBUFFERSUBDATAPROC’
+ PFNGLBUFFERSUBDATAPROC __glewBufferSubData = NULL;
+ ^
+src/glew.c:328:1: error: unknown type name ‘PFNGLDELETEBUFFERSPROC’
+ PFNGLDELETEBUFFERSPROC __glewDeleteBuffers = NULL;
+ ^
+src/glew.c:329:1: error: unknown type name ‘PFNGLDELETEQUERIESPROC’
+ PFNGLDELETEQUERIESPROC __glewDeleteQueries = NULL;
+ ^
+src/glew.c:330:1: error: unknown type name ‘PFNGLENDQUERYPROC’
+ PFNGLENDQUERYPROC __glewEndQuery = NULL;
+ ^
+src/glew.c:331:1: error: unknown type name ‘PFNGLGENBUFFERSPROC’
+ PFNGLGENBUFFERSPROC __glewGenBuffers = NULL;
+ ^
+src/glew.c:332:1: error: unknown type name ‘PFNGLGENQUERIESPROC’
+ PFNGLGENQUERIESPROC __glewGenQueries = NULL;
+ ^
+src/glew.c:333:1: error: unknown type name ‘PFNGLGETBUFFERPARAMETERIVPROC’
+ PFNGLGETBUFFERPARAMETERIVPROC __glewGetBufferParameteriv = NULL;
+ ^
+src/glew.c:334:1: error: unknown type name ‘PFNGLGETBUFFERPOINTERVPROC’
+ PFNGLGETBUFFERPOINTERVPROC __glewGetBufferPointerv = NULL;
+ ^
+src/glew.c:335:1: error: unknown type name ‘PFNGLGETBUFFERSUBDATAPROC’
+ PFNGLGETBUFFERSUBDATAPROC __glewGetBufferSubData = NULL;
+ ^
+src/glew.c:336:1: error: unknown type name ‘PFNGLGETQUERYOBJECTIVPROC’
+ PFNGLGETQUERYOBJECTIVPROC __glewGetQueryObjectiv = NULL;
+ ^
+src/glew.c:337:1: error: unknown type name ‘PFNGLGETQUERYOBJECTUIVPROC’
+ PFNGLGETQUERYOBJECTUIVPROC __glewGetQueryObjectuiv = NULL;
+ ^
+src/glew.c:338:1: error: unknown type name ‘PFNGLGETQUERYIVPROC’
+ PFNGLGETQUERYIVPROC __glewGetQueryiv = NULL;
+ ^
+src/glew.c:339:1: error: unknown type name ‘PFNGLISBUFFERPROC’
+ PFNGLISBUFFERPROC __glewIsBuffer = NULL;
+ ^
+src/glew.c:340:1: error: unknown type name ‘PFNGLISQUERYPROC’
+ PFNGLISQUERYPROC __glewIsQuery = NULL;
+ ^
+src/glew.c:341:1: error: unknown type name ‘PFNGLMAPBUFFERPROC’
+ PFNGLMAPBUFFERPROC __glewMapBuffer = NULL;
+ ^
+src/glew.c:342:1: error: unknown type name ‘PFNGLUNMAPBUFFERPROC’
+ PFNGLUNMAPBUFFERPROC __glewUnmapBuffer = NULL;
+ ^
+src/glew.c:344:1: error: unknown type name ‘PFNGLATTACHSHADERPROC’
+ PFNGLATTACHSHADERPROC __glewAttachShader = NULL;
+ ^
+src/glew.c:345:1: error: unknown type name ‘PFNGLBINDATTRIBLOCATIONPROC’
+ PFNGLBINDATTRIBLOCATIONPROC __glewBindAttribLocation = NULL;
+ ^
+src/glew.c:346:1: error: unknown type name ‘PFNGLBLENDEQUATIONSEPARATEPROC’
+ PFNGLBLENDEQUATIONSEPARATEPROC __glewBlendEquationSeparate = NULL;
+ ^
+src/glew.c:347:1: error: unknown type name ‘PFNGLCOMPILESHADERPROC’
+ PFNGLCOMPILESHADERPROC __glewCompileShader = NULL;
+ ^
+src/glew.c:348:1: error: unknown type name ‘PFNGLCREATEPROGRAMPROC’
+ PFNGLCREATEPROGRAMPROC __glewCreateProgram = NULL;
+ ^
+src/glew.c:349:1: error: unknown type name ‘PFNGLCREATESHADERPROC’
+ PFNGLCREATESHADERPROC __glewCreateShader = NULL;
+ ^
+src/glew.c:350:1: error: unknown type name ‘PFNGLDELETEPROGRAMPROC’
+ PFNGLDELETEPROGRAMPROC __glewDeleteProgram = NULL;
+ ^
+src/glew.c:351:1: error: unknown type name ‘PFNGLDELETESHADERPROC’
+ PFNGLDELETESHADERPROC __glewDeleteShader = NULL;
+ ^
+src/glew.c:352:1: error: unknown type name ‘PFNGLDETACHSHADERPROC’
+ PFNGLDETACHSHADERPROC __glewDetachShader = NULL;
+ ^
+src/glew.c:353:1: error: unknown type name ‘PFNGLDISABLEVERTEXATTRIBARRAYPROC’
+ PFNGLDISABLEVERTEXATTRIBARRAYPROC __glewDisableVertexAttribArray = NULL;
+ ^
+src/glew.c:354:1: error: unknown type name ‘PFNGLDRAWBUFFERSPROC’
+ PFNGLDRAWBUFFERSPROC __glewDrawBuffers = NULL;
+ ^
+src/glew.c:355:1: error: unknown type name ‘PFNGLENABLEVERTEXATTRIBARRAYPROC’
+ PFNGLENABLEVERTEXATTRIBARRAYPROC __glewEnableVertexAttribArray = NULL;
+ ^
+src/glew.c:356:1: error: unknown type name ‘PFNGLGETACTIVEATTRIBPROC’
+ PFNGLGETACTIVEATTRIBPROC __glewGetActiveAttrib = NULL;
+ ^
+src/glew.c:357:1: error: unknown type name ‘PFNGLGETACTIVEUNIFORMPROC’
+ PFNGLGETACTIVEUNIFORMPROC __glewGetActiveUniform = NULL;
+ ^
+src/glew.c:358:1: error: unknown type name ‘PFNGLGETATTACHEDSHADERSPROC’
+ PFNGLGETATTACHEDSHADERSPROC __glewGetAttachedShaders = NULL;
+ ^
+src/glew.c:359:1: error: unknown type name ‘PFNGLGETATTRIBLOCATIONPROC’
+ PFNGLGETATTRIBLOCATIONPROC __glewGetAttribLocation = NULL;
+ ^
+src/glew.c:360:1: error: unknown type name ‘PFNGLGETPROGRAMINFOLOGPROC’
+ PFNGLGETPROGRAMINFOLOGPROC __glewGetProgramInfoLog = NULL;
+ ^
+src/glew.c:361:1: error: unknown type name ‘PFNGLGETPROGRAMIVPROC’
+ PFNGLGETPROGRAMIVPROC __glewGetProgramiv = NULL;
+ ^
+src/glew.c:362:1: error: unknown type name ‘PFNGLGETSHADERINFOLOGPROC’
+ PFNGLGETSHADERINFOLOGPROC __glewGetShaderInfoLog = NULL;
+ ^
+src/glew.c:363:1: error: unknown type name ‘PFNGLGETSHADERSOURCEPROC’
+ PFNGLGETSHADERSOURCEPROC __glewGetShaderSource = NULL;
+ ^
+src/glew.c:364:1: error: unknown type name ‘PFNGLGETSHADERIVPROC’
+ PFNGLGETSHADERIVPROC __glewGetShaderiv = NULL;
+ ^
+src/glew.c:365:1: error: unknown type name ‘PFNGLGETUNIFORMLOCATIONPROC’
+ PFNGLGETUNIFORMLOCATIONPROC __glewGetUniformLocation = NULL;
+ ^
+src/glew.c:366:1: error: unknown type name ‘PFNGLGETUNIFORMFVPROC’
+ PFNGLGETUNIFORMFVPROC __glewGetUniformfv = NULL;
+ ^
+src/glew.c:367:1: error: unknown type name ‘PFNGLGETUNIFORMIVPROC’
+ PFNGLGETUNIFORMIVPROC __glewGetUniformiv = NULL;
+ ^
+src/glew.c:368:1: error: unknown type name ‘PFNGLGETVERTEXATTRIBPOINTERVPROC’
+ PFNGLGETVERTEXATTRIBPOINTERVPROC __glewGetVertexAttribPointerv = NULL;
+ ^
+src/glew.c:369:1: error: unknown type name ‘PFNGLGETVERTEXATTRIBDVPROC’
+ PFNGLGETVERTEXATTRIBDVPROC __glewGetVertexAttribdv = NULL;
+ ^
+src/glew.c:370:1: error: unknown type name ‘PFNGLGETVERTEXATTRIBFVPROC’
+ PFNGLGETVERTEXATTRIBFVPROC __glewGetVertexAttribfv = NULL;
+ ^
+src/glew.c:371:1: error: unknown type name ‘PFNGLGETVERTEXATTRIBIVPROC’
+ PFNGLGETVERTEXATTRIBIVPROC __glewGetVertexAttribiv = NULL;
+ ^
+src/glew.c:372:1: error: unknown type name ‘PFNGLISPROGRAMPROC’
+ PFNGLISPROGRAMPROC __glewIsProgram = NULL;
+ ^
+src/glew.c:373:1: error: unknown type name ‘PFNGLISSHADERPROC’
+ PFNGLISSHADERPROC __glewIsShader = NULL;
+ ^
+src/glew.c:374:1: error: unknown type name ‘PFNGLLINKPROGRAMPROC’
+ PFNGLLINKPROGRAMPROC __glewLinkProgram = NULL;
+ ^
+src/glew.c:375:1: error: unknown type name ‘PFNGLSHADERSOURCEPROC’
+ PFNGLSHADERSOURCEPROC __glewShaderSource = NULL;
+ ^
+src/glew.c:376:1: error: unknown type name ‘PFNGLSTENCILFUNCSEPARATEPROC’
+ PFNGLSTENCILFUNCSEPARATEPROC __glewStencilFuncSeparate = NULL;
+ ^
+src/glew.c:377:1: error: unknown type name ‘PFNGLSTENCILMASKSEPARATEPROC’
+ PFNGLSTENCILMASKSEPARATEPROC __glewStencilMaskSeparate = NULL;
+ ^
+src/glew.c:378:1: error: unknown type name ‘PFNGLSTENCILOPSEPARATEPROC’
+ PFNGLSTENCILOPSEPARATEPROC __glewStencilOpSeparate = NULL;
+ ^
+src/glew.c:379:1: error: unknown type name ‘PFNGLUNIFORM1FPROC’
+ PFNGLUNIFORM1FPROC __glewUniform1f = NULL;
+ ^
+src/glew.c:380:1: error: unknown type name ‘PFNGLUNIFORM1FVPROC’
+ PFNGLUNIFORM1FVPROC __glewUniform1fv = NULL;
+ ^
+src/glew.c:381:1: error: unknown type name ‘PFNGLUNIFORM1IPROC’
+ PFNGLUNIFORM1IPROC __glewUniform1i = NULL;
+ ^
+src/glew.c:382:1: error: unknown type name ‘PFNGLUNIFORM1IVPROC’
+ PFNGLUNIFORM1IVPROC __glewUniform1iv = NULL;
+ ^
+src/glew.c:383:1: error: unknown type name ‘PFNGLUNIFORM2FPROC’
+ PFNGLUNIFORM2FPROC __glewUniform2f = NULL;
+ ^
+src/glew.c:384:1: error: unknown type name ‘PFNGLUNIFORM2FVPROC’
+ PFNGLUNIFORM2FVPROC __glewUniform2fv = NULL;
+ ^
+src/glew.c:385:1: error: unknown type name ‘PFNGLUNIFORM2IPROC’
+ PFNGLUNIFORM2IPROC __glewUniform2i = NULL;
+ ^
+src/glew.c:386:1: error: unknown type name ‘PFNGLUNIFORM2IVPROC’
+ PFNGLUNIFORM2IVPROC __glewUniform2iv = NULL;
+ ^
+src/glew.c:387:1: error: unknown type name ‘PFNGLUNIFORM3FPROC’
+ PFNGLUNIFORM3FPROC __glewUniform3f = NULL;
+ ^
+src/glew.c:388:1: error: unknown type name ‘PFNGLUNIFORM3FVPROC’
+ PFNGLUNIFORM3FVPROC __glewUniform3fv = NULL;
+ ^
+src/glew.c:389:1: error: unknown type name ‘PFNGLUNIFORM3IPROC’
+ PFNGLUNIFORM3IPROC __glewUniform3i = NULL;
+ ^
+src/glew.c:390:1: error: unknown type name ‘PFNGLUNIFORM3IVPROC’
+ PFNGLUNIFORM3IVPROC __glewUniform3iv = NULL;
+ ^
+src/glew.c:391:1: error: unknown type name ‘PFNGLUNIFORM4FPROC’
+ PFNGLUNIFORM4FPROC __glewUniform4f = NULL;
+ ^
+src/glew.c:392:1: error: unknown type name ‘PFNGLUNIFORM4FVPROC’
+ PFNGLUNIFORM4FVPROC __glewUniform4fv = NULL;
+ ^
+src/glew.c:393:1: error: unknown type name ‘PFNGLUNIFORM4IPROC’
+ PFNGLUNIFORM4IPROC __glewUniform4i = NULL;
+ ^
+src/glew.c:394:1: error: unknown type name ‘PFNGLUNIFORM4IVPROC’
+ PFNGLUNIFORM4IVPROC __glewUniform4iv = NULL;
+ ^
+src/glew.c:395:1: error: unknown type name ‘PFNGLUNIFORMMATRIX2FVPROC’
+ PFNGLUNIFORMMATRIX2FVPROC __glewUniformMatrix2fv = NULL;
+ ^
+src/glew.c:396:1: error: unknown type name ‘PFNGLUNIFORMMATRIX3FVPROC’
+ PFNGLUNIFORMMATRIX3FVPROC __glewUniformMatrix3fv = NULL;
+ ^
+src/glew.c:397:1: error: unknown type name ‘PFNGLUNIFORMMATRIX4FVPROC’
+ PFNGLUNIFORMMATRIX4FVPROC __glewUniformMatrix4fv = NULL;
+ ^
+src/glew.c:398:1: error: unknown type name ‘PFNGLUSEPROGRAMPROC’
+ PFNGLUSEPROGRAMPROC __glewUseProgram = NULL;
+ ^
+src/glew.c:399:1: error: unknown type name ‘PFNGLVALIDATEPROGRAMPROC’
+ PFNGLVALIDATEPROGRAMPROC __glewValidateProgram = NULL;
+ ^
+src/glew.c:400:1: error: unknown type name ‘PFNGLVERTEXATTRIB1DPROC’
+ PFNGLVERTEXATTRIB1DPROC __glewVertexAttrib1d = NULL;
+ ^
+src/glew.c:401:1: error: unknown type name ‘PFNGLVERTEXATTRIB1DVPROC’
+ PFNGLVERTEXATTRIB1DVPROC __glewVertexAttrib1dv = NULL;
+ ^
+src/glew.c:402:1: error: unknown type name ‘PFNGLVERTEXATTRIB1FPROC’
+ PFNGLVERTEXATTRIB1FPROC __glewVertexAttrib1f = NULL;
+ ^
+src/glew.c:403:1: error: unknown type name ‘PFNGLVERTEXATTRIB1FVPROC’
+ PFNGLVERTEXATTRIB1FVPROC __glewVertexAttrib1fv = NULL;
+ ^
+src/glew.c:404:1: error: unknown type name ‘PFNGLVERTEXATTRIB1SPROC’
+ PFNGLVERTEXATTRIB1SPROC __glewVertexAttrib1s = NULL;
+ ^
+src/glew.c:405:1: error: unknown type name ‘PFNGLVERTEXATTRIB1SVPROC’
+ PFNGLVERTEXATTRIB1SVPROC __glewVertexAttrib1sv = NULL;
+ ^
+src/glew.c:406:1: error: unknown type name ‘PFNGLVERTEXATTRIB2DPROC’
+ PFNGLVERTEXATTRIB2DPROC __glewVertexAttrib2d = NULL;
+ ^
+src/glew.c:407:1: error: unknown type name ‘PFNGLVERTEXATTRIB2DVPROC’
+ PFNGLVERTEXATTRIB2DVPROC __glewVertexAttrib2dv = NULL;
+ ^
+src/glew.c:408:1: error: unknown type name ‘PFNGLVERTEXATTRIB2FPROC’
+ PFNGLVERTEXATTRIB2FPROC __glewVertexAttrib2f = NULL;
+ ^
+src/glew.c:409:1: error: unknown type name ‘PFNGLVERTEXATTRIB2FVPROC’
+ PFNGLVERTEXATTRIB2FVPROC __glewVertexAttrib2fv = NULL;
+ ^
+src/glew.c:410:1: error: unknown type name ‘PFNGLVERTEXATTRIB2SPROC’
+ PFNGLVERTEXATTRIB2SPROC __glewVertexAttrib2s = NULL;
+ ^
+src/glew.c:411:1: error: unknown type name ‘PFNGLVERTEXATTRIB2SVPROC’
+ PFNGLVERTEXATTRIB2SVPROC __glewVertexAttrib2sv = NULL;
+ ^
+src/glew.c:412:1: error: unknown type name ‘PFNGLVERTEXATTRIB3DPROC’
+ PFNGLVERTEXATTRIB3DPROC __glewVertexAttrib3d = NULL;
+ ^
+src/glew.c:413:1: error: unknown type name ‘PFNGLVERTEXATTRIB3DVPROC’
+ PFNGLVERTEXATTRIB3DVPROC __glewVertexAttrib3dv = NULL;
+ ^
+src/glew.c:414:1: error: unknown type name ‘PFNGLVERTEXATTRIB3FPROC’
+ PFNGLVERTEXATTRIB3FPROC __glewVertexAttrib3f = NULL;
+ ^
+src/glew.c:415:1: error: unknown type name ‘PFNGLVERTEXATTRIB3FVPROC’
+ PFNGLVERTEXATTRIB3FVPROC __glewVertexAttrib3fv = NULL;
+ ^
+src/glew.c:416:1: error: unknown type name ‘PFNGLVERTEXATTRIB3SPROC’
+ PFNGLVERTEXATTRIB3SPROC __glewVertexAttrib3s = NULL;
+ ^
+src/glew.c:417:1: error: unknown type name ‘PFNGLVERTEXATTRIB3SVPROC’
+ PFNGLVERTEXATTRIB3SVPROC __glewVertexAttrib3sv = NULL;
+ ^
+src/glew.c:418:1: error: unknown type name ‘PFNGLVERTEXATTRIB4NBVPROC’
+ PFNGLVERTEXATTRIB4NBVPROC __glewVertexAttrib4Nbv = NULL;
+ ^
+src/glew.c:419:1: error: unknown type name ‘PFNGLVERTEXATTRIB4NIVPROC’
+ PFNGLVERTEXATTRIB4NIVPROC __glewVertexAttrib4Niv = NULL;
+ ^
+src/glew.c:420:1: error: unknown type name ‘PFNGLVERTEXATTRIB4NSVPROC’
+ PFNGLVERTEXATTRIB4NSVPROC __glewVertexAttrib4Nsv = NULL;
+ ^
+src/glew.c:421:1: error: unknown type name ‘PFNGLVERTEXATTRIB4NUBPROC’
+ PFNGLVERTEXATTRIB4NUBPROC __glewVertexAttrib4Nub = NULL;
+ ^
+src/glew.c:422:1: error: unknown type name ‘PFNGLVERTEXATTRIB4NUBVPROC’
+ PFNGLVERTEXATTRIB4NUBVPROC __glewVertexAttrib4Nubv = NULL;
+ ^
+src/glew.c:423:1: error: unknown type name ‘PFNGLVERTEXATTRIB4NUIVPROC’
+ PFNGLVERTEXATTRIB4NUIVPROC __glewVertexAttrib4Nuiv = NULL;
+ ^
+src/glew.c:424:1: error: unknown type name ‘PFNGLVERTEXATTRIB4NUSVPROC’
+ PFNGLVERTEXATTRIB4NUSVPROC __glewVertexAttrib4Nusv = NULL;
+ ^
+src/glew.c:425:1: error: unknown type name ‘PFNGLVERTEXATTRIB4BVPROC’
+ PFNGLVERTEXATTRIB4BVPROC __glewVertexAttrib4bv = NULL;
+ ^
+src/glew.c:426:1: error: unknown type name ‘PFNGLVERTEXATTRIB4DPROC’
+ PFNGLVERTEXATTRIB4DPROC __glewVertexAttrib4d = NULL;
+ ^
+src/glew.c:427:1: error: unknown type name ‘PFNGLVERTEXATTRIB4DVPROC’
+ PFNGLVERTEXATTRIB4DVPROC __glewVertexAttrib4dv = NULL;
+ ^
+src/glew.c:428:1: error: unknown type name ‘PFNGLVERTEXATTRIB4FPROC’
+ PFNGLVERTEXATTRIB4FPROC __glewVertexAttrib4f = NULL;
+ ^
+src/glew.c:429:1: error: unknown type name ‘PFNGLVERTEXATTRIB4FVPROC’
+ PFNGLVERTEXATTRIB4FVPROC __glewVertexAttrib4fv = NULL;
+ ^
+src/glew.c:430:1: error: unknown type name ‘PFNGLVERTEXATTRIB4IVPROC’
+ PFNGLVERTEXATTRIB4IVPROC __glewVertexAttrib4iv = NULL;
+ ^
+src/glew.c:431:1: error: unknown type name ‘PFNGLVERTEXATTRIB4SPROC’
+ PFNGLVERTEXATTRIB4SPROC __glewVertexAttrib4s = NULL;
+ ^
+src/glew.c:432:1: error: unknown type name ‘PFNGLVERTEXATTRIB4SVPROC’
+ PFNGLVERTEXATTRIB4SVPROC __glewVertexAttrib4sv = NULL;
+ ^
+src/glew.c:433:1: error: unknown type name ‘PFNGLVERTEXATTRIB4UBVPROC’
+ PFNGLVERTEXATTRIB4UBVPROC __glewVertexAttrib4ubv = NULL;
+ ^
+src/glew.c:434:1: error: unknown type name ‘PFNGLVERTEXATTRIB4UIVPROC’
+ PFNGLVERTEXATTRIB4UIVPROC __glewVertexAttrib4uiv = NULL;
+ ^
+src/glew.c:435:1: error: unknown type name ‘PFNGLVERTEXATTRIB4USVPROC’
+ PFNGLVERTEXATTRIB4USVPROC __glewVertexAttrib4usv = NULL;
+ ^
+src/glew.c:436:1: error: unknown type name ‘PFNGLVERTEXATTRIBPOINTERPROC’
+ PFNGLVERTEXATTRIBPOINTERPROC __glewVertexAttribPointer = NULL;
+ ^
+src/glew.c:438:1: error: unknown type name ‘PFNGLUNIFORMMATRIX2X3FVPROC’
+ PFNGLUNIFORMMATRIX2X3FVPROC __glewUniformMatrix2x3fv = NULL;
+ ^
+src/glew.c:439:1: error: unknown type name ‘PFNGLUNIFORMMATRIX2X4FVPROC’
+ PFNGLUNIFORMMATRIX2X4FVPROC __glewUniformMatrix2x4fv = NULL;
+ ^
+src/glew.c:440:1: error: unknown type name ‘PFNGLUNIFORMMATRIX3X2FVPROC’
+ PFNGLUNIFORMMATRIX3X2FVPROC __glewUniformMatrix3x2fv = NULL;
+ ^
+src/glew.c:441:1: error: unknown type name ‘PFNGLUNIFORMMATRIX3X4FVPROC’
+ PFNGLUNIFORMMATRIX3X4FVPROC __glewUniformMatrix3x4fv = NULL;
+ ^
+src/glew.c:442:1: error: unknown type name ‘PFNGLUNIFORMMATRIX4X2FVPROC’
+ PFNGLUNIFORMMATRIX4X2FVPROC __glewUniformMatrix4x2fv = NULL;
+ ^
+src/glew.c:443:1: error: unknown type name ‘PFNGLUNIFORMMATRIX4X3FVPROC’
+ PFNGLUNIFORMMATRIX4X3FVPROC __glewUniformMatrix4x3fv = NULL;
+ ^
+src/glew.c:445:1: error: unknown type name ‘PFNGLBEGINCONDITIONALRENDERPROC’
+ PFNGLBEGINCONDITIONALRENDERPROC __glewBeginConditionalRender = NULL;
+ ^
+src/glew.c:446:1: error: unknown type name ‘PFNGLBEGINTRANSFORMFEEDBACKPROC’
+ PFNGLBEGINTRANSFORMFEEDBACKPROC __glewBeginTransformFeedback = NULL;
+ ^
+src/glew.c:447:1: error: unknown type name ‘PFNGLBINDBUFFERBASEPROC’
+ PFNGLBINDBUFFERBASEPROC __glewBindBufferBase = NULL;
+ ^
+src/glew.c:448:1: error: unknown type name ‘PFNGLBINDBUFFERRANGEPROC’
+ PFNGLBINDBUFFERRANGEPROC __glewBindBufferRange = NULL;
+ ^
+src/glew.c:449:1: error: unknown type name ‘PFNGLBINDFRAGDATALOCATIONPROC’
+ PFNGLBINDFRAGDATALOCATIONPROC __glewBindFragDataLocation = NULL;
+ ^
+src/glew.c:450:1: error: unknown type name ‘PFNGLCLAMPCOLORPROC’
+ PFNGLCLAMPCOLORPROC __glewClampColor = NULL;
+ ^
+src/glew.c:451:1: error: unknown type name ‘PFNGLCLEARBUFFERFIPROC’
+ PFNGLCLEARBUFFERFIPROC __glewClearBufferfi = NULL;
+ ^
+src/glew.c:452:1: error: unknown type name ‘PFNGLCLEARBUFFERFVPROC’
+ PFNGLCLEARBUFFERFVPROC __glewClearBufferfv = NULL;
+ ^
+src/glew.c:453:1: error: unknown type name ‘PFNGLCLEARBUFFERIVPROC’
+ PFNGLCLEARBUFFERIVPROC __glewClearBufferiv = NULL;
+ ^
+src/glew.c:454:1: error: unknown type name ‘PFNGLCLEARBUFFERUIVPROC’
+ PFNGLCLEARBUFFERUIVPROC __glewClearBufferuiv = NULL;
+ ^
+src/glew.c:455:1: error: unknown type name ‘PFNGLCOLORMASKIPROC’
+ PFNGLCOLORMASKIPROC __glewColorMaski = NULL;
+ ^
+src/glew.c:456:1: error: unknown type name ‘PFNGLDISABLEIPROC’
+ PFNGLDISABLEIPROC __glewDisablei = NULL;
+ ^
+src/glew.c:457:1: error: unknown type name ‘PFNGLENABLEIPROC’
+ PFNGLENABLEIPROC __glewEnablei = NULL;
+ ^
+src/glew.c:458:1: error: unknown type name ‘PFNGLENDCONDITIONALRENDERPROC’
+ PFNGLENDCONDITIONALRENDERPROC __glewEndConditionalRender = NULL;
+ ^
+src/glew.c:459:1: error: unknown type name ‘PFNGLENDTRANSFORMFEEDBACKPROC’
+ PFNGLENDTRANSFORMFEEDBACKPROC __glewEndTransformFeedback = NULL;
+ ^
+src/glew.c:460:1: error: unknown type name ‘PFNGLGETBOOLEANI_VPROC’
+ PFNGLGETBOOLEANI_VPROC __glewGetBooleani_v = NULL;
+ ^
+src/glew.c:461:1: error: unknown type name ‘PFNGLGETFRAGDATALOCATIONPROC’
+ PFNGLGETFRAGDATALOCATIONPROC __glewGetFragDataLocation = NULL;
+ ^
+src/glew.c:462:1: error: unknown type name ‘PFNGLGETINTEGERI_VPROC’
+ PFNGLGETINTEGERI_VPROC __glewGetIntegeri_v = NULL;
+ ^
+src/glew.c:463:1: error: unknown type name ‘PFNGLGETSTRINGIPROC’
+ PFNGLGETSTRINGIPROC __glewGetStringi = NULL;
+ ^
+src/glew.c:464:1: error: unknown type name ‘PFNGLGETTEXPARAMETERIIVPROC’
+ PFNGLGETTEXPARAMETERIIVPROC __glewGetTexParameterIiv = NULL;
+ ^
+src/glew.c:465:1: error: unknown type name ‘PFNGLGETTEXPARAMETERIUIVPROC’
+ PFNGLGETTEXPARAMETERIUIVPROC __glewGetTexParameterIuiv = NULL;
+ ^
+src/glew.c:466:1: error: unknown type name ‘PFNGLGETTRANSFORMFEEDBACKVARYINGPROC’
+ PFNGLGETTRANSFORMFEEDBACKVARYINGPROC __glewGetTransformFeedbackVarying = NULL;
+ ^
+src/glew.c:467:1: error: unknown type name ‘PFNGLGETUNIFORMUIVPROC’
+ PFNGLGETUNIFORMUIVPROC __glewGetUniformuiv = NULL;
+ ^
+src/glew.c:468:1: error: unknown type name ‘PFNGLGETVERTEXATTRIBIIVPROC’
+ PFNGLGETVERTEXATTRIBIIVPROC __glewGetVertexAttribIiv = NULL;
+ ^
+src/glew.c:469:1: error: unknown type name ‘PFNGLGETVERTEXATTRIBIUIVPROC’
+ PFNGLGETVERTEXATTRIBIUIVPROC __glewGetVertexAttribIuiv = NULL;
+ ^
+src/glew.c:470:1: error: unknown type name ‘PFNGLISENABLEDIPROC’
+ PFNGLISENABLEDIPROC __glewIsEnabledi = NULL;
+ ^
+src/glew.c:471:1: error: unknown type name ‘PFNGLTEXPARAMETERIIVPROC’
+ PFNGLTEXPARAMETERIIVPROC __glewTexParameterIiv = NULL;
+ ^
+src/glew.c:472:1: error: unknown type name ‘PFNGLTEXPARAMETERIUIVPROC’
+ PFNGLTEXPARAMETERIUIVPROC __glewTexParameterIuiv = NULL;
+ ^
+src/glew.c:473:1: error: unknown type name ‘PFNGLTRANSFORMFEEDBACKVARYINGSPROC’
+ PFNGLTRANSFORMFEEDBACKVARYINGSPROC __glewTransformFeedbackVaryings = NULL;
+ ^
+src/glew.c:474:1: error: unknown type name ‘PFNGLUNIFORM1UIPROC’
+ PFNGLUNIFORM1UIPROC __glewUniform1ui = NULL;
+ ^
+src/glew.c:475:1: error: unknown type name ‘PFNGLUNIFORM1UIVPROC’
+ PFNGLUNIFORM1UIVPROC __glewUniform1uiv = NULL;
+ ^
+src/glew.c:476:1: error: unknown type name ‘PFNGLUNIFORM2UIPROC’
+ PFNGLUNIFORM2UIPROC __glewUniform2ui = NULL;
+ ^
+src/glew.c:477:1: error: unknown type name ‘PFNGLUNIFORM2UIVPROC’
+ PFNGLUNIFORM2UIVPROC __glewUniform2uiv = NULL;
+ ^
+src/glew.c:478:1: error: unknown type name ‘PFNGLUNIFORM3UIPROC’
+ PFNGLUNIFORM3UIPROC __glewUniform3ui = NULL;
+ ^
+src/glew.c:479:1: error: unknown type name ‘PFNGLUNIFORM3UIVPROC’
+ PFNGLUNIFORM3UIVPROC __glewUniform3uiv = NULL;
+ ^
+src/glew.c:480:1: error: unknown type name ‘PFNGLUNIFORM4UIPROC’
+ PFNGLUNIFORM4UIPROC __glewUniform4ui = NULL;
+ ^
+src/glew.c:481:1: error: unknown type name ‘PFNGLUNIFORM4UIVPROC’
+ PFNGLUNIFORM4UIVPROC __glewUniform4uiv = NULL;
+ ^
+src/glew.c:482:1: error: unknown type name ‘PFNGLVERTEXATTRIBI1IPROC’
+ PFNGLVERTEXATTRIBI1IPROC __glewVertexAttribI1i = NULL;
+ ^
+src/glew.c:483:1: error: unknown type name ‘PFNGLVERTEXATTRIBI1IVPROC’
+ PFNGLVERTEXATTRIBI1IVPROC __glewVertexAttribI1iv = NULL;
+ ^
+src/glew.c:484:1: error: unknown type name ‘PFNGLVERTEXATTRIBI1UIPROC’
+ PFNGLVERTEXATTRIBI1UIPROC __glewVertexAttribI1ui = NULL;
+ ^
+src/glew.c:485:1: error: unknown type name ‘PFNGLVERTEXATTRIBI1UIVPROC’
+ PFNGLVERTEXATTRIBI1UIVPROC __glewVertexAttribI1uiv = NULL;
+ ^
+src/glew.c:486:1: error: unknown type name ‘PFNGLVERTEXATTRIBI2IPROC’
+ PFNGLVERTEXATTRIBI2IPROC __glewVertexAttribI2i = NULL;
+ ^
+src/glew.c:487:1: error: unknown type name ‘PFNGLVERTEXATTRIBI2IVPROC’
+ PFNGLVERTEXATTRIBI2IVPROC __glewVertexAttribI2iv = NULL;
+ ^
+src/glew.c:488:1: error: unknown type name ‘PFNGLVERTEXATTRIBI2UIPROC’
+ PFNGLVERTEXATTRIBI2UIPROC __glewVertexAttribI2ui = NULL;
+ ^
+src/glew.c:489:1: error: unknown type name ‘PFNGLVERTEXATTRIBI2UIVPROC’
+ PFNGLVERTEXATTRIBI2UIVPROC __glewVertexAttribI2uiv = NULL;
+ ^
+src/glew.c:490:1: error: unknown type name ‘PFNGLVERTEXATTRIBI3IPROC’
+ PFNGLVERTEXATTRIBI3IPROC __glewVertexAttribI3i = NULL;
+ ^
+src/glew.c:491:1: error: unknown type name ‘PFNGLVERTEXATTRIBI3IVPROC’
+ PFNGLVERTEXATTRIBI3IVPROC __glewVertexAttribI3iv = NULL;
+ ^
+src/glew.c:492:1: error: unknown type name ‘PFNGLVERTEXATTRIBI3UIPROC’
+ PFNGLVERTEXATTRIBI3UIPROC __glewVertexAttribI3ui = NULL;
+ ^
+src/glew.c:493:1: error: unknown type name ‘PFNGLVERTEXATTRIBI3UIVPROC’
+ PFNGLVERTEXATTRIBI3UIVPROC __glewVertexAttribI3uiv = NULL;
+ ^
+src/glew.c:494:1: error: unknown type name ‘PFNGLVERTEXATTRIBI4BVPROC’
+ PFNGLVERTEXATTRIBI4BVPROC __glewVertexAttribI4bv = NULL;
+ ^
+src/glew.c:495:1: error: unknown type name ‘PFNGLVERTEXATTRIBI4IPROC’
+ PFNGLVERTEXATTRIBI4IPROC __glewVertexAttribI4i = NULL;
+ ^
+src/glew.c:496:1: error: unknown type name ‘PFNGLVERTEXATTRIBI4IVPROC’
+ PFNGLVERTEXATTRIBI4IVPROC __glewVertexAttribI4iv = NULL;
+ ^
+src/glew.c:497:1: error: unknown type name ‘PFNGLVERTEXATTRIBI4SVPROC’
+ PFNGLVERTEXATTRIBI4SVPROC __glewVertexAttribI4sv = NULL;
+ ^
+src/glew.c:498:1: error: unknown type name ‘PFNGLVERTEXATTRIBI4UBVPROC’
+ PFNGLVERTEXATTRIBI4UBVPROC __glewVertexAttribI4ubv = NULL;
+ ^
+src/glew.c:499:1: error: unknown type name ‘PFNGLVERTEXATTRIBI4UIPROC’
+ PFNGLVERTEXATTRIBI4UIPROC __glewVertexAttribI4ui = NULL;
+ ^
+src/glew.c:500:1: error: unknown type name ‘PFNGLVERTEXATTRIBI4UIVPROC’
+ PFNGLVERTEXATTRIBI4UIVPROC __glewVertexAttribI4uiv = NULL;
+ ^
+src/glew.c:501:1: error: unknown type name ‘PFNGLVERTEXATTRIBI4USVPROC’
+ PFNGLVERTEXATTRIBI4USVPROC __glewVertexAttribI4usv = NULL;
+ ^
+src/glew.c:502:1: error: unknown type name ‘PFNGLVERTEXATTRIBIPOINTERPROC’
+ PFNGLVERTEXATTRIBIPOINTERPROC __glewVertexAttribIPointer = NULL;
+ ^
+src/glew.c:504:1: error: unknown type name ‘PFNGLTBUFFERMASK3DFXPROC’
+ PFNGLTBUFFERMASK3DFXPROC __glewTbufferMask3DFX = NULL;
+ ^
+src/glew.c:506:1: error: unknown type name ‘PFNGLDRAWELEMENTARRAYAPPLEPROC’
+ PFNGLDRAWELEMENTARRAYAPPLEPROC __glewDrawElementArrayAPPLE = NULL;
+ ^
+src/glew.c:507:1: error: unknown type name ‘PFNGLDRAWRANGEELEMENTARRAYAPPLEPROC’
+ PFNGLDRAWRANGEELEMENTARRAYAPPLEPROC __glewDrawRangeElementArrayAPPLE = NULL;
+ ^
+src/glew.c:508:1: error: unknown type name ‘PFNGLELEMENTPOINTERAPPLEPROC’
+ PFNGLELEMENTPOINTERAPPLEPROC __glewElementPointerAPPLE = NULL;
+ ^
+src/glew.c:509:1: error: unknown type name ‘PFNGLMULTIDRAWELEMENTARRAYAPPLEPROC’
+ PFNGLMULTIDRAWELEMENTARRAYAPPLEPROC __glewMultiDrawElementArrayAPPLE = NULL;
+ ^
+src/glew.c:510:1: error: unknown type name ‘PFNGLMULTIDRAWRANGEELEMENTARRAYAPPLEPROC’
+ PFNGLMULTIDRAWRANGEELEMENTARRAYAPPLEPROC __glewMultiDrawRangeElementArrayAPPLE = NULL;
+ ^
+src/glew.c:512:1: error: unknown type name ‘PFNGLDELETEFENCESAPPLEPROC’
+ PFNGLDELETEFENCESAPPLEPROC __glewDeleteFencesAPPLE = NULL;
+ ^
+src/glew.c:513:1: error: unknown type name ‘PFNGLFINISHFENCEAPPLEPROC’
+ PFNGLFINISHFENCEAPPLEPROC __glewFinishFenceAPPLE = NULL;
+ ^
+src/glew.c:514:1: error: unknown type name ‘PFNGLFINISHOBJECTAPPLEPROC’
+ PFNGLFINISHOBJECTAPPLEPROC __glewFinishObjectAPPLE = NULL;
+ ^
+src/glew.c:515:1: error: unknown type name ‘PFNGLGENFENCESAPPLEPROC’
+ PFNGLGENFENCESAPPLEPROC __glewGenFencesAPPLE = NULL;
+ ^
+src/glew.c:516:1: error: unknown type name ‘PFNGLISFENCEAPPLEPROC’
+ PFNGLISFENCEAPPLEPROC __glewIsFenceAPPLE = NULL;
+ ^
+src/glew.c:517:1: error: unknown type name ‘PFNGLSETFENCEAPPLEPROC’
+ PFNGLSETFENCEAPPLEPROC __glewSetFenceAPPLE = NULL;
+ ^
+src/glew.c:518:1: error: unknown type name ‘PFNGLTESTFENCEAPPLEPROC’
+ PFNGLTESTFENCEAPPLEPROC __glewTestFenceAPPLE = NULL;
+ ^
+src/glew.c:519:1: error: unknown type name ‘PFNGLTESTOBJECTAPPLEPROC’
+ PFNGLTESTOBJECTAPPLEPROC __glewTestObjectAPPLE = NULL;
+ ^
+src/glew.c:521:1: error: unknown type name ‘PFNGLBUFFERPARAMETERIAPPLEPROC’
+ PFNGLBUFFERPARAMETERIAPPLEPROC __glewBufferParameteriAPPLE = NULL;
+ ^
+src/glew.c:522:1: error: unknown type name ‘PFNGLFLUSHMAPPEDBUFFERRANGEAPPLEPROC’
+ PFNGLFLUSHMAPPEDBUFFERRANGEAPPLEPROC __glewFlushMappedBufferRangeAPPLE = NULL;
+ ^
+src/glew.c:524:1: error: unknown type name ‘PFNGLGETTEXPARAMETERPOINTERVAPPLEPROC’
+ PFNGLGETTEXPARAMETERPOINTERVAPPLEPROC __glewGetTexParameterPointervAPPLE = NULL;
+ ^
+src/glew.c:525:1: error: unknown type name ‘PFNGLTEXTURERANGEAPPLEPROC’
+ PFNGLTEXTURERANGEAPPLEPROC __glewTextureRangeAPPLE = NULL;
+ ^
+src/glew.c:527:1: error: unknown type name ‘PFNGLBINDVERTEXARRAYAPPLEPROC’
+ PFNGLBINDVERTEXARRAYAPPLEPROC __glewBindVertexArrayAPPLE = NULL;
+ ^
+src/glew.c:528:1: error: unknown type name ‘PFNGLDELETEVERTEXARRAYSAPPLEPROC’
+ PFNGLDELETEVERTEXARRAYSAPPLEPROC __glewDeleteVertexArraysAPPLE = NULL;
+ ^
+src/glew.c:529:1: error: unknown type name ‘PFNGLGENVERTEXARRAYSAPPLEPROC’
+ PFNGLGENVERTEXARRAYSAPPLEPROC __glewGenVertexArraysAPPLE = NULL;
+ ^
+src/glew.c:530:1: error: unknown type name ‘PFNGLISVERTEXARRAYAPPLEPROC’
+ PFNGLISVERTEXARRAYAPPLEPROC __glewIsVertexArrayAPPLE = NULL;
+ ^
+src/glew.c:532:1: error: unknown type name ‘PFNGLFLUSHVERTEXARRAYRANGEAPPLEPROC’
+ PFNGLFLUSHVERTEXARRAYRANGEAPPLEPROC __glewFlushVertexArrayRangeAPPLE = NULL;
+ ^
+src/glew.c:533:1: error: unknown type name ‘PFNGLVERTEXARRAYPARAMETERIAPPLEPROC’
+ PFNGLVERTEXARRAYPARAMETERIAPPLEPROC __glewVertexArrayParameteriAPPLE = NULL;
+ ^
+src/glew.c:534:1: error: unknown type name ‘PFNGLVERTEXARRAYRANGEAPPLEPROC’
+ PFNGLVERTEXARRAYRANGEAPPLEPROC __glewVertexArrayRangeAPPLE = NULL;
+ ^
+src/glew.c:536:1: error: unknown type name ‘PFNGLCLAMPCOLORARBPROC’
+ PFNGLCLAMPCOLORARBPROC __glewClampColorARB = NULL;
+ ^
+src/glew.c:538:1: error: unknown type name ‘PFNGLDRAWBUFFERSARBPROC’
+ PFNGLDRAWBUFFERSARBPROC __glewDrawBuffersARB = NULL;
+ ^
+src/glew.c:540:1: error: unknown type name ‘PFNGLDRAWARRAYSINSTANCEDARBPROC’
+ PFNGLDRAWARRAYSINSTANCEDARBPROC __glewDrawArraysInstancedARB = NULL;
+ ^
+src/glew.c:541:1: error: unknown type name ‘PFNGLDRAWELEMENTSINSTANCEDARBPROC’
+ PFNGLDRAWELEMENTSINSTANCEDARBPROC __glewDrawElementsInstancedARB = NULL;
+ ^
+src/glew.c:543:1: error: unknown type name ‘PFNGLBINDFRAMEBUFFERPROC’
+ PFNGLBINDFRAMEBUFFERPROC __glewBindFramebuffer = NULL;
+ ^
+src/glew.c:544:1: error: unknown type name ‘PFNGLBINDRENDERBUFFERPROC’
+ PFNGLBINDRENDERBUFFERPROC __glewBindRenderbuffer = NULL;
+ ^
+src/glew.c:545:1: error: unknown type name ‘PFNGLBLITFRAMEBUFFERPROC’
+ PFNGLBLITFRAMEBUFFERPROC __glewBlitFramebuffer = NULL;
+ ^
+src/glew.c:546:1: error: unknown type name ‘PFNGLCHECKFRAMEBUFFERSTATUSPROC’
+ PFNGLCHECKFRAMEBUFFERSTATUSPROC __glewCheckFramebufferStatus = NULL;
+ ^
+src/glew.c:547:1: error: unknown type name ‘PFNGLDELETEFRAMEBUFFERSPROC’
+ PFNGLDELETEFRAMEBUFFERSPROC __glewDeleteFramebuffers = NULL;
+ ^
+src/glew.c:548:1: error: unknown type name ‘PFNGLDELETERENDERBUFFERSPROC’
+ PFNGLDELETERENDERBUFFERSPROC __glewDeleteRenderbuffers = NULL;
+ ^
+src/glew.c:549:1: error: unknown type name ‘PFNGLFRAMEBUFFERRENDERBUFFERPROC’
+ PFNGLFRAMEBUFFERRENDERBUFFERPROC __glewFramebufferRenderbuffer = NULL;
+ ^
+src/glew.c:550:1: error: unknown type name ‘PFNGLFRAMEBUFFERTEXTURLAYERPROC’
+ PFNGLFRAMEBUFFERTEXTURLAYERPROC __glewFramebufferTexturLayer = NULL;
+ ^
+src/glew.c:551:1: error: unknown type name ‘PFNGLFRAMEBUFFERTEXTURE1DPROC’
+ PFNGLFRAMEBUFFERTEXTURE1DPROC __glewFramebufferTexture1D = NULL;
+ ^
+src/glew.c:552:1: error: unknown type name ‘PFNGLFRAMEBUFFERTEXTURE2DPROC’
+ PFNGLFRAMEBUFFERTEXTURE2DPROC __glewFramebufferTexture2D = NULL;
+ ^
+src/glew.c:553:1: error: unknown type name ‘PFNGLFRAMEBUFFERTEXTURE3DPROC’
+ PFNGLFRAMEBUFFERTEXTURE3DPROC __glewFramebufferTexture3D = NULL;
+ ^
+src/glew.c:554:1: error: unknown type name ‘PFNGLGENFRAMEBUFFERSPROC’
+ PFNGLGENFRAMEBUFFERSPROC __glewGenFramebuffers = NULL;
+ ^
+src/glew.c:555:1: error: unknown type name ‘PFNGLGENRENDERBUFFERSPROC’
+ PFNGLGENRENDERBUFFERSPROC __glewGenRenderbuffers = NULL;
+ ^
+src/glew.c:556:1: error: unknown type name ‘PFNGLGENERATEMIPMAPPROC’
+ PFNGLGENERATEMIPMAPPROC __glewGenerateMipmap = NULL;
+ ^
+src/glew.c:557:1: error: unknown type name ‘PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVPROC’
+ PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVPROC __glewGetFramebufferAttachmentParameteriv = NULL;
+ ^
+src/glew.c:558:1: error: unknown type name ‘PFNGLGETRENDERBUFFERPARAMETERIVPROC’
+ PFNGLGETRENDERBUFFERPARAMETERIVPROC __glewGetRenderbufferParameteriv = NULL;
+ ^
+src/glew.c:559:1: error: unknown type name ‘PFNGLISFRAMEBUFFERPROC’
+ PFNGLISFRAMEBUFFERPROC __glewIsFramebuffer = NULL;
+ ^
+src/glew.c:560:1: error: unknown type name ‘PFNGLISRENDERBUFFERPROC’
+ PFNGLISRENDERBUFFERPROC __glewIsRenderbuffer = NULL;
+ ^
+src/glew.c:561:1: error: unknown type name ‘PFNGLRENDERBUFFERSTORAGEPROC’
+ PFNGLRENDERBUFFERSTORAGEPROC __glewRenderbufferStorage = NULL;
+ ^
+src/glew.c:562:1: error: unknown type name ‘PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC’
+ PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC __glewRenderbufferStorageMultisample = NULL;
+ ^
+src/glew.c:564:1: error: unknown type name ‘PFNGLFRAMEBUFFERTEXTUREARBPROC’
+ PFNGLFRAMEBUFFERTEXTUREARBPROC __glewFramebufferTextureARB = NULL;
+ ^
+src/glew.c:565:1: error: unknown type name ‘PFNGLFRAMEBUFFERTEXTUREFACEARBPROC’
+ PFNGLFRAMEBUFFERTEXTUREFACEARBPROC __glewFramebufferTextureFaceARB = NULL;
+ ^
+src/glew.c:566:1: error: unknown type name ‘PFNGLFRAMEBUFFERTEXTURELAYERARBPROC’
+ PFNGLFRAMEBUFFERTEXTURELAYERARBPROC __glewFramebufferTextureLayerARB = NULL;
+ ^
+src/glew.c:567:1: error: unknown type name ‘PFNGLPROGRAMPARAMETERIARBPROC’
+ PFNGLPROGRAMPARAMETERIARBPROC __glewProgramParameteriARB = NULL;
+ ^
+src/glew.c:569:1: error: unknown type name ‘PFNGLCOLORSUBTABLEPROC’
+ PFNGLCOLORSUBTABLEPROC __glewColorSubTable = NULL;
+ ^
+src/glew.c:570:1: error: unknown type name ‘PFNGLCOLORTABLEPROC’
+ PFNGLCOLORTABLEPROC __glewColorTable = NULL;
+ ^
+src/glew.c:571:1: error: unknown type name ‘PFNGLCOLORTABLEPARAMETERFVPROC’
+ PFNGLCOLORTABLEPARAMETERFVPROC __glewColorTableParameterfv = NULL;
+ ^
+src/glew.c:572:1: error: unknown type name ‘PFNGLCOLORTABLEPARAMETERIVPROC’
+ PFNGLCOLORTABLEPARAMETERIVPROC __glewColorTableParameteriv = NULL;
+ ^
+src/glew.c:573:1: error: unknown type name ‘PFNGLCONVOLUTIONFILTER1DPROC’
+ PFNGLCONVOLUTIONFILTER1DPROC __glewConvolutionFilter1D = NULL;
+ ^
+src/glew.c:574:1: error: unknown type name ‘PFNGLCONVOLUTIONFILTER2DPROC’
+ PFNGLCONVOLUTIONFILTER2DPROC __glewConvolutionFilter2D = NULL;
+ ^
+src/glew.c:575:1: error: unknown type name ‘PFNGLCONVOLUTIONPARAMETERFPROC’
+ PFNGLCONVOLUTIONPARAMETERFPROC __glewConvolutionParameterf = NULL;
+ ^
+src/glew.c:576:1: error: unknown type name ‘PFNGLCONVOLUTIONPARAMETERFVPROC’
+ PFNGLCONVOLUTIONPARAMETERFVPROC __glewConvolutionParameterfv = NULL;
+ ^
+src/glew.c:577:1: error: unknown type name ‘PFNGLCONVOLUTIONPARAMETERIPROC’
+ PFNGLCONVOLUTIONPARAMETERIPROC __glewConvolutionParameteri = NULL;
+ ^
+src/glew.c:578:1: error: unknown type name ‘PFNGLCONVOLUTIONPARAMETERIVPROC’
+ PFNGLCONVOLUTIONPARAMETERIVPROC __glewConvolutionParameteriv = NULL;
+ ^
+src/glew.c:579:1: error: unknown type name ‘PFNGLCOPYCOLORSUBTABLEPROC’
+ PFNGLCOPYCOLORSUBTABLEPROC __glewCopyColorSubTable = NULL;
+ ^
+src/glew.c:580:1: error: unknown type name ‘PFNGLCOPYCOLORTABLEPROC’
+ PFNGLCOPYCOLORTABLEPROC __glewCopyColorTable = NULL;
+ ^
+src/glew.c:581:1: error: unknown type name ‘PFNGLCOPYCONVOLUTIONFILTER1DPROC’
+ PFNGLCOPYCONVOLUTIONFILTER1DPROC __glewCopyConvolutionFilter1D = NULL;
+ ^
+src/glew.c:582:1: error: unknown type name ‘PFNGLCOPYCONVOLUTIONFILTER2DPROC’
+ PFNGLCOPYCONVOLUTIONFILTER2DPROC __glewCopyConvolutionFilter2D = NULL;
+ ^
+src/glew.c:583:1: error: unknown type name ‘PFNGLGETCOLORTABLEPROC’
+ PFNGLGETCOLORTABLEPROC __glewGetColorTable = NULL;
+ ^
+src/glew.c:584:1: error: unknown type name ‘PFNGLGETCOLORTABLEPARAMETERFVPROC’
+ PFNGLGETCOLORTABLEPARAMETERFVPROC __glewGetColorTableParameterfv = NULL;
+ ^
+src/glew.c:585:1: error: unknown type name ‘PFNGLGETCOLORTABLEPARAMETERIVPROC’
+ PFNGLGETCOLORTABLEPARAMETERIVPROC __glewGetColorTableParameteriv = NULL;
+ ^
+src/glew.c:586:1: error: unknown type name ‘PFNGLGETCONVOLUTIONFILTERPROC’
+ PFNGLGETCONVOLUTIONFILTERPROC __glewGetConvolutionFilter = NULL;
+ ^
+src/glew.c:587:1: error: unknown type name ‘PFNGLGETCONVOLUTIONPARAMETERFVPROC’
+ PFNGLGETCONVOLUTIONPARAMETERFVPROC __glewGetConvolutionParameterfv = NULL;
+ ^
+src/glew.c:588:1: error: unknown type name ‘PFNGLGETCONVOLUTIONPARAMETERIVPROC’
+ PFNGLGETCONVOLUTIONPARAMETERIVPROC __glewGetConvolutionParameteriv = NULL;
+ ^
+src/glew.c:589:1: error: unknown type name ‘PFNGLGETHISTOGRAMPROC’
+ PFNGLGETHISTOGRAMPROC __glewGetHistogram = NULL;
+ ^
+src/glew.c:590:1: error: unknown type name ‘PFNGLGETHISTOGRAMPARAMETERFVPROC’
+ PFNGLGETHISTOGRAMPARAMETERFVPROC __glewGetHistogramParameterfv = NULL;
+ ^
+src/glew.c:591:1: error: unknown type name ‘PFNGLGETHISTOGRAMPARAMETERIVPROC’
+ PFNGLGETHISTOGRAMPARAMETERIVPROC __glewGetHistogramParameteriv = NULL;
+ ^
+src/glew.c:592:1: error: unknown type name ‘PFNGLGETMINMAXPROC’
+ PFNGLGETMINMAXPROC __glewGetMinmax = NULL;
+ ^
+src/glew.c:593:1: error: unknown type name ‘PFNGLGETMINMAXPARAMETERFVPROC’
+ PFNGLGETMINMAXPARAMETERFVPROC __glewGetMinmaxParameterfv = NULL;
+ ^
+src/glew.c:594:1: error: unknown type name ‘PFNGLGETMINMAXPARAMETERIVPROC’
+ PFNGLGETMINMAXPARAMETERIVPROC __glewGetMinmaxParameteriv = NULL;
+ ^
+src/glew.c:595:1: error: unknown type name ‘PFNGLGETSEPARABLEFILTERPROC’
+ PFNGLGETSEPARABLEFILTERPROC __glewGetSeparableFilter = NULL;
+ ^
+src/glew.c:596:1: error: unknown type name ‘PFNGLHISTOGRAMPROC’
+ PFNGLHISTOGRAMPROC __glewHistogram = NULL;
+ ^
+src/glew.c:597:1: error: unknown type name ‘PFNGLMINMAXPROC’
+ PFNGLMINMAXPROC __glewMinmax = NULL;
+ ^
+src/glew.c:598:1: error: unknown type name ‘PFNGLRESETHISTOGRAMPROC’
+ PFNGLRESETHISTOGRAMPROC __glewResetHistogram = NULL;
+ ^
+src/glew.c:599:1: error: unknown type name ‘PFNGLRESETMINMAXPROC’
+ PFNGLRESETMINMAXPROC __glewResetMinmax = NULL;
+ ^
+src/glew.c:600:1: error: unknown type name ‘PFNGLSEPARABLEFILTER2DPROC’
+ PFNGLSEPARABLEFILTER2DPROC __glewSeparableFilter2D = NULL;
+ ^
+src/glew.c:602:1: error: unknown type name ‘PFNGLVERTEXATTRIBDIVISORARBPROC’
+ PFNGLVERTEXATTRIBDIVISORARBPROC __glewVertexAttribDivisorARB = NULL;
+ ^
+src/glew.c:604:1: error: unknown type name ‘PFNGLFLUSHMAPPEDBUFFERRANGEPROC’
+ PFNGLFLUSHMAPPEDBUFFERRANGEPROC __glewFlushMappedBufferRange = NULL;
+ ^
+src/glew.c:605:1: error: unknown type name ‘PFNGLMAPBUFFERRANGEPROC’
+ PFNGLMAPBUFFERRANGEPROC __glewMapBufferRange = NULL;
+ ^
+src/glew.c:607:1: error: unknown type name ‘PFNGLCURRENTPALETTEMATRIXARBPROC’
+ PFNGLCURRENTPALETTEMATRIXARBPROC __glewCurrentPaletteMatrixARB = NULL;
+ ^
+src/glew.c:608:1: error: unknown type name ‘PFNGLMATRIXINDEXPOINTERARBPROC’
+ PFNGLMATRIXINDEXPOINTERARBPROC __glewMatrixIndexPointerARB = NULL;
+ ^
+src/glew.c:609:1: error: unknown type name ‘PFNGLMATRIXINDEXUBVARBPROC’
+ PFNGLMATRIXINDEXUBVARBPROC __glewMatrixIndexubvARB = NULL;
+ ^
+src/glew.c:610:1: error: unknown type name ‘PFNGLMATRIXINDEXUIVARBPROC’
+ PFNGLMATRIXINDEXUIVARBPROC __glewMatrixIndexuivARB = NULL;
+ ^
+src/glew.c:611:1: error: unknown type name ‘PFNGLMATRIXINDEXUSVARBPROC’
+ PFNGLMATRIXINDEXUSVARBPROC __glewMatrixIndexusvARB = NULL;
+ ^
+src/glew.c:613:1: error: unknown type name ‘PFNGLSAMPLECOVERAGEARBPROC’
+ PFNGLSAMPLECOVERAGEARBPROC __glewSampleCoverageARB = NULL;
+ ^
+src/glew.c:615:1: error: unknown type name ‘PFNGLACTIVETEXTUREARBPROC’
+ PFNGLACTIVETEXTUREARBPROC __glewActiveTextureARB = NULL;
+ ^
+src/glew.c:616:1: error: unknown type name ‘PFNGLCLIENTACTIVETEXTUREARBPROC’
+ PFNGLCLIENTACTIVETEXTUREARBPROC __glewClientActiveTextureARB = NULL;
+ ^
+src/glew.c:617:1: error: unknown type name ‘PFNGLMULTITEXCOORD1DARBPROC’
+ PFNGLMULTITEXCOORD1DARBPROC __glewMultiTexCoord1dARB = NULL;
+ ^
+src/glew.c:618:1: error: unknown type name ‘PFNGLMULTITEXCOORD1DVARBPROC’
+ PFNGLMULTITEXCOORD1DVARBPROC __glewMultiTexCoord1dvARB = NULL;
+ ^
+src/glew.c:619:1: error: unknown type name ‘PFNGLMULTITEXCOORD1FARBPROC’
+ PFNGLMULTITEXCOORD1FARBPROC __glewMultiTexCoord1fARB = NULL;
+ ^
+src/glew.c:620:1: error: unknown type name ‘PFNGLMULTITEXCOORD1FVARBPROC’
+ PFNGLMULTITEXCOORD1FVARBPROC __glewMultiTexCoord1fvARB = NULL;
+ ^
+src/glew.c:621:1: error: unknown type name ‘PFNGLMULTITEXCOORD1IARBPROC’
+ PFNGLMULTITEXCOORD1IARBPROC __glewMultiTexCoord1iARB = NULL;
+ ^
+src/glew.c:622:1: error: unknown type name ‘PFNGLMULTITEXCOORD1IVARBPROC’
+ PFNGLMULTITEXCOORD1IVARBPROC __glewMultiTexCoord1ivARB = NULL;
+ ^
+src/glew.c:623:1: error: unknown type name ‘PFNGLMULTITEXCOORD1SARBPROC’
+ PFNGLMULTITEXCOORD1SARBPROC __glewMultiTexCoord1sARB = NULL;
+ ^
+src/glew.c:624:1: error: unknown type name ‘PFNGLMULTITEXCOORD1SVARBPROC’
+ PFNGLMULTITEXCOORD1SVARBPROC __glewMultiTexCoord1svARB = NULL;
+ ^
+src/glew.c:625:1: error: unknown type name ‘PFNGLMULTITEXCOORD2DARBPROC’
+ PFNGLMULTITEXCOORD2DARBPROC __glewMultiTexCoord2dARB = NULL;
+ ^
+src/glew.c:626:1: error: unknown type name ‘PFNGLMULTITEXCOORD2DVARBPROC’
+ PFNGLMULTITEXCOORD2DVARBPROC __glewMultiTexCoord2dvARB = NULL;
+ ^
+src/glew.c:627:1: error: unknown type name ‘PFNGLMULTITEXCOORD2FARBPROC’
+ PFNGLMULTITEXCOORD2FARBPROC __glewMultiTexCoord2fARB = NULL;
+ ^
+src/glew.c:628:1: error: unknown type name ‘PFNGLMULTITEXCOORD2FVARBPROC’
+ PFNGLMULTITEXCOORD2FVARBPROC __glewMultiTexCoord2fvARB = NULL;
+ ^
+src/glew.c:629:1: error: unknown type name ‘PFNGLMULTITEXCOORD2IARBPROC’
+ PFNGLMULTITEXCOORD2IARBPROC __glewMultiTexCoord2iARB = NULL;
+ ^
+src/glew.c:630:1: error: unknown type name ‘PFNGLMULTITEXCOORD2IVARBPROC’
+ PFNGLMULTITEXCOORD2IVARBPROC __glewMultiTexCoord2ivARB = NULL;
+ ^
+src/glew.c:631:1: error: unknown type name ‘PFNGLMULTITEXCOORD2SARBPROC’
+ PFNGLMULTITEXCOORD2SARBPROC __glewMultiTexCoord2sARB = NULL;
+ ^
+src/glew.c:632:1: error: unknown type name ‘PFNGLMULTITEXCOORD2SVARBPROC’
+ PFNGLMULTITEXCOORD2SVARBPROC __glewMultiTexCoord2svARB = NULL;
+ ^
+src/glew.c:633:1: error: unknown type name ‘PFNGLMULTITEXCOORD3DARBPROC’
+ PFNGLMULTITEXCOORD3DARBPROC __glewMultiTexCoord3dARB = NULL;
+ ^
+src/glew.c:634:1: error: unknown type name ‘PFNGLMULTITEXCOORD3DVARBPROC’
+ PFNGLMULTITEXCOORD3DVARBPROC __glewMultiTexCoord3dvARB = NULL;
+ ^
+src/glew.c:635:1: error: unknown type name ‘PFNGLMULTITEXCOORD3FARBPROC’
+ PFNGLMULTITEXCOORD3FARBPROC __glewMultiTexCoord3fARB = NULL;
+ ^
+src/glew.c:636:1: error: unknown type name ‘PFNGLMULTITEXCOORD3FVARBPROC’
+ PFNGLMULTITEXCOORD3FVARBPROC __glewMultiTexCoord3fvARB = NULL;
+ ^
+src/glew.c:637:1: error: unknown type name ‘PFNGLMULTITEXCOORD3IARBPROC’
+ PFNGLMULTITEXCOORD3IARBPROC __glewMultiTexCoord3iARB = NULL;
+ ^
+src/glew.c:638:1: error: unknown type name ‘PFNGLMULTITEXCOORD3IVARBPROC’
+ PFNGLMULTITEXCOORD3IVARBPROC __glewMultiTexCoord3ivARB = NULL;
+ ^
+src/glew.c:639:1: error: unknown type name ‘PFNGLMULTITEXCOORD3SARBPROC’
+ PFNGLMULTITEXCOORD3SARBPROC __glewMultiTexCoord3sARB = NULL;
+ ^
+src/glew.c:640:1: error: unknown type name ‘PFNGLMULTITEXCOORD3SVARBPROC’
+ PFNGLMULTITEXCOORD3SVARBPROC __glewMultiTexCoord3svARB = NULL;
+ ^
+src/glew.c:641:1: error: unknown type name ‘PFNGLMULTITEXCOORD4DARBPROC’
+ PFNGLMULTITEXCOORD4DARBPROC __glewMultiTexCoord4dARB = NULL;
+ ^
+src/glew.c:642:1: error: unknown type name ‘PFNGLMULTITEXCOORD4DVARBPROC’
+ PFNGLMULTITEXCOORD4DVARBPROC __glewMultiTexCoord4dvARB = NULL;
+ ^
+src/glew.c:643:1: error: unknown type name ‘PFNGLMULTITEXCOORD4FARBPROC’
+ PFNGLMULTITEXCOORD4FARBPROC __glewMultiTexCoord4fARB = NULL;
+ ^
+src/glew.c:644:1: error: unknown type name ‘PFNGLMULTITEXCOORD4FVARBPROC’
+ PFNGLMULTITEXCOORD4FVARBPROC __glewMultiTexCoord4fvARB = NULL;
+ ^
+src/glew.c:645:1: error: unknown type name ‘PFNGLMULTITEXCOORD4IARBPROC’
+ PFNGLMULTITEXCOORD4IARBPROC __glewMultiTexCoord4iARB = NULL;
+ ^
+src/glew.c:646:1: error: unknown type name ‘PFNGLMULTITEXCOORD4IVARBPROC’
+ PFNGLMULTITEXCOORD4IVARBPROC __glewMultiTexCoord4ivARB = NULL;
+ ^
+src/glew.c:647:1: error: unknown type name ‘PFNGLMULTITEXCOORD4SARBPROC’
+ PFNGLMULTITEXCOORD4SARBPROC __glewMultiTexCoord4sARB = NULL;
+ ^
+src/glew.c:648:1: error: unknown type name ‘PFNGLMULTITEXCOORD4SVARBPROC’
+ PFNGLMULTITEXCOORD4SVARBPROC __glewMultiTexCoord4svARB = NULL;
+ ^
+src/glew.c:650:1: error: unknown type name ‘PFNGLBEGINQUERYARBPROC’
+ PFNGLBEGINQUERYARBPROC __glewBeginQueryARB = NULL;
+ ^
+src/glew.c:651:1: error: unknown type name ‘PFNGLDELETEQUERIESARBPROC’
+ PFNGLDELETEQUERIESARBPROC __glewDeleteQueriesARB = NULL;
+ ^
+src/glew.c:652:1: error: unknown type name ‘PFNGLENDQUERYARBPROC’
+ PFNGLENDQUERYARBPROC __glewEndQueryARB = NULL;
+ ^
+src/glew.c:653:1: error: unknown type name ‘PFNGLGENQUERIESARBPROC’
+ PFNGLGENQUERIESARBPROC __glewGenQueriesARB = NULL;
+ ^
+src/glew.c:654:1: error: unknown type name ‘PFNGLGETQUERYOBJECTIVARBPROC’
+ PFNGLGETQUERYOBJECTIVARBPROC __glewGetQueryObjectivARB = NULL;
+ ^
+src/glew.c:655:1: error: unknown type name ‘PFNGLGETQUERYOBJECTUIVARBPROC’
+ PFNGLGETQUERYOBJECTUIVARBPROC __glewGetQueryObjectuivARB = NULL;
+ ^
+src/glew.c:656:1: error: unknown type name ‘PFNGLGETQUERYIVARBPROC’
+ PFNGLGETQUERYIVARBPROC __glewGetQueryivARB = NULL;
+ ^
+src/glew.c:657:1: error: unknown type name ‘PFNGLISQUERYARBPROC’
+ PFNGLISQUERYARBPROC __glewIsQueryARB = NULL;
+ ^
+src/glew.c:659:1: error: unknown type name ‘PFNGLPOINTPARAMETERFARBPROC’
+ PFNGLPOINTPARAMETERFARBPROC __glewPointParameterfARB = NULL;
+ ^
+src/glew.c:660:1: error: unknown type name ‘PFNGLPOINTPARAMETERFVARBPROC’
+ PFNGLPOINTPARAMETERFVARBPROC __glewPointParameterfvARB = NULL;
+ ^
+src/glew.c:662:1: error: unknown type name ‘PFNGLATTACHOBJECTARBPROC’
+ PFNGLATTACHOBJECTARBPROC __glewAttachObjectARB = NULL;
+ ^
+src/glew.c:663:1: error: unknown type name ‘PFNGLCOMPILESHADERARBPROC’
+ PFNGLCOMPILESHADERARBPROC __glewCompileShaderARB = NULL;
+ ^
+src/glew.c:664:1: error: unknown type name ‘PFNGLCREATEPROGRAMOBJECTARBPROC’
+ PFNGLCREATEPROGRAMOBJECTARBPROC __glewCreateProgramObjectARB = NULL;
+ ^
+src/glew.c:665:1: error: unknown type name ‘PFNGLCREATESHADEROBJECTARBPROC’
+ PFNGLCREATESHADEROBJECTARBPROC __glewCreateShaderObjectARB = NULL;
+ ^
+src/glew.c:666:1: error: unknown type name ‘PFNGLDELETEOBJECTARBPROC’
+ PFNGLDELETEOBJECTARBPROC __glewDeleteObjectARB = NULL;
+ ^
+src/glew.c:667:1: error: unknown type name ‘PFNGLDETACHOBJECTARBPROC’
+ PFNGLDETACHOBJECTARBPROC __glewDetachObjectARB = NULL;
+ ^
+src/glew.c:668:1: error: unknown type name ‘PFNGLGETACTIVEUNIFORMARBPROC’
+ PFNGLGETACTIVEUNIFORMARBPROC __glewGetActiveUniformARB = NULL;
+ ^
+src/glew.c:669:1: error: unknown type name ‘PFNGLGETATTACHEDOBJECTSARBPROC’
+ PFNGLGETATTACHEDOBJECTSARBPROC __glewGetAttachedObjectsARB = NULL;
+ ^
+src/glew.c:670:1: error: unknown type name ‘PFNGLGETHANDLEARBPROC’
+ PFNGLGETHANDLEARBPROC __glewGetHandleARB = NULL;
+ ^
+src/glew.c:671:1: error: unknown type name ‘PFNGLGETINFOLOGARBPROC’
+ PFNGLGETINFOLOGARBPROC __glewGetInfoLogARB = NULL;
+ ^
+src/glew.c:672:1: error: unknown type name ‘PFNGLGETOBJECTPARAMETERFVARBPROC’
+ PFNGLGETOBJECTPARAMETERFVARBPROC __glewGetObjectParameterfvARB = NULL;
+ ^
+src/glew.c:673:1: error: unknown type name ‘PFNGLGETOBJECTPARAMETERIVARBPROC’
+ PFNGLGETOBJECTPARAMETERIVARBPROC __glewGetObjectParameterivARB = NULL;
+ ^
+src/glew.c:674:1: error: unknown type name ‘PFNGLGETSHADERSOURCEARBPROC’
+ PFNGLGETSHADERSOURCEARBPROC __glewGetShaderSourceARB = NULL;
+ ^
+src/glew.c:675:1: error: unknown type name ‘PFNGLGETUNIFORMLOCATIONARBPROC’
+ PFNGLGETUNIFORMLOCATIONARBPROC __glewGetUniformLocationARB = NULL;
+ ^
+src/glew.c:676:1: error: unknown type name ‘PFNGLGETUNIFORMFVARBPROC’
+ PFNGLGETUNIFORMFVARBPROC __glewGetUniformfvARB = NULL;
+ ^
+src/glew.c:677:1: error: unknown type name ‘PFNGLGETUNIFORMIVARBPROC’
+ PFNGLGETUNIFORMIVARBPROC __glewGetUniformivARB = NULL;
+ ^
+src/glew.c:678:1: error: unknown type name ‘PFNGLLINKPROGRAMARBPROC’
+ PFNGLLINKPROGRAMARBPROC __glewLinkProgramARB = NULL;
+ ^
+src/glew.c:679:1: error: unknown type name ‘PFNGLSHADERSOURCEARBPROC’
+ PFNGLSHADERSOURCEARBPROC __glewShaderSourceARB = NULL;
+ ^
+src/glew.c:680:1: error: unknown type name ‘PFNGLUNIFORM1FARBPROC’
+ PFNGLUNIFORM1FARBPROC __glewUniform1fARB = NULL;
+ ^
+src/glew.c:681:1: error: unknown type name ‘PFNGLUNIFORM1FVARBPROC’
+ PFNGLUNIFORM1FVARBPROC __glewUniform1fvARB = NULL;
+ ^
+src/glew.c:682:1: error: unknown type name ‘PFNGLUNIFORM1IARBPROC’
+ PFNGLUNIFORM1IARBPROC __glewUniform1iARB = NULL;
+ ^
+src/glew.c:683:1: error: unknown type name ‘PFNGLUNIFORM1IVARBPROC’
+ PFNGLUNIFORM1IVARBPROC __glewUniform1ivARB = NULL;
+ ^
+src/glew.c:684:1: error: unknown type name ‘PFNGLUNIFORM2FARBPROC’
+ PFNGLUNIFORM2FARBPROC __glewUniform2fARB = NULL;
+ ^
+src/glew.c:685:1: error: unknown type name ‘PFNGLUNIFORM2FVARBPROC’
+ PFNGLUNIFORM2FVARBPROC __glewUniform2fvARB = NULL;
+ ^
+src/glew.c:686:1: error: unknown type name ‘PFNGLUNIFORM2IARBPROC’
+ PFNGLUNIFORM2IARBPROC __glewUniform2iARB = NULL;
+ ^
+src/glew.c:687:1: error: unknown type name ‘PFNGLUNIFORM2IVARBPROC’
+ PFNGLUNIFORM2IVARBPROC __glewUniform2ivARB = NULL;
+ ^
+src/glew.c:688:1: error: unknown type name ‘PFNGLUNIFORM3FARBPROC’
+ PFNGLUNIFORM3FARBPROC __glewUniform3fARB = NULL;
+ ^
+src/glew.c:689:1: error: unknown type name ‘PFNGLUNIFORM3FVARBPROC’
+ PFNGLUNIFORM3FVARBPROC __glewUniform3fvARB = NULL;
+ ^
+src/glew.c:690:1: error: unknown type name ‘PFNGLUNIFORM3IARBPROC’
+ PFNGLUNIFORM3IARBPROC __glewUniform3iARB = NULL;
+ ^
+src/glew.c:691:1: error: unknown type name ‘PFNGLUNIFORM3IVARBPROC’
+ PFNGLUNIFORM3IVARBPROC __glewUniform3ivARB = NULL;
+ ^
+src/glew.c:692:1: error: unknown type name ‘PFNGLUNIFORM4FARBPROC’
+ PFNGLUNIFORM4FARBPROC __glewUniform4fARB = NULL;
+ ^
+src/glew.c:693:1: error: unknown type name ‘PFNGLUNIFORM4FVARBPROC’
+ PFNGLUNIFORM4FVARBPROC __glewUniform4fvARB = NULL;
+ ^
+src/glew.c:694:1: error: unknown type name ‘PFNGLUNIFORM4IARBPROC’
+ PFNGLUNIFORM4IARBPROC __glewUniform4iARB = NULL;
+ ^
+src/glew.c:695:1: error: unknown type name ‘PFNGLUNIFORM4IVARBPROC’
+ PFNGLUNIFORM4IVARBPROC __glewUniform4ivARB = NULL;
+ ^
+src/glew.c:696:1: error: unknown type name ‘PFNGLUNIFORMMATRIX2FVARBPROC’
+ PFNGLUNIFORMMATRIX2FVARBPROC __glewUniformMatrix2fvARB = NULL;
+ ^
+src/glew.c:697:1: error: unknown type name ‘PFNGLUNIFORMMATRIX3FVARBPROC’
+ PFNGLUNIFORMMATRIX3FVARBPROC __glewUniformMatrix3fvARB = NULL;
+ ^
+src/glew.c:698:1: error: unknown type name ‘PFNGLUNIFORMMATRIX4FVARBPROC’
+ PFNGLUNIFORMMATRIX4FVARBPROC __glewUniformMatrix4fvARB = NULL;
+ ^
+src/glew.c:699:1: error: unknown type name ‘PFNGLUSEPROGRAMOBJECTARBPROC’
+ PFNGLUSEPROGRAMOBJECTARBPROC __glewUseProgramObjectARB = NULL;
+ ^
+src/glew.c:700:1: error: unknown type name ‘PFNGLVALIDATEPROGRAMARBPROC’
+ PFNGLVALIDATEPROGRAMARBPROC __glewValidateProgramARB = NULL;
+ ^
+src/glew.c:702:1: error: unknown type name ‘PFNGLTEXBUFFERARBPROC’
+ PFNGLTEXBUFFERARBPROC __glewTexBufferARB = NULL;
+ ^
+src/glew.c:704:1: error: unknown type name ‘PFNGLCOMPRESSEDTEXIMAGE1DARBPROC’
+ PFNGLCOMPRESSEDTEXIMAGE1DARBPROC __glewCompressedTexImage1DARB = NULL;
+ ^
+src/glew.c:705:1: error: unknown type name ‘PFNGLCOMPRESSEDTEXIMAGE2DARBPROC’
+ PFNGLCOMPRESSEDTEXIMAGE2DARBPROC __glewCompressedTexImage2DARB = NULL;
+ ^
+src/glew.c:706:1: error: unknown type name ‘PFNGLCOMPRESSEDTEXIMAGE3DARBPROC’
+ PFNGLCOMPRESSEDTEXIMAGE3DARBPROC __glewCompressedTexImage3DARB = NULL;
+ ^
+src/glew.c:707:1: error: unknown type name ‘PFNGLCOMPRESSEDTEXSUBIMAGE1DARBPROC’
+ PFNGLCOMPRESSEDTEXSUBIMAGE1DARBPROC __glewCompressedTexSub
+ ^
+src/glew.c:222:0: error: unterminated #if
+ #if !defined(_WIN32) || !defined(GLEW_MX)
+ ^
+src/glew.c:707:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ at end of input
+ PFNGLCOMPRESSEDTEXSUBIMAGE1DARBPROC __glewCompressedTexSub
+ ^
+src/glew.c:144:15: warning: ‘_glewStrLen’ defined but not used [-Wunused-function]
+ static GLuint _glewStrLen (const GLubyte* s)
+               ^
+src/glew.c:152:15: warning: ‘_glewStrCLen’ defined but not used [-Wunused-function]
+ static GLuint _glewStrCLen (const GLubyte* s, GLubyte c)
+               ^
+src/glew.c:160:18: warning: ‘_glewStrSame’ defined but not used [-Wunused-function]
+ static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
+                  ^
+src/glew.c:169:18: warning: ‘_glewStrSame1’ defined but not used [-Wunused-function]
+ static GLboolean _glewStrSame1 (GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
+                  ^
+src/glew.c:190:18: warning: ‘_glewStrSame2’ defined but not used [-Wunused-function]
+ static GLboolean _glewStrSame2 (GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
+                  ^
+src/glew.c:206:18: warning: ‘_glewStrSame3’ defined but not used [-Wunused-function]
+ static GLboolean _glewStrSame3 (GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
+                  ^
+make: *** [../../../build/libstatic_glew/obj/glew.o] Error 1

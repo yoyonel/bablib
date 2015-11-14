@@ -2,8 +2,8 @@
 #define __ORTHO_2D_BOX_CAMERA__
 
 #include "Vec2.h"
-#include <QGLViewer/camera.h> 
-#include <QGLViewer/constraint.h> 
+#include <QGLViewer/camera.h>
+#include <QGLViewer/constraint.h>
 
 BABLIB_NAMESPACE_BEGIN
 
@@ -15,10 +15,10 @@ class Ortho2DBoxCamera : public qglviewer::Camera {
         Ortho2DBoxCamera(Vec2 bmin, Vec2 bmax, int borderPix = 20, bool fixed = true);
         ~Ortho2DBoxCamera();
 
-        virtual double 	zNear() const { return -1.; }
-        virtual double 	zFar()  const { return  1.; }
+        virtual float 	zNear() const { return -1.; }
+        virtual float 	zFar()  const { return  1.; }
         virtual void getOrthoWidthHeight(GLdouble &halfWidth, GLdouble &halfHeight) const;
-        
+
     private:
         const Vec2 bmin, bmax;
         const int borderPix;
@@ -29,4 +29,3 @@ class Ortho2DBoxCamera : public qglviewer::Camera {
 BABLIB_NAMESPACE_END
 
 #endif
-
