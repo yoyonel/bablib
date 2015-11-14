@@ -86,7 +86,7 @@ namespace OrientationMATIS
 		double gamma = facs.conv;
 		if (verbose) std::cout << "gamma : "<<gamma<<std::endl;
 		
-		//Matrice de passage en coordonnÃÂÃÂÃÂÃÂes cartÃÂÃÂÃÂÃÂsiennes locales
+		//Matrice de passage en coordonnÈes cartÈsiennes locales
 		double sl = sin(latitude);
 		double sp = sin(longitude);
 		double sg = sin(gamma);

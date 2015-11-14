@@ -11,8 +11,8 @@ class Chrono {
     public:
         Chrono();
         
-        void start();           // dÃÂ©marre le chrono
-        int restart();          // retourne le temps (en ms) depuis le dernier [re]start et redÃÂ©marre le chrono
+        void start();           // d�marre le chrono
+        int restart();          // retourne le temps (en ms) depuis le dernier [re]start et red�marre le chrono
         int elapsed() const;    // en milisecondes
         float elapsedSecs() const;    // en secondes
         

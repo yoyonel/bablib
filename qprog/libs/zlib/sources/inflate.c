@@ -895,4 +895,474 @@ int flush;
                             break;
                         }
                         len = state->lens[state->have - 1];
-            
+                        copy = 3 + BITS(2);
+                        DROPBITS(2);
+                    }
+                    else if (this.val == 17) {
+                        NEEDBITS(this.bits + 3);
+                        DROPBITS(this.bits);
+                        len = 0;
+                        copy = 3 + BITS(3);
+                        DROPBITS(3);
+                    }
+                    else {
+                        NEEDBITS(this.bits + 7);
+                        DROPBITS(this.bits);
+                        len = 0;
+                        copy = 11 + BITS(7);
+                        DROPBITS(7);
+                    }
+                    if (state->have + copy > state->nlen + state->ndist) {
+                        strm->msg = (char *)"invalid bit length repeat";
+                        state->mode = BAD;
+                        break;
+                    }
+                    while (copy--)
+                        state->lens[state->have++] = (unsigned short)len;
+                }
+            }
+
+            /* handle error breaks in while */
+            if (state->mode == BAD) break;
+
+            /* build code tables */
+            state->next = state->codes;
+            state->lencode = (code const FAR *)(state->next);
+            state->lenbits = 9;
+            ret = inflate_table(LENS, state->lens, state->nlen, &(state->next),
+                                &(state->lenbits), state->work);
+            if (ret) {
+                strm->msg = (char *)"invalid literal/lengths set";
+                state->mode = BAD;
+                break;
+            }
+            state->distcode = (code const FAR *)(state->next);
+            state->distbits = 6;
+            ret = inflate_table(DISTS, state->lens + state->nlen, state->ndist,
+                            &(state->next), &(state->distbits), state->work);
+            if (ret) {
+                strm->msg = (char *)"invalid distances set";
+                state->mode = BAD;
+                break;
+            }
+            Tracev((stderr, "inflate:       codes ok\n"));
+            state->mode = LEN;
+        case LEN:
+            if (have >= 6 && left >= 258) {
+                RESTORE();
+                inflate_fast(strm, out);
+                LOAD();
+                break;
+            }
+            for (;;) {
+                this = state->lencode[BITS(state->lenbits)];
+                if ((unsigned)(this.bits) <= bits) break;
+                PULLBYTE();
+            }
+            if (this.op && (this.op & 0xf0) == 0) {
+                last = this;
+                for (;;) {
+                    this = state->lencode[last.val +
+                            (BITS(last.bits + last.op) >> last.bits)];
+                    if ((unsigned)(last.bits + this.bits) <= bits) break;
+                    PULLBYTE();
+                }
+                DROPBITS(last.bits);
+            }
+            DROPBITS(this.bits);
+            state->length = (unsigned)this.val;
+            if ((int)(this.op) == 0) {
+                Tracevv((stderr, this.val >= 0x20 && this.val < 0x7f ?
+                        "inflate:         literal '%c'\n" :
+                        "inflate:         literal 0x%02x\n", this.val));
+                state->mode = LIT;
+                break;
+            }
+            if (this.op & 32) {
+                Tracevv((stderr, "inflate:         end of block\n"));
+                state->mode = TYPE;
+                break;
+            }
+            if (this.op & 64) {
+                strm->msg = (char *)"invalid literal/length code";
+                state->mode = BAD;
+                break;
+            }
+            state->extra = (unsigned)(this.op) & 15;
+            state->mode = LENEXT;
+        case LENEXT:
+            if (state->extra) {
+                NEEDBITS(state->extra);
+                state->length += BITS(state->extra);
+                DROPBITS(state->extra);
+            }
+            Tracevv((stderr, "inflate:         length %u\n", state->length));
+            state->mode = DIST;
+        case DIST:
+            for (;;) {
+                this = state->distcode[BITS(state->distbits)];
+                if ((unsigned)(this.bits) <= bits) break;
+                PULLBYTE();
+            }
+            if ((this.op & 0xf0) == 0) {
+                last = this;
+                for (;;) {
+                    this = state->distcode[last.val +
+                            (BITS(last.bits + last.op) >> last.bits)];
+                    if ((unsigned)(last.bits + this.bits) <= bits) break;
+                    PULLBYTE();
+                }
+                DROPBITS(last.bits);
+            }
+            DROPBITS(this.bits);
+            if (this.op & 64) {
+                strm->msg = (char *)"invalid distance code";
+                state->mode = BAD;
+                break;
+            }
+            state->offset = (unsigned)this.val;
+            state->extra = (unsigned)(this.op) & 15;
+            state->mode = DISTEXT;
+        case DISTEXT:
+            if (state->extra) {
+                NEEDBITS(state->extra);
+                state->offset += BITS(state->extra);
+                DROPBITS(state->extra);
+            }
+#ifdef INFLATE_STRICT
+            if (state->offset > state->dmax) {
+                strm->msg = (char *)"invalid distance too far back";
+                state->mode = BAD;
+                break;
+            }
+#endif
+            if (state->offset > state->whave + out - left) {
+                strm->msg = (char *)"invalid distance too far back";
+                state->mode = BAD;
+                break;
+            }
+            Tracevv((stderr, "inflate:         distance %u\n", state->offset));
+            state->mode = MATCH;
+        case MATCH:
+            if (left == 0) goto inf_leave;
+            copy = out - left;
+            if (state->offset > copy) {         /* copy from window */
+                copy = state->offset - copy;
+                if (copy > state->write) {
+                    copy -= state->write;
+                    from = state->window + (state->wsize - copy);
+                }
+                else
+                    from = state->window + (state->write - copy);
+                if (copy > state->length) copy = state->length;
+            }
+            else {                              /* copy from output */
+                from = put - state->offset;
+                copy = state->length;
+            }
+            if (copy > left) copy = left;
+            left -= copy;
+            state->length -= copy;
+            do {
+                *put++ = *from++;
+            } while (--copy);
+            if (state->length == 0) state->mode = LEN;
+            break;
+        case LIT:
+            if (left == 0) goto inf_leave;
+            *put++ = (unsigned char)(state->length);
+            left--;
+            state->mode = LEN;
+            break;
+        case CHECK:
+            if (state->wrap) {
+                NEEDBITS(32);
+                out -= left;
+                strm->total_out += out;
+                state->total += out;
+                if (out)
+                    strm->adler = state->check =
+                        UPDATE(state->check, put - out, out);
+                out = left;
+                if ((
+#ifdef GUNZIP
+                     state->flags ? hold :
+#endif
+                     REVERSE(hold)) != state->check) {
+                    strm->msg = (char *)"incorrect data check";
+                    state->mode = BAD;
+                    break;
+                }
+                INITBITS();
+                Tracev((stderr, "inflate:   check matches trailer\n"));
+            }
+#ifdef GUNZIP
+            state->mode = LENGTH;
+        case LENGTH:
+            if (state->wrap && state->flags) {
+                NEEDBITS(32);
+                if (hold != (state->total & 0xffffffffUL)) {
+                    strm->msg = (char *)"incorrect length check";
+                    state->mode = BAD;
+                    break;
+                }
+                INITBITS();
+                Tracev((stderr, "inflate:   length matches trailer\n"));
+            }
+#endif
+            state->mode = DONE;
+        case DONE:
+            ret = Z_STREAM_END;
+            goto inf_leave;
+        case BAD:
+            ret = Z_DATA_ERROR;
+            goto inf_leave;
+        case MEM:
+            return Z_MEM_ERROR;
+        case SYNC:
+        default:
+            return Z_STREAM_ERROR;
+        }
+
+    /*
+       Return from inflate(), updating the total counts and the check value.
+       If there was no progress during the inflate() call, return a buffer
+       error.  Call updatewindow() to create and/or update the window state.
+       Note: a memory error from inflate() is non-recoverable.
+     */
+  inf_leave:
+    RESTORE();
+    if (state->wsize || (state->mode < CHECK && out != strm->avail_out))
+        if (updatewindow(strm, out)) {
+            state->mode = MEM;
+            return Z_MEM_ERROR;
+        }
+    in -= strm->avail_in;
+    out -= strm->avail_out;
+    strm->total_in += in;
+    strm->total_out += out;
+    state->total += out;
+    if (state->wrap && out)
+        strm->adler = state->check =
+            UPDATE(state->check, strm->next_out - out, out);
+    strm->data_type = state->bits + (state->last ? 64 : 0) +
+                      (state->mode == TYPE ? 128 : 0);
+    if (((in == 0 && out == 0) || flush == Z_FINISH) && ret == Z_OK)
+        ret = Z_BUF_ERROR;
+    return ret;
+}
+
+int ZEXPORT inflateEnd(strm)
+z_streamp strm;
+{
+    struct inflate_state FAR *state;
+    if (strm == Z_NULL || strm->state == Z_NULL || strm->zfree == (free_func)0)
+        return Z_STREAM_ERROR;
+    state = (struct inflate_state FAR *)strm->state;
+    if (state->window != Z_NULL) ZFREE(strm, state->window);
+    ZFREE(strm, strm->state);
+    strm->state = Z_NULL;
+    Tracev((stderr, "inflate: end\n"));
+    return Z_OK;
+}
+
+int ZEXPORT inflateSetDictionary(strm, dictionary, dictLength)
+z_streamp strm;
+const Bytef *dictionary;
+uInt dictLength;
+{
+    struct inflate_state FAR *state;
+    unsigned long id;
+
+    /* check state */
+    if (strm == Z_NULL || strm->state == Z_NULL) return Z_STREAM_ERROR;
+    state = (struct inflate_state FAR *)strm->state;
+    if (state->wrap != 0 && state->mode != DICT)
+        return Z_STREAM_ERROR;
+
+    /* check for correct dictionary id */
+    if (state->mode == DICT) {
+        id = adler32(0L, Z_NULL, 0);
+        id = adler32(id, dictionary, dictLength);
+        if (id != state->check)
+            return Z_DATA_ERROR;
+    }
+
+    /* copy dictionary to window */
+    if (updatewindow(strm, strm->avail_out)) {
+        state->mode = MEM;
+        return Z_MEM_ERROR;
+    }
+    if (dictLength > state->wsize) {
+        zmemcpy(state->window, dictionary + dictLength - state->wsize,
+                state->wsize);
+        state->whave = state->wsize;
+    }
+    else {
+        zmemcpy(state->window + state->wsize - dictLength, dictionary,
+                dictLength);
+        state->whave = dictLength;
+    }
+    state->havedict = 1;
+    Tracev((stderr, "inflate:   dictionary set\n"));
+    return Z_OK;
+}
+
+int ZEXPORT inflateGetHeader(strm, head)
+z_streamp strm;
+gz_headerp head;
+{
+    struct inflate_state FAR *state;
+
+    /* check state */
+    if (strm == Z_NULL || strm->state == Z_NULL) return Z_STREAM_ERROR;
+    state = (struct inflate_state FAR *)strm->state;
+    if ((state->wrap & 2) == 0) return Z_STREAM_ERROR;
+
+    /* save header structure */
+    state->head = head;
+    head->done = 0;
+    return Z_OK;
+}
+
+/*
+   Search buf[0..len-1] for the pattern: 0, 0, 0xff, 0xff.  Return when found
+   or when out of input.  When called, *have is the number of pattern bytes
+   found in order so far, in 0..3.  On return *have is updated to the new
+   state.  If on return *have equals four, then the pattern was found and the
+   return value is how many bytes were read including the last byte of the
+   pattern.  If *have is less than four, then the pattern has not been found
+   yet and the return value is len.  In the latter case, syncsearch() can be
+   called again with more data and the *have state.  *have is initialized to
+   zero for the first call.
+ */
+local unsigned syncsearch(have, buf, len)
+unsigned FAR *have;
+unsigned char FAR *buf;
+unsigned len;
+{
+    unsigned got;
+    unsigned next;
+
+    got = *have;
+    next = 0;
+    while (next < len && got < 4) {
+        if ((int)(buf[next]) == (got < 2 ? 0 : 0xff))
+            got++;
+        else if (buf[next])
+            got = 0;
+        else
+            got = 4 - got;
+        next++;
+    }
+    *have = got;
+    return next;
+}
+
+int ZEXPORT inflateSync(strm)
+z_streamp strm;
+{
+    unsigned len;               /* number of bytes to look at or looked at */
+    unsigned long in, out;      /* temporary to save total_in and total_out */
+    unsigned char buf[4];       /* to restore bit buffer to byte string */
+    struct inflate_state FAR *state;
+
+    /* check parameters */
+    if (strm == Z_NULL || strm->state == Z_NULL) return Z_STREAM_ERROR;
+    state = (struct inflate_state FAR *)strm->state;
+    if (strm->avail_in == 0 && state->bits < 8) return Z_BUF_ERROR;
+
+    /* if first time, start search in bit buffer */
+    if (state->mode != SYNC) {
+        state->mode = SYNC;
+        state->hold <<= state->bits & 7;
+        state->bits -= state->bits & 7;
+        len = 0;
+        while (state->bits >= 8) {
+            buf[len++] = (unsigned char)(state->hold);
+            state->hold >>= 8;
+            state->bits -= 8;
+        }
+        state->have = 0;
+        syncsearch(&(state->have), buf, len);
+    }
+
+    /* search available input */
+    len = syncsearch(&(state->have), strm->next_in, strm->avail_in);
+    strm->avail_in -= len;
+    strm->next_in += len;
+    strm->total_in += len;
+
+    /* return no joy or set up to restart inflate() on a new block */
+    if (state->have != 4) return Z_DATA_ERROR;
+    in = strm->total_in;  out = strm->total_out;
+    inflateReset(strm);
+    strm->total_in = in;  strm->total_out = out;
+    state->mode = TYPE;
+    return Z_OK;
+}
+
+/*
+   Returns true if inflate is currently at the end of a block generated by
+   Z_SYNC_FLUSH or Z_FULL_FLUSH. This function is used by one PPP
+   implementation to provide an additional safety check. PPP uses
+   Z_SYNC_FLUSH but removes the length bytes of the resulting empty stored
+   block. When decompressing, PPP checks that at the end of input packet,
+   inflate is waiting for these length bytes.
+ */
+int ZEXPORT inflateSyncPoint(strm)
+z_streamp strm;
+{
+    struct inflate_state FAR *state;
+
+    if (strm == Z_NULL || strm->state == Z_NULL) return Z_STREAM_ERROR;
+    state = (struct inflate_state FAR *)strm->state;
+    return state->mode == STORED && state->bits == 0;
+}
+
+int ZEXPORT inflateCopy(dest, source)
+z_streamp dest;
+z_streamp source;
+{
+    struct inflate_state FAR *state;
+    struct inflate_state FAR *copy;
+    unsigned char FAR *window;
+    unsigned wsize;
+
+    /* check input */
+    if (dest == Z_NULL || source == Z_NULL || source->state == Z_NULL ||
+        source->zalloc == (alloc_func)0 || source->zfree == (free_func)0)
+        return Z_STREAM_ERROR;
+    state = (struct inflate_state FAR *)source->state;
+
+    /* allocate space */
+    copy = (struct inflate_state FAR *)
+           ZALLOC(source, 1, sizeof(struct inflate_state));
+    if (copy == Z_NULL) return Z_MEM_ERROR;
+    window = Z_NULL;
+    if (state->window != Z_NULL) {
+        window = (unsigned char FAR *)
+                 ZALLOC(source, 1U << state->wbits, sizeof(unsigned char));
+        if (window == Z_NULL) {
+            ZFREE(source, copy);
+            return Z_MEM_ERROR;
+        }
+    }
+
+    /* copy state */
+    zmemcpy(dest, source, sizeof(z_stream));
+    zmemcpy(copy, state, sizeof(struct inflate_state));
+    if (state->lencode >= state->codes &&
+        state->lencode <= state->codes + ENOUGH - 1) {
+        copy->lencode = copy->codes + (state->lencode - state->codes);
+        copy->distcode = copy->codes + (state->distcode - state->codes);
+    }
+    copy->next = copy->codes + (state->next - state->codes);
+    if (window != Z_NULL) {
+        wsize = 1U << state->wbits;
+        zmemcpy(window, state->window, wsize);
+    }
+    copy->window = window;
+    dest->state = (struct internal_state FAR *)copy;
+    return Z_OK;
+}

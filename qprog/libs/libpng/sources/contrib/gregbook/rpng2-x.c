@@ -27,7 +27,7 @@
     - 1.11:  added -usleep option for demos; fixed command-line parsing bug
     - 1.12:  added -pause option for demos and testing
     - 1.20:  added runtime MMX-enabling/disabling and new -mmx* options
-    - 1.21:  fixed some small X memory leaks (thanks to FranÃÂ§ois Petitjean)
+    - 1.21:  fixed some small X memory leaks (thanks to Fran�ois Petitjean)
     - 1.22:  fixed XFreeGC() crash bug (thanks to Patrick Welche)
     - 1.23:  added -bgpat 0 mode (std white/gray checkerboard, 8x8 squares)
     - 1.30:  added -loop option for -bgpat (ifdef FEATURE_LOOP); fixed bpp =
@@ -864,4 +864,1264 @@ static int rpng2_x_create_window(void)
         if (visuals_matched == 0) {
 /* GRR:  add 15-, 16- and 32-bit TrueColor visuals (also DirectColor?) */
             fprintf(stderr, "default screen depth %d not supported, and no"
-              " 24-bit
+              " 24-bit visuals found\n", depth);
+            return 2;
+        }
+        Trace((stderr, "XGetVisualInfo() returned %d 24-bit visuals\n",
+          visuals_matched))
+        visual = visual_list[0].visual;
+        depth = visual_list[0].depth;
+/*
+        colormap_size = visual_list[0].colormap_size;
+        visual_class = visual->class;
+        visualID = XVisualIDFromVisual(visual);
+ */
+        have_nondefault_visual = TRUE;
+        need_colormap = TRUE;
+    } else {
+        XMatchVisualInfo(display, screen, depth, TrueColor, &visual_info);
+        visual = visual_info.visual;
+    }
+
+    RMask = visual->red_mask;
+    GMask = visual->green_mask;
+    BMask = visual->blue_mask;
+
+/* GRR:  add/check 8-bit support */
+    if (depth == 8 || need_colormap) {
+        colormap = XCreateColormap(display, root, visual, AllocNone);
+        if (!colormap) {
+            fprintf(stderr, "XCreateColormap() failed\n");
+            return 2;
+        }
+        have_colormap = TRUE;
+        if (depth == 8)
+            bg_image = FALSE;   /* gradient just wastes palette entries */
+    }
+    if (depth == 15 || depth == 16) {
+        RShift = 15 - rpng2_x_msb(RMask);    /* these are right-shifts */
+        GShift = 15 - rpng2_x_msb(GMask);
+        BShift = 15 - rpng2_x_msb(BMask);
+    } else if (depth > 16) {
+        RShift = rpng2_x_msb(RMask) - 7;     /* these are left-shifts */
+        GShift = rpng2_x_msb(GMask) - 7;
+        BShift = rpng2_x_msb(BMask) - 7;
+    }
+    if (depth >= 15 && (RShift < 0 || GShift < 0 || BShift < 0)) {
+        fprintf(stderr, "rpng2 internal logic error:  negative X shift(s)!\n");
+        return 2;
+    }
+
+/*---------------------------------------------------------------------------
+    Finally, create the window.
+  ---------------------------------------------------------------------------*/
+
+    attr.backing_store = Always;
+    attr.event_mask = ExposureMask | KeyPressMask | ButtonPressMask;
+    attrmask = CWBackingStore | CWEventMask;
+    if (have_nondefault_visual) {
+        attr.colormap = colormap;
+        attr.background_pixel = 0;
+        attr.border_pixel = 1;
+        attrmask |= CWColormap | CWBackPixel | CWBorderPixel;
+    }
+
+    window = XCreateWindow(display, root, 0, 0, rpng2_info.width,
+      rpng2_info.height, 0, depth, InputOutput, visual, attrmask, &attr);
+
+    if (window == None) {
+        fprintf(stderr, "XCreateWindow() failed\n");
+        return 2;
+    } else
+        have_window = TRUE;
+
+    if (depth == 8)
+        XSetWindowColormap(display, window, colormap);
+
+    if (!XStringListToTextProperty(&window_name, 1, pWindowName))
+        pWindowName = NULL;
+    if (!XStringListToTextProperty(&icon_name, 1, pIconName))
+        pIconName = NULL;
+
+    /* OK if either hints allocation fails; XSetWMProperties() allows NULLs */
+
+    if ((size_hints = XAllocSizeHints()) != NULL) {
+        /* window will not be resizable */
+        size_hints->flags = PMinSize | PMaxSize;
+        size_hints->min_width = size_hints->max_width = (int)rpng2_info.width;
+        size_hints->min_height = size_hints->max_height =
+          (int)rpng2_info.height;
+    }
+
+    if ((wm_hints = XAllocWMHints()) != NULL) {
+        wm_hints->initial_state = NormalState;
+        wm_hints->input = True;
+     /* wm_hints->icon_pixmap = icon_pixmap; */
+        wm_hints->flags = StateHint | InputHint  /* | IconPixmapHint */ ;
+    }
+
+    if ((class_hints = XAllocClassHint()) != NULL) {
+        class_hints->res_name = res_name;
+        class_hints->res_class = res_class;
+    }
+
+    XSetWMProperties(display, window, pWindowName, pIconName, NULL, 0,
+      size_hints, wm_hints, class_hints);
+
+    /* various properties and hints no longer needed; free memory */
+    if (pWindowName)
+       XFree(pWindowName->value);
+    if (pIconName)
+       XFree(pIconName->value);
+    if (size_hints)
+        XFree(size_hints);
+    if (wm_hints)
+       XFree(wm_hints);
+    if (class_hints)
+       XFree(class_hints);
+
+    XMapWindow(display, window);
+
+    gc = XCreateGC(display, window, 0, &gcvalues);
+    have_gc = TRUE;
+
+/*---------------------------------------------------------------------------
+    Allocate memory for the X- and display-specific version of the image.
+  ---------------------------------------------------------------------------*/
+
+    if (depth == 24 || depth == 32) {
+        xdata = (uch *)malloc(4*rpng2_info.width*rpng2_info.height);
+        pad = 32;
+    } else if (depth == 16) {
+        xdata = (uch *)malloc(2*rpng2_info.width*rpng2_info.height);
+        pad = 16;
+    } else /* depth == 8 */ {
+        xdata = (uch *)malloc(rpng2_info.width*rpng2_info.height);
+        pad = 8;
+    }
+
+    if (!xdata) {
+        fprintf(stderr, PROGNAME ":  unable to allocate image memory\n");
+        return 4;
+    }
+
+    ximage = XCreateImage(display, visual, depth, ZPixmap, 0,
+      (char *)xdata, rpng2_info.width, rpng2_info.height, pad, 0);
+
+    if (!ximage) {
+        fprintf(stderr, PROGNAME ":  XCreateImage() failed\n");
+        free(xdata);
+        return 3;
+    }
+
+    /* to avoid testing the byte order every pixel (or doubling the size of
+     * the drawing routine with a giant if-test), we arbitrarily set the byte
+     * order to MSBFirst and let Xlib worry about inverting things on little-
+     * endian machines (e.g., Linux/x86, old VAXen, etc.)--this is not the
+     * most efficient approach (the giant if-test would be better), but in
+     * the interest of clarity, we'll take the easy way out... */
+
+    ximage->byte_order = MSBFirst;
+
+/*---------------------------------------------------------------------------
+    Fill window with the specified background color (default is black) or
+    faked "background image" (but latter is disabled if 8-bit; gradients
+    just waste palette entries).
+  ---------------------------------------------------------------------------*/
+
+    if (bg_image)
+        rpng2_x_load_bg_image();    /* resets bg_image if fails */
+
+    if (!bg_image) {
+        if (depth == 24 || depth == 32) {
+            bg_pixel = (bg_red   << RShift) |
+                       (bg_green << GShift) |
+                       (bg_blue  << BShift);
+        } else if (depth == 16) {
+            bg_pixel = (((bg_red   << 8) >> RShift) & RMask) |
+                       (((bg_green << 8) >> GShift) & GMask) |
+                       (((bg_blue  << 8) >> BShift) & BMask);
+        } else /* depth == 8 */ {
+
+            /* GRR:  add 8-bit support */
+
+        }
+        XSetForeground(display, gc, bg_pixel);
+        XFillRectangle(display, window, gc, 0, 0, rpng2_info.width,
+          rpng2_info.height);
+    }
+
+/*---------------------------------------------------------------------------
+    Wait for first Expose event to do any drawing, then flush and return.
+  ---------------------------------------------------------------------------*/
+
+    do
+        XNextEvent(display, &e);
+    while (e.type != Expose || e.xexpose.count);
+
+    XFlush(display);
+
+    return 0;
+
+} /* end function rpng2_x_create_window() */
+
+
+
+
+
+static int rpng2_x_load_bg_image(void)
+{
+    uch *src;
+    char *dest;
+    uch r1, r2, g1, g2, b1, b2;
+    uch r1_inv, r2_inv, g1_inv, g2_inv, b1_inv, b2_inv;
+    int k, hmax, max;
+    int xidx, yidx, yidx_max;
+    int even_odd_vert, even_odd_horiz, even_odd;
+    int invert_gradient2 = (bg[pat].type & 0x08);
+    int invert_column;
+    int ximage_rowbytes = ximage->bytes_per_line;
+    ulg i, row;
+    ulg pixel;
+
+/*---------------------------------------------------------------------------
+    Allocate buffer for fake background image to be used with transparent
+    images; if this fails, revert to plain background color.
+  ---------------------------------------------------------------------------*/
+
+    bg_rowbytes = 3 * rpng2_info.width;
+    bg_data = (uch *)malloc(bg_rowbytes * rpng2_info.height);
+    if (!bg_data) {
+        fprintf(stderr, PROGNAME
+          ":  unable to allocate memory for background image\n");
+        bg_image = 0;
+        return 1;
+    }
+
+    bgscale = (pat == 0)? 8 : bgscale_default;
+    yidx_max = bgscale - 1;
+
+/*---------------------------------------------------------------------------
+    Vertical gradients (ramps) in NxN squares, alternating direction and
+    colors (N == bgscale).
+  ---------------------------------------------------------------------------*/
+
+    if ((bg[pat].type & 0x07) == 0) {
+        uch r1_min  = rgb[bg[pat].rgb1_min].r;
+        uch g1_min  = rgb[bg[pat].rgb1_min].g;
+        uch b1_min  = rgb[bg[pat].rgb1_min].b;
+        uch r2_min  = rgb[bg[pat].rgb2_min].r;
+        uch g2_min  = rgb[bg[pat].rgb2_min].g;
+        uch b2_min  = rgb[bg[pat].rgb2_min].b;
+        int r1_diff = rgb[bg[pat].rgb1_max].r - r1_min;
+        int g1_diff = rgb[bg[pat].rgb1_max].g - g1_min;
+        int b1_diff = rgb[bg[pat].rgb1_max].b - b1_min;
+        int r2_diff = rgb[bg[pat].rgb2_max].r - r2_min;
+        int g2_diff = rgb[bg[pat].rgb2_max].g - g2_min;
+        int b2_diff = rgb[bg[pat].rgb2_max].b - b2_min;
+
+        for (row = 0;  row < rpng2_info.height;  ++row) {
+            yidx = (int)(row % bgscale);
+            even_odd_vert = (int)((row / bgscale) & 1);
+
+            r1 = r1_min + (r1_diff * yidx) / yidx_max;
+            g1 = g1_min + (g1_diff * yidx) / yidx_max;
+            b1 = b1_min + (b1_diff * yidx) / yidx_max;
+            r1_inv = r1_min + (r1_diff * (yidx_max-yidx)) / yidx_max;
+            g1_inv = g1_min + (g1_diff * (yidx_max-yidx)) / yidx_max;
+            b1_inv = b1_min + (b1_diff * (yidx_max-yidx)) / yidx_max;
+
+            r2 = r2_min + (r2_diff * yidx) / yidx_max;
+            g2 = g2_min + (g2_diff * yidx) / yidx_max;
+            b2 = b2_min + (b2_diff * yidx) / yidx_max;
+            r2_inv = r2_min + (r2_diff * (yidx_max-yidx)) / yidx_max;
+            g2_inv = g2_min + (g2_diff * (yidx_max-yidx)) / yidx_max;
+            b2_inv = b2_min + (b2_diff * (yidx_max-yidx)) / yidx_max;
+
+            dest = (char *)bg_data + row*bg_rowbytes;
+            for (i = 0;  i < rpng2_info.width;  ++i) {
+                even_odd_horiz = (int)((i / bgscale) & 1);
+                even_odd = even_odd_vert ^ even_odd_horiz;
+                invert_column =
+                  (even_odd_horiz && (bg[pat].type & 0x10));
+                if (even_odd == 0) {        /* gradient #1 */
+                    if (invert_column) {
+                        *dest++ = r1_inv;
+                        *dest++ = g1_inv;
+                        *dest++ = b1_inv;
+                    } else {
+                        *dest++ = r1;
+                        *dest++ = g1;
+                        *dest++ = b1;
+                    }
+                } else {                    /* gradient #2 */
+                    if ((invert_column && invert_gradient2) ||
+                        (!invert_column && !invert_gradient2))
+                    {
+                        *dest++ = r2;       /* not inverted or */
+                        *dest++ = g2;       /*  doubly inverted */
+                        *dest++ = b2;
+                    } else {
+                        *dest++ = r2_inv;
+                        *dest++ = g2_inv;   /* singly inverted */
+                        *dest++ = b2_inv;
+                    }
+                }
+            }
+        }
+
+/*---------------------------------------------------------------------------
+    Soft gradient-diamonds with scale = bgscale.  Code contributed by Adam
+    M. Costello.
+  ---------------------------------------------------------------------------*/
+
+    } else if ((bg[pat].type & 0x07) == 1) {
+
+        hmax = (bgscale-1)/2;   /* half the max weight of a color */
+        max = 2*hmax;           /* the max weight of a color */
+
+        r1 = rgb[bg[pat].rgb1_max].r;
+        g1 = rgb[bg[pat].rgb1_max].g;
+        b1 = rgb[bg[pat].rgb1_max].b;
+        r2 = rgb[bg[pat].rgb2_max].r;
+        g2 = rgb[bg[pat].rgb2_max].g;
+        b2 = rgb[bg[pat].rgb2_max].b;
+
+        for (row = 0;  row < rpng2_info.height;  ++row) {
+            yidx = (int)(row % bgscale);
+            if (yidx > hmax)
+                yidx = bgscale-1 - yidx;
+            dest = (char *)bg_data + row*bg_rowbytes;
+            for (i = 0;  i < rpng2_info.width;  ++i) {
+                xidx = (int)(i % bgscale);
+                if (xidx > hmax)
+                    xidx = bgscale-1 - xidx;
+                k = xidx + yidx;
+                *dest++ = (k*r1 + (max-k)*r2) / max;
+                *dest++ = (k*g1 + (max-k)*g2) / max;
+                *dest++ = (k*b1 + (max-k)*b2) / max;
+            }
+        }
+
+/*---------------------------------------------------------------------------
+    Radial "starburst" with azimuthal sinusoids; [eventually number of sinu-
+    soids will equal bgscale?].  This one is slow but very cool.  Code con-
+    tributed by Pieter S. van der Meulen (originally in Smalltalk).
+  ---------------------------------------------------------------------------*/
+
+    } else if ((bg[pat].type & 0x07) == 2) {
+        uch ch;
+        int ii, x, y, hw, hh, grayspot;
+        double freq, rotate, saturate, gray, intensity;
+        double angle=0.0, aoffset=0.0, maxDist, dist;
+        double red=0.0, green=0.0, blue=0.0, hue, s, v, f, p, q, t;
+
+        fprintf(stderr, "%s:  computing radial background...",
+          PROGNAME);
+        fflush(stderr);
+
+        hh = (int)(rpng2_info.height / 2);
+        hw = (int)(rpng2_info.width / 2);
+
+        /* variables for radial waves:
+         *   aoffset:  number of degrees to rotate hue [CURRENTLY NOT USED]
+         *   freq:  number of color beams originating from the center
+         *   grayspot:  size of the graying center area (anti-alias)
+         *   rotate:  rotation of the beams as a function of radius
+         *   saturate:  saturation of beams' shape azimuthally
+         */
+        angle = CLIP(angle, 0.0, 360.0);
+        grayspot = CLIP(bg[pat].bg_gray, 1, (hh + hw));
+        freq = MAX((double)bg[pat].bg_freq, 0.0);
+        saturate = (double)bg[pat].bg_bsat * 0.1;
+        rotate = (double)bg[pat].bg_brot * 0.1;
+        gray = 0.0;
+        intensity = 0.0;
+        maxDist = (double)((hw*hw) + (hh*hh));
+
+        for (row = 0;  row < rpng2_info.height;  ++row) {
+            y = (int)(row - hh);
+            dest = (char *)bg_data + row*bg_rowbytes;
+            for (i = 0;  i < rpng2_info.width;  ++i) {
+                x = (int)(i - hw);
+                angle = (x == 0)? PI_2 : atan((double)y / (double)x);
+                gray = (double)MAX(ABS(y), ABS(x)) / grayspot;
+                gray = MIN(1.0, gray);
+                dist = (double)((x*x) + (y*y)) / maxDist;
+                intensity = cos((angle+(rotate*dist*PI)) * freq) *
+                  gray * saturate;
+                intensity = (MAX(MIN(intensity,1.0),-1.0) + 1.0) * 0.5;
+                hue = (angle + PI) * INV_PI_360 + aoffset;
+                s = gray * ((double)(ABS(x)+ABS(y)) / (double)(hw + hh));
+                s = MIN(MAX(s,0.0), 1.0);
+                v = MIN(MAX(intensity,0.0), 1.0);
+
+                if (s == 0.0) {
+                    ch = (uch)(v * 255.0);
+                    *dest++ = ch;
+                    *dest++ = ch;
+                    *dest++ = ch;
+                } else {
+                    if ((hue < 0.0) || (hue >= 360.0))
+                        hue -= (((int)(hue / 360.0)) * 360.0);
+                    hue /= 60.0;
+                    ii = (int)hue;
+                    f = hue - (double)ii;
+                    p = (1.0 - s) * v;
+                    q = (1.0 - (s * f)) * v;
+                    t = (1.0 - (s * (1.0 - f))) * v;
+                    if      (ii == 0) { red = v; green = t; blue = p; }
+                    else if (ii == 1) { red = q; green = v; blue = p; }
+                    else if (ii == 2) { red = p; green = v; blue = t; }
+                    else if (ii == 3) { red = p; green = q; blue = v; }
+                    else if (ii == 4) { red = t; green = p; blue = v; }
+                    else if (ii == 5) { red = v; green = p; blue = q; }
+                    *dest++ = (uch)(red * 255.0);
+                    *dest++ = (uch)(green * 255.0);
+                    *dest++ = (uch)(blue * 255.0);
+                }
+            }
+        }
+        fprintf(stderr, "done.\n");
+        fflush(stderr);
+    }
+
+/*---------------------------------------------------------------------------
+    Blast background image to display buffer before beginning PNG decode.
+  ---------------------------------------------------------------------------*/
+
+    if (depth == 24 || depth == 32) {
+        ulg red, green, blue;
+        int bpp = ximage->bits_per_pixel;
+
+        for (row = 0;  row < rpng2_info.height;  ++row) {
+            src = bg_data + row*bg_rowbytes;
+            dest = ximage->data + row*ximage_rowbytes;
+            if (bpp == 32) {	/* slightly optimized version */
+                for (i = rpng2_info.width;  i > 0;  --i) {
+                    red   = *src++;
+                    green = *src++;
+                    blue  = *src++;
+                    pixel = (red   << RShift) |
+                            (green << GShift) |
+                            (blue  << BShift);
+                    /* recall that we set ximage->byte_order = MSBFirst above */
+                    *dest++ = (char)((pixel >> 24) & 0xff);
+                    *dest++ = (char)((pixel >> 16) & 0xff);
+                    *dest++ = (char)((pixel >>  8) & 0xff);
+                    *dest++ = (char)( pixel        & 0xff);
+                }
+            } else {
+                for (i = rpng2_info.width;  i > 0;  --i) {
+                    red   = *src++;
+                    green = *src++;
+                    blue  = *src++;
+                    pixel = (red   << RShift) |
+                            (green << GShift) |
+                            (blue  << BShift);
+                    /* recall that we set ximage->byte_order = MSBFirst above */
+                    /* GRR BUG?  this assumes bpp == 24 & bits are packed low */
+                    /*           (probably need to use RShift, RMask, etc.) */
+                    *dest++ = (char)((pixel >> 16) & 0xff);
+                    *dest++ = (char)((pixel >>  8) & 0xff);
+                    *dest++ = (char)( pixel        & 0xff);
+                }
+            }
+        }
+
+    } else if (depth == 16) {
+        ush red, green, blue;
+
+        for (row = 0;  row < rpng2_info.height;  ++row) {
+            src = bg_data + row*bg_rowbytes;
+            dest = ximage->data + row*ximage_rowbytes;
+            for (i = rpng2_info.width;  i > 0;  --i) {
+                red   = ((ush)(*src) << 8);  ++src;
+                green = ((ush)(*src) << 8);  ++src;
+                blue  = ((ush)(*src) << 8);  ++src;
+                pixel = ((red   >> RShift) & RMask) |
+                        ((green >> GShift) & GMask) |
+                        ((blue  >> BShift) & BMask);
+                /* recall that we set ximage->byte_order = MSBFirst above */
+                *dest++ = (char)((pixel >>  8) & 0xff);
+                *dest++ = (char)( pixel        & 0xff);
+            }
+        }
+
+    } else /* depth == 8 */ {
+
+        /* GRR:  add 8-bit support */
+
+    }
+
+    XPutImage(display, window, gc, ximage, 0, 0, 0, 0, rpng2_info.width,
+      rpng2_info.height);
+
+    return 0;
+
+} /* end function rpng2_x_load_bg_image() */
+
+
+
+
+
+static void rpng2_x_display_row(ulg row)
+{
+    uch bg_red   = rpng2_info.bg_red;
+    uch bg_green = rpng2_info.bg_green;
+    uch bg_blue  = rpng2_info.bg_blue;
+    uch *src, *src2=NULL;
+    char *dest;
+    uch r, g, b, a;
+    int ximage_rowbytes = ximage->bytes_per_line;
+    ulg i, pixel;
+    static int rows=0, prevpass=(-1);
+    static ulg firstrow;
+
+/*---------------------------------------------------------------------------
+    rows and firstrow simply track how many rows (and which ones) have not
+    yet been displayed; alternatively, we could call XPutImage() for every
+    row and not bother with the records-keeping.
+  ---------------------------------------------------------------------------*/
+
+    Trace((stderr, "beginning rpng2_x_display_row()\n"))
+
+    if (rpng2_info.pass != prevpass) {
+        if (pause_after_pass && rpng2_info.pass > 0) {
+            XEvent e;
+            KeySym k;
+
+            fprintf(stderr,
+              "%s:  end of pass %d of 7; click in image window to continue\n",
+              PROGNAME, prevpass + 1);
+            do
+                XNextEvent(display, &e);
+            while (!QUIT(e,k));
+        }
+        fprintf(stderr, "%s:  pass %d of 7\r", PROGNAME, rpng2_info.pass + 1);
+        fflush(stderr);
+        prevpass = rpng2_info.pass;
+    }
+
+    if (rows == 0)
+        firstrow = row;   /* first row that is not yet displayed */
+
+    ++rows;   /* count of rows received but not yet displayed */
+
+/*---------------------------------------------------------------------------
+    Aside from the use of the rpng2_info struct, the lack of an outer loop
+    (over rows) and moving the XPutImage() call outside the "if (depth)"
+    tests, this routine is identical to rpng_x_display_image() in the non-
+    progressive version of the program.
+  ---------------------------------------------------------------------------*/
+
+    if (depth == 24 || depth == 32) {
+        ulg red, green, blue;
+        int bpp = ximage->bits_per_pixel;
+
+        src = rpng2_info.image_data + row*rpng2_info.rowbytes;
+        if (bg_image)
+            src2 = bg_data + row*bg_rowbytes;
+        dest = ximage->data + row*ximage_rowbytes;
+        if (rpng2_info.channels == 3) {
+            for (i = rpng2_info.width;  i > 0;  --i) {
+                red   = *src++;
+                green = *src++;
+                blue  = *src++;
+                pixel = (red   << RShift) |
+                        (green << GShift) |
+                        (blue  << BShift);
+                /* recall that we set ximage->byte_order = MSBFirst above */
+                if (bpp == 32) {
+                    *dest++ = (char)((pixel >> 24) & 0xff);
+                    *dest++ = (char)((pixel >> 16) & 0xff);
+                    *dest++ = (char)((pixel >>  8) & 0xff);
+                    *dest++ = (char)( pixel        & 0xff);
+                } else {
+                    /* GRR BUG?  this assumes bpp == 24 & bits are packed low */
+                    /*           (probably need to use RShift, RMask, etc.) */
+                    *dest++ = (char)((pixel >> 16) & 0xff);
+                    *dest++ = (char)((pixel >>  8) & 0xff);
+                    *dest++ = (char)( pixel        & 0xff);
+                }
+            }
+        } else /* if (rpng2_info.channels == 4) */ {
+            for (i = rpng2_info.width;  i > 0;  --i) {
+                r = *src++;
+                g = *src++;
+                b = *src++;
+                a = *src++;
+                if (bg_image) {
+                    bg_red   = *src2++;
+                    bg_green = *src2++;
+                    bg_blue  = *src2++;
+                }
+                if (a == 255) {
+                    red   = r;
+                    green = g;
+                    blue  = b;
+                } else if (a == 0) {
+                    red   = bg_red;
+                    green = bg_green;
+                    blue  = bg_blue;
+                } else {
+                    /* this macro (from png.h) composites the foreground
+                     * and background values and puts the result into the
+                     * first argument */
+                    alpha_composite(red,   r, a, bg_red);
+                    alpha_composite(green, g, a, bg_green);
+                    alpha_composite(blue,  b, a, bg_blue);
+                }
+                pixel = (red   << RShift) |
+                        (green << GShift) |
+                        (blue  << BShift);
+                /* recall that we set ximage->byte_order = MSBFirst above */
+                if (bpp == 32) {
+                    *dest++ = (char)((pixel >> 24) & 0xff);
+                    *dest++ = (char)((pixel >> 16) & 0xff);
+                    *dest++ = (char)((pixel >>  8) & 0xff);
+                    *dest++ = (char)( pixel        & 0xff);
+                } else {
+                    /* GRR BUG?  this assumes bpp == 24 & bits are packed low */
+                    /*           (probably need to use RShift, RMask, etc.) */
+                    *dest++ = (char)((pixel >> 16) & 0xff);
+                    *dest++ = (char)((pixel >>  8) & 0xff);
+                    *dest++ = (char)( pixel        & 0xff);
+                }
+            }
+        }
+
+    } else if (depth == 16) {
+        ush red, green, blue;
+
+        src = rpng2_info.row_pointers[row];
+        if (bg_image)
+            src2 = bg_data + row*bg_rowbytes;
+        dest = ximage->data + row*ximage_rowbytes;
+        if (rpng2_info.channels == 3) {
+            for (i = rpng2_info.width;  i > 0;  --i) {
+                red   = ((ush)(*src) << 8);
+                ++src;
+                green = ((ush)(*src) << 8);
+                ++src;
+                blue  = ((ush)(*src) << 8);
+                ++src;
+                pixel = ((red   >> RShift) & RMask) |
+                        ((green >> GShift) & GMask) |
+                        ((blue  >> BShift) & BMask);
+                /* recall that we set ximage->byte_order = MSBFirst above */
+                *dest++ = (char)((pixel >>  8) & 0xff);
+                *dest++ = (char)( pixel        & 0xff);
+            }
+        } else /* if (rpng2_info.channels == 4) */ {
+            for (i = rpng2_info.width;  i > 0;  --i) {
+                r = *src++;
+                g = *src++;
+                b = *src++;
+                a = *src++;
+                if (bg_image) {
+                    bg_red   = *src2++;
+                    bg_green = *src2++;
+                    bg_blue  = *src2++;
+                }
+                if (a == 255) {
+                    red   = ((ush)r << 8);
+                    green = ((ush)g << 8);
+                    blue  = ((ush)b << 8);
+                } else if (a == 0) {
+                    red   = ((ush)bg_red   << 8);
+                    green = ((ush)bg_green << 8);
+                    blue  = ((ush)bg_blue  << 8);
+                } else {
+                    /* this macro (from png.h) composites the foreground
+                     * and background values and puts the result back into
+                     * the first argument (== fg byte here:  safe) */
+                    alpha_composite(r, r, a, bg_red);
+                    alpha_composite(g, g, a, bg_green);
+                    alpha_composite(b, b, a, bg_blue);
+                    red   = ((ush)r << 8);
+                    green = ((ush)g << 8);
+                    blue  = ((ush)b << 8);
+                }
+                pixel = ((red   >> RShift) & RMask) |
+                        ((green >> GShift) & GMask) |
+                        ((blue  >> BShift) & BMask);
+                /* recall that we set ximage->byte_order = MSBFirst above */
+                *dest++ = (char)((pixel >>  8) & 0xff);
+                *dest++ = (char)( pixel        & 0xff);
+            }
+        }
+
+    } else /* depth == 8 */ {
+
+        /* GRR:  add 8-bit support */
+
+    }
+
+
+/*---------------------------------------------------------------------------
+    Display after every 16 rows or when on one of last two rows.  (Region
+    may include previously displayed lines due to interlacing--i.e., not
+    contiguous.  Also, second-to-last row is final one in interlaced images
+    with odd number of rows.)  For demos, flush (and delay) after every 16th
+    row so "sparse" passes don't go twice as fast.
+  ---------------------------------------------------------------------------*/
+
+    if (demo_timing && (row - firstrow >= 16 || row >= rpng2_info.height-2)) {
+        XPutImage(display, window, gc, ximage, 0, (int)firstrow, 0,
+          (int)firstrow, rpng2_info.width, row - firstrow + 1);
+        XFlush(display);
+        rows = 0;
+        usleep(usleep_duration);
+    } else
+    if (!demo_timing && ((rows & 0xf) == 0 || row >= rpng2_info.height-2)) {
+        XPutImage(display, window, gc, ximage, 0, (int)firstrow, 0,
+          (int)firstrow, rpng2_info.width, row - firstrow + 1);
+        XFlush(display);
+        rows = 0;
+    }
+
+}
+
+
+
+
+
+static void rpng2_x_finish_display(void)
+{
+    Trace((stderr, "beginning rpng2_x_finish_display()\n"))
+
+    /* last row has already been displayed by rpng2_x_display_row(), so we
+     * have nothing to do here except set a flag and let the user know that
+     * the image is done */
+
+    rpng2_info.state = kDone;
+    printf(
+      "Done.  Press Q, Esc or mouse button 1 (within image window) to quit.\n");
+    fflush(stdout);
+}
+
+
+
+
+
+static void rpng2_x_redisplay_image(ulg startcol, ulg startrow,
+                                    ulg width, ulg height)
+{
+    uch bg_red   = rpng2_info.bg_red;
+    uch bg_green = rpng2_info.bg_green;
+    uch bg_blue  = rpng2_info.bg_blue;
+    uch *src, *src2=NULL;
+    char *dest;
+    uch r, g, b, a;
+    ulg i, row, lastrow = 0;
+    ulg pixel;
+    int ximage_rowbytes = ximage->bytes_per_line;
+
+
+    Trace((stderr, "beginning display loop (image_channels == %d)\n",
+      rpng2_info.channels))
+    Trace((stderr, "   (width = %ld, rowbytes = %d, ximage_rowbytes = %d)\n",
+      rpng2_info.width, rpng2_info.rowbytes, ximage_rowbytes))
+    Trace((stderr, "   (bpp = %d)\n", ximage->bits_per_pixel))
+    Trace((stderr, "   (byte_order = %s)\n", ximage->byte_order == MSBFirst?
+      "MSBFirst" : (ximage->byte_order == LSBFirst? "LSBFirst" : "unknown")))
+
+/*---------------------------------------------------------------------------
+    Aside from the use of the rpng2_info struct and of src2 (for background
+    image), this routine is identical to rpng_x_display_image() in the non-
+    progressive version of the program--for the simple reason that redisplay
+    of the image against a new background happens after the image is fully
+    decoded and therefore is, by definition, non-progressive.
+  ---------------------------------------------------------------------------*/
+
+    if (depth == 24 || depth == 32) {
+        ulg red, green, blue;
+        int bpp = ximage->bits_per_pixel;
+
+        for (lastrow = row = startrow;  row < startrow+height;  ++row) {
+            src = rpng2_info.image_data + row*rpng2_info.rowbytes;
+            if (bg_image)
+                src2 = bg_data + row*bg_rowbytes;
+            dest = ximage->data + row*ximage_rowbytes;
+            if (rpng2_info.channels == 3) {
+                for (i = rpng2_info.width;  i > 0;  --i) {
+                    red   = *src++;
+                    green = *src++;
+                    blue  = *src++;
+#ifdef NO_24BIT_MASKS
+                    pixel = (red   << RShift) |
+                            (green << GShift) |
+                            (blue  << BShift);
+                    /* recall that we set ximage->byte_order = MSBFirst above */
+                    if (bpp == 32) {
+                        *dest++ = (char)((pixel >> 24) & 0xff);
+                        *dest++ = (char)((pixel >> 16) & 0xff);
+                        *dest++ = (char)((pixel >>  8) & 0xff);
+                        *dest++ = (char)( pixel        & 0xff);
+                    } else {
+                        /* this assumes bpp == 24 & bits are packed low */
+                        /* (probably need to use RShift, RMask, etc.) */
+                        *dest++ = (char)((pixel >> 16) & 0xff);
+                        *dest++ = (char)((pixel >>  8) & 0xff);
+                        *dest++ = (char)( pixel        & 0xff);
+                    }
+#else
+                    red   = (RShift < 0)? red   << (-RShift) : red   >> RShift;
+                    green = (GShift < 0)? green << (-GShift) : green >> GShift;
+                    blue  = (BShift < 0)? blue  << (-BShift) : blue  >> BShift;
+                    pixel = (red & RMask) | (green & GMask) | (blue & BMask);
+                    /* recall that we set ximage->byte_order = MSBFirst above */
+                    if (bpp == 32) {
+                        *dest++ = (char)((pixel >> 24) & 0xff);
+                        *dest++ = (char)((pixel >> 16) & 0xff);
+                        *dest++ = (char)((pixel >>  8) & 0xff);
+                        *dest++ = (char)( pixel        & 0xff);
+                    } else {
+                        /* GRR BUG */
+                        /* this assumes bpp == 24 & bits are packed low */
+                        /* (probably need to use RShift/RMask/etc. here, too) */
+                        *dest++ = (char)((pixel >> 16) & 0xff);
+                        *dest++ = (char)((pixel >>  8) & 0xff);
+                        *dest++ = (char)( pixel        & 0xff);
+                    }
+#endif
+                }
+
+            } else /* if (rpng2_info.channels == 4) */ {
+                for (i = rpng2_info.width;  i > 0;  --i) {
+                    r = *src++;
+                    g = *src++;
+                    b = *src++;
+                    a = *src++;
+                    if (bg_image) {
+                        bg_red   = *src2++;
+                        bg_green = *src2++;
+                        bg_blue  = *src2++;
+                    }
+                    if (a == 255) {
+                        red   = r;
+                        green = g;
+                        blue  = b;
+                    } else if (a == 0) {
+                        red   = bg_red;
+                        green = bg_green;
+                        blue  = bg_blue;
+                    } else {
+                        /* this macro (from png.h) composites the foreground
+                         * and background values and puts the result into the
+                         * first argument */
+                        alpha_composite(red,   r, a, bg_red);
+                        alpha_composite(green, g, a, bg_green);
+                        alpha_composite(blue,  b, a, bg_blue);
+                    }
+#ifdef NO_24BIT_MASKS
+                    pixel = (red   << RShift) |
+                            (green << GShift) |
+                            (blue  << BShift);
+                    /* recall that we set ximage->byte_order = MSBFirst above */
+                    if (bpp == 32) {
+                        *dest++ = (char)((pixel >> 24) & 0xff);
+                        *dest++ = (char)((pixel >> 16) & 0xff);
+                        *dest++ = (char)((pixel >>  8) & 0xff);
+                        *dest++ = (char)( pixel        & 0xff);
+                    } else {
+                        /* this assumes bpp == 24 & bits are packed low */
+                        /* (probably need to use RShift, RMask, etc.) */
+                        *dest++ = (char)((pixel >> 16) & 0xff);
+                        *dest++ = (char)((pixel >>  8) & 0xff);
+                        *dest++ = (char)( pixel        & 0xff);
+                    }
+#else
+                    red   = (RShift < 0)? red   << (-RShift) : red   >> RShift;
+                    green = (GShift < 0)? green << (-GShift) : green >> GShift;
+                    blue  = (BShift < 0)? blue  << (-BShift) : blue  >> BShift;
+                    pixel = (red & RMask) | (green & GMask) | (blue & BMask);
+                    /* recall that we set ximage->byte_order = MSBFirst above */
+                    if (bpp == 32) {
+                        *dest++ = (char)((pixel >> 24) & 0xff);
+                        *dest++ = (char)((pixel >> 16) & 0xff);
+                        *dest++ = (char)((pixel >>  8) & 0xff);
+                        *dest++ = (char)( pixel        & 0xff);
+                    } else {
+                        /* GRR BUG */
+                        /* this assumes bpp == 24 & bits are packed low */
+                        /* (probably need to use RShift/RMask/etc. here, too) */
+                        *dest++ = (char)((pixel >> 16) & 0xff);
+                        *dest++ = (char)((pixel >>  8) & 0xff);
+                        *dest++ = (char)( pixel        & 0xff);
+                    }
+#endif
+                }
+            }
+            /* display after every 16 lines */
+            if (((row+1) & 0xf) == 0) {
+                XPutImage(display, window, gc, ximage, 0, (int)lastrow, 0,
+                  (int)lastrow, rpng2_info.width, 16);
+                XFlush(display);
+                lastrow = row + 1;
+            }
+        }
+
+    } else if (depth == 16) {
+        ush red, green, blue;
+
+        for (lastrow = row = startrow;  row < startrow+height;  ++row) {
+            src = rpng2_info.row_pointers[row];
+            if (bg_image)
+                src2 = bg_data + row*bg_rowbytes;
+            dest = ximage->data + row*ximage_rowbytes;
+            if (rpng2_info.channels == 3) {
+                for (i = rpng2_info.width;  i > 0;  --i) {
+                    red   = ((ush)(*src) << 8);
+                    ++src;
+                    green = ((ush)(*src) << 8);
+                    ++src;
+                    blue  = ((ush)(*src) << 8);
+                    ++src;
+                    pixel = ((red   >> RShift) & RMask) |
+                            ((green >> GShift) & GMask) |
+                            ((blue  >> BShift) & BMask);
+                    /* recall that we set ximage->byte_order = MSBFirst above */
+                    *dest++ = (char)((pixel >>  8) & 0xff);
+                    *dest++ = (char)( pixel        & 0xff);
+                }
+            } else /* if (rpng2_info.channels == 4) */ {
+                for (i = rpng2_info.width;  i > 0;  --i) {
+                    r = *src++;
+                    g = *src++;
+                    b = *src++;
+                    a = *src++;
+                    if (bg_image) {
+                        bg_red   = *src2++;
+                        bg_green = *src2++;
+                        bg_blue  = *src2++;
+                    }
+                    if (a == 255) {
+                        red   = ((ush)r << 8);
+                        green = ((ush)g << 8);
+                        blue  = ((ush)b << 8);
+                    } else if (a == 0) {
+                        red   = ((ush)bg_red   << 8);
+                        green = ((ush)bg_green << 8);
+                        blue  = ((ush)bg_blue  << 8);
+                    } else {
+                        /* this macro (from png.h) composites the foreground
+                         * and background values and puts the result back into
+                         * the first argument (== fg byte here:  safe) */
+                        alpha_composite(r, r, a, bg_red);
+                        alpha_composite(g, g, a, bg_green);
+                        alpha_composite(b, b, a, bg_blue);
+                        red   = ((ush)r << 8);
+                        green = ((ush)g << 8);
+                        blue  = ((ush)b << 8);
+                    }
+                    pixel = ((red   >> RShift) & RMask) |
+                            ((green >> GShift) & GMask) |
+                            ((blue  >> BShift) & BMask);
+                    /* recall that we set ximage->byte_order = MSBFirst above */
+                    *dest++ = (char)((pixel >>  8) & 0xff);
+                    *dest++ = (char)( pixel        & 0xff);
+                }
+            }
+            /* display after every 16 lines */
+            if (((row+1) & 0xf) == 0) {
+                XPutImage(display, window, gc, ximage, 0, (int)lastrow, 0,
+                  (int)lastrow, rpng2_info.width, 16);
+                XFlush(display);
+                lastrow = row + 1;
+            }
+        }
+
+    } else /* depth == 8 */ {
+
+        /* GRR:  add 8-bit support */
+
+    }
+
+    Trace((stderr, "calling final XPutImage()\n"))
+    if (lastrow < startrow+height) {
+        XPutImage(display, window, gc, ximage, 0, (int)lastrow, 0,
+          (int)lastrow, rpng2_info.width, rpng2_info.height-lastrow);
+        XFlush(display);
+    }
+
+} /* end function rpng2_x_redisplay_image() */
+
+
+
+
+
+#ifdef FEATURE_LOOP
+
+static void rpng2_x_reload_bg_image(void)
+{
+    char *dest;
+    uch r1, r2, g1, g2, b1, b2;
+    uch r1_inv, r2_inv, g1_inv, g2_inv, b1_inv, b2_inv;
+    int k, hmax, max;
+    int xidx, yidx, yidx_max;
+    int even_odd_vert, even_odd_horiz, even_odd;
+    int invert_gradient2 = (bg[pat].type & 0x08);
+    int invert_column;
+    ulg i, row;
+
+
+    bgscale = (pat == 0)? 8 : bgscale_default;
+    yidx_max = bgscale - 1;
+
+/*---------------------------------------------------------------------------
+    Vertical gradients (ramps) in NxN squares, alternating direction and
+    colors (N == bgscale).
+  ---------------------------------------------------------------------------*/
+
+    if ((bg[pat].type & 0x07) == 0) {
+        uch r1_min  = rgb[bg[pat].rgb1_min].r;
+        uch g1_min  = rgb[bg[pat].rgb1_min].g;
+        uch b1_min  = rgb[bg[pat].rgb1_min].b;
+        uch r2_min  = rgb[bg[pat].rgb2_min].r;
+        uch g2_min  = rgb[bg[pat].rgb2_min].g;
+        uch b2_min  = rgb[bg[pat].rgb2_min].b;
+        int r1_diff = rgb[bg[pat].rgb1_max].r - r1_min;
+        int g1_diff = rgb[bg[pat].rgb1_max].g - g1_min;
+        int b1_diff = rgb[bg[pat].rgb1_max].b - b1_min;
+        int r2_diff = rgb[bg[pat].rgb2_max].r - r2_min;
+        int g2_diff = rgb[bg[pat].rgb2_max].g - g2_min;
+        int b2_diff = rgb[bg[pat].rgb2_max].b - b2_min;
+
+        for (row = 0;  row < rpng2_info.height;  ++row) {
+            yidx = (int)(row % bgscale);
+            even_odd_vert = (int)((row / bgscale) & 1);
+
+            r1 = r1_min + (r1_diff * yidx) / yidx_max;
+            g1 = g1_min + (g1_diff * yidx) / yidx_max;
+            b1 = b1_min + (b1_diff * yidx) / yidx_max;
+            r1_inv = r1_min + (r1_diff * (yidx_max-yidx)) / yidx_max;
+            g1_inv = g1_min + (g1_diff * (yidx_max-yidx)) / yidx_max;
+            b1_inv = b1_min + (b1_diff * (yidx_max-yidx)) / yidx_max;
+
+            r2 = r2_min + (r2_diff * yidx) / yidx_max;
+            g2 = g2_min + (g2_diff * yidx) / yidx_max;
+            b2 = b2_min + (b2_diff * yidx) / yidx_max;
+            r2_inv = r2_min + (r2_diff * (yidx_max-yidx)) / yidx_max;
+            g2_inv = g2_min + (g2_diff * (yidx_max-yidx)) / yidx_max;
+            b2_inv = b2_min + (b2_diff * (yidx_max-yidx)) / yidx_max;
+
+            dest = (char *)bg_data + row*bg_rowbytes;
+            for (i = 0;  i < rpng2_info.width;  ++i) {
+                even_odd_horiz = (int)((i / bgscale) & 1);
+                even_odd = even_odd_vert ^ even_odd_horiz;
+                invert_column =
+                  (even_odd_horiz && (bg[pat].type & 0x10));
+                if (even_odd == 0) {        /* gradient #1 */
+                    if (invert_column) {
+                        *dest++ = r1_inv;
+                        *dest++ = g1_inv;
+                        *dest++ = b1_inv;
+                    } else {
+                        *dest++ = r1;
+                        *dest++ = g1;
+                        *dest++ = b1;
+                    }
+                } else {                    /* gradient #2 */
+                    if ((invert_column && invert_gradient2) ||
+                        (!invert_column && !invert_gradient2))
+                    {
+                        *dest++ = r2;       /* not inverted or */
+                        *dest++ = g2;       /*  doubly inverted */
+                        *dest++ = b2;
+                    } else {
+                        *dest++ = r2_inv;
+                        *dest++ = g2_inv;   /* singly inverted */
+                        *dest++ = b2_inv;
+                    }
+                }
+            }
+        }
+
+/*---------------------------------------------------------------------------
+    Soft gradient-diamonds with scale = bgscale.  Code contributed by Adam
+    M. Costello.
+  ---------------------------------------------------------------------------*/
+
+    } else if ((bg[pat].type & 0x07) == 1) {
+
+        hmax = (bgscale-1)/2;   /* half the max weight of a color */
+        max = 2*hmax;           /* the max weight of a color */
+
+        r1 = rgb[bg[pat].rgb1_max].r;
+        g1 = rgb[bg[pat].rgb1_max].g;
+        b1 = rgb[bg[pat].rgb1_max].b;
+        r2 = rgb[bg[pat].rgb2_max].r;
+        g2 = rgb[bg[pat].rgb2_max].g;
+        b2 = rgb[bg[pat].rgb2_max].b;
+
+        for (row = 0;  row < rpng2_info.height;  ++row) {
+            yidx = (int)(row % bgscale);
+            if (yidx > hmax)
+                yidx = bgscale-1 - yidx;
+            dest = (char *)bg_data + row*bg_rowbytes;
+            for (i = 0;  i < rpng2_info.width;  ++i) {
+                xidx = (int)(i % bgscale);
+                if (xidx > hmax)
+                    xidx = bgscale-1 - xidx;
+                k = xidx + yidx;
+                *dest++ = (k*r1 + (max-k)*r2) / max;
+                *dest++ = (k*g1 + (max-k)*g2) / max;
+                *dest++ = (k*b1 + (max-k)*b2) / max;
+            }
+        }
+
+/*---------------------------------------------------------------------------
+    Radial "starburst" with azimuthal sinusoids; [eventually number of sinu-
+    soids will equal bgscale?].  This one is slow but very cool.  Code con-
+    tributed by Pieter S. van der Meulen (originally in Smalltalk).
+  ---------------------------------------------------------------------------*/
+
+    } else if ((bg[pat].type & 0x07) == 2) {
+        uch ch;
+        int ii, x, y, hw, hh, grayspot;
+        double freq, rotate, saturate, gray, intensity;
+        double angle=0.0, aoffset=0.0, maxDist, dist;
+        double red=0.0, green=0.0, blue=0.0, hue, s, v, f, p, q, t;
+
+        hh = (int)(rpng2_info.height / 2);
+        hw = (int)(rpng2_info.width / 2);
+
+        /* variables for radial waves:
+         *   aoffset:  number of degrees to rotate hue [CURRENTLY NOT USED]
+         *   freq:  number of color beams originating from the center
+         *   grayspot:  size of the graying center area (anti-alias)
+         *   rotate:  rotation of the beams as a function of radius
+         *   saturate:  saturation of beams' shape azimuthally
+         */
+        angle = CLIP(angle, 0.0, 360.0);
+        grayspot = CLIP(bg[pat].bg_gray, 1, (hh + hw));
+        freq = MAX((double)bg[pat].bg_freq, 0.0);
+        saturate = (double)bg[pat].bg_bsat * 0.1;
+        rotate = (double)bg[pat].bg_brot * 0.1;
+        gray = 0.0;
+        intensity = 0.0;
+        maxDist = (double)((hw*hw) + (hh*hh));
+
+        for (row = 0;  row < rpng2_info.height;  ++row) {
+            y = (int)(row - hh);
+            dest = (char *)bg_data + row*bg_rowbytes;
+            for (i = 0;  i < rpng2_info.width;  ++i) {
+                x = (int)(i - hw);
+                angle = (x == 0)? PI_2 : atan((double)y / (double)x);
+                gray = (double)MAX(ABS(y), ABS(x)) / grayspot;
+                gray = MIN(1.0, gray);
+                dist = (double)((x*x) + (y*y)) / maxDist;
+                intensity = cos((angle+(rotate*dist*PI)) * freq) *
+                  gray * saturate;
+                intensity = (MAX(MIN(intensity,1.0),-1.0) + 1.0) * 0.5;
+                hue = (angle + PI) * INV_PI_360 + aoffset;
+                s = gray * ((double)(ABS(x)+ABS(y)) / (double)(hw + hh));
+                s = MIN(MAX(s,0.0), 1.0);
+                v = MIN(MAX(intensity,0.0), 1.0);
+
+                if (s == 0.0) {
+                    ch = (uch)(v * 255.0);
+                    *dest++ = ch;
+                    *dest++ = ch;
+                    *dest++ = ch;
+                } else {
+                    if ((hue < 0.0) || (hue >= 360.0))
+                        hue -= (((int)(hue / 360.0)) * 360.0);
+                    hue /= 60.0;
+                    ii = (int)hue;
+                    f = hue - (double)ii;
+                    p = (1.0 - s) * v;
+                    q = (1.0 - (s * f)) * v;
+                    t = (1.0 - (s * (1.0 - f))) * v;
+                    if      (ii == 0) { red = v; green = t; blue = p; }
+                    else if (ii == 1) { red = q; green = v; blue = p; }
+                    else if (ii == 2) { red = p; green = v; blue = t; }
+                    else if (ii == 3) { red = p; green = q; blue = v; }
+                    else if (ii == 4) { red = t; green = p; blue = v; }
+                    else if (ii == 5) { red = v; green = p; blue = q; }
+                    *dest++ = (uch)(red * 255.0);
+                    *dest++ = (uch)(green * 255.0);
+                    *dest++ = (uch)(blue * 255.0);
+                }
+            }
+        }
+    }
+
+} /* end function rpng2_x_reload_bg_image() */
+
+
+
+
+
+static int is_number(char *p)
+{
+    while (*p) {
+        if (!isdigit(*p))
+            return FALSE;
+        ++p;
+    }
+    return TRUE;
+}
+
+#endif /* FEATURE_LOOP */
+
+
+
+
+
+static void rpng2_x_cleanup(void)
+{
+    if (bg_image && bg_data) {
+        free(bg_data);
+        bg_data = NULL;
+    }
+
+    if (rpng2_info.image_data) {
+        free(rpng2_info.image_data);
+        rpng2_info.image_data = NULL;
+    }
+
+    if (rpng2_info.row_pointers) {
+        free(rpng2_info.row_pointers);
+        rpng2_info.row_pointers = NULL;
+    }
+
+    if (ximage) {
+        if (ximage->data) {
+            free(ximage->data);           /* we allocated it, so we free it */
+            ximage->data = (char *)NULL;  /*  instead of XDestroyImage() */
+        }
+        XDestroyImage(ximage);
+        ximage = NULL;
+    }
+
+    if (have_gc)
+        XFreeGC(display, gc);
+
+    if (have_window)
+        XDestroyWindow(display, window);
+
+    if (have_colormap)
+        XFreeColormap(display, colormap);
+
+    if (have_nondefault_visual)
+        XFree(visual_list);
+}
+
+
+
+
+
+static int rpng2_x_msb(ulg u32val)
+{
+    int i;
+
+    for (i = 31;  i >= 0;  --i) {
+        if (u32val & 0x80000000L)
+            break;
+        u32val <<= 1;
+    }
+    return i;
+}

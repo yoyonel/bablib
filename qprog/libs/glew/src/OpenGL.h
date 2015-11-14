@@ -6,7 +6,7 @@
 
 class OpenGL {
     public:
-        static void init();     // doit ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂªtre appelÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© dÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¨s que le contexte OpenGL est crÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©e (ex: init du QGLViewer)
+        static void init();     // doit �tre appel� d�s que le contexte OpenGL est cr�e (ex: init du QGLViewer)
     };
 
 #endif

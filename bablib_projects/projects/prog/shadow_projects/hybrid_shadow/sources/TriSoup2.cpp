@@ -14,12 +14,12 @@ TriSoup2* TriSoup2::load(QString fileName, bool expand) {
 			    TriSoup2 *res = static_cast<TriSoup2*>(loader->load(fileName));
 				res->infos();
 			    if (res != NULL) res->postProcess();
-			    if (expand && (res != NULL)) res->expand();		// explosion du mesh, nombre de vertex = nombre de face x 3 (chaque face possÃÂ¯ÃÂ¿ÃÂ½de des vertex uniques)
+			    if (expand && (res != NULL)) res->expand();		// explosion du mesh, nombre de vertex = nombre de face x 3 (chaque face poss�de des vertex uniques)
 				res->infos();
 			    return res;
 		    }
 	}
-	Message::error(QString("format de fichier non supportÃÂ¯ÃÂ¿ÃÂ½ : %1").arg(fileName));
+	Message::error(QString("format de fichier non support� : %1").arg(fileName));
 	return NULL;
 }
 

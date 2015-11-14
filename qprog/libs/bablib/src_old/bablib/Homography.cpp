@@ -139,7 +139,7 @@ void Homography::drawBox(float xMin, float xMax, float yMin, float yMax, float z
     }
 */
 /*********************************************************************************************/
-// lecture / ÃÂ©criture d'un ÃÂ©lÃÂ©ment XML :
+// lecture / �criture d'un �l�ment XML :
 
 Homography::Homography(const QDomElement &element) {
     initFromDOMElement(element);
@@ -223,7 +223,7 @@ Homography Homography::rotation(Vec3 src, Vec3 dst, bool normalized) {
     Vec3 n = vec(src, dst);
     const float s = n.norm2(),
                 c = sqrtf(1 - s),
-                d = (s > 1e-8f) ? (1 - c) / s : 0.5f;  // dÃÂ©veloppement limitÃÂ© ÃÂ  l'ordre 1 par rapport ÃÂ  s (en zÃÂ©ro)
+                d = (s > 1e-8f) ? (1 - c) / s : 0.5f;  // d�veloppement limit� � l'ordre 1 par rapport � s (en z�ro)
     return Homography(
         d*n.x*n.x + c   , d*n.x*n.y - n.z , d*n.x*n.z + n.y ,  0,
         d*n.y*n.x + n.z , d*n.y*n.y + c   , d*n.y*n.z - n.x ,  0,

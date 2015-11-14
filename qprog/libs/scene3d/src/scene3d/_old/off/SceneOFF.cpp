@@ -15,7 +15,7 @@ SceneOFF::SceneOFF(QString fileName) : Scene3D(fileName), geometry(NULL) {
     nv = 0;
     
     if (fileName.isEmpty()) {
-        Message::error(QString("le nom de fichier spÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©cifiÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© est vide"));
+        Message::error(QString("le nom de fichier sp�cifi� est vide"));
         return;
         }
     QFile file(fileName);
@@ -41,8 +41,8 @@ SceneOFF::SceneOFF(QString fileName) : Scene3D(fileName), geometry(NULL) {
             
         if (words.size() > 1) {
             file.close();
-            if (words[1] != "BINARY") FORMAT_ERROR("le deuxiÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¨me mot (optionnel) doit ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂªtre BINARY");
-            if (words.size() > 2)     FORMAT_ERROR("mots inconnus prÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©sents aprÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¨s BINARY");
+            if (words[1] != "BINARY") FORMAT_ERROR("le deuxi�me mot (optionnel) doit �tre BINARY");
+            if (words.size() > 2)     FORMAT_ERROR("mots inconnus pr�sents apr�s BINARY");
 
             // BINARY mode
             //------------
@@ -54,7 +54,7 @@ SceneOFF::SceneOFF(QString fileName) : Scene3D(fileName), geometry(NULL) {
                 char c = '\0';
                 while (c != '\n') datastream.readRawData(&c, 1); 
             
-                int ne;     // nombre d'arÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂªtes, pas utilisÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©
+                int ne;     // nombre d'ar�tes, pas utilis�
                 datastream >> nv;
                 datastream >> nf;
                 datastream >> ne;
@@ -81,7 +81,7 @@ SceneOFF::SceneOFF(QString fileName) : Scene3D(fileName), geometry(NULL) {
             SPLIT_LINE
             bool ok1; nv = word[0].toInt(&ok1);
             bool ok2; nf = word[1].toInt(&ok2);
-            if (!(ok1 && ok2)) FORMAT_ERROR("problÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¨me de lecture des entiers sur la deuxiÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¨me ligne");
+            if (!(ok1 && ok2)) FORMAT_ERROR("probl�me de lecture des entiers sur la deuxi�me ligne");
     
             vertex = new Vec3[nv];
             normal = new Vec3[nv];
@@ -172,7 +172,7 @@ void SceneOFF::init() {
             indexes += face[i].index[2];
             }
         else
-            Message::info(QString("- attention : le modele contient des polygones ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ  %1 cotÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©s (pas supportÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© pour l'instant)").arg(face[i].nv));
+            Message::info(QString("- attention : le modele contient des polygones � %1 cot�s (pas support� pour l'instant)").arg(face[i].nv));
         }
 
     geometry = new GLAsset::Mesh(GL_TRIANGLES, vertexArray.mappedToGPU(), indexes.mappedToGPU());

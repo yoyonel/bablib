@@ -104,9 +104,9 @@ FORWARD(e_forward); /* ellipsoid */
 	double gfi, u, fi0, /*lon17, lamdd,*/ deltav, s, d, eps, ro;
 
 
-	s45 = 0.785398163397448;    /* 45ÃÂ° */
+	s45 = 0.785398163397448;    /* 45� */
 	s90 = 2 * s45;
-	fi0 = P->phi0;    /* Latitude of projection centre 49ÃÂ° 30' */
+	fi0 = P->phi0;    /* Latitude of projection centre 49� 30' */
 
    /* Ellipsoid is used as Parameter in for.c and inv.c, therefore a must 
       be set to 1 here.
@@ -128,7 +128,7 @@ FORWARD(e_forward); /* ellipsoid */
 
 	k1 = P->k0;
 	n0 = a * sqrt(1. - e2) / (1. - e2 * pow(sin(fi0), 2));
-	s0 = 1.37008346281555;       /* Latitude of pseudo standard parallel 78ÃÂ° 30'00" N */
+	s0 = 1.37008346281555;       /* Latitude of pseudo standard parallel 78� 30'00" N */
 	n = sin(s0);
 	ro0 = k1 * n0 / tan(s0);
 	ad = s90 - uq;
@@ -170,9 +170,9 @@ INVERSE(e_inverse); /* ellipsoid */
 	double u, l24, lamdd, deltav, s, d, eps, ro, fi1, xy0, lon17;
 	int ok;
 
-	s45 = 0.785398163397448;    /* 45ÃÂ° */
+	s45 = 0.785398163397448;    /* 45� */
 	s90 = 2 * s45;
-	fi0 = P->phi0;    /* Latitude of projection centre 49ÃÂ° 30' */
+	fi0 = P->phi0;    /* Latitude of projection centre 49� 30' */
 
 
    /* Ellipsoid is used as Parameter in for.c and inv.c, therefore a must 
@@ -194,7 +194,7 @@ INVERSE(e_inverse); /* ellipsoid */
 
 	k1 = P->k0;
 	n0 = a * sqrt(1. - e2) / (1. - e2 * pow(sin(fi0), 2));
-	s0 = 1.37008346281555;       /* Latitude of pseudo standard parallel 78ÃÂ° 30'00" N */
+	s0 = 1.37008346281555;       /* Latitude of pseudo standard parallel 78� 30'00" N */
 	n = sin(s0);
 	ro0 = k1 * n0 / tan(s0);
 	ad = s90 - uq;

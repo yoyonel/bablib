@@ -12,20 +12,20 @@ void AbstractImage1D::save(QString fileName) const {
     // on deduit le format a utiliser a partir de l'extension du fichier :
     QByteArray format = fileName.section('.', -1).toLower().toLatin1();
 
-    // on verifie d'abord que le format d'image est supportÃÂ© :
+    // on verifie d'abord que le format d'image est support� :
     QList<QByteArray> supportedFormats = QImageWriter::supportedImageFormats();
     if (!supportedFormats.contains(format)) {
         Message::error(QString("le format '%1' n'est pas supporte").arg(QString(format)));
         QString formatsList;
         foreach (QByteArray f, supportedFormats)
             formatsList += QString(" ") + f;
-        Message::info(QString("> formats supportÃÂ©s :") + formatsList);
+        Message::info(QString("> formats support�s :") + formatsList);
         return;
         }
     
-    // on ÃÂ©crit le fichier :
+    // on �crit le fichier :
     QImage image = toQImage();
     if (!image.save(fileName, format))
-        Message::error(QString("la sauvegarde de l'image '%1' a echouÃÂ©").arg(fileName));
+        Message::error(QString("la sauvegarde de l'image '%1' a echou�").arg(fileName));
     }
 

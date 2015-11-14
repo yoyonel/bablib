@@ -4,7 +4,7 @@ BABLIB_NAMESPACE_USE
 
 int TextureSet::add(Texture* texture) {
     if (list.size() >= Texture::maxUnits())
-        Message::warning(QString("nombre maximum d'unitÃÂ©s de textures (%1) atteint").arg(Texture::maxUnits()));
+        Message::warning(QString("nombre maximum d'unit�s de textures (%1) atteint").arg(Texture::maxUnits()));
     list.append(texture);
     return list.size() - 1;
     }
@@ -15,9 +15,9 @@ void TextureSet::load() const {
 
 void TextureSet::activate() const {
     int n = 0;
-    //foreach (Texture *tex, list) tex->activate(n++);    // associe la texture <tex> ÃÂ  l'unitÃÂ© de texture <n>
+    //foreach (Texture *tex, list) tex->activate(n++);    // associe la texture <tex> � l'unit� de texture <n>
     foreach (Texture *tex, list) {
-        // associe la texture <tex> ÃÂ  l'unitÃÂ© de texture <n> :
+        // associe la texture <tex> � l'unit� de texture <n> :
         Texture::setActiveUnit(n++);
         tex->bind();
         }
@@ -27,12 +27,12 @@ void TextureSet::activate() const {
 void TextureSet::deactivate() const {
     /*
     int n = 0;
-    foreach (Texture *tex, list) tex->deactivate(n++);  // dÃÂ©sactive l'unitÃÂ© de texture <n>
+    foreach (Texture *tex, list) tex->deactivate(n++);  // d�sactive l'unit� de texture <n>
     */
     }
 
 void TextureSet::clear() {
-    // les textures ne sont pas dÃÂ©truites :
+    // les textures ne sont pas d�truites :
     list.clear();
     }
 

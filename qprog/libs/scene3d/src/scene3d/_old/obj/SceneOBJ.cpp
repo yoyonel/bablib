@@ -23,7 +23,7 @@ SceneOBJ::SceneOBJ(QString fileName) : Scene3D(fileName), geometry(NULL), displi
     nv = nf = 0;
     
     if (fileName.isEmpty()) {
-        Message::error(QString("le nom de fichier spÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©cifiÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© est vide"));
+        Message::error(QString("le nom de fichier sp�cifi� est vide"));
         return;
         }
     QFile file(fileName);
@@ -75,7 +75,7 @@ SceneOBJ::SceneOBJ(QString fileName) : Scene3D(fileName), geometry(NULL), displi
                     FLOAT_REQ(ok1, u, 1)
                     FLOAT_REQ(ok2, v, 2)
                     FLOAT_OPT(ok3, w, 3, 0.0f)
-                    if (!(ok1 && ok2 && ok3)) FORMAT_ERROR("ligne pas au format coordonnÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©es de texture : 'vt u v [w]'");
+                    if (!(ok1 && ok2 && ok3)) FORMAT_ERROR("ligne pas au format coordonn�es de texture : 'vt u v [w]'");
                     vt << Vec3(u,v,w);
                     }
                 else if (token == "vn") {
@@ -184,7 +184,7 @@ void SceneOBJ::init() {
             indexes += face[i].index[2];
             }
         else
-            Message::info(QString("- attention : le modele contient des polygones ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ  %1 cotÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ©s (pas supportÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© pour l'instant)").arg(face[i].nv));
+            Message::info(QString("- attention : le modele contient des polygones � %1 cot�s (pas support� pour l'instant)").arg(face[i].nv));
         }
 
     geometry = new GLAsset::Mesh(GL_TRIANGLES, vertexArray.mappedToGPU(), indexes.mappedToGPU());

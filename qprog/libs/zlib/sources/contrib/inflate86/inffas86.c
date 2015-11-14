@@ -852,4 +852,306 @@ L_test_for_length_base:
 	mov	cl, al
 
 	test	al, 16
-	jz	L_test_for_second_level_l
+	jz	L_test_for_second_level_length /* if ((op & 16) == 0) 8% */
+	and	cl, 15             /* op &= 15 */
+	jz	L_decode_distance    /* if (!op) */
+	cmp	bl, cl
+	jae	L_add_bits_to_len    /* if (op <= bits) */
+
+	mov	ch, cl            /* stash op in ch, freeing cl */
+	xor	eax, eax
+	lodsw                         /* al = *(ushort *)in++ */
+	mov	cl, bl            /* cl = bits, needs it for shifting */
+	add	bl, 16             /* bits += 16 */
+	shl	eax, cl
+	or	edx, eax         /* hold |= *((ushort *)in)++ << bits */
+	mov	cl, ch            /* move op back to ecx */
+
+L_add_bits_to_len:
+	sub	bl, cl
+	xor	eax, eax
+	inc	eax
+	shl	eax, cl
+	dec	eax
+	and	eax, edx          /* eax &= hold */
+	shr	edx, cl
+	add	[esp+64], eax      /* len += hold & mask[op] */
+
+L_decode_distance:
+	cmp	bl, 15
+	ja	L_get_distance_code  /* if (15 < bits) */
+
+	xor	eax, eax
+	lodsw                         /* al = *(ushort *)in++ */
+	mov	cl, bl            /* cl = bits, needs it for shifting */
+	add	bl, 16             /* bits += 16 */
+	shl	eax, cl
+	or	edx, eax         /* hold |= *((ushort *)in)++ << bits */
+
+L_get_distance_code:
+	mov	eax, [esp+60]      /* eax = dmask */
+	mov	ecx, [esp+36]      /* ecx = dcode */
+	and	eax, edx          /* eax &= hold */
+	mov	eax, [ecx+eax*4]/* eax = dcode[hold & dmask] */
+
+L_dodist:
+	mov	ebp, eax          /* dist = this */
+	shr	ebp, 16            /* dist = this.val */
+	mov	cl, ah
+	sub	bl, ah            /* bits -= this.bits */
+	shr	edx, cl           /* hold >>= this.bits */
+	mov	cl, al            /* cl = this.op */
+
+	test	al, 16             /* if ((op & 16) == 0) */
+	jz	L_test_for_second_level_dist
+	and	cl, 15             /* op &= 15 */
+	jz	L_check_dist_one
+	cmp	bl, cl
+	jae	L_add_bits_to_dist   /* if (op <= bits) 97.6% */
+
+	mov	ch, cl            /* stash op in ch, freeing cl */
+	xor	eax, eax
+	lodsw                         /* al = *(ushort *)in++ */
+	mov	cl, bl            /* cl = bits, needs it for shifting */
+	add	bl, 16             /* bits += 16 */
+	shl	eax, cl
+	or	edx, eax        /* hold |= *((ushort *)in)++ << bits */
+	mov	cl, ch            /* move op back to ecx */
+
+L_add_bits_to_dist:
+	sub	bl, cl
+	xor	eax, eax
+	inc	eax
+	shl	eax, cl
+	dec	eax                 /* (1 << op) - 1 */
+	and	eax, edx          /* eax &= hold */
+	shr	edx, cl
+	add	ebp, eax          /* dist += hold & ((1 << op) - 1) */
+
+L_check_window:
+	mov	[esp+8], esi       /* save in so from can use it's reg */
+	mov	eax, edi
+	sub	eax, [esp+20]      /* nbytes = out - beg */
+
+	cmp	eax, ebp
+	jb	L_clip_window        /* if (dist > nbytes) 4.2% */
+
+	mov	ecx, [esp+64]      /* ecx = len */
+	mov	esi, edi
+	sub	esi, ebp          /* from = out - dist */
+
+	sar	ecx, 1
+	jnc	L_copy_two
+
+	rep     movsw
+	mov	al, [esi]
+	mov	[edi], al
+	inc	edi
+
+	mov	esi, [esp+8]      /* move in back to %esi, toss from */
+	mov	ebp, [esp+32]     /* ebp = lcode */
+	jmp	L_while_test
+
+L_copy_two:
+	rep     movsw
+	mov	esi, [esp+8]      /* move in back to %esi, toss from */
+	mov	ebp, [esp+32]     /* ebp = lcode */
+	jmp	L_while_test
+
+ALIGN 4
+L_check_dist_one:
+	cmp	ebp, 1            /* if dist 1, is a memset */
+	jne	L_check_window
+	cmp	[esp+20], edi
+	je	L_check_window    /* out == beg, if outside window */
+
+	mov	ecx, [esp+64]     /* ecx = len */
+	mov	al, [edi-1]
+	mov	ah, al
+
+	sar	ecx, 1
+	jnc	L_set_two
+	mov	[edi], al         /* memset out with from[-1] */
+	inc	edi
+
+L_set_two:
+	rep     stosw
+	mov	ebp, [esp+32]     /* ebp = lcode */
+	jmp	L_while_test
+
+ALIGN 4
+L_test_for_second_level_length:
+	test	al, 64
+	jnz	L_test_for_end_of_block /* if ((op & 64) != 0) */
+
+	xor	eax, eax
+	inc	eax
+	shl	eax, cl
+	dec	eax
+	and	eax, edx         /* eax &= hold */
+	add	eax, [esp+64]     /* eax += len */
+	mov	eax, [ebp+eax*4] /* eax = lcode[val+(hold&mask[op])]*/
+	jmp	L_dolen
+
+ALIGN 4
+L_test_for_second_level_dist:
+	test	al, 64
+	jnz	L_invalid_distance_code /* if ((op & 64) != 0) */
+
+	xor	eax, eax
+	inc	eax
+	shl	eax, cl
+	dec	eax
+	and	eax, edx         /* eax &= hold */
+	add	eax, ebp         /* eax += dist */
+	mov	ecx, [esp+36]     /* ecx = dcode */
+	mov	eax, [ecx+eax*4] /* eax = dcode[val+(hold&mask[op])]*/
+	jmp	L_dodist
+
+ALIGN 4
+L_clip_window:
+	mov	ecx, eax
+	mov	eax, [esp+48]     /* eax = wsize */
+	neg	ecx                /* nbytes = -nbytes */
+	mov	esi, [esp+28]     /* from = window */
+
+	cmp	eax, ebp
+	jb	L_invalid_distance_too_far /* if (dist > wsize) */
+
+	add	ecx, ebp         /* nbytes = dist - nbytes */
+	cmp	dword ptr [esp+52], 0
+	jne	L_wrap_around_window /* if (write != 0) */
+
+	sub	eax, ecx
+	add	esi, eax         /* from += wsize - nbytes */
+
+	mov	eax, [esp+64]    /* eax = len */
+	cmp	eax, ecx
+	jbe	L_do_copy          /* if (nbytes >= len) */
+
+	sub	eax, ecx         /* len -= nbytes */
+	rep     movsb
+	mov	esi, edi
+	sub	esi, ebp         /* from = out - dist */
+	jmp	L_do_copy
+
+ALIGN 4
+L_wrap_around_window:
+	mov	eax, [esp+52]    /* eax = write */
+	cmp	ecx, eax
+	jbe	L_contiguous_in_window /* if (write >= nbytes) */
+
+	add	esi, [esp+48]    /* from += wsize */
+	add	esi, eax         /* from += write */
+	sub	esi, ecx         /* from -= nbytes */
+	sub	ecx, eax         /* nbytes -= write */
+
+	mov	eax, [esp+64]    /* eax = len */
+	cmp	eax, ecx
+	jbe	L_do_copy          /* if (nbytes >= len) */
+
+	sub	eax, ecx         /* len -= nbytes */
+	rep     movsb
+	mov	esi, [esp+28]     /* from = window */
+	mov	ecx, [esp+52]     /* nbytes = write */
+	cmp	eax, ecx
+	jbe	L_do_copy          /* if (nbytes >= len) */
+
+	sub	eax, ecx         /* len -= nbytes */
+	rep     movsb
+	mov	esi, edi
+	sub	esi, ebp         /* from = out - dist */
+	jmp	L_do_copy
+
+ALIGN 4
+L_contiguous_in_window:
+	add	esi, eax
+	sub	esi, ecx         /* from += write - nbytes */
+
+	mov	eax, [esp+64]    /* eax = len */
+	cmp	eax, ecx
+	jbe	L_do_copy          /* if (nbytes >= len) */
+
+	sub	eax, ecx         /* len -= nbytes */
+	rep     movsb
+	mov	esi, edi
+	sub	esi, ebp         /* from = out - dist */
+	jmp	L_do_copy
+
+ALIGN 4
+L_do_copy:
+	mov	ecx, eax
+	rep     movsb
+
+	mov	esi, [esp+8]      /* move in back to %esi, toss from */
+	mov	ebp, [esp+32]     /* ebp = lcode */
+	jmp	L_while_test
+
+L_test_for_end_of_block:
+	test	al, 32
+	jz	L_invalid_literal_length_code
+	mov	dword ptr [esp+72], 1
+	jmp	L_break_loop_with_status
+
+L_invalid_literal_length_code:
+	mov	dword ptr [esp+72], 2
+	jmp	L_break_loop_with_status
+
+L_invalid_distance_code:
+	mov	dword ptr [esp+72], 3
+	jmp	L_break_loop_with_status
+
+L_invalid_distance_too_far:
+	mov	esi, [esp+4]
+	mov	dword ptr [esp+72], 4
+	jmp	L_break_loop_with_status
+
+L_break_loop:
+	mov	dword ptr [esp+72], 0
+
+L_break_loop_with_status:
+/* put in, out, bits, and hold back into ar and pop esp */
+	mov	[esp+8], esi     /* save in */
+	mov	[esp+16], edi    /* save out */
+	mov	[esp+44], ebx    /* save bits */
+	mov	[esp+40], edx    /* save hold */
+	mov	ebp, [esp+4]     /* restore esp, ebp */
+	mov	esp, [esp]
+    }
+#else
+#error "x86 architecture not defined"
+#endif
+
+    if (ar.status > 1) {
+        if (ar.status == 2)
+            strm->msg = "invalid literal/length code";
+        else if (ar.status == 3)
+            strm->msg = "invalid distance code";
+        else
+            strm->msg = "invalid distance too far back";
+        state->mode = BAD;
+    }
+    else if ( ar.status == 1 ) {
+        state->mode = TYPE;
+    }
+
+    /* return unused bytes (on entry, bits < 8, so in won't go too far back) */
+    ar.len = ar.bits >> 3;
+    ar.in -= ar.len;
+    ar.bits -= ar.len << 3;
+    ar.hold &= (1U << ar.bits) - 1;
+
+    /* update state and return */
+    strm->next_in = ar.in;
+    strm->next_out = ar.out;
+    strm->avail_in = (unsigned)(ar.in < ar.last ?
+                                PAD_AVAIL_IN + (ar.last - ar.in) :
+                                PAD_AVAIL_IN - (ar.in - ar.last));
+    strm->avail_out = (unsigned)(ar.out < ar.end ?
+                                 PAD_AVAIL_OUT + (ar.end - ar.out) :
+                                 PAD_AVAIL_OUT - (ar.out - ar.end));
+    state->hold = ar.hold;
+    state->bits = ar.bits;
+    return;
+}
+

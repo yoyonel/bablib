@@ -41,11 +41,11 @@ void main(void) {
 	// Light Position in Object Space
 	v3_light_position_in_object = u_v3_light_pos_in_object;
 
-	// On rÃÂÃÂ©cupÃÂÃÂ¨re les vertex du triangle rasterisÃÂÃÂ©
+	// On récupère les vertex du triangle rasterisé
 	v3_vertex[0] 	= gl_Vertex.xyz;
         v3_vertex[1] 	= gl_MultiTexCoord0.xyz;
         v3_vertex[2] 	= gl_MultiTexCoord1.xyz;
-	// On rÃÂÃÂ©cupÃÂÃÂ¨re les normales du triangle rasterisÃÂÃÂ©
+	// On récupère les normales du triangle rasterisé
 	v3_normals[0] 	= gl_Normal.xyz;
         v3_normals[1] 	= gl_MultiTexCoord2.xyz;
         v3_normals[2] 	= gl_MultiTexCoord3.xyz;

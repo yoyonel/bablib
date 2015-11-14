@@ -23,7 +23,7 @@ distribution.
 */
 
 /*
- * THIS FILE WAS ALTERED BY Tyge LÃÂÃÂÃÂÃÂ¸vset, 7. April 2005.
+ * THIS FILE WAS ALTERED BY Tyge L�vset, 7. April 2005.
  */
 
 

@@ -50,7 +50,7 @@
 // -------------------------------------
 // - SUBPIXEL - Tests
 // -------------------------------------
-// reliÃÂÃÂ© directement avec [draw_scene_with_scm.frag]
+// relié directement avec [draw_scene_with_scm.frag]
 #define USE_EXPERIMENTAL_SUBPIXEL_SHADOWED
 //#define DRAW_SUBPIXEL_TESTS
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -113,7 +113,7 @@ uniform sampler2D	tex_history_positions_occluders;
 // -------------------------------------
 // -- Occluders Informations Buffers
 // -------------------------------------
-// -- Vertex formant le triangle occulteur qui a gÃÂÃÂ©nÃÂÃÂ©rÃÂÃÂ© (ou est support) du texel occluder (dans la DSM)
+// -- Vertex formant le triangle occulteur qui a généré (ou est support) du texel occluder (dans la DSM)
 uniform sampler2D	tex_sm_triangle_vertex0, tex_sm_triangle_vertex1, tex_sm_triangle_vertex2;
 // --
 uniform sampler2D	tex_sm_pows;
@@ -225,7 +225,7 @@ void main(void) {
 
 	out_color = vec4( f_coef_shadow );	
 
-	// - UPDATE variables associÃÂÃÂ©es a l'algo. Temporal Confidence
+	// - UPDATE variables associées a l'algo. Temporal Confidence
 	update_variables();
 
 	#ifdef USE_TEMPORAL_CONFIDENCE
@@ -250,15 +250,15 @@ void main(void) {
 			confidence_sm = Compute_Confidence( v4_texel_in_light_texture, u_v2_size_dsm ); 
 			// ---- Calcul du poids
 			weight = pow( confidence_sm, coef_power_function );
-			// ---- Mix temporel de la visibilitÃÂÃÂ©
+			// ---- Mix temporel de la visibilité
 			tsm = mix( v4_visibility_prev.x, f_coef_shadow, weight );
 			//tsm = f_coef_shadow;
 		}
 		// -------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		// Remet ÃÂÃÂ  "0" la confidence si
-		// le texel n'est pas dans l'ombre ou pÃÂÃÂ©nombre
-		// et que sa valeur de confidence (en moyenne) est "assez" ÃÂÃÂ©levÃÂÃÂ©s
+		// Remet à "0" la confidence si
+		// le texel n'est pas dans l'ombre ou pénombre
+		// et que sa valeur de confidence (en moyenne) est "assez" élevés
 //		coef_power_function = !(IN_PENUMBRA(f_coef_shadow, EPSILON) || IN_HARDSHADOW(f_coef_shadow, EPSILON)) &&
 //					v4_visibility_prev.z > max_coef_power_function / 1.05 ? init_coef_power_function : coef_power_function;
 
@@ -323,7 +323,7 @@ void main(void) {
 	#ifdef DRAW_CONFIDENCE
 		const float coef_confidence_color = 1.0;
 		vec4 confidence_color = vec4(GREEN + RED) * confidence_sm * coef_confidence_color;
-		// - on veut afficher la grille sur les texels ombrÃÂÃÂ©s
+		// - on veut afficher la grille sur les texels ombrés
 		out_color += f_coef_shadow < (1-EPSILON) ? (1. - f_coef_shadow) * confidence_color : vec4(0);
 	#endif
 
@@ -340,7 +340,7 @@ void main(void) {
 		float grid_sm = Compute_Grid( vec2(v4_texel_in_light_texture), u_v2_size_dsm );
 		//out_color += coef_grid_color * ( /**(out_color.x >= -EPSILON) && /**/ (out_color.x <= EPSILON*20000 ) ? (BLUE + GREEN) * grid_sm : out_color);
 		vec4 grid_color = (BLUE + GREEN) * grid_sm * coef_grid_color;
-		// - on veut afficher la grille sur les texels ombrÃÂÃÂ©s
+		// - on veut afficher la grille sur les texels ombrés
 		out_color += f_coef_shadow < (1-EPSILON) ? (1. - f_coef_shadow) * grid_color : vec4(0);
 	#endif
 
@@ -360,12 +360,12 @@ void update_variables()
 	v4_texel_in_world_prev 	= texture2D( tex_history_positions, 	v4_texel_in_eyes_texture_prev.xy );	// previous position 		in WorldSpace
 	// - Previous Visibility
 	v4_visibility_prev	= texture2D( tex_history_visibility,	v4_texel_in_eyes_texture_prev.xy );	// previous visibility 		in WorldSpace
-	// - Positions Occluders (frame courante, et prÃÂÃÂ©cÃÂÃÂ©dente)
+	// - Positions Occluders (frame courante, et précédente)
 	v4_texel_occluder_in_world	= texture2D( tex_sm_pows,			v4_texel_in_light_texture.xy );		// actual   position occluder 	in WorldSpace	
 	v4_texel_occluder_in_world_prev	= texture2D( tex_history_positions_occluders,	v4_texel_in_eyes_texture_prev.xy );	// previous position occluder 	in WorldSpace
 	// - Position Texel in World Space
 	v4_texel_in_world = v_v4_texel_in_world / v_v4_texel_in_world.w;
-	// - Distance entre le texel courant et le texel de la frame prÃÂÃÂ©cÃÂÃÂ©dente
+	// - Distance entre le texel courant et le texel de la frame précédente
 	f_distance_between_texels_receivers = distance(v_v4_texel_in_world, v4_texel_in_world_prev);
 	// - Distance entre le texel-receiver et le texel-occluder
 	f_distance_between_receiver_occluder 		= distance( v4_texel_in_world, 		v4_texel_occluder_in_world);
@@ -435,7 +435,7 @@ vec4 compute_texel_in_texture_light( in vec4 _v4_texel_in_light )
 
 	#ifdef USE_SHADOW_PROJ
 		v4_texel_in_light_texture = _v4_texel_in_light;
-		// Bias Uniform (non normalisÃÂÃÂ©)
+		// Bias Uniform (non normalisé)
 		v4_texel_in_light_texture.z	+= coef_depth_bias * _v4_texel_in_light.w;
 	#else
 		// Bias Uniform (TODO: voir Gradient Shadow Map)
@@ -448,7 +448,7 @@ vec4 compute_texel_in_texture_light( in vec4 _v4_texel_in_light )
 }
 
 bool Point_In_Triangle_2D( in vec2 A, in vec2 B, in vec2 C, in vec2 P) {
-	// (*): DÃÂÃÂ©pendant de P
+	// (*): Dépendant de P
 
 	// Compute vectors        
 	vec2 v0 = C - A;	// [A, C]
@@ -517,8 +517,8 @@ float Compute_Confidence( vec4 v4_texel_in_light_texture, vec2 _sizeTexture )
 	float tex_width = _sizeTexture.x;
 	float tex_height = _sizeTexture.y;
 	
-	// MOG: rÃÂÃÂ©flÃÂÃÂ©chir ÃÂÃÂ  ce que ÃÂÃÂ§a fait ce calcul !!!
-	// Grille de projection de la shadow map (i.e grille de rasterisation projetÃÂÃÂ©e sur la scene)
+	// MOG: réfléchir à ce que ça fait ce calcul !!!
+	// Grille de projection de la shadow map (i.e grille de rasterisation projetée sur la scene)
 	/**
 	vec2 confidence_sm = v4_texel_in_light_texture * _sizeTexture;
 	confidence_sm = abs( floor(confidence_sm - vec2(0.5)) - 0.5);
@@ -527,7 +527,7 @@ float Compute_Confidence( vec4 v4_texel_in_light_texture, vec2 _sizeTexture )
 	/**/
 	//
 	
-	// Grille de projection de la shadow map (i.e grille de rasterisation projetÃÂÃÂ©e sur la scene)
+	// Grille de projection de la shadow map (i.e grille de rasterisation projetée sur la scene)
 	/**/
 	vec2 confidence_sm 	= vec2(v4_texel_in_light_texture) * _sizeTexture;
 	vec2 confidence_sm_bias = confidence_sm - vec2(0.5) * 0;	// erreur de MERDE: pas de bias !!!
@@ -598,7 +598,7 @@ void 	compute_subpixel(
 	pixel_is_shadowed_by_plane = (dot_pixel_plane >= (0.0 + 1.*EPSILON));
 
 	// - utilisation d'un seuil de distance entre le texel-receiver et texel-occulteur
-	// - s'ils sont trop proches, on considÃÂÃÂ¨re qu'il y a auto-ombrage
+	// - s'ils sont trop proches, on considère qu'il y a auto-ombrage
 	pixels_RO_are_closer = f_distance_between_receiver_occluder <= f_coef_distance_to_be_too_closer;
 
 	v4_vertex0_in_light = PROJECT_VERTEX( u_m4_light_to_proj, v4_vertex0_in_light );
@@ -636,11 +636,11 @@ void compute_subpixel_test1()
 				if ( pixel_is_shadowed_by_plane )
 				{
 					// + BLUE (+ GRENN + RED) = WHITE
-					// => pixel-eyes 	est ombrÃÂÃÂ© par un texel-sm
-					// => pixel-projetÃÂÃÂ© 	est inclu la projection du triangle occulteur (sur le near plane de camera_light)
-					// => pixel-world	est du cotÃÂÃÂ© "ombrÃÂÃÂ©" du plan support du triangle-occulteur
-					// <=> le pixel-world est ombrÃÂÃÂ© par le triangle-occulteur (world space)
-					// <=> "ombrÃÂÃÂ©"
+					// => pixel-eyes 	est ombré par un texel-sm
+					// => pixel-projeté 	est inclu la projection du triangle occulteur (sur le near plane de camera_light)
+					// => pixel-world	est du coté "ombré" du plan support du triangle-occulteur
+					// <=> le pixel-world est ombré par le triangle-occulteur (world space)
+					// <=> "ombré"
 					#ifdef USE_DYNAMIC_COEF_POWER_FUNCTION
 //						coef_power_function = max_coef_power_function;
 //						coef_power_function += step_coef_power_function;
@@ -650,12 +650,12 @@ void compute_subpixel_test1()
 				else
 				{
 					// (+ GREEN + RED) = YELLOW
-					// => pixel-eyes 	est ombrÃÂÃÂ© par un texel-sm
-					// => pixel-projetÃÂÃÂ© 	est inclue la projection du triangle occulteur (sur le near plane de camera_light)
-					// => pixel-world	est du cotÃÂÃÂ© "non-ombrÃÂÃÂ©" du plan support du triangle 
-					// <=> le pixel-world est n'est pas ombrÃÂÃÂ© par le triangle-occulteur (world space)
-					// <=> Devrait correspondre au texel-eyes en auto-ombrage erronÃÂÃÂ©
-					// <=> ! "non-ombrÃÂÃÂ©" !
+					// => pixel-eyes 	est ombré par un texel-sm
+					// => pixel-projeté 	est inclue la projection du triangle occulteur (sur le near plane de camera_light)
+					// => pixel-world	est du coté "non-ombré" du plan support du triangle 
+					// <=> le pixel-world est n'est pas ombré par le triangle-occulteur (world space)
+					// <=> Devrait correspondre au texel-eyes en auto-ombrage erroné
+					// <=> ! "non-ombré" !
 					#ifdef USE_DYNAMIC_COEF_POWER_FUNCTION
 //						coef_power_function = max_coef_power_function;
 //						coef_power_function += step_coef_power_function;
@@ -671,13 +671,253 @@ void compute_subpixel_test1()
 					if ( pixels_RO_are_closer )
 					{
 						// +BLUE +GREEN = TURQUOISE
-						// => pixel-eyes 	est ombrÃÂÃÂ© par un texel-sm
-						// => pixel-projetÃÂÃÂ© 	est n'est pas inclu la projection du triangle-occulteur (sur le near plane de camera_light)
-						// => pixel-world	est du cote "ombrÃÂÃÂ©" du plan support du triangle-occulteur (associciÃÂÃÂ© au texel-sm)
-						// => pixel-eyes	est "trop prÃÂÃÂ¨s" du texel-SM
-						// <=> On peut le considÃÂÃÂ©rer comme "bad-self-shadow" car il est ombrÃÂÃÂ© (texel-sm, plane support du triangle-occulteur) mais est trÃÂÃÂ¨s prÃÂÃÂ¨s (trop prÃÂÃÂ¨s)
+						// => pixel-eyes 	est ombré par un texel-sm
+						// => pixel-projeté 	est n'est pas inclu la projection du triangle-occulteur (sur le near plane de camera_light)
+						// => pixel-world	est du cote "ombré" du plan support du triangle-occulteur (associcié au texel-sm)
+						// => pixel-eyes	est "trop près" du texel-SM
+						// <=> On peut le considérer comme "bad-self-shadow" car il est ombré (texel-sm, plane support du triangle-occulteur) mais est très près (trop près)
 						// <=> du plan-occulteur (i.e triangle-occulteur, micro-quad-occulteur)
-						// <=> ? "non-ombrÃÂÃÂ©" ?
+						// <=> ? "non-ombré" ?
 						#ifdef USE_DYNAMIC_COEF_POWER_FUNCTION
 //							coef_power_function = init_coef_power_function;
-							coef_power_function -= step_co
+							coef_power_function -= step_coef_power_function;
+						#endif
+						tsm = mix( v4_visibility_prev.x, 1.0, weight );
+					}
+					else
+					{
+						// + BLUE (+RED) = PURPLE
+						// => pixel-eyes 	est ombré par un texel-sm
+						// => pixel-projeté 	est n'est pas inclu la projection du triangle-occulteur (sur le near plane de camera_light)
+						// => pixel-world	est du cote "ombré" du plan support du triangle-occulteur (associcié au texel-sm)
+						// => pixel-eyes	n'est pas "trop près" du texel-SM
+						// <=> Devrait correspondre au texel-eyes dont on ne dispose pas (encore) d'assez d'information pour établir son status
+						// <=> ? "ombré" ?
+						#ifdef USE_DYNAMIC_COEF_POWER_FUNCTION
+//							coef_power_function = init_coef_power_function;
+//							coef_power_function -= step_coef_power_function;
+						#endif
+//						tsm = mix( v4_visibility_prev.x, 0.0, weight );
+					}
+				}
+				else
+				{
+					// (+RED) = RED
+					// => pixel-eyes 	est ombré par un texel-sm
+					// => pixel-projeté 	est n'est pas inclu la projection du triangle-occulteur (sur le near plane de camera_light)
+					// => pixel-world	est du cote "non-ombré" du plan support du triangle-occulteur (associcié au texel-sm)
+					// <=> Devrait correspondre au texel-eyes dont on ne dispose pas (encore) d'assez d'information pour établir son status
+					// <=> ? "non-ombré" ?
+					#ifdef USE_DYNAMIC_COEF_POWER_FUNCTION
+//							coef_power_function = init_coef_power_function;
+							coef_power_function -= step_coef_power_function;
+					#endif
+					tsm = mix( v4_visibility_prev.x, 1.0, weight );
+				}
+			}
+		}
+		else
+		{
+			// Object_Color grisé
+			// => pixel-eyes	n'est pas ombré par un texel-sm
+			// <=> "non-ombré"
+//			tsm = mix( v4_visibility_prev.x, 1.0, weight );
+		}
+}
+
+void compute_subpixel_test2()
+{
+	if (pixel_shadowed_by_texel_sm)
+	{
+		if (subpixel_proj_in_triangle)
+		{
+			if (pixel_is_shadowed_by_plane)
+			{
+//				out_color = RED;
+			}
+			else
+			{
+//				out_color = GREEN;
+				tsm = mix( v4_visibility_prev.x, 1.0, weight );
+			}
+		}
+		else
+		{
+			if (pixel_is_shadowed_by_plane)
+			{
+				if (pixels_RO_are_closer)
+				{
+//					out_color = BLUE;
+
+					#ifdef USE_DYNAMIC_COEF_POWER_FUNCTION
+						coef_power_function -= step_coef_power_function;
+					#endif
+					// ---- Calcul du poids
+					weight = pow( confidence_sm, coef_power_function );
+
+					tsm = mix( v4_visibility_prev.x, 1.0, weight );
+				}
+				else
+				{
+//					out_color = YELLOW;
+//					tsm = mix( v4_visibility_prev.x, f_coef_shadow, weight );
+				}
+			}
+			else
+			{
+				if (pixels_RO_are_closer)
+				{
+//					out_color = BLUE;
+
+					#ifdef USE_DYNAMIC_COEF_POWER_FUNCTION
+						coef_power_function -= step_coef_power_function;
+					#endif
+					// ---- Calcul du poids
+					weight = pow( confidence_sm, coef_power_function );
+
+					tsm = mix( v4_visibility_prev.x, 1.0, weight );
+				}
+				else
+				{
+//					out_color = YELLOW;
+//					tsm = mix( v4_visibility_prev.x, f_coef_shadow, weight );
+				}
+			}
+		}
+	}
+	else
+	{
+//		out_color = WHITE;
+//		tsm = mix( v4_visibility_prev.x, 1.0, weight );
+	}
+}
+
+// Shadow Texture 2D
+vec4 interpolate_bicubic_fast(sampler2DShadow tex_depth_map, vec3 _texCoord, vec2 _sizeTexture)
+{
+	float 	x = _texCoord.x * _sizeTexture.x,
+		y = _texCoord.y * _sizeTexture.y,
+		z = _texCoord.z;
+	
+	// transform the coordinate from [0,extent] to [-0.5, extent-0.5]
+	vec2 vec_bias 	= vec2(0.5);
+	vec2 coord_grid = vec2(x, y) - vec_bias;
+	vec2 index 	= floor(coord_grid); 		// nearest integer
+	vec2 fraction 	= coord_grid - index;		//
+	vec2 one_frac 	= 1.0 - fraction;
+	
+	// bspline_weights(fraction, w0, w1, w2, w3);
+	vec2 w0 = 1.0/6.0 * one_frac*one_frac*one_frac;
+	vec2 w1 = 2.0/3.0 - 0.5 * fraction*fraction*(2.0-fraction);
+	vec2 w2 = 2.0/3.0 - 0.5 * one_frac*one_frac*(2.0-one_frac);
+	vec2 w3 = 1.0/6.0 * fraction*fraction*fraction;
+
+	vec2 g0 = w0 + w1;
+	vec2 g1 = w2 + w3;
+	vec2 h0 = (w1 / g0) - vec2(0.5) + index;  //h0 = w1/g0 - 1, move from [-0.5, extent-0.5] to [0, extent]
+	vec2 h1 = (w3 / g1) + vec2(1.5) + index;  //h1 = w3/g1 + 1, move from [-0.5, extent-0.5] to [0, extent]
+	
+	//
+	h0 /= _sizeTexture;
+	h1 /= _sizeTexture;
+	
+	// fetch the four linear interpolations
+	
+	vec4 tex00 = shadow2D(tex_depth_map, vec3(h0.x, h0.y, z) );
+	vec4 tex10 = shadow2D(tex_depth_map, vec3(h1.x, h0.y, z) );
+	vec4 tex01 = shadow2D(tex_depth_map, vec3(h0.x, h1.y, z) );
+	vec4 tex11 = shadow2D(tex_depth_map, vec3(h1.x, h1.y, z) );
+
+	// weigh along the y-direction
+	tex00 = mix(tex01, tex00, g0.y);
+	tex10 = mix(tex11, tex10, g0.y);
+
+	// weigh along the x-direction
+	return mix(tex10, tex00, g0.x);
+}
+
+// Texture 2D
+vec4 interpolate_bicubic_fast(sampler2D tex, vec2 _texCoord, vec2 _sizeTexture)
+{
+	float 	x = _texCoord.x * _sizeTexture.x,
+		y = _texCoord.y * _sizeTexture.y;
+	 
+	// transform the coordinate from [0,extent] to [-0.5, extent-0.5]
+	vec2 vec_bias 	= vec2(0.5);
+	vec2 coord_grid = vec2(x, y) - vec_bias;
+	vec2 index 	= floor(coord_grid); 		// nearest integer
+	vec2 fraction 	= coord_grid - index;		//
+	vec2 one_frac 	= 1.0 - fraction;
+	
+	// bspline_weights(fraction, w0, w1, w2, w3);
+	vec2 w0 = 1.0/6.0 * one_frac*one_frac*one_frac;
+	vec2 w1 = 2.0/3.0 - 0.5 * fraction*fraction*(2.0-fraction);
+	vec2 w2 = 2.0/3.0 - 0.5 * one_frac*one_frac*(2.0-one_frac);
+	vec2 w3 = 1.0/6.0 * fraction*fraction*fraction;
+
+	vec2 g0 = w0 + w1;
+	vec2 g1 = w2 + w3;
+	vec2 h0 = (w1 / g0) - vec2(0.5) + index;  //h0 = w1/g0 - 1, move from [-0.5, extent-0.5] to [0, extent]
+	vec2 h1 = (w3 / g1) + vec2(1.5) + index;  //h1 = w3/g1 + 1, move from [-0.5, extent-0.5] to [0, extent]
+	
+	//
+	h0 /= _sizeTexture;
+	h1 /= _sizeTexture;
+	
+	// fetch the four linear interpolations
+	vec4 tex00 = texture2D(tex, vec2(h0.x, h0.y) );
+	vec4 tex10 = texture2D(tex, vec2(h1.x, h0.y) );
+	vec4 tex01 = texture2D(tex, vec2(h0.x, h1.y) );
+	vec4 tex11 = texture2D(tex, vec2(h1.x, h1.y) );
+
+	// weigh along the y-direction
+	tex00 = mix(tex01, tex00, g0.y);
+	tex10 = mix(tex11, tex10, g0.y);
+
+	// weigh along the x-direction
+	return mix(tex10, tex00, g0.x);
+}
+
+float Compute_Grid( vec2 v4_texel_in_light_texture, vec2 _sizeTexture )
+{
+	float tex_width = _sizeTexture.x;
+	float tex_height = _sizeTexture.y;
+	
+	// Grille de projection de la shadow map (i.e grille de rasterisation projetée sur la scene)
+	float grid_sm_x = v4_texel_in_light_texture.x * tex_width;
+	//grid_sm_x -= 0.5;
+	grid_sm_x -= floor(grid_sm_x);
+	grid_sm_x = 1. - grid_sm_x;
+	
+	float grid_sm_y = v4_texel_in_light_texture.y * tex_height;
+	//grid_sm_y -= 0.5;
+	grid_sm_y -= floor(grid_sm_y);	
+	grid_sm_y = 1. - grid_sm_y;
+	//
+	float grid_sm;
+	//grid_sm = smoothstep( -0.5, +0.5, grid_sm_x * grid_sm_y );
+	grid_sm = grid_sm_x * grid_sm_y;
+	//
+	return grid_sm;
+	}
+	
+vec4 filterColor( in float coef_shadow )
+{
+	vec4 iso_color;
+	
+	// exhibe 3 frontières (3 courbes iso)
+	const float fCoef_Width = 0.1;
+	vec3 v3CoefISOs;
+	//
+	v3CoefISOs.x = smoothstep( 0. + EPSILON, 0. + fCoef_Width, coef_shadow);
+	v3CoefISOs.y = smoothstep( 1. - fCoef_Width, 1.0 -EPSILON, coef_shadow);
+	v3CoefISOs.z = smoothstep( .5 - fCoef_Width, .5 + fCoef_Width, coef_shadow);
+	//
+	v3CoefISOs = vec3(1.) - abs((v3CoefISOs*vec3(2.)) - vec3(1.));
+	//
+	iso_color += v3CoefISOs.x * RED;
+	iso_color += v3CoefISOs.y * GREEN;
+	iso_color += v3CoefISOs.z * BLUE;
+	//
+	return iso_color;
+	}

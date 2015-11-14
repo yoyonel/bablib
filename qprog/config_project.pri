@@ -1,12 +1,12 @@
 # ce fichier est a inclure dans le .pro de chaque projet
-# > la variable PROJECT_PATH doit Ãªtre dÃ©finie dans le .pro pour contenir le chemin vers la racine du projet (dans le .pro : PROJECT_PATH = $$PWD)
+# > la variable PROJECT_PATH doit �tre d�finie dans le .pro pour contenir le chemin vers la racine du projet (dans le .pro : PROJECT_PATH = $$PWD)
 # > la variable QMAKEFEATURES doit etre initialisee
 #     - soit comme variable d'environnement
 #     - soit comme 'property variable' de Qt en faisant (une seule fois) qmake -set QMAKEFEATURES <repertoire>
-# > optionnel : la variable BUILD_DIR pour prÃ©ciser le rÃ©pertoire pour les fichiers intermÃ©diaires de build (sous-rÃ©pertoire de QPROG_BUILD_PATH)
+# > optionnel : la variable BUILD_DIR pour pr�ciser le r�pertoire pour les fichiers interm�diaires de build (sous-r�pertoire de QPROG_BUILD_PATH)
 
 isEmpty(PROJECT_PATH):\
-    error("la variable PROJECT_PATH doit dÃ©finir le chemin vers la racine du projet")
+    error("la variable PROJECT_PATH doit d�finir le chemin vers la racine du projet")
 
 # par defaut sous windows, CONFIG contient le mode "debug_and_release", donc on l'enleve :
 CONFIG -= debug_and_release
@@ -16,7 +16,7 @@ CONFIG -= debug_and_release
 #@@@@ reverifier..
 win32 {
     contains(CONFIG, bablib)
-        SOURCE_LIBS *= bablib scene3d glew      #@ mieux : mettre Ã§a dans qtfeatures/lib_config.pri --> seulement rÃ©p. qtfeatures qui est platform-dependent
+        SOURCE_LIBS *= bablib scene3d glew      #@ mieux : mettre �a dans qtfeatures/lib_config.pri --> seulement r�p. qtfeatures qui est platform-dependent
     CONFIG *= warn_on thread console
     
     # force 'release' mode because of weird problems with debug mode on windows
@@ -31,8 +31,8 @@ win32 {
 #################################
     
     ROOT_PATH = $$PWD
-    LIBS_PATH = $$ROOT_PATH/libs            # repertoire oÃ¹ sont placÃ©es les libs utilisÃ©es
-    COMPILED_LIBS_PATH = $$ROOT_PATH/bin    # rÃ©pertoire contenant les version compilÃ©es des libs
+    LIBS_PATH = $$ROOT_PATH/libs            # repertoire o� sont plac�es les libs utilis�es
+    COMPILED_LIBS_PATH = $$ROOT_PATH/bin    # r�pertoire contenant les version compil�es des libs
 
     # definition of potientially customized paths :
     exists(config/paths_local.pri) {
@@ -62,7 +62,7 @@ win32 {
         return ($$replace(2, $$1, $$quote()))
         }
     
-    # verifie que le path existe et essaye de le crÃ©er dans le cas contraire
+    # verifie que le path existe et essaye de le cr�er dans le cas contraire
     # arg1 = path a verifier
     defineTest(checkPath) {
         !exists($$1) {
@@ -80,7 +80,7 @@ win32 {
     
     # definition du repertoire dans lequel le projet doit compiler
     isEmpty(BUILD_DIR) {
-        # on prend le nom du dernier repertoire qui mÃ¨ne Ã  la racine du projet :
+        # on prend le nom du dernier repertoire qui m�ne � la racine du projet :
         #ROOT_STRING = $$pathToString($$PROG_PATH)_
         #PROJ_STRING = $$pathToString($$PROJECT_PATH)
         #BUILD_DIR = $$remove($$ROOT_STRING, $$PROJ_STRING)

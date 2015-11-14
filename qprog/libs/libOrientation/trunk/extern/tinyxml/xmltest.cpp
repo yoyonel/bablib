@@ -1064,4 +1064,231 @@ int main()
 		doc.Parse( doctype );
 		
 		XmlTest( "Parsing repeated attributes.", 0, (int)doc.Error() );	// not an  error to tinyxml
-		XmlTest( "Parsing repeate
+		XmlTest( "Parsing repeated attributes.", "blue", doc.FirstChildElement( "element" )->Attribute( "attr" ) );
+	}
+
+	{
+		// Embedded null in stream.
+		const char* doctype = "<element att\0r='red' attr='blue' />";
+
+		TiXmlDocument doc;
+		doc.Parse( doctype );
+		XmlTest( "Embedded null throws error.", true, doc.Error() );
+
+		#ifdef TIXML_USE_STL
+		istringstream strm( doctype );
+		doc.Clear();
+		doc.ClearError();
+		strm >> doc;
+		XmlTest( "Embedded null throws error.", true, doc.Error() );
+		#endif
+	}
+
+    {
+            // Legacy mode test. (This test may only pass on a western system)
+            const char* str =
+                        "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>"
+                        "<ä>"
+                        "CöntäntßäöüÄÖÜ"
+                        "</ä>";
+
+            TiXmlDocument doc;
+            doc.Parse( str );
+
+            TiXmlHandle docHandle( &doc );
+            TiXmlHandle aHandle = docHandle.FirstChildElement( "ä" );
+            TiXmlHandle tHandle = aHandle.Child( 0 );
+            assert( aHandle.Element() );
+            assert( tHandle.Text() );
+            XmlTest( "ISO-8859-1 Parsing.", "CöntäntßäöüÄÖÜ", tHandle.Text()->Value() );
+    }
+
+	{
+		// Empty documents should return TIXML_ERROR_PARSING_EMPTY, bug 1070717
+		const char* str = "    ";
+		TiXmlDocument doc;
+		doc.Parse( str );
+		XmlTest( "Empty document error TIXML_ERROR_DOCUMENT_EMPTY", TiXmlBase::TIXML_ERROR_DOCUMENT_EMPTY, doc.ErrorId() );
+	}
+	#ifndef TIXML_USE_STL
+	{
+		// String equality. [ 1006409 ] string operator==/!= no worky in all cases
+		TiXmlString temp;
+		XmlTest( "Empty tinyxml string compare equal", ( temp == "" ), true );
+
+		TiXmlString    foo;
+		TiXmlString    bar( "" );
+		XmlTest( "Empty tinyxml string compare equal", ( foo == bar ), true );
+	}
+
+	#endif
+	{
+		// Bug [ 1195696 ] from marlonism
+		TiXmlBase::SetCondenseWhiteSpace(false); 
+		TiXmlDocument xml; 
+		xml.Parse("<text><break/>This hangs</text>"); 
+		XmlTest( "Test safe error return.", xml.Error(), false );
+	}
+
+	{
+		// Bug [ 1243992 ] - another infinite loop
+		TiXmlDocument doc;
+		doc.SetCondenseWhiteSpace(false);
+		doc.Parse("<p><pb></pb>test</p>");
+	} 
+	{
+		// Low entities
+		TiXmlDocument xml;
+		xml.Parse( "<test>&#x0e;</test>" );
+		const char result[] = { 0x0e, 0 };
+		XmlTest( "Low entities.", xml.FirstChildElement()->GetText(), result );
+		xml.Print();
+	}
+	{
+		// Bug [ 1451649 ] Attribute values with trailing quotes not handled correctly
+		TiXmlDocument xml;
+		xml.Parse( "<foo attribute=bar\" />" );
+		XmlTest( "Throw error with bad end quotes.", xml.Error(), true );
+	}
+	#ifdef TIXML_USE_STL
+	{
+		// Bug [ 1449463 ] Consider generic query
+		TiXmlDocument xml;
+		xml.Parse( "<foo bar='3' barStr='a string'/>" );
+
+		TiXmlElement* ele = xml.FirstChildElement();
+		double d;
+		int i;
+		float f;
+		bool b;
+		//std::string str;
+
+		XmlTest( "QueryValueAttribute", ele->QueryValueAttribute( "bar", &d ), TIXML_SUCCESS );
+		XmlTest( "QueryValueAttribute", ele->QueryValueAttribute( "bar", &i ), TIXML_SUCCESS );
+		XmlTest( "QueryValueAttribute", ele->QueryValueAttribute( "bar", &f ), TIXML_SUCCESS );
+		XmlTest( "QueryValueAttribute", ele->QueryValueAttribute( "bar", &b ), TIXML_WRONG_TYPE );
+		XmlTest( "QueryValueAttribute", ele->QueryValueAttribute( "nobar", &b ), TIXML_NO_ATTRIBUTE );
+		//XmlTest( "QueryValueAttribute", ele->QueryValueAttribute( "barStr", &str ), TIXML_SUCCESS );
+
+		XmlTest( "QueryValueAttribute", (d==3.0), true );
+		XmlTest( "QueryValueAttribute", (i==3), true );
+		XmlTest( "QueryValueAttribute", (f==3.0f), true );
+		//XmlTest( "QueryValueAttribute", (str==std::string( "a string" )), true );
+	}
+	#endif
+
+	#ifdef TIXML_USE_STL
+	{
+		// [ 1505267 ] redundant malloc in TiXmlElement::Attribute
+		TiXmlDocument xml;
+		xml.Parse( "<foo bar='3' />" );
+		TiXmlElement* ele = xml.FirstChildElement();
+		double d;
+		int i;
+
+		std::string bar = "bar";
+
+		const std::string* atrrib = ele->Attribute( bar );
+		ele->Attribute( bar, &d );
+		ele->Attribute( bar, &i );
+
+		XmlTest( "Attribute", atrrib->empty(), false );
+		XmlTest( "Attribute", (d==3.0), true );
+		XmlTest( "Attribute", (i==3), true );
+	}
+	#endif
+
+	{
+		// [ 1356059 ] Allow TiXMLDocument to only be at the top level
+		TiXmlDocument xml, xml2;
+		xml.InsertEndChild( xml2 );
+		XmlTest( "Document only at top level.", xml.Error(), true );
+		XmlTest( "Document only at top level.", xml.ErrorId(), TiXmlBase::TIXML_ERROR_DOCUMENT_TOP_ONLY );
+	}
+
+	{
+		// [ 1663758 ] Failure to report error on bad XML
+		TiXmlDocument xml;
+		xml.Parse("<x>");
+		XmlTest("Missing end tag at end of input", xml.Error(), true);
+		xml.Parse("<x> ");
+		XmlTest("Missing end tag with trailing whitespace", xml.Error(), true);
+	} 
+
+	{
+		// [ 1635701 ] fail to parse files with a tag separated into two lines
+		// I'm not sure this is a bug. Marked 'pending' for feedback.
+		TiXmlDocument xml;
+		xml.Parse( "<title><p>text</p\n><title>" );
+		//xml.Print();
+		//XmlTest( "Tag split by newline", xml.Error(), false );
+	}
+
+	#ifdef TIXML_USE_STL
+	{
+		// [ 1475201 ] TinyXML parses entities in comments
+		TiXmlDocument xml;
+		istringstream parse1( "<!-- declarations for <head> & <body> -->"
+						      "<!-- far &amp; away -->" );
+		parse1 >> xml;
+
+		TiXmlNode* e0 = xml.FirstChild();
+		TiXmlNode* e1 = e0->NextSibling();
+		TiXmlComment* c0 = e0->ToComment();
+		TiXmlComment* c1 = e1->ToComment();
+
+		XmlTest( "Comments ignore entities.", " declarations for <head> & <body> ", c0->Value(), true );
+		XmlTest( "Comments ignore entities.", " far &amp; away ", c1->Value(), true );
+	}
+	#endif
+
+	{
+		// [ 1475201 ] TinyXML parses entities in comments
+		TiXmlDocument xml;
+		xml.Parse("<!-- declarations for <head> & <body> -->"
+				  "<!-- far &amp; away -->" );
+
+		TiXmlNode* e0 = xml.FirstChild();
+		TiXmlNode* e1 = e0->NextSibling();
+		TiXmlComment* c0 = e0->ToComment();
+		TiXmlComment* c1 = e1->ToComment();
+
+		XmlTest( "Comments ignore entities.", " declarations for <head> & <body> ", c0->Value(), true );
+		XmlTest( "Comments ignore entities.", " far &amp; away ", c1->Value(), true );
+	}
+	/*
+	{
+		TiXmlDocument xml;
+		xml.Parse( "<tag>/</tag>" );
+		xml.Print();
+		xml.FirstChild()->Print( stdout, 0 );
+		xml.FirstChild()->Type();
+	}
+	*/
+	
+	/*  1417717 experiment
+	{
+		TiXmlDocument xml;
+		xml.Parse("<text>Dan & Tracie</text>");
+		xml.Print(stdout);
+	}
+	{
+		TiXmlDocument xml;
+		xml.Parse("<text>Dan &foo; Tracie</text>");
+		xml.Print(stdout);
+	}
+	*/
+	#if defined( WIN32 ) && defined( TUNE )
+	_CrtMemCheckpoint( &endMemState );
+	//_CrtMemDumpStatistics( &endMemState );
+
+	_CrtMemState diffMemState;
+	_CrtMemDifference( &diffMemState, &startMemState, &endMemState );
+	_CrtMemDumpStatistics( &diffMemState );
+	#endif
+
+	printf ("\nPass %d, Fail %d\n", gPass, gFail);
+	return gFail;
+}
+
+

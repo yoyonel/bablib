@@ -18,11 +18,11 @@ BABLIB_NAMESPACE_BEGIN
 //    | <name> = <value>
 //    | <name> = <value>  // commentaires
 //    | <name> = <value>  # commentaires
-// <name> et <value> ne contiennent ni espaces, ni la chaÃÂ®ne '//' ou '#'
-// <name> contient au moins un caractÃÂ¨re
+// <name> et <value> ne contiennent ni espaces, ni la cha�ne '//' ou '#'
+// <name> contient au moins un caract�re
 
 
-// types supportÃÂ©s :
+// types support�s :
 //------------------
 //  int, float, double, bool,
 //  std::string, QString,
@@ -30,7 +30,7 @@ BABLIB_NAMESPACE_BEGIN
 //  GLenum,
 //  QList<int>, QList<float>, QList<double>, QList<bool>, QList<QString>
         
-// cette classe permet de charger un ensemble de paramÃÂ¨tres ÃÂ  partir d'un fichier :
+// cette classe permet de charger un ensemble de param�tres � partir d'un fichier :
 class ParamSet {
     public:
         void load(QString fileName);
@@ -41,7 +41,7 @@ class ParamSet {
         
         QString getFileName() const { return fileName; }
         
-        // mÃÂ©thodes pour obtenir la valeur d'un paramÃÂ¨tre :
+        // m�thodes pour obtenir la valeur d'un param�tre :
         template<class Object> Object get(QString name, Object def, int pos, bool warn = false) const;
         template<class Object> Object get(QString name, Object def, bool warn = false) const { return get<Object>(name, def, 0, warn); }
         template<class Object> Object get(QString name, int pos = 0) const { return get<Object>(name, defaultValue<Object>(), pos, true); }
@@ -62,11 +62,11 @@ class ParamSet {
         QString fileName;
     };
 
-// cette classe permet d'accÃÂ©der ÃÂ  un ensemble de paramÃÂ¨tres globaux :
+// cette classe permet d'acc�der � un ensemble de param�tres globaux :
 class Params {
     public:
         static void load(QString fileName = defaultFileName());
-        static void reload();   // prÃÂ©condition : load a dÃÂ©ja ÃÂ©tÃÂ© appelÃÂ©
+        static void reload();   // pr�condition : load a d�ja �t� appel�
         
         template<class Object> static Object get(QString name, Object def, int pos, bool warn = false) { checkLoaded(); return params().get<Object>(name, def, pos, warn); }
         template<class Object> static Object get(QString name, Object def, bool warn = false)          { checkLoaded(); return params().get<Object>(name, def, warn); }
@@ -88,7 +88,7 @@ class Params {
         friend class GlobalParams;
     };
 
-// cette classe permet d'accÃÂ©der aux paramÃÂ¨tres spÃÂ©cifiques aux classes bablib :
+// cette classe permet d'acc�der aux param�tres sp�cifiques aux classes bablib :
 class GlobalParams {
     public:
         template<class Object> static Object get(QString name, Object def, int pos, bool warn = false) { checkLoaded(); return params().get<Object>(name, def, pos, warn); }
@@ -103,7 +103,7 @@ class GlobalParams {
         static ParamSet& params();
     };
 
-// macros pratiques pour recupÃÂ©rer des paramÃÂ¨tres :
+// macros pratiques pour recup�rer des param�tres :
 //-------------------------------------------------
 #define PARAM_DEF(type, name)               type name = Params::get<type>(#name)
 #define PARAM_SET(type, name)               name = Params::get<type>(#name)

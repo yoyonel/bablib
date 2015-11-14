@@ -44,7 +44,7 @@ const std::string &filename)
 	MapExportVisitor::const_iterator it_ext = GetExporters().lower_bound(ext);
 	MapExportVisitor::const_iterator it = it_ext;
 
-	// D'abord ceux qui gÃÂÃÂÃÂÃÂ¨rent ÃÂÃÂÃÂÃÂ  peu prÃÂÃÂÃÂÃÂ¨s la mÃÂÃÂÃÂÃÂªme extension
+	// D'abord ceux qui gèrent à peu près la même extension
 	for (it = it_ext; it != GetExporters().end(); ++it)
 	{
 		shared_ptr<ModeleProjectionVisitor> exporter = (*it).second(filename);

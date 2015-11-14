@@ -1,8 +1,8 @@
-# ce script permet de crÃ©er une lib statique en utilisant le config.pri contenu dans le rÃ©pertoire de la lib
-# la variable CURRENT_LIB dÃ©finit le nom de la lib Ã  crÃ©er
+# ce script permet de créer une lib statique en utilisant le config.pri contenu dans le répertoire de la lib
+# la variable CURRENT_LIB définit le nom de la lib à créer
 
 isEmpty(CURRENT_LIB):\
-    error("la variable CURRENT_LIB doit Ãªtre dÃ©finie, et contenir le nom de la lib Ã  compiler")
+    error("la variable CURRENT_LIB doit être définie, et contenir le nom de la lib à compiler")
 
 # le repertoire de build pour les libs statiques :
 BUILD_DIR = $$join(CURRENT_LIB,,libstatic_,)
@@ -10,9 +10,9 @@ BUILD_DIR = $$join(CURRENT_LIB,,libstatic_,)
 include(config_project.pri)
     
 isEmpty(COMPILED_LIBS_PATH):\
-    error("la variable COMPILED_LIBS_PATH doit Ãªtre dÃ©finie (par le config_project.pri qui doit Ãªtre inclus avant)")
+    error("la variable COMPILED_LIBS_PATH doit être définie (par le config_project.pri qui doit être inclus avant)")
 isEmpty(LIBS_PATH):\
-    error("la variable LIBS_PATH doit Ãªtre dÃ©finie (par le config_project.pri qui doit Ãªtre inclus avant)")
+    error("la variable LIBS_PATH doit être définie (par le config_project.pri qui doit être inclus avant)")
 
 TEMPLATE = lib
 CONFIG  *= staticlib

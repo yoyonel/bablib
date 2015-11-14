@@ -1,5 +1,5 @@
-# ce script dÃ©finit les variables LIB_HEADERS, LIB_SOURCES et LIB_INCLUDEPATH
-# ainsi que les dÃ©pendances aux autres libs
+# ce script définit les variables LIB_HEADERS, LIB_SOURCES et LIB_INCLUDEPATH
+# ainsi que les dépendances aux autres libs
 
 LOCAL_PATH = $$PWD
 
@@ -10,13 +10,13 @@ LIB_SOURCES += $$LOCAL_PATH/src/bablib/*.cpp
 #LIB_HEADERS_DYN += $$LOCAL_PATH/src/bablib/Constants.h
 #LIB_SOURCES_DYN += $$LOCAL_PATH/src/bablib/Constants.cpp
 
-# declaration en dehors du "contains" pour contourner problÃ¨me de parsing des {} par qmake :
+# declaration en dehors du "contains" pour contourner problème de parsing des {} par qmake :
 BABLIB_NAMESPACE_OPEN  = '"BABLIB_NAMESPACE_BEGIN=namespace bablib{"'
 BABLIB_NAMESPACE_CLOSE = '"BABLIB_NAMESPACE_END=}"'
 
 #BABLIB_CONFIG *= namespace
-# attention : si la lib est prÃ©compilÃ©e en lib statique, ne pas modifier BABLIB_CONFIG dans le .pro du projet,
-# sinon gestion du namespace potentiellement incohÃ©rente
+# attention : si la lib est précompilée en lib statique, ne pas modifier BABLIB_CONFIG dans le .pro du projet,
+# sinon gestion du namespace potentiellement incohérente
 contains(BABLIB_CONFIG, namespace) {
     DEFINES *= BABLIB_NAMESPACE
     DEFINES *= $$BABLIB_NAMESPACE_OPEN
@@ -41,7 +41,7 @@ else {
     CONFIG *= gsl
     }
 
-# dÃ©finition des dependances :
+# définition des dependances :
 CONFIG *= constants
 CONFIG *= glew
 CONFIG *= qglviewer

@@ -9,7 +9,7 @@ void Viewer::updateFrameBuffers() {
     update_matrix();
     MSG_CHECK_GL;
 
-    // - FRAME_BUFFERS: Maj des FBs et Render-Textures associÃÂÃÂ©es
+    // - FRAME_BUFFERS: Maj des FBs et Render-Textures associées
     updateShadowMap( fb_depth_shadow_map );
 
     // - TIMER_QUERY

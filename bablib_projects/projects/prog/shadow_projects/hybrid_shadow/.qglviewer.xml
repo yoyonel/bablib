@@ -12,8 +12,8 @@
     </Parameters>
     <Stereo focusDistance="24.1421" physScreenWidth="0.5" IODist="0.062"/>
     <ManipulatedCameraFrame>
-      <position x="2.38167" y="-0.494001" z="0.589078"/>
-      <orientation q0="0.592873" q1="0.175534" q2="0.692576" q3="0.371521"/>
+      <position x="-0.441002" y="-2.0661" z="1.53791"/>
+      <orientation q0="0.438156" q1="-0.117273" q2="0.0456367" q3="0.890047"/>
       <ManipulatedParameters transSens="1" zoomSens="1" rotSens="1" wheelSens="1" spinSens="0.3"/>
       <ManipulatedCameraParameters zoomsOnPivotPoint="false" flySpeed="0.1" rotatesAroundUpVector="false">
         <sceneUpVector x="0" y="1" z="0"/>
@@ -21,8 +21,11 @@
     </ManipulatedCameraFrame>
   </Camera>
   <ManipulatedFrame>
-    <position x="0" y="0" z="0"/>
-    <orientation q0="0.310965" q1="-0.122819" q2="0.746625" q3="0.575123"/>
+    <position x="0" y="0" z="2.61313"/>
+    <orientation q0="0" q1="0" q2="0" q3="1"/>
     <ManipulatedParameters transSens="1" zoomSens="1" rotSens="1" wheelSens="1" spinSens="0.3"/>
+    <ManipulatedCameraParameters zoomsOnPivotPoint="false" flySpeed="0.01" rotatesAroundUpVector="false">
+      <sceneUpVector x="0" y="1" z="0"/>
+    </ManipulatedCameraParameters>
   </ManipulatedFrame>
 </QGLViewer>

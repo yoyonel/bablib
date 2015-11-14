@@ -11,12 +11,12 @@ class ColorAdder {
         ColorAdder() { reset(); }
         void  reset()      { n = 0; adder.reset(); }
         void  add(Color c, float k = 1) { adder += k * c; n += k; }
-        Color getColor()   { return adder / n; }    //@@ changer : appeler ÃÂ§a getAverage()
+        Color getColor()   { return adder / n; }    //@@ changer : appeler �a getAverage()
         Color getSum()   { return adder; }          //@@ appeler getColor
         
         
     public:
-        float n;        // nombre de pixels ajoutÃÂ©s depuis le dernier reset
+        float n;        // nombre de pixels ajout�s depuis le dernier reset
         Color adder;    // couleur courante
     };
 
@@ -30,7 +30,7 @@ class ColorAdder<UByte4> {
         UByte4 getSum()    { return adder.toUByte4(); }
         
     public:
-        float n;        // nombre de pixels ajoutÃÂ©s depuis le dernier reset
+        float n;        // nombre de pixels ajout�s depuis le dernier reset
         UInt4 adder;    // couleur courante
     };
 

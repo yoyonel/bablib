@@ -721,4 +721,9 @@ if [ $? -ne 0 ] ; then
     echo
 	exit 100
 else
-	echo "TE
+	echo "TEST OK"
+	echo "test file ${OUT} removed"
+    echo
+	/bin/rm -f ${OUT}
+	exit 0
+fi

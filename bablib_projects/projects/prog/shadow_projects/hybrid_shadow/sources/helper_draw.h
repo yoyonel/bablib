@@ -8,7 +8,7 @@
 //
 void Viewer::drawScene() {
     if (b_is_init) {
-        // -- rÃÂÃÂ©cupÃÂÃÂ©ration des dimensions des textures
+        // -- récupération des dimensions des textures
         ViewportGL viewport;
         viewport.getGL();
 

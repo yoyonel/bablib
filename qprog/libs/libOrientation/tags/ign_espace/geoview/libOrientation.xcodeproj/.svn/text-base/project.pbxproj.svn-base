@@ -329,4 +329,373 @@
 				BC0766590FC43F87002BD774 /* tinyxml.h in Headers */,
 				BC07665E0FC43F87002BD774 /* noboost.hpp in Headers */,
 				BC07665F0FC43F87002BD774 /* geodesie.hpp in Headers */,
-				BC0766600FC43F87002BD774 /* modeleprojection.hpp in Headers 
+				BC0766600FC43F87002BD774 /* modeleprojection.hpp in Headers */,
+				BC0766610FC43F87002BD774 /* homographie2d.hpp in Headers */,
+				BC0766620FC43F87002BD774 /* geometrictransformation.hpp in Headers */,
+				BC0766630FC43F87002BD774 /* distortiongrillematis.hpp in Headers */,
+				BC0766640FC43F87002BD774 /* auxiliarydata.hpp in Headers */,
+				BC0766650FC43F87002BD774 /* transfo2delementaire.hpp in Headers */,
+				BC0766660FC43F87002BD774 /* transfo2d.hpp in Headers */,
+				BC0766670FC43F87002BD774 /* solar.hpp in Headers */,
+				BC0766680FC43F87002BD774 /* outil_xml.hpp in Headers */,
+				BC0766690FC43F87002BD774 /* modeleprojectionspherique.hpp in Headers */,
+				BC07666A0FC43F87002BD774 /* modeleprojectionrto.hpp in Headers */,
+				BC07666B0FC43F87002BD774 /* modeleprojectionphysique.hpp in Headers */,
+				BC07666C0FC43F87002BD774 /* modeleprojectiongrille.hpp in Headers */,
+				BC07666D0FC43F87002BD774 /* distortionpolynomeign.hpp in Headers */,
+				BC07666E0FC43F87002BD774 /* modeleprojectionconique.hpp in Headers */,
+				BC07666F0FC43F87002BD774 /* modeleprojectioncarto.hpp in Headers */,
+				BC0766700FC43F87002BD774 /* modeleprojectionaxono.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC6192CB0FD93AEB007AB54A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC6192D20FD93B01007AB54A /* tinystr.h in Headers */,
+				BC6192D30FD93B01007AB54A /* tinyxml.h in Headers */,
+				BC6192D40FD93B01007AB54A /* noboost.hpp in Headers */,
+				BC6192D50FD93B01007AB54A /* geodesie.hpp in Headers */,
+				BC6192D60FD93B01007AB54A /* modeleprojection.hpp in Headers */,
+				BC6192D70FD93B01007AB54A /* homographie2d.hpp in Headers */,
+				BC6192D80FD93B01007AB54A /* geometrictransformation.hpp in Headers */,
+				BC6192D90FD93B01007AB54A /* distortiongrillematis.hpp in Headers */,
+				BC6192DA0FD93B01007AB54A /* auxiliarydata.hpp in Headers */,
+				BC6192DB0FD93B01007AB54A /* transfo2delementaire.hpp in Headers */,
+				BC6192DC0FD93B01007AB54A /* transfo2d.hpp in Headers */,
+				BC6192DD0FD93B01007AB54A /* solar.hpp in Headers */,
+				BC6192DE0FD93B01007AB54A /* outil_xml.hpp in Headers */,
+				BC6192DF0FD93B01007AB54A /* modeleprojectionspherique.hpp in Headers */,
+				BC6192E00FD93B01007AB54A /* modeleprojectionrto.hpp in Headers */,
+				BC6192E10FD93B01007AB54A /* modeleprojectionphysique.hpp in Headers */,
+				BC6192E20FD93B01007AB54A /* modeleprojectiongrille.hpp in Headers */,
+				BC6192E30FD93B01007AB54A /* distortionpolynomeign.hpp in Headers */,
+				BC6192E40FD93B01007AB54A /* modeleprojectionconique.hpp in Headers */,
+				BC6192E50FD93B01007AB54A /* modeleprojectioncarto.hpp in Headers */,
+				BC6192E60FD93B01007AB54A /* modeleprojectionaxono.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8D07F2BC0486CC7A007CD1D0 /* LibOrientation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4FADC24208B4156D00ABE55E /* Build configuration list for PBXNativeTarget "LibOrientation" */;
+			buildPhases = (
+				8D07F2BD0486CC7A007CD1D0 /* Headers */,
+				8D07F2BF0486CC7A007CD1D0 /* Resources */,
+				8D07F2C10486CC7A007CD1D0 /* Sources */,
+				8D07F2C30486CC7A007CD1D0 /* Frameworks */,
+				8D07F2C50486CC7A007CD1D0 /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LibOrientation;
+			productInstallPath = "$(HOME)/Library/Frameworks";
+			productName = LibOrientation;
+			productReference = 8D07F2C80486CC7A007CD1D0 /* LibOrientation.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		BC6192CE0FD93AEB007AB54A /* Orientation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC6193090FD93B51007AB54A /* Build configuration list for PBXNativeTarget "Orientation" */;
+			buildPhases = (
+				BC6192CB0FD93AEB007AB54A /* Headers */,
+				BC6192CC0FD93AEB007AB54A /* Sources */,
+				BC6192CD0FD93AEB007AB54A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Orientation;
+			productName = Orientation;
+			productReference = BC6192CF0FD93AEB007AB54A /* libOrientation.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 4FADC24608B4156D00ABE55E /* Build configuration list for PBXProject "libOrientation" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 0867D691FE84028FC02AAC07 /* LibOrientation */;
+			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D07F2BC0486CC7A007CD1D0 /* LibOrientation */,
+				BC6192CE0FD93AEB007AB54A /* Orientation */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D07F2BF0486CC7A007CD1D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D07F2C00486CC7A007CD1D0 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		8D07F2C50486CC7A007CD1D0 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D07F2C10486CC7A007CD1D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC07665A0FC43F87002BD774 /* tinystr.cpp in Sources */,
+				BC07665B0FC43F87002BD774 /* tinyxml.cpp in Sources */,
+				BC07665C0FC43F87002BD774 /* tinyxmlerror.cpp in Sources */,
+				BC07665D0FC43F87002BD774 /* tinyxmlparser.cpp in Sources */,
+				BC0766710FC43F87002BD774 /* noboost.cpp in Sources */,
+				BC0766720FC43F87002BD774 /* auxiliarydata.cpp in Sources */,
+				BC0766730FC43F87002BD774 /* distortiongrillematis.cpp in Sources */,
+				BC0766740FC43F87002BD774 /* distortionpolynomeign.cpp in Sources */,
+				BC0766750FC43F87002BD774 /* geodesie.cpp in Sources */,
+				BC0766760FC43F87002BD774 /* geometrictransformation.cpp in Sources */,
+				BC0766770FC43F87002BD774 /* homographie2d.cpp in Sources */,
+				BC0766780FC43F87002BD774 /* modeleprojection.cpp in Sources */,
+				BC0766790FC43F87002BD774 /* modeleprojection_io.cpp in Sources */,
+				BC07667A0FC43F87002BD774 /* modeleprojectionaxono.cpp in Sources */,
+				BC07667B0FC43F87002BD774 /* modeleprojectioncarto.cpp in Sources */,
+				BC07667C0FC43F87002BD774 /* modeleprojectionconique.cpp in Sources */,
+				BC07667D0FC43F87002BD774 /* modeleprojectiongrille.cpp in Sources */,
+				BC07667E0FC43F87002BD774 /* modeleprojectionphysique.cpp in Sources */,
+				BC07667F0FC43F87002BD774 /* modeleprojectionrto.cpp in Sources */,
+				BC0766800FC43F87002BD774 /* modeleprojectionspherique.cpp in Sources */,
+				BC0766810FC43F87002BD774 /* orireader.cpp in Sources */,
+				BC0766820FC43F87002BD774 /* outil_xml.cpp in Sources */,
+				BC0766830FC43F87002BD774 /* solar.cpp in Sources */,
+				BC0766840FC43F87002BD774 /* xmlreader.cpp in Sources */,
+				BC0766850FC43F87002BD774 /* xmlwriter.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC6192CC0FD93AEB007AB54A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC6192E70FD93B0C007AB54A /* tinystr.cpp in Sources */,
+				BC6192E80FD93B0C007AB54A /* tinyxml.cpp in Sources */,
+				BC6192E90FD93B0C007AB54A /* tinyxmlerror.cpp in Sources */,
+				BC6192EA0FD93B0C007AB54A /* tinyxmlparser.cpp in Sources */,
+				BC6192EB0FD93B0C007AB54A /* noboost.cpp in Sources */,
+				BC6192EC0FD93B0C007AB54A /* auxiliarydata.cpp in Sources */,
+				BC6192ED0FD93B0C007AB54A /* distortiongrillematis.cpp in Sources */,
+				BC6192EE0FD93B0C007AB54A /* distortionpolynomeign.cpp in Sources */,
+				BC6192EF0FD93B0C007AB54A /* geodesie.cpp in Sources */,
+				BC6192F00FD93B0C007AB54A /* geometrictransformation.cpp in Sources */,
+				BC6192F10FD93B0C007AB54A /* homographie2d.cpp in Sources */,
+				BC6192F20FD93B0C007AB54A /* modeleprojection.cpp in Sources */,
+				BC6192F30FD93B0C007AB54A /* modeleprojection_io.cpp in Sources */,
+				BC6192F40FD93B0C007AB54A /* modeleprojectionaxono.cpp in Sources */,
+				BC6192F50FD93B0C007AB54A /* modeleprojectioncarto.cpp in Sources */,
+				BC6192F60FD93B0C007AB54A /* modeleprojectionconique.cpp in Sources */,
+				BC6192F70FD93B0C007AB54A /* modeleprojectiongrille.cpp in Sources */,
+				BC6192F80FD93B0C007AB54A /* modeleprojectionphysique.cpp in Sources */,
+				BC6192F90FD93B0C007AB54A /* modeleprojectionrto.cpp in Sources */,
+				BC6192FA0FD93B0C007AB54A /* modeleprojectionspherique.cpp in Sources */,
+				BC6192FB0FD93B0C007AB54A /* orireader.cpp in Sources */,
+				BC6192FC0FD93B0C007AB54A /* outil_xml.cpp in Sources */,
+				BC6192FD0FD93B0C007AB54A /* solar.cpp in Sources */,
+				BC6192FE0FD93B0C007AB54A /* xmlreader.cpp in Sources */,
+				BC6192FF0FD93B0C007AB54A /* xmlwriter.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C1666FE841158C02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C1667FE841158C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4FADC24308B4156D00ABE55E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = LibOrientation_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "@executable_path/../Frameworks/";
+				LIBRARY_STYLE = DYNAMIC;
+				MACH_O_TYPE = mh_dylib;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-DORIENTATIONMATIS_USE_NOBOOST",
+				);
+				PRODUCT_NAME = LibOrientation;
+				SDKROOT = macosx10.4;
+				WRAPPER_EXTENSION = framework;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		4FADC24408B4156D00ABE55E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = LibOrientation_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "@executable_path/../Frameworks/";
+				LIBRARY_STYLE = DYNAMIC;
+				MACH_O_TYPE = mh_dylib;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-DORIENTATIONMATIS_USE_NOBOOST",
+				);
+				PRODUCT_NAME = LibOrientation;
+				SDKROOT = macosx10.4;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		4FADC24708B4156D00ABE55E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Debug;
+		};
+		4FADC24808B4156D00ABE55E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Release;
+		};
+		BC6192D00FD93AEC007AB54A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				INSTALL_PATH = /usr/local/lib;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-DORIENTATIONMATIS_USE_NOBOOST",
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Orientation;
+				SDKROOT = macosx10.4;
+			};
+			name = Debug;
+		};
+		BC6192D10FD93AEC007AB54A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				INSTALL_PATH = /usr/local/lib;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-DORIENTATIONMATIS_USE_NOBOOST",
+				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Orientation;
+				SDKROOT = macosx10.4;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4FADC24208B4156D00ABE55E /* Build configuration list for PBXNativeTarget "LibOrientation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FADC24308B4156D00ABE55E /* Debug */,
+				4FADC24408B4156D00ABE55E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4FADC24608B4156D00ABE55E /* Build configuration list for PBXProject "libOrientation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FADC24708B4156D00ABE55E /* Debug */,
+				4FADC24808B4156D00ABE55E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BC6193090FD93B51007AB54A /* Build configuration list for PBXNativeTarget "Orientation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC6192D00FD93AEC007AB54A /* Debug */,
+				BC6192D10FD93AEC007AB54A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}

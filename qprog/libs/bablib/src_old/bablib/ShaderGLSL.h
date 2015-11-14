@@ -11,7 +11,7 @@ class ShaderGLSL {
     public:
         typedef enum { VERTEX, FRAGMENT } Type;     //@ ajouter GEOMETRY
     public:
-        // constructeur ÃÂ  appeler quand un contexte OpenGL a ÃÂ©tÃÂ© initialisÃÂ©
+        // constructeur � appeler quand un contexte OpenGL a �t� initialis�
         // <source> contient le code source si <loadFromFile>==false, le nom du fichier source sinon
         // if <loadFromFile>==false, <name> is used as the displayed shader name for compilation error messages
         ShaderGLSL(QString source, Type type, bool loadFromFile=true, QString name = "<sans nom>");
@@ -19,7 +19,7 @@ class ShaderGLSL {
         void compile();
         void destroy();
         
-        // comparaison de deux shaders ÃÂ  partir des id :
+        // comparaison de deux shaders � partir des id :
         bool operator==(const ShaderGLSL& s) { return id == s.id; }
         
     private:
@@ -29,7 +29,7 @@ class ShaderGLSL {
         QString fileName;   // juste pour les eventuels messages d'erreurs
         GLuint id;
         
-    friend class ProgGLSL;     // pour permettre ÃÂ  la classe ProgrammeGLSL d'accÃÂ©der ÃÂ  la variable <id>
+    friend class ProgGLSL;     // pour permettre � la classe ProgrammeGLSL d'acc�der � la variable <id>
     };
 
 BABLIB_NAMESPACE_END

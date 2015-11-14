@@ -46,7 +46,7 @@ namespace OrientationMATIS
 
         int ntransfo = mpc->GetTransfo2D().GetNbTransfo2DElementaire();
         if (!ntransfo) fic << "0" << std::endl;
-        else if (ntransfo > 1) throw std::logic_error("Ecriture d'orientation avec plus que 2 transfo2D n'est par gÃÂÃÂÃÂÃÂ©rÃÂÃÂÃÂÃÂ© en format ori \n");
+        else if (ntransfo > 1) throw std::logic_error("Ecriture d'orientation avec plus que 2 transfo2D n'est par géré en format ori \n");
 
         shared_ptr <DistortionPolynomeIGN> poly;
         bool dist_poly=false;
@@ -56,7 +56,7 @@ namespace OrientationMATIS
              poly = dynamic_pointer_cast<DistortionPolynomeIGN> (te);
             if (!poly )
             {
-                throw std::logic_error("Seulement l'ecriture de distortion sous forme de polynome est gÃÂÃÂÃÂÃÂ©rÃÂÃÂÃÂÃÂ© ! \n");
+                throw std::logic_error("Seulement l'ecriture de distortion sous forme de polynome est géré ! \n");
 
             }
               fic << "2" << std::endl;

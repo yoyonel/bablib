@@ -56,11 +56,11 @@ void main(void) {
 	// Light Position in Object Space
 	v3_light_position_in_object 	= u_v3_light_pos_in_object;
 
-	// On rÃÂÃÂ©cupÃÂÃÂ¨re les vertex du triangle rasterisÃÂÃÂ©
+	// On récupère les vertex du triangle rasterisé
 	v3_vertex[0] 	= gl_Vertex.xyz;
         v3_vertex[1] 	= gl_MultiTexCoord0.xyz;
         v3_vertex[2] 	= gl_MultiTexCoord1.xyz;
-	// On rÃÂÃÂ©cupÃÂÃÂ¨re les normales du triangle rasterisÃÂÃÂ©
+	// On récupère les normales du triangle rasterisé
 	v3_normals[0] 	= gl_Normal.xyz;
         v3_normals[1] 	= gl_MultiTexCoord2.xyz;
         v3_normals[2] 	= gl_MultiTexCoord3.xyz;
@@ -113,12 +113,12 @@ bool compute_is_triangle_silhouette_0( float f_coef0_lighting, float f_coef1_lig
 
 bool compute_is_triangle_silhouette_1( float f_coef0_lighting, float f_coef1_lighting, float f_coef2_lighting, float f_seuil )
 {
-	// signes des coefficients d'ÃÂÃÂ©clairage associÃÂÃÂ©s ÃÂÃÂ  chaque vertex du triangle
+	// signes des coefficients d'éclairage associés à chaque vertex du triangle
 	vec3 v3_sign = sign( vec3(f_coef0_lighting, f_coef1_lighting, f_coef2_lighting) - vec3(f_seuil) );
 	// on calcul la valeur absolue de la somme des signes
 	float f_abs_dot = abs( v3_sign.x + v3_sign.y + v3_sign.z );
-	// si tous ÃÂÃÂ©clairÃÂÃÂ©s (>0) alors la somme = 3,
-	// si tous ombrÃÂÃÂ©s (<0) alors la |somme| = 3 (somme = -3)
+	// si tous éclairés (>0) alors la somme = 3,
+	// si tous ombrés (<0) alors la |somme| = 3 (somme = -3)
 	// sinon une valeur dans l'intervalle [-2, +2]
 	return (f_abs_dot != 3.);
 }

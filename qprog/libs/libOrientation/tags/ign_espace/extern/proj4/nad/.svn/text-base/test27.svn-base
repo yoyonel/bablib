@@ -713,4 +713,136 @@ $EXE +units=us-ft +init=${INIT_FILE}:4301 -E -f '%.3f' >>${OUT} <<EOF
  -111d30'00.000  41d30'00.000   2000000.000    425057.445 UT N GP1
 EOF
 $EXE +units=us-ft +init=${INIT_FILE}:4301 -E -f '%.3f' >>${OUT} <<EOF
- -111d30'00.000  41d30'30.0
+ -111d30'00.000  41d30'30.000   2000000.000    428093.810 UT N GP2
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4303 -E -f '%.3f' >>${OUT} <<EOF
+ -109d48'37.967  38d29'30.877   2483568.472    668988.098 UT S GP1
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4303 -E -f '%.3f' >>${OUT} <<EOF
+ -113d52'56.922  37d09'18.788   1305706.243    186731.606 UT S GP2
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4501 -E -f '%.3f' >>${OUT} <<EOF
+  -77d13'46.945  38d55'12.407   2361415.621    458962.786 VA N GP1
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4501 -E -f '%.3f' >>${OUT} <<EOF
+  -79d18'51.557  38d09'59.020   1765875.433    183017.881 VA N GP2
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4501 -E -f '%.3f' >>${OUT} <<EOF
+  -77d38'10.823  37d49'23.964   2249484.834     58221.695 VA N GP3
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4501 -E -f '%.3f' >>${OUT} <<EOF
+  -79d26'19.475  37d47'25.852   1728704.621     46487.604 VA N GP4
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4501 -E -f '%.3f' >>${OUT} <<EOF
+  -77d44'30.336  39d00'06.804   2215488.016    487135.448 VA N GP6
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4501 -E -f '%.3f' >>${OUT} <<EOF
+  -77d43'47.013  38d59'55.454   2218917.620    486015.701 VA N GP9
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4502 -E -f '%.3f' >>${OUT} <<EOF
+  -78d30'00.000  37d30'00.000   2000000.000    424763.516 VA S GP1
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4502 -E -f '%.3f' >>${OUT} <<EOF
+  -78d30'00.000  37d30'30.000   2000000.000    427797.710 VA S GP2
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4502 -E -f '%.3f' >>${OUT} <<EOF
+  -77d32'33.000  36d54'42.507   2279939.213    212030.192 VA S GP3
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4502 -E -f '%.3f' >>${OUT} <<EOF
+  -77d21'55.732  38d04'53.901   2326572.191    638519.064 VA S GP4
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:5202 -E -f '%.3f' >>${OUT} <<EOF
+  -64d45'30.000  17d45'30.000   1082794.001     75432.552 VI F GP1
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:5202 -E -f '%.3f' >>${OUT} <<EOF
+  -66d26'00.000  17d45'56.426    500000.000     75432.505 VI F GP2
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:5202 -E -f '%.3f' >>${OUT} <<EOF
+  -64d45'30.000  17d45'30.000   1082794.001     75432.552 VI M GP1
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:5202 -E -f '%.3f' >>${OUT} <<EOF
+  -66d26'00.000  17d45'56.426    500000.000     75432.505 VI M GP2
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4400 -E -f '%.3f' >>${OUT} <<EOF
+  -72d29'31.418  43d09'58.526    502118.227    242816.621 VT   GP1
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4400 -E -f '%.3f' >>${OUT} <<EOF
+  -73d12'06.978  44d22'22.810    316451.963    683472.660 VT   GP2
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4601 -E -f '%.3f' >>${OUT} <<EOF
+ -119d51'37.006  47d50'51.069   2238927.196    310658.148 WA N GP1
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4601 -E -f '%.3f' >>${OUT} <<EOF
+ -123d59'49.087  48d09'29.131   1228043.506    438306.777 WA N GP2
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4602 -E -f '%.3f' >>${OUT} <<EOF
+ -122d54'00.000  46d09'00.000   1391814.257    307059.945 WA S GP1
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4802 -E -f '%.3f' >>${OUT} <<EOF
+  -88d04'00.000  44d30'00.000   2504399.560    249042.105 WI C GP1
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4801 -E -f '%.3f' >>${OUT} <<EOF
+  -88d44'40.778  45d22'21.598   2322632.765     77666.151 WI N GP1
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4801 -E -f '%.3f' >>${OUT} <<EOF
+  -92d12'19.275  45d48'35.812   1437681.450    242373.846 WI N GP2
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4803 -E -f '%.3f' >>${OUT} <<EOF
+  -89d23'00.000  43d05'00.000   2164743.544    395445.420 WI S GP1
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4701 -E -f '%.3f' >>${OUT} <<EOF
+  -77d53'39.269  39d14'39.339   2454764.840    275139.246 WV N GP1
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4701 -E -f '%.3f' >>${OUT} <<EOF
+  -81d33'23.549  39d18'08.535   1418073.862    298900.611 WV N GP2
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4701 -E -f '%.3f' >>${OUT} <<EOF
+  -77d30'10.460  38d59'25.903   2567632.286    184970.946 WV N GP3
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4901 -E -f '%.3f' >>${OUT} <<EOF
+ -105d07'00.000  44d38'00.000    513016.009   1445570.355 WY E GP1
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4901 -E -f '%.3f' >>${OUT} <<EOF
+ -105d31'02.882  43d30'40.600    406937.677   1036750.418 WY E GP1
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4901 -E -f '%.3f' >>${OUT} <<EOF
+ -105d22'42.856  43d30'14.685    443778.141   1034002.062 WY E GP2
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4901 -E -f '%.3f' >>${OUT} <<EOF
+ -105d28'42.827  43d36'33.391    417392.389   1072428.186 WY E GP3
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4901 -E -f '%.3f' >>${OUT} <<EOF
+ -105d23'43.223  42d00'59.422    437860.186    491889.060 WY E GP4
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4901 -E -f '%.3f' >>${OUT} <<EOF
+ -104d35'06.686  42d34'50.366    656606.905    697923.643 WY E GP5
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4904 -E -f '%.3f' >>${OUT} <<EOF
+ -110d36'00.000  41d48'00.000    359125.204    413338.815 WY W GP1
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4902 -E -f '%.3f' >>${OUT} <<EOF
+ -106d13'03.224  41d36'14.640    805153.891    343496.746 WYEC GP1
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4902 -E -f '%.3f' >>${OUT} <<EOF
+ -108d01'56.720  41d51'57.518    309581.204    437731.262 WYEC GP2
+EOF
+$EXE +units=us-ft +init=${INIT_FILE}:4903 -E -f '%.3f' >>${OUT} <<EOF
+ -108d24'00.000  43d02'00.000    593579.361    862553.590 WYWC GP1
+EOF
+#
+# do 'diff' with distribution results
+echo "diff ${OUT} with pj_out27.dist"
+diff -b ${OUT} pj_out27.dist
+if [ $? -ne 0 ] ; then
+	echo  ""
+	echo "PROBLEMS HAVE OCCURED"
+	echo "test file ${OUT} saved"
+    echo
+	exit 100
+else
+	echo "TEST OK"
+	echo "test file ${OUT} removed"
+    echo
+	/bin/rm -f ${OUT}
+	exit 0
+fi

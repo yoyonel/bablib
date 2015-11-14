@@ -100,13 +100,13 @@ DESCRIPTION
               and standard output.  Data is assumed  to
               be  in  system type double floating point
               words.  This option is to  be  used  when
-              proj  is a son process and allows bypassâ
+              proj  is a son process and allows bypass‐
               ing formatting operations.
 
        -i     Selects  binary  input   only   (see   -b
               option).
 
-       -I     alternate  method to specify inverse proâ
+       -I     alternate  method to specify inverse pro‐
               jection.   Redundant   when   used   with
               invproj.
 
@@ -120,7 +120,7 @@ DESCRIPTION
               only.  (# is the default value).
 
        -e string
-              String is an arbitrary string to be  outâ
+              String is an arbitrary string to be  out‐
               put  if  an error is detected during data
               transformations.  The default  value  is:
               *\t*.   Note  that  if  the  -b, -i or -o
@@ -152,13 +152,13 @@ DESCRIPTION
               output from x-y or longitude-latitude  to
               y-x or latitude-longitude.
 
-       -S     Causes estimation of meridinal and paralâ
+       -S     Causes estimation of meridinal and paral‐
               lel scale factors, area scale factor  and
-              angular distortion, and maximum and miniâ
+              angular distortion, and maximum and mini‐
               mum scale factors to be listed between <>
-              for each input point.  For conformal proâ
+              for each input point.  For conformal pro‐
               jections meridinal  and  parallel  scales
-              factors will be equal and angular distorâ
+              factors will be equal and angular distor‐
               tion zero.  Equal area  projections  will
               have an area factor of 1.
 
@@ -166,15 +166,15 @@ DESCRIPTION
               The  cartesian  data may be scaled by the
               mult parameter.  When processing data  in
               a  forward  projection mode the cartesian
-              output values are multiplied by mult othâ
+              output values are multiplied by mult oth‐
               erwise  the  input  cartesian  values are
-              divided by mult  before  inverse  projecâ
+              divided by mult  before  inverse  projec‐
               tion.   If  the  first  two characters of
               mult are 1/ or  1:  then  the  reciprocal
               value of mult is employed.
 
        -f format
-              Format  is a printf format string to conâ
+              Format  is a printf format string to con‐
               trol the form of the output values.   For
               inverse  projections,  the output will be
               in degrees when this option is  employed.
@@ -214,7 +214,7 @@ DESCRIPTION
               the approximation.  For example, a res of
               -3  specifies  an  approximation  with an
               accuracy better  than  .001.   Umax,  and
-              vmax  specify maximum degree of the polyâ
+              vmax  specify maximum degree of the poly‐
               nomials   (default:   15).    See   also:
               fproj(1).
 
@@ -222,14 +222,14 @@ DESCRIPTION
        cartographic parameters and  usage  varies  with
        projection  and  for  a complete description see
        Cartographic Projection Procedures for the  UNIX
-       EnvironmentâA  Userâs Manual ) and supplementary
+       Environment—A  User’s Manual ) and supplementary
        documentation for Release 4.
 
        Additional projection control parameters may  be
        contained  in  two auxilliary control files: the
        first  is   optionally   referenced   with   the
        +init=file:id and the second is always processed
-       after the name of the projection has been estabâ
+       after the name of the projection has been estab‐
        lished  from either the run-line or the contents
        of  +init  file.   The   environment   parameter
        PROJ_LIB establishes the default directory for a
@@ -238,9 +238,9 @@ DESCRIPTION
        shift files.
 
        One or more files (processed in  left  to  right
-       order)  specify  the source of data to be transâ
-       formed.  A - will specify the location  of  proâ
-       cessing  standard input.  If no files are speciâ
+       order)  specify  the source of data to be trans‐
+       formed.  A - will specify the location  of  pro‐
+       cessing  standard input.  If no files are speci‐
        fied, the input is assumed  to  be  from  stdin.
        For ASCII input data the two data values must be
        in the first two white  space  separated  fields
@@ -251,7 +251,7 @@ DESCRIPTION
        Input  geographic  data (longitude and latitude)
        must be in DMS format and input  cartesian  data
        must  be  in units consistent with the ellipsoid
-       major axis or sphere radius units.  Output  geoâ
+       major axis or sphere radius units.  Output  geo‐
        graphic  coordinates  will  be in DMS (if the -w
        switch is not employed) and  precise  to  0.001"
        with  trailing, zero-valued minute-second fields
@@ -261,13 +261,13 @@ EXAMPLE
        The following script
              proj +proj=utm  +lon_0=112w  +ellps=clrk66
             -r <<EOF
-             45d15â33.1"   111.5W
+             45d15’33.1"   111.5W
              45d15.551666667N   -111d30
-             +45.25919444444    111d30â000w
+             +45.25919444444    111d30’000w
              EOF
-       will perform UTM forward projection with a stanâ
+       will perform UTM forward projection with a stan‐
        dard  UTM  central  meridian  nearest  longitude
-       112Â°W.   The  geographic  values of this example
+       112°W.   The  geographic  values of this example
        are equivalent and meant as examples of  various
        forms  of  DMS  input.  The x-y output data will
        appear as three lines of:
@@ -279,7 +279,7 @@ OTHER PROGRAMS
        within one datum.
 
        The cs2cs program operates similarly, but allows
-       translation  between any pair of definable coorâ
+       translation  between any pair of definable coor‐
        dinate  systems,  including  support  for  datum
        translation.
 
@@ -293,11 +293,11 @@ OTHER PROGRAMS
 SEE ALSO
        cs2cs(1U), nad2nad(1U), geod(1U), pj_init(3U),
        Cartographic Projection Procedures for the  UNIX
-       EnvironmentâA  Userâs  Manual,  (Evenden,  1990,
+       Environment—A  User’s  Manual,  (Evenden,  1990,
        Open-file report 90-284).
        Map Projections Used by  the  U.  S.  Geological
        Survey (Snyder, 1984, USGS Bulletin 1532).
-       Map  ProjectionsâA Working Manual (Synder, 1988,
+       Map  Projections—A Working Manual (Synder, 1988,
        USGS Prof. Paper 1395).
        An Album of Map Projections (Snyder  &  Voxland,
        1989, USGS Prof. Paper 1453).
@@ -357,7 +357,7 @@ DESCRIPTION
               only.  (# is the default value).
 
        -e string
-              String  is an arbitrary string to be outâ
+              String  is an arbitrary string to be out‐
               put if an error is detected  during  data
               transformations.   The  default value is:
               *\t*.  Note that if  the  -b,  -i  or  -o
@@ -390,12 +390,12 @@ DESCRIPTION
               y-x or latitude-longitude.
 
        -f format
-              Format is a printf format string to  conâ
+              Format is a printf format string to  con‐
               trol  the form of the output values.  For
               inverse projections, the output  will  be
               in  degrees when this option is employed.
-              If a format is specified for inverse proâ
-              jection  the output data will be in deciâ
+              If a format is specified for inverse pro‐
+              jection  the output data will be in deci‐
               mal  degrees.   The  default  format   is
               "%.2f" for forward projection and DMS for
               inverse.
@@ -418,20 +418,20 @@ DESCRIPTION
        cartographic parameters and  usage  varies  with
        projection  and  for  a complete description see
        Cartographic Projection Procedures for the  UNIX
-       EnvironmentâA  Userâs Manual ) and supplementary
+       Environment—A  User’s Manual ) and supplementary
        documentation for Release 4.
 
        The cs2cs program requires two coordinate system
        definitions.   The  first (or primary is defined
        based on all projection parameters not appearing
-       after  the +to argument.  All projection parameâ
-       ters appearing after the +to argument  are  conâ
+       after  the +to argument.  All projection parame‐
+       ters appearing after the +to argument  are  con‐
        sidered  the definition of the second coordinate
        system.  If there is no second coordinate system
        defined, a geographic coordinate system based on
        the datum and ellipsoid of the source coordinate
        system  is  assumed.   Note  that the source and
-       destination coordinate system can both  be  proâ
+       destination coordinate system can both  be  pro‐
        jections, both be geographic, or one of each and
        may have the same or different datums.
 
@@ -439,7 +439,7 @@ DESCRIPTION
        contained  in  two auxilliary control files: the
        first  is   optionally   referenced   with   the
        +init=file:id and the second is always processed
-       after the name of the projection has been estabâ
+       after the name of the projection has been estab‐
        lished  from either the run-line or the contents
        of  +init  file.   The   environment   parameter
        PROJ_LIB establishes the default directory for a
@@ -448,20 +448,20 @@ DESCRIPTION
        shift files.
 
        One or more files (processed in  left  to  right
-       order)  specify  the source of data to be transâ
-       formed.  A - will specify the location  of  proâ
-       cessing  standard input.  If no files are speciâ
+       order)  specify  the source of data to be trans‐
+       formed.  A - will specify the location  of  pro‐
+       cessing  standard input.  If no files are speci‐
        fied, the input is assumed  to  be  from  stdin.
        For  input  data  the two data values must be in
        the first two white space separated  fields  and
-       when  both input and output are ASCII all trailâ
+       when  both input and output are ASCII all trail‐
        ing portions of the input line are  appended  to
        the output line.
 
        Input  geographic  data (longitude and latitude)
        must be in DMS format and input  cartesian  data
        must  be  in units consistent with the ellipsoid
-       major axis or sphere radius units.  Output  geoâ
+       major axis or sphere radius units.  Output  geo‐
        graphic  coordinates  will  be in DMS (if the -w
        switch is not employed) and  precise  to  0.001"
        with  trailing, zero-valued minute-second fields
@@ -472,12 +472,12 @@ EXAMPLE
              cs2cs +proj=latlong +datum=NAD83
                    +to +proj=utm +zone=10  +datum=NAD27
             -r <<EOF
-             45d15â33.1"   111.5W
+             45d15’33.1"   111.5W
              45d15.551666667N   -111d30
-             +45.25919444444    111d30â000w
+             +45.25919444444    111d30’000w
              EOF
-       will  transform the input NAD83 geographic coorâ
-       dinates into NAD27 coordinates in the  UTM  proâ
+       will  transform the input NAD83 geographic coor‐
+       dinates into NAD27 coordinates in the  UTM  pro‐
        jection  with  zone 10 selected.  The geographic
        values of this example are equivalent and  meant
        as  examples of various forms of DMS input.  The
@@ -487,11 +487,11 @@ EXAMPLE
 SEE ALSO
        proj(1U),
        Cartographic Projection Procedures for the  UNIX
-       EnvironmentâA  Userâs  Manual,  (Evenden,  1990,
+       Environment—A  User’s  Manual,  (Evenden,  1990,
        Open-file report 90-284).
        Map Projections Used by  the  U.  S.  Geological
        Survey (Snyder, 1984, USGS Bulletin 1532).
-       Map  ProjectionsâA Working Manual (Synder, 1988,
+       Map  Projections—A Working Manual (Synder, 1988,
        USGS Prof. Paper 1395).
        An Album of Map Projections (Snyder  &  Voxland,
        1989, USGS Prof. Paper 1453).
@@ -529,18 +529,18 @@ SYNOPSIS
 
 DESCRIPTION
        Geod  (direct)  and  invgeod  (inverse)  perform
-       geodesic (Great Circle) computations for  deterâ
+       geodesic (Great Circle) computations for  deter‐
        mining latitude, longitude and back azimuth of a
        terminus point given a initial  point  latitude,
        longitude,  azimuth and distance (direct) or the
        forward and back azimuths and  distance  between
-       an initial and terminus point latitudes and lonâ
+       an initial and terminus point latitudes and lon‐
        gitudes (inverse).
 
        The following  runline  control  parameters  can
        appear in any order:
 
-       -I     Specifies  that the inverse geodesic comâ
+       -I     Specifies  that the inverse geodesic com‐
               putation is to be performed.  May be used
               with  execution of goed as an alternative
               to invgeod execution.
@@ -561,11 +561,11 @@ DESCRIPTION
               be selected with the +units= option.
 
        -[f|F] format
-              Format is a printf format string to  conâ
+              Format is a printf format string to  con‐
               trol  the  output  form of the geographic
               coordinate values (f) or  distance  value
-              (F).   The  default  mode is DMS for geoâ
-              graphic coordinates and "%.3f"  for  disâ
+              (F).   The  default  mode is DMS for geo‐
+              graphic coordinates and "%.3f"  for  dis‐
               tance.
 
        -[w|W]n
@@ -581,7 +581,7 @@ DESCRIPTION
               between 0 and 360 degrees.  Also note -f.
 
        The +args run-line arguments are associated with
-       geodetic parameters for  specifying  the  ellipâ
+       geodetic parameters for  specifying  the  ellip‐
        soidal or sphere to use.  See proj documentation
        for full list of these  parameters  and  contrl.
        The options are processed in left to right order
@@ -590,24 +590,24 @@ DESCRIPTION
        the desired value.
 
        One or more files (processed in  left  to  right
-       order)  specify  the source of data to be transâ
-       formed.  A - will specify the location  of  proâ
-       cessing  standard input.  If no files are speciâ
+       order)  specify  the source of data to be trans‐
+       formed.  A - will specify the location  of  pro‐
+       cessing  standard input.  If no files are speci‐
        fied, the input is assumed to be from stdin.
 
        For direct determinations input data must be  in
        latitude,  longitude, azimuth and distance order
        and output will be latitude, longitude and  back
-       azimuth of the terminus point.  Latitude, longiâ
+       azimuth of the terminus point.  Latitude, longi‐
        tude of the initial and terminus point are input
        for  the inverse mode and respective forward and
        back  azimuth  from  the  initial  and  terminus
        points   are  output  along  with  the  distance
        between the points.
 
-       Input geographic coordinates (latitude and  lonâ
+       Input geographic coordinates (latitude and  lon‐
        gitude) and azimuthal data must be in DMS format
-       and input distance data must be in units consisâ
+       and input distance data must be in units consis‐
        tent  with  the  ellipsoid  major axis or sphere
        radius  units.   Output  geographic  coordinates
        will  be  in  DMS  (if  the  -f  switch  is  not
@@ -616,18 +616,18 @@ DESCRIPTION
        data will be in the same units as the  ellipsoid
        or sphere radius.
 
-       The  Earthâs  ellipsoidal figure may be selected
+       The  Earth’s  ellipsoidal figure may be selected
        in the same manner  as  program  proj  by  using
        +ellps=, +a=, +es=, etc.
 
        Geod  may also be used to determine intermediate
        points along either a geodesic line between  two
        points  or  along  an  arc of specified distance
-       from a geographic point.  In both cases an  iniâ
+       from a geographic point.  In both cases an  ini‐
        tial point must be specified with +lat_1=lat and
        +lon_1=lon  parameters  and  either  a  terminus
        point  +lat_2=lat  and  +lon_2=lon or a distance
-       and azimuth from the initial point with  +S=disâ
+       and azimuth from the initial point with  +S=dis‐
        tance and +A=azimuth must be specified.
 
        If  points along a geodesic are to be determined
@@ -647,29 +647,29 @@ EXAMPLE
        azimuths and distance in U.S. stature miles from
        Boston, MA, to Portland, OR:
              geod +ellps=clrk66 <<EOF -I +units=us-mi
-             42d15âN 71d07âW 45d31âN 123d41âW
+             42d15’N 71d07’W 45d31’N 123d41’W
              EOF
        which gives the results:
-             -66d31â50.141"   75d39â13.083"   2587.504
+             -66d31’50.141"   75d39’13.083"   2587.504
        where  the first two values are the azimuth from
-       Boston to Portland, the back azimuth from  Portâ
+       Boston to Portland, the back azimuth from  Port‐
        land to Boston followed by the distance.
 
        An example of forward geodesic use is to use the
-       Boston location and determine  Portlandâs  locaâ
+       Boston location and determine  Portland’s  loca‐
        tion by azimuth and distance:
              geod +ellps=clrk66 <<EOF +units=us-mi
-             42d15âN 71d07âW -66d31â50.141" 2587.504
+             42d15’N 71d07’W -66d31’50.141" 2587.504
              EOF
        which gives:
-             45d31â0.003"N              123d40â59.985"W
-            75d39â13.094"
+             45d31’0.003"N              123d40’59.985"W
+            75d39’13.094"
        Note: lack of precision in  the  distance  value
-       compromises  the precision of the Portland locaâ
+       compromises  the precision of the Portland loca‐
        tion.
 
 SEE ALSO
-       Thomas, P.D., 1970, Spheroidal Geodesics, Referâ
+       Thomas, P.D., 1970, Spheroidal Geodesics, Refer‐
        ence   Systems  &  Local  Geometry:  U.S.  Naval
        Oceanographic  Office, S-138.
 
@@ -791,4 +791,137 @@ For instance, the following demonstrates converting from the Greek GGRS87 datum 
 20d0'5.467"E    35d0'9.575"N 8.570
 \endverbatim
 \subsubsection 
-Within PROJ.4 the following calculations are used to apply the
+Within PROJ.4 the following calculations are used to apply the towgs84 transformation (going to WGS84). 
+The x, y and z coordinates are in geocentric coordinates.
+Three parameter transformation (simple offsets):
+\verbatim
+  x[io] = x[io] + defn->datum_params[0];
+  y[io] = y[io] + defn->datum_params[1];
+  z[io] = z[io] + defn->datum_params[2];
+\endverbatim
+\subsection sevenparam 7 parameters datum transformation
+The EPSG database provides this example for transforming from WGS72 to WGS84 using an approximated 7 parameter transformation.
+\verbatim
+% cs2cs +proj=latlong +ellps=WGS72 +towgs84=0,0,4.5,0,0,0.554,0.219 \
+    +to +proj=latlong +datum=WGS84
+4 55
+4d0'0.554"E     55d0'0.09"N 3.223
+\endverbatim
+\subsubsection 7_param_formula
+Within PROJ.4 the following calculations are used to apply the towgs84 transformation (going to WGS84). 
+The x, y and z coordinates are in geocentric coordinates.
+Seven parameter transformation (translation, rotation and scaling):
+\verbatim
+  #define Dx_BF (defn->datum_params[0])
+  #define Dy_BF (defn->datum_params[1])
+  #define Dz_BF (defn->datum_params[2])
+  #define Rx_BF (defn->datum_params[3])
+  #define Ry_BF (defn->datum_params[4])
+  #define Rz_BF (defn->datum_params[5])
+  #define M_BF  (defn->datum_params[6])
+
+  x_out = M_BF*(       x[io] - Rz_BF*y[io] + Ry_BF*z[io]) + Dx_BF;
+  y_out = M_BF*( Rz_BF*x[io] +       y[io] - Rx_BF*z[io]) + Dy_BF;
+  z_out = M_BF*(-Ry_BF*x[io] + Rx_BF*y[io] +       z[io]) + Dz_BF;
+\endverbatim
+\subsubsection 7_param_details
+The seven parameter case uses delta_x, delta_y, delta_z, Rx - rotation X, Ry - rotation Y, Rz - rotation Z, M_BF - Scaling.
+The three translation parameters are in meters as in the three parameter case. The rotational parameters are in seconds of arc.
+The scaling is apparently the scale change in parts per million.
+\subsection
+A more complete discussion of the 3 and 7 parameter transformations can be found in the EPSG database (trf_method's 9603 and 9606).
+Note that EPSG method 9607 (coordinate frame rotation) coefficients can be converted to EPSG method 9606 (position vector 7-parameter)
+supported by PROJ.4 by reversing the sign of the rotation vectors. The methods are otherwise the same.
+
+\section param4 nadgrids - Grid Based Datum Adjustments
+\subsection
+In many places (notably North America and Austrialia) national geodetic organizations provide grid shift files for converting between
+different datums, such as NAD27 to NAD83. 
+These grid shift files include a shift to be applied at each grid location. 
+Actually grid shifts are normally computed based on an interpolation between the containing four grid points.
+\subsubsection
+PROJ.4 currently supports use of grid shift files for shifting between datums and WGS84 under some circumstances. 
+The grid shift table formats are ctable (the binary format produced by the PROJ.4 nad2bin program), NTv1 (the old Canadian format), 
+and NTv2 (.gsb - the new Canadian and Australian format).
+\subsubsection
+Use of grid shifts is specified using the "nadgrids" keyword in a coordinate system definition. For example:
+\verbatim
+% cs2cs +proj=latlong +ellps=clrk66 +nadgrids=ntv1_can.dat \
+    +to +proj=latlong +ellps=GRS80 +datum=NAD83 << EOF
+-111 50 
+EOF
+111d0'2.952"W   50d0'0.111"N 0.000
+\endverbatim
+\subsubsection
+In this case the /usr/local/share/proj/ntv1_can.dat grid shift file was loaded, and used to get a grid shift value for the selected point.
+It is possible to list multiple grid shift files, in which case each will be tried in turn till one is found that contains the point
+being transformed.
+\verbatim
+% cs2cs +proj=latlong +ellps=clrk66 \
+          +nadgrids=conus,alaska,hawaii,stgeorge,stlrnc,stpaul \
+    +to +proj=latlong +ellps=GRS80 +datum=NAD83 << EOF
+-111 44
+EOF
+111d0'2.788"W   43d59'59.725"N 0.000
+\endverbatim
+\subsection missing_grid Skipping Missing Grids
+The special prefix @ may be prefixed to a grid to make it optional. 
+If it not found, the search will continue to the next grid. Normally any grid not found will cause an error. 
+For instance, the following would use the ntv2_0.gsb file if available, otherwise it would fallback to using the ntv1_can.dat file.
+\verbatim
+% cs2cs +proj=latlong +ellps=clrk66 +nadgrids=@ntv2_0.gsb,ntv1_can.dat \
+    +to +proj=latlong +ellps=GRS80 +datum=NAD83 << EOF
+-111 50 
+EOF
+111d0'3.006"W   50d0'0.103"N 0.000
+\endverbatim
+
+\subsection null_grid The null Grid
+A special null grid shift file is shift with releases after 4.4.6 (not inclusive). 
+This file provides a zero shift for the whole world. It may be listed at the end of a nadgrids file list if you want
+a zero shift to be applied to points outside the valid region of all the other grids. Normally if no grid is found that contains
+the point to be transformed an error will occur.
+\verbatim
+% cs2cs +proj=latlong +ellps=clrk66 +nadgrids=conus,null \
+    +to +proj=latlong +ellps=GRS80 +datum=NAD83 << EOF
+-111 45
+EOF
+111d0'3.006"W   50d0'0.103"N 0.000
+\endverbatim
+\verbatim
+% cs2cs +proj=latlong +ellps=clrk66 +nadgrids=conus,null \
+    +to +proj=latlong +ellps=GRS80 +datum=NAD83 << EOF
+-111 44
+-111 55
+EOF
+111d0'2.788"W   43d59'59.725"N 0.000
+111dW   55dN 0.000
+\endverbatim
+\subsection download_grid Downloading and Installing Grids
+The source distribution of PROJ.4 contains only the ntv1_can.dat file. 
+To get the set of US grid shift files it is necessary to download an additional distribution of files from the PROJ.4 site,
+such as ftp://ftp.remotesensing.org/pub/proj/proj-nad27-1.1.tar.gz.
+\subsubsection
+Overlay it on the PROJ.4 source distribution, and re-configure, compile and install. 
+The distributed ASCII .lla files are converted into binary (platform specific) files that are installed. 
+On windows using the nmake /f makefile.vc nadshift command in the proj\src directory to build and install these files.
+\subsubsection
+It appears we can't redistribute the Canadian NTv2 grid shift file freely, though it is better than the NTv1 file. However, end users can download it for free from the NRCan web site at http://www.geod.nrcan.gc.ca/software/ntv2_e.php. After downloading it, just dump it in the data directory with the other installed data files (usually /usr/local/share/proj). 
+*/
+
+//***************************************************************************************************************
+/*! \page Internal_documentation Proj4 Implementation documentation
+ *
+*\section impl proj4 implementation 
+- \ref proj_implementation internal documentation of proj4 implementation, modelisations, modules, functions documented with doxygen
+
+*<BR>
+*\section add_proj projection tutorial:
+ - \ref projection_tutorial how to add a new cartographique projection to proj4
+*
+ */
+
+/*! \page projection_tutorial projection tutorial 
+* PROJ4 tutorial for adding a new cartographique projection
+ *
+ */

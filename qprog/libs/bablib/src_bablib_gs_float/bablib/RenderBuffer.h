@@ -18,7 +18,7 @@ class RenderBuffer : public FrameBufferAttachable {
         bool created() const { return id != 0; }
         virtual Dim2D size() const { return dim; }
         
-        // mÃÂ©thodes de FrameBufferAttachable :
+        // m�thodes de FrameBufferAttachable :
         virtual void attach(GLenum attachment);
         virtual void detach(GLenum attachment);
         

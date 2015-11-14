@@ -1109,4 +1109,400 @@
 #endif
 
 #ifndef PNG_NO_HANDLE_AS_UNKNOWN
-#  ifndef 
+#  ifndef PNG_HANDLE_AS_UNKNOWN_SUPPORTED
+#    define PNG_HANDLE_AS_UNKNOWN_SUPPORTED
+#  endif
+#endif
+#endif /* PNG_WRITE_SUPPORTED */
+
+/* Turn this off to disable png_read_png() and
+ * png_write_png() and leave the row_pointers member
+ * out of the info structure.
+ */
+#ifndef PNG_NO_INFO_IMAGE
+#  define PNG_INFO_IMAGE_SUPPORTED
+#endif
+
+/* need the time information for reading tIME chunks */
+#if defined(PNG_tIME_SUPPORTED)
+#  if !defined(_WIN32_WCE)
+     /* "time.h" functions are not supported on WindowsCE */
+#    include <time.h>
+#  endif
+#endif
+
+/* Some typedefs to get us started.  These should be safe on most of the
+ * common platforms.  The typedefs should be at least as large as the
+ * numbers suggest (a png_uint_32 must be at least 32 bits long), but they
+ * don't have to be exactly that size.  Some compilers dislike passing
+ * unsigned shorts as function parameters, so you may be better off using
+ * unsigned int for png_uint_16.  Likewise, for 64-bit systems, you may
+ * want to have unsigned int for png_uint_32 instead of unsigned long.
+ */
+
+typedef unsigned long png_uint_32;
+typedef long png_int_32;
+typedef unsigned short png_uint_16;
+typedef short png_int_16;
+typedef unsigned char png_byte;
+
+/* This is usually size_t.  It is typedef'ed just in case you need it to
+   change (I'm not sure if you will or not, so I thought I'd be safe) */
+#ifdef PNG_SIZE_T
+   typedef PNG_SIZE_T png_size_t;
+#  define png_sizeof(x) png_convert_size(sizeof(x))
+#else
+   typedef size_t png_size_t;
+#  define png_sizeof(x) sizeof(x)
+#endif
+
+/* The following is needed for medium model support.  It cannot be in the
+ * PNG_INTERNAL section.  Needs modification for other compilers besides
+ * MSC.  Model independent support declares all arrays and pointers to be
+ * large using the far keyword.  The zlib version used must also support
+ * model independent data.  As of version zlib 1.0.4, the necessary changes
+ * have been made in zlib.  The USE_FAR_KEYWORD define triggers other
+ * changes that are needed. (Tim Wegner)
+ */
+
+/* Separate compiler dependencies (problem here is that zlib.h always
+   defines FAR. (SJT) */
+#ifdef __BORLANDC__
+#  if defined(__LARGE__) || defined(__HUGE__) || defined(__COMPACT__)
+#    define LDATA 1
+#  else
+#    define LDATA 0
+#  endif
+   /* GRR:  why is Cygwin in here?  Cygwin is not Borland C... */
+#  if !defined(__WIN32__) && !defined(__FLAT__) && !defined(__CYGWIN__)
+#    define PNG_MAX_MALLOC_64K
+#    if (LDATA != 1)
+#      ifndef FAR
+#        define FAR __far
+#      endif
+#      define USE_FAR_KEYWORD
+#    endif   /* LDATA != 1 */
+     /* Possibly useful for moving data out of default segment.
+      * Uncomment it if you want. Could also define FARDATA as
+      * const if your compiler supports it. (SJT)
+#    define FARDATA FAR
+      */
+#  endif  /* __WIN32__, __FLAT__, __CYGWIN__ */
+#endif   /* __BORLANDC__ */
+
+
+/* Suggest testing for specific compiler first before testing for
+ * FAR.  The Watcom compiler defines both __MEDIUM__ and M_I86MM,
+ * making reliance oncertain keywords suspect. (SJT)
+ */
+
+/* MSC Medium model */
+#if defined(FAR)
+#  if defined(M_I86MM)
+#    define USE_FAR_KEYWORD
+#    define FARDATA FAR
+#    include <dos.h>
+#  endif
+#endif
+
+/* SJT: default case */
+#ifndef FAR
+#  define FAR
+#endif
+
+/* At this point FAR is always defined */
+#ifndef FARDATA
+#  define FARDATA
+#endif
+
+/* Typedef for floating-point numbers that are converted
+   to fixed-point with a multiple of 100,000, e.g., int_gamma */
+typedef png_int_32 png_fixed_point;
+
+/* Add typedefs for pointers */
+typedef void            FAR * png_voidp;
+typedef png_byte        FAR * png_bytep;
+typedef png_uint_32     FAR * png_uint_32p;
+typedef png_int_32      FAR * png_int_32p;
+typedef png_uint_16     FAR * png_uint_16p;
+typedef png_int_16      FAR * png_int_16p;
+typedef PNG_CONST char  FAR * png_const_charp;
+typedef char            FAR * png_charp;
+typedef png_fixed_point FAR * png_fixed_point_p;
+
+#ifndef PNG_NO_STDIO
+#if defined(_WIN32_WCE)
+typedef HANDLE                png_FILE_p;
+#else
+typedef FILE                * png_FILE_p;
+#endif
+#endif
+
+#ifdef PNG_FLOATING_POINT_SUPPORTED
+typedef double          FAR * png_doublep;
+#endif
+
+/* Pointers to pointers; i.e. arrays */
+typedef png_byte        FAR * FAR * png_bytepp;
+typedef png_uint_32     FAR * FAR * png_uint_32pp;
+typedef png_int_32      FAR * FAR * png_int_32pp;
+typedef png_uint_16     FAR * FAR * png_uint_16pp;
+typedef png_int_16      FAR * FAR * png_int_16pp;
+typedef PNG_CONST char  FAR * FAR * png_const_charpp;
+typedef char            FAR * FAR * png_charpp;
+typedef png_fixed_point FAR * FAR * png_fixed_point_pp;
+#ifdef PNG_FLOATING_POINT_SUPPORTED
+typedef double          FAR * FAR * png_doublepp;
+#endif
+
+/* Pointers to pointers to pointers; i.e., pointer to array */
+typedef char            FAR * FAR * FAR * png_charppp;
+
+#if defined(PNG_1_0_X) || defined(PNG_1_2_X)
+/* SPC -  Is this stuff deprecated? */
+/* It'll be removed as of libpng-1.4.0 - GR-P */
+/* libpng typedefs for types in zlib. If zlib changes
+ * or another compression library is used, then change these.
+ * Eliminates need to change all the source files.
+ */
+typedef charf *         png_zcharp;
+typedef charf * FAR *   png_zcharpp;
+typedef z_stream FAR *  png_zstreamp;
+#endif /* (PNG_1_0_X) || defined(PNG_1_2_X) */
+
+/*
+ * Define PNG_BUILD_DLL if the module being built is a Windows
+ * LIBPNG DLL.
+ *
+ * Define PNG_USE_DLL if you want to *link* to the Windows LIBPNG DLL.
+ * It is equivalent to Microsoft predefined macro _DLL that is
+ * automatically defined when you compile using the share
+ * version of the CRT (C Run-Time library)
+ *
+ * The cygwin mods make this behavior a little different:
+ * Define PNG_BUILD_DLL if you are building a dll for use with cygwin
+ * Define PNG_STATIC if you are building a static library for use with cygwin,
+ *   -or- if you are building an application that you want to link to the
+ *   static library.
+ * PNG_USE_DLL is defined by default (no user action needed) unless one of
+ *   the other flags is defined.
+ */
+
+#if !defined(PNG_DLL) && (defined(PNG_BUILD_DLL) || defined(PNG_USE_DLL))
+#  define PNG_DLL
+#endif
+/* If CYGWIN, then disallow GLOBAL ARRAYS unless building a static lib.
+ * When building a static lib, default to no GLOBAL ARRAYS, but allow
+ * command-line override
+ */
+#if defined(__CYGWIN__)
+#  if !defined(PNG_STATIC)
+#    if defined(PNG_USE_GLOBAL_ARRAYS)
+#      undef PNG_USE_GLOBAL_ARRAYS
+#    endif
+#    if !defined(PNG_USE_LOCAL_ARRAYS)
+#      define PNG_USE_LOCAL_ARRAYS
+#    endif
+#  else
+#    if defined(PNG_USE_LOCAL_ARRAYS) || defined(PNG_NO_GLOBAL_ARRAYS)
+#      if defined(PNG_USE_GLOBAL_ARRAYS)
+#        undef PNG_USE_GLOBAL_ARRAYS
+#      endif
+#    endif
+#  endif
+#  if !defined(PNG_USE_LOCAL_ARRAYS) && !defined(PNG_USE_GLOBAL_ARRAYS)
+#    define PNG_USE_LOCAL_ARRAYS
+#  endif
+#endif
+
+/* Do not use global arrays (helps with building DLL's)
+ * They are no longer used in libpng itself, since version 1.0.5c,
+ * but might be required for some pre-1.0.5c applications.
+ */
+#if !defined(PNG_USE_LOCAL_ARRAYS) && !defined(PNG_USE_GLOBAL_ARRAYS)
+#  if defined(PNG_NO_GLOBAL_ARRAYS) || \
+      (defined(__GNUC__) && defined(PNG_DLL)) || defined(_MSC_VER)
+#    define PNG_USE_LOCAL_ARRAYS
+#  else
+#    define PNG_USE_GLOBAL_ARRAYS
+#  endif
+#endif
+
+#if defined(__CYGWIN__)
+#  undef PNGAPI
+#  define PNGAPI __cdecl
+#  undef PNG_IMPEXP
+#  define PNG_IMPEXP
+#endif
+
+/* If you define PNGAPI, e.g., with compiler option "-DPNGAPI=__stdcall",
+ * you may get warnings regarding the linkage of png_zalloc and png_zfree.
+ * Don't ignore those warnings; you must also reset the default calling
+ * convention in your compiler to match your PNGAPI, and you must build
+ * zlib and your applications the same way you build libpng.
+ */
+
+#if defined(__MINGW32__) && !defined(PNG_MODULEDEF)
+#  ifndef PNG_NO_MODULEDEF
+#    define PNG_NO_MODULEDEF
+#  endif
+#endif
+
+#if !defined(PNG_IMPEXP) && defined(PNG_BUILD_DLL) && !defined(PNG_NO_MODULEDEF)
+#  define PNG_IMPEXP
+#endif
+
+#if defined(PNG_DLL) || defined(_DLL) || defined(__DLL__ ) || \
+    (( defined(_Windows) || defined(_WINDOWS) || \
+       defined(WIN32) || defined(_WIN32) || defined(__WIN32__) ))
+
+#  ifndef PNGAPI
+#     if defined(__GNUC__) || (defined (_MSC_VER) && (_MSC_VER >= 800))
+#        define PNGAPI __cdecl
+#     else
+#        define PNGAPI _cdecl
+#     endif
+#  endif
+
+#  if !defined(PNG_IMPEXP) && (!defined(PNG_DLL) || \
+       0 /* WINCOMPILER_WITH_NO_SUPPORT_FOR_DECLIMPEXP */)
+#     define PNG_IMPEXP
+#  endif
+
+#  if !defined(PNG_IMPEXP)
+
+#     define PNG_EXPORT_TYPE1(type,symbol)  PNG_IMPEXP type PNGAPI symbol
+#     define PNG_EXPORT_TYPE2(type,symbol)  type PNG_IMPEXP PNGAPI symbol
+
+      /* Borland/Microsoft */
+#     if defined(_MSC_VER) || defined(__BORLANDC__)
+#        if (_MSC_VER >= 800) || (__BORLANDC__ >= 0x500)
+#           define PNG_EXPORT PNG_EXPORT_TYPE1
+#        else
+#           define PNG_EXPORT PNG_EXPORT_TYPE2
+#           if defined(PNG_BUILD_DLL)
+#              define PNG_IMPEXP __export
+#           else
+#              define PNG_IMPEXP /*__import */ /* doesn't exist AFAIK in
+                                                 VC++ */
+#           endif                             /* Exists in Borland C++ for
+                                                 C++ classes (== huge) */
+#        endif
+#     endif
+
+#     if !defined(PNG_IMPEXP)
+#        if defined(PNG_BUILD_DLL)
+#           define PNG_IMPEXP __declspec(dllexport)
+#        else
+#           define PNG_IMPEXP __declspec(dllimport)
+#        endif
+#     endif
+#  endif  /* PNG_IMPEXP */
+#else /* !(DLL || non-cygwin WINDOWS) */
+#   if (defined(__IBMC__) || defined(__IBMCPP__)) && defined(__OS2__)
+#      ifndef PNGAPI
+#         define PNGAPI _System
+#      endif
+#   else
+#      if 0 /* ... other platforms, with other meanings */
+#      endif
+#   endif
+#endif
+
+#ifndef PNGAPI
+#  define PNGAPI
+#endif
+#ifndef PNG_IMPEXP
+#  define PNG_IMPEXP
+#endif
+
+#ifdef PNG_BUILDSYMS
+#  ifndef PNG_EXPORT
+#    define PNG_EXPORT(type,symbol) PNG_FUNCTION_EXPORT symbol END
+#  endif
+#  ifdef PNG_USE_GLOBAL_ARRAYS
+#    ifndef PNG_EXPORT_VAR
+#      define PNG_EXPORT_VAR(type) PNG_DATA_EXPORT
+#    endif
+#  endif
+#endif
+
+#ifndef PNG_EXPORT
+#  define PNG_EXPORT(type,symbol) PNG_IMPEXP type PNGAPI symbol
+#endif
+
+#ifdef PNG_USE_GLOBAL_ARRAYS
+#  ifndef PNG_EXPORT_VAR
+#    define PNG_EXPORT_VAR(type) extern PNG_IMPEXP type
+#  endif
+#endif
+
+/* User may want to use these so they are not in PNG_INTERNAL. Any library
+ * functions that are passed far data must be model independent.
+ */
+
+#ifndef PNG_ABORT
+#  define PNG_ABORT() abort()
+#endif
+
+#ifdef PNG_SETJMP_SUPPORTED
+#  define png_jmpbuf(png_ptr) ((png_ptr)->jmpbuf)
+#else
+#  define png_jmpbuf(png_ptr) \
+   (LIBPNG_WAS_COMPILED_WITH__PNG_SETJMP_NOT_SUPPORTED)
+#endif
+
+#if defined(USE_FAR_KEYWORD)  /* memory model independent fns */
+/* use this to make far-to-near assignments */
+#  define CHECK   1
+#  define NOCHECK 0
+#  define CVT_PTR(ptr) (png_far_to_near(png_ptr,ptr,CHECK))
+#  define CVT_PTR_NOCHECK(ptr) (png_far_to_near(png_ptr,ptr,NOCHECK))
+#  define png_snprintf _fsnprintf   /* Added to v 1.2.19 */
+#  define png_strlen  _fstrlen
+#  define png_memcmp  _fmemcmp    /* SJT: added */
+#  define png_memcpy  _fmemcpy
+#  define png_memset  _fmemset
+#else /* use the usual functions */
+#  define CVT_PTR(ptr)         (ptr)
+#  define CVT_PTR_NOCHECK(ptr) (ptr)
+#  ifndef PNG_NO_SNPRINTF
+#    ifdef _MSC_VER
+#      define png_snprintf _snprintf   /* Added to v 1.2.19 */
+#      define png_snprintf2 _snprintf
+#      define png_snprintf6 _snprintf
+#    else
+#      define png_snprintf snprintf   /* Added to v 1.2.19 */
+#      define png_snprintf2 snprintf
+#      define png_snprintf6 snprintf
+#    endif
+#  else
+     /* You don't have or don't want to use snprintf().  Caution: Using
+      * sprintf instead of snprintf exposes your application to accidental
+      * or malevolent buffer overflows.  If you don't have snprintf()
+      * as a general rule you should provide one (you can get one from
+      * Portable OpenSSH). */
+#    define png_snprintf(s1,n,fmt,x1) sprintf(s1,fmt,x1)
+#    define png_snprintf2(s1,n,fmt,x1,x2) sprintf(s1,fmt,x1,x2)
+#    define png_snprintf6(s1,n,fmt,x1,x2,x3,x4,x5,x6) \
+        sprintf(s1,fmt,x1,x2,x3,x4,x5,x6)
+#  endif
+#  define png_strlen  strlen
+#  define png_memcmp  memcmp      /* SJT: added */
+#  define png_memcpy  memcpy
+#  define png_memset  memset
+#endif
+/* End of memory model independent support */
+
+/* Just a little check that someone hasn't tried to define something
+ * contradictory.
+ */
+#if (PNG_ZBUF_SIZE > 65536L) && defined(PNG_MAX_MALLOC_64K)
+#  undef PNG_ZBUF_SIZE
+#  define PNG_ZBUF_SIZE 65536L
+#endif
+
+/* Added at libpng-1.2.8 */
+#endif /* PNG_VERSION_INFO_ONLY */
+
+#endif /* PNGCONF_H */

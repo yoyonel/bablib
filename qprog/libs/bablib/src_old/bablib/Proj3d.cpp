@@ -108,11 +108,11 @@ Proj3d Proj3d::inv() const {
     }
 */
 
-// calcul de la transposÃÂ©e de la comatrice divisÃÂ©e par le dÃÂ©terminant :
+// calcul de la transpos�e de la comatrice divis�e par le d�terminant :
 Proj3d Proj3d::inv() const {
     Proj3d res;
     #define det2(i1, i2, j1, j2)  coef(i1,j1) * coef(i2,j2) - coef(i2,j1) * coef(i1,j2)
-    // dÃÂ©terminants 2x2 entre les colonnes 0 et 1 :
+    // d�terminants 2x2 entre les colonnes 0 et 1 :
     #define det2a(i1, i2)  det2(i1, i2, 0, 1)
     const double a01 = det2a(0,1);
     const double a02 = det2a(0,2);
@@ -120,7 +120,7 @@ Proj3d Proj3d::inv() const {
     const double a12 = det2a(1,2);
     const double a13 = det2a(1,3);
     const double a23 = det2a(2,3);
-    // dÃÂ©terminants 2x2 entre les colonnes 2 et 3 :
+    // d�terminants 2x2 entre les colonnes 2 et 3 :
     #define det2b(i1, i2)  det2(i1, i2, 2, 3)
     const double b01 = det2b(0,1);
     const double b02 = det2b(0,2);
@@ -129,22 +129,22 @@ Proj3d Proj3d::inv() const {
     const double b13 = det2b(1,3);
     const double b23 = det2b(2,3);
     
-    // 1ÃÂ¨re ligne :
+    // 1�re ligne :
     res(0,0) = + coef(1,1) * b23 - coef(2,1) * b13 + coef(3,1) * b12;
     res(0,1) = - coef(0,1) * b23 + coef(2,1) * b03 - coef(3,1) * b02;
     res(0,2) = + coef(0,1) * b13 - coef(1,1) * b03 + coef(3,1) * b01;
     res(0,3) = - coef(0,1) * b12 + coef(1,1) * b02 - coef(2,1) * b01;
-    // 2ÃÂ¨me ligne :
+    // 2�me ligne :
     res(1,0) = - coef(1,0) * b23 + coef(2,0) * b13 - coef(3,0) * b12;
     res(1,1) = + coef(0,0) * b23 - coef(2,0) * b03 + coef(3,0) * b02;
     res(1,2) = - coef(0,0) * b13 + coef(1,0) * b03 - coef(3,0) * b01;
     res(1,3) = + coef(0,0) * b12 - coef(1,0) * b02 + coef(2,0) * b01;
-    // 3ÃÂ¨me ligne :
+    // 3�me ligne :
     res(2,0) = + coef(1,3) * a23 - coef(2,3) * a13 + coef(3,3) * a12;
     res(2,1) = - coef(0,3) * a23 + coef(2,3) * a03 - coef(3,3) * a02;
     res(2,2) = + coef(0,3) * a13 - coef(1,3) * a03 + coef(3,3) * a01;
     res(2,3) = - coef(0,3) * a12 + coef(1,3) * a02 - coef(2,3) * a01;
-    // 4ÃÂ¨me ligne :
+    // 4�me ligne :
     res(3,0) = - coef(1,2) * a23 + coef(2,2) * a13 - coef(3,2) * a12;
     res(3,1) = + coef(0,2) * a23 - coef(2,2) * a03 + coef(3,2) * a02;
     res(3,2) = - coef(0,2) * a13 + coef(1,2) * a03 - coef(3,2) * a01;
@@ -278,7 +278,7 @@ void Proj3d::drawBox(double xMin, double xMax, double yMin, double yMax, double 
     }
 
 /*********************************************************************************************/
-// lecture / ÃÂ©criture d'un ÃÂ©lÃÂ©ment XML :
+// lecture / �criture d'un �l�ment XML :
 
 Proj3d::Proj3d(const QDomElement &element) {
     initFromDOMElement(element);
@@ -367,7 +367,7 @@ Proj3d Proj3d::rotation(Vec3d src, Vec3d dst, bool normalized) {
     Vec3d n = vec(src, dst);
     const double s = n.norm2(),
                  c = sqrt(1 - s),
-                 d = (s > 1e-8) ? (1 - c) / s : 0.5;  // dÃÂ©veloppement limitÃÂ© ÃÂ  l'ordre 1 par rapport ÃÂ  s (en zÃÂ©ro)
+                 d = (s > 1e-8) ? (1 - c) / s : 0.5;  // d�veloppement limit� � l'ordre 1 par rapport � s (en z�ro)
     return Proj3d(
         d*n.x*n.x + c   , d*n.x*n.y - n.z , d*n.x*n.z + n.y ,  0,
         d*n.y*n.x + n.z , d*n.y*n.y + c   , d*n.y*n.z - n.x ,  0,

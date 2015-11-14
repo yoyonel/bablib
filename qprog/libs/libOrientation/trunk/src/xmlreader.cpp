@@ -120,8 +120,8 @@ bool LoadAuxilaryData_FromNode(TiXmlNode* node,ConicCalibrationData_t  & aux)
 
 //********************************************************************************FC
 //copie de LoadAuxilaryData_FromNode(TiXmlNode* node,ConicCalibrationData_t  & aux)
-//  -> pas trÃÂÃÂÃÂÃÂ¨s propre, ÃÂÃÂÃÂÃÂ¿il faudrait faire dÃÂÃÂÃÂÃÂ©river ConicCalibrationData_t et SphericCalibrationData_t d'une mÃÂÃÂÃÂÃÂªme classe mÃÂÃÂÃÂÃÂ¨re?
-// non modifiÃÂÃÂÃÂÃÂ©
+//  -> pas très propre, ¿il faudrait faire dériver ConicCalibrationData_t et SphericCalibrationData_t d'une même classe mère?
+// non modifié
 bool LoadAuxilaryData_FromNode(TiXmlNode* node,SphericCalibrationData_t  & aux)
 {
         bool verbose = false;
@@ -398,7 +398,7 @@ bool LoadSensor_FromNode(TiXmlNode* node,ConicCalibrationData_t   & ptr)
 }
 
 //*****************************************************************************FC
-//modifiÃÂÃÂÃÂÃÂ©
+//modifié
 bool LoadSpherique_FromNode(TiXmlNode* node,SphericCalibrationData_t   & ptr)
 {
 
@@ -483,7 +483,7 @@ bool LoadIntrinseque_FromNode(TiXmlNode* node,ConicCalibrationData_t   & ptr)
 }
 
 //*******************************************************************************FC
-// non modifiÃÂÃÂÃÂÃÂ©
+// non modifié
 bool LoadIntrinseque_FromNode(TiXmlNode* node,SphericCalibrationData_t   & ptr)
 {
         TiXmlNode* SpheriqueNode = node->FirstChild("spherique");
@@ -541,7 +541,7 @@ bool LoadNewSystemEuclidien_FromNode(TiXmlNode* node,ConicCalibrationData_t   & 
 }	
 
 //*********************************************************************FC
-// non modifiÃÂÃÂÃÂÃÂ©
+// non modifié
 bool LoadNewSystemEuclidien_FromNode(TiXmlNode* node,SphericCalibrationData_t   & ptr)
 {
         std::string typeEuclidien(node->ToElement()->Attribute("type"));
@@ -644,7 +644,7 @@ bool LoadOldSystem_FromNode(TiXmlNode* node,ConicCalibrationData_t   & ptr)
 }
 
 //*************************************************************FC
-// non modifiÃÂÃÂÃÂÃÂ©
+// non modifié
 bool LoadOldSystem_FromNode(TiXmlNode* node,SphericCalibrationData_t   & ptr)
 {
         std::string nomsystem;
@@ -706,7 +706,7 @@ bool LoadOldSystem_FromNode(TiXmlNode* node,SphericCalibrationData_t   & ptr)
 
 bool LoadSystem_FromNode(TiXmlNode* node,ConicCalibrationData_t   & ptr)
 {
-	//Chargement des sytÃÂÃÂÃÂÃÂ¨mes gÃÂÃÂÃÂÃÂ©odÃÂÃÂÃÂÃÂ©siques. 2 versions cohÃÂÃÂÃÂÃÂ©xistent
+	//Chargement des sytèmes géodésiques. 2 versions cohéxistent
 	TiXmlNode* GeodesyNode = node->FirstChild("geodesique");
 	if(GeodesyNode != NULL)
 	{	
@@ -731,10 +731,10 @@ bool LoadSystem_FromNode(TiXmlNode* node,ConicCalibrationData_t   & ptr)
 }
 
 //****************************************************************************FC
-// non modifiÃÂÃÂÃÂÃÂ©
+// non modifié
 bool LoadSystem_FromNode(TiXmlNode* node,SphericCalibrationData_t   & ptr)
 {
-        //Chargement des sytÃÂÃÂÃÂÃÂ¨mes gÃÂÃÂÃÂÃÂ©odÃÂÃÂÃÂÃÂ©siques. 2 versions cohÃÂÃÂÃÂÃÂ©xistent
+        //Chargement des sytèmes géodésiques. 2 versions cohéxistent
         TiXmlNode* GeodesyNode = node->FirstChild("geodesique");
         if(GeodesyNode != NULL)
         {
@@ -900,7 +900,7 @@ bool LoadExtrinseque_FromNode(TiXmlNode* node,ConicCalibrationData_t   & ptr)
 }
 
 //*******************************************************************************FC
-// non modifiÃÂÃÂÃÂÃÂ©
+// non modifié
 bool LoadExtrinseque_FromNode(TiXmlNode* node,SphericCalibrationData_t   & ptr)
 {
         //<System>
@@ -940,7 +940,7 @@ bool LoadExtrinseque_FromNode(TiXmlNode* node,SphericCalibrationData_t   & ptr)
 //***************************************************FC
 
 //********************************
-//	Geometry GÃÂÃÂÃÂÃÂ©nrale
+//	Geometry Génrale
 //********************************
 bool LoadGeometry_FromNode(TiXmlNode* node,ConicCalibrationData_t  & ptr)
 {
@@ -963,7 +963,7 @@ bool LoadGeometry_FromNode(TiXmlNode* node,ConicCalibrationData_t  & ptr)
 }
 
 //************************************************************FC
-// non modifiÃÂÃÂÃÂÃÂ©
+// non modifié
 bool LoadGeometry_FromNode(TiXmlNode* node,SphericCalibrationData_t  & ptr)
 {
         // Lecture <intrinseque>
@@ -1040,20 +1040,231 @@ shared_ptr<ModeleProjection> xml_reader(const std::string &filename)
 	if (!doc.LoadFile())
 	{ 
 		if (verbose)
-			std::cout << "problrinseque.rotation,0,9*sizeof(double));
-}
-//*********************************************\FC
+			std::cout << "problem d'ouverture de fichier orientation !" << std::endl;
 
-shared_ptr<ModeleProjection> xml_reader(const std::string &filename)
-{
+		return shared_ptr<ModeleProjection> ();
+	}
 	
-	bool verbose = false;
+	TiXmlHandle hDoc(&doc);
+	
+	TiXmlElement*  pElem=hDoc.FirstChildElement("orientation").Element();
+
+//	TiXmlElement* pElem = XmlHandler::AssertRoot(&doc,"orientation");
+	
+	if (pElem==NULL)
+	{
+		std::cout<<" Problem de lecture ! \n";
+		return shared_ptr<ModeleProjection> ();
+		
+	}
+		
+
+	// Lecture <auxiliarydata>
+	ConicCalibrationData_t CalibData;
+	InitConicData(CalibData);
+
+
+	TiXmlNode* AuxilaryDataNode = pElem->FirstChild("auxiliarydata");
+	if(AuxilaryDataNode ==NULL)
+		return shared_ptr<ModeleProjection> ();
 
 	if (verbose)
-		std::cout << " conic_xml_reader " << "\n";
+				std::cout << "Lecture auxiliarydata" << std::endl;
 	
+	if(!LoadAuxilaryData_FromNode(AuxilaryDataNode,CalibData))
+		return shared_ptr<ModeleProjection> ();
+
+	// Lecture <geometry>
+	TiXmlNode * GeometryNode = pElem->FirstChild("geometry");
+	if (!GeometryNode)
+		return shared_ptr<ModeleProjection> ();
+
+	if (verbose)
+				std::cout << "Lecture geometrie" << std::endl;
+	if(!LoadGeometry_FromNode(GeometryNode,CalibData))
+		return shared_ptr<ModeleProjection> ();
+
+
+	//Creation du modele
+	ModelePhysiqueExtrinseque extr(CalibData.extrinseque.sommet, CalibData.extrinseque.rotation);
+
+	TiXmlHandle handle(pElem);
+	if(!XmlHandler::ReadTransfo2D(&handle, CalibData.extrinseque.t2D))
+		return shared_ptr<ModeleProjection> ();
+
+	shared_ptr<ModeleProjectionConique>  projConique ( new ModeleProjectionConique(CalibData.intrinseque.imNs, CalibData.intrinseque.imNl, 
+									CalibData.aux, 
+									CalibData.extrinseque.t2D, 
+									CalibData.extrinseque.nomsysy_out, 
+									CalibData.extrinseque.euclidien, 
+									extr, 
+									CalibData.intrinseque.focale, CalibData.intrinseque.ppa_x, CalibData.intrinseque.ppa_y));
+
+	projConique->SetPixelSize(CalibData.intrinseque.pixel_size);
+
+	return projConique;
+}
+
+
+
+
+
+shared_ptr<ModeleProjection> carto_micmac_reader(const std::string &filename)
+{
+	/* Exemple
+	 <FileOriMnt>
+	 <NameFileMnt>/home/dboldo/noyau/MICMAC_DATA/Jeux1-Spot-Epi/MEC-EPI/Px1_Num6_DeZoom1_LeChantier.tif</NameFileMnt>
+	 <NameFileMasque>/home/dboldo/noyau/MICMAC_DATA/Jeux1-Spot-Epi/MEC-EPI/Masq_LeChantier_DeZoom1.tif</NameFileMasque>
+	 <NombrePixels>1000 1000</NombrePixels>
+	 <OriginePlani>0 0</OriginePlani>
+	 <ResolutionPlani>1 1</ResolutionPlani>
+	 <OrigineAlti>0</OrigineAlti>
+	 <ResolutionAlti>0.25</ResolutionAlti>
+	 <Geometrie>eGeomPxBiDim</Geometrie>
+	 </FileOriMnt>
+	 */
+
 	TiXmlDocument doc(filename.c_str());
 	if (!doc.LoadFile())
-	{ 
-		if (verbose)
-			std::cout << "probl
+	{
+		return shared_ptr<ModeleProjection> ();
+	}
+
+	TiXmlHandle hDoc(&doc);
+	TiXmlElement* pElem;
+
+	// Lecture <orientation>
+	pElem = hDoc.FirstChildElement("FileOriMnt").Element();
+	if (!pElem)
+		return shared_ptr<ModeleProjection> ();
+	TiXmlHandle h_fileorimnt = TiXmlHandle(pElem);
+
+	pElem = h_fileorimnt.FirstChildElement("Geometrie").Element();
+	if (!pElem)
+		return shared_ptr<ModeleProjection> ();
+	std::string geometrie = pElem->GetText();
+	if (geometrie != "eGeomMNTCarto" && geometrie != "eGeomMNTEuclid")
+		return shared_ptr<ModeleProjection> ();
+
+	pElem = h_fileorimnt.FirstChildElement("NombrePixels").Element();
+	if (!pElem)
+		return shared_ptr<ModeleProjection> ();
+	std::istringstream iss(pElem->GetText());
+	unsigned int nc, nl;
+	iss >> nc >> nl;
+
+	pElem = h_fileorimnt.FirstChildElement("OriginePlani").Element();
+	if (!pElem)
+		return shared_ptr<ModeleProjection> ();
+	iss.str(pElem->GetText());
+	double position_origine_x, position_origine_y;
+	iss >> position_origine_x >> position_origine_y;
+
+	pElem = h_fileorimnt.FirstChildElement("ResolutionPlani").Element();
+	if (!pElem)
+		return shared_ptr<ModeleProjection> ();
+	iss.str(pElem->GetText());
+	double pas_x, pas_y;
+	iss >> pas_x >> pas_y;
+
+	std::string systemeGeodesie;
+	pElem = h_fileorimnt.FirstChildElement("NumZoneLambert").Element();
+	if (pElem)
+	{
+		int zoneLambert = atoi(pElem->GetText());
+		systemeGeodesie = Geodesie::NomSysteme(zoneLambert);
+	}
+
+	// conventions ori
+	pas_y = -pas_y;
+
+	AuxiliaryData data;
+	Transfo2D transfo2D;
+
+	return shared_ptr<ModeleProjection> (new ModeleProjectionCarto(nc, nl, data, transfo2D, systemeGeodesie, position_origine_x, position_origine_y, pas_x, pas_y));
+}
+
+shared_ptr<ModeleProjection> spheric_xml_reader(const std::string &filename)
+{
+        //return shared_ptr<ModeleProjection> ();
+
+    //*****************************************************************************FC
+    bool verbose = false;
+
+    if (verbose)
+            std::cout << " spheric_xml_reader " << "\n";
+
+    TiXmlDocument doc(filename.c_str());
+    if (!doc.LoadFile())
+    {
+            if (verbose)
+                    std::cout << "problem d'ouverture de fichier orientation !" << std::endl;
+
+            return shared_ptr<ModeleProjection> ();
+    }
+
+    TiXmlHandle hDoc(&doc);
+
+    TiXmlElement*  pElem=hDoc.FirstChildElement("orientation").Element();
+
+//	TiXmlElement* pElem = XmlHandler::AssertRoot(&doc,"orientation");
+
+    if (pElem==NULL)
+    {
+            std::cout<<" Problem de lecture ! \n";
+            return shared_ptr<ModeleProjection> ();
+
+    }
+
+
+    // Lecture <auxiliarydata>  //identique à ce qu'il faut pour le conique
+    // en moins dans le champ <stereopolis> : <time_base>, <shutter> et < flatfield_name>
+    SphericCalibrationData_t CalibData;
+    InitSphericData(CalibData);
+
+
+    TiXmlNode* AuxilaryDataNode = pElem->FirstChild("auxiliarydata");
+    if(AuxilaryDataNode ==NULL)
+            return shared_ptr<ModeleProjection> ();
+
+    if (verbose)
+                            std::cout << "Lecture auxiliarydata" << std::endl;
+
+    if(!LoadAuxilaryData_FromNode(AuxilaryDataNode,CalibData))
+            return shared_ptr<ModeleProjection> ();
+
+    // Lecture <geometry> //extrinseque identique, mais intrinseque different
+    TiXmlNode * GeometryNode = pElem->FirstChild("geometry");
+    if (!GeometryNode)
+            return shared_ptr<ModeleProjection> ();
+
+    if (verbose)
+                            std::cout << "Lecture geometrie" << std::endl;
+    if(!LoadGeometry_FromNode(GeometryNode,CalibData))
+            return shared_ptr<ModeleProjection> ();
+
+
+    //Creation du modele
+    ModelePhysiqueExtrinseque extr(CalibData.extrinseque.sommet, CalibData.extrinseque.rotation);
+
+    TiXmlHandle handle(pElem);
+    if(!XmlHandler::ReadTransfo2D(&handle, CalibData.extrinseque.t2D))
+            return shared_ptr<ModeleProjection> ();
+
+    shared_ptr<ModeleProjection>  projSpherique (new ModeleProjectionSpherique(CalibData.intrinseque.imNs, CalibData.intrinseque.imNl,
+                                                                    CalibData.aux,
+                                                                    CalibData.extrinseque.t2D,
+                                                                    CalibData.extrinseque.nomsysy_out,
+                                                                    CalibData.extrinseque.euclidien,
+                                                                    extr,
+                                                                    CalibData.intrinseque.lambdaMin, CalibData.intrinseque.lambdaMax,
+                                                                    CalibData.intrinseque.phiMin, CalibData.intrinseque.phiMax,
+                                                                    CalibData.intrinseque.cPPA, CalibData.intrinseque.lPPA));
+
+
+    return projSpherique;
+    //**************************************************************************************************\FC
+}
+
+}
+

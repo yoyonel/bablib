@@ -708,4 +708,130 @@ local int dynamic(struct state *s)
  *
  * puff() also has a mode to determine the size of the uncompressed output with
  * no output written.  For this dest must be (unsigned char *)0.  In this case,
- * the input value of *destlen is ignored, and 
+ * the input value of *destlen is ignored, and on return *destlen is set to the
+ * size of the uncompressed output.
+ *
+ * The return codes are:
+ *
+ *   2:  available inflate data did not terminate
+ *   1:  output space exhausted before completing inflate
+ *   0:  successful inflate
+ *  -1:  invalid block type (type == 3)
+ *  -2:  stored block length did not match one's complement
+ *  -3:  dynamic block code description: too many length or distance codes
+ *  -4:  dynamic block code description: code lengths codes incomplete
+ *  -5:  dynamic block code description: repeat lengths with no first length
+ *  -6:  dynamic block code description: repeat more than specified lengths
+ *  -7:  dynamic block code description: invalid literal/length code lengths
+ *  -8:  dynamic block code description: invalid distance code lengths
+ *  -9:  invalid literal/length or distance code in fixed or dynamic block
+ * -10:  distance is too far back in fixed or dynamic block
+ *
+ * Format notes:
+ *
+ * - Three bits are read for each block to determine the kind of block and
+ *   whether or not it is the last block.  Then the block is decoded and the
+ *   process repeated if it was not the last block.
+ *
+ * - The leftover bits in the last byte of the deflate data after the last
+ *   block (if it was a fixed or dynamic block) are undefined and have no
+ *   expected values to check.
+ */
+int puff(unsigned char *dest,           /* pointer to destination pointer */
+         unsigned long *destlen,        /* amount of output space */
+         unsigned char *source,         /* pointer to source data pointer */
+         unsigned long *sourcelen)      /* amount of input available */
+{
+    struct state s;             /* input/output state */
+    int last, type;             /* block information */
+    int err;                    /* return value */
+
+    /* initialize output state */
+    s.out = dest;
+    s.outlen = *destlen;                /* ignored if dest is NIL */
+    s.outcnt = 0;
+
+    /* initialize input state */
+    s.in = source;
+    s.inlen = *sourcelen;
+    s.incnt = 0;
+    s.bitbuf = 0;
+    s.bitcnt = 0;
+
+    /* return if bits() or decode() tries to read past available input */
+    if (setjmp(s.env) != 0)             /* if came back here via longjmp() */
+        err = 2;                        /* then skip do-loop, return error */
+    else {
+        /* process blocks until last block or error */
+        do {
+            last = bits(&s, 1);         /* one if last block */
+            type = bits(&s, 2);         /* block type 0..3 */
+            err = type == 0 ? stored(&s) :
+                  (type == 1 ? fixed(&s) :
+                   (type == 2 ? dynamic(&s) :
+                    -1));               /* type == 3, invalid */
+            if (err != 0) break;        /* return with error */
+        } while (!last);
+    }
+
+    /* update the lengths and return */
+    if (err <= 0) {
+        *destlen = s.outcnt;
+        *sourcelen = s.incnt;
+    }
+    return err;
+}
+
+#ifdef TEST
+/* Example of how to use puff() */
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+
+local unsigned char *yank(char *name, unsigned long *len)
+{
+    unsigned long size;
+    unsigned char *buf;
+    FILE *in;
+    struct stat s;
+
+    *len = 0;
+    if (stat(name, &s)) return NULL;
+    if ((s.st_mode & S_IFMT) != S_IFREG) return NULL;
+    size = (unsigned long)(s.st_size);
+    if (size == 0 || (off_t)size != s.st_size) return NULL;
+    in = fopen(name, "r");
+    if (in == NULL) return NULL;
+    buf = malloc(size);
+    if (buf != NULL && fread(buf, 1, size, in) != size) {
+        free(buf);
+        buf = NULL;
+    }
+    fclose(in);
+    *len = size;
+    return buf;
+}
+
+int main(int argc, char **argv)
+{
+    int ret;
+    unsigned char *source;
+    unsigned long len, sourcelen, destlen;
+
+    if (argc < 2) return 2;
+    source = yank(argv[1], &len);
+    if (source == NULL) return 2;
+    sourcelen = len;
+    ret = puff(NIL, &destlen, source, &sourcelen);
+    if (ret)
+        printf("puff() failed with return code %d\n", ret);
+    else {
+        printf("puff() succeeded uncompressing %lu bytes\n", destlen);
+        if (sourcelen < len) printf("%lu compressed bytes unused\n",
+                                    len - sourcelen);
+    }
+    free(source);
+    return ret;
+}
+#endif

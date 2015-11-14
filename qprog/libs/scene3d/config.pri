@@ -1,5 +1,5 @@
-# ce script dÃ©finit les variables LIB_HEADERS, LIB_SOURCES et LIB_INCLUDEPATH
-# ainsi que les dÃ©pendances aux autres libs
+# ce script d�finit les variables LIB_HEADERS, LIB_SOURCES et LIB_INCLUDEPATH
+# ainsi que les d�pendances aux autres libs
 
 LOCAL_PATH = $$PWD
 
@@ -26,7 +26,7 @@ LIB_SOURCES =                           \
 
 LIB_INCLUDEPATH = $$LOCAL_PATH/src
 
-# dÃ©finition des dependances :
+# d�finition des dependances :
 CONFIG *= bablib
 #CONFIG *= glide_assets
 #CONFIG *= glide_scene

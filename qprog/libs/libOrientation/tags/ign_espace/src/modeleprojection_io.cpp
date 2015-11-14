@@ -89,7 +89,7 @@ shared_ptr<ModeleProjection> ModeleProjection::ReadFile(
 	MapReaderModeleProjection::const_iterator it_ext = GetReaders().lower_bound(ext);
 	MapReaderModeleProjection::const_iterator it = it_ext;
 
-	// D'abord ceux qui gÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¨rent ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ  peu prÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¨s la mÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂªme extension
+	// D'abord ceux qui gèrent à peu près la même extension
 	for (it = it_ext; it != GetReaders().end(); ++it) {
 
 		shared_ptr<ModeleProjection> base = (*it).second(filename);
@@ -117,7 +117,7 @@ const std::string &filename)
 	MapWriterModeleProjection::const_iterator it_ext = GetWriters().lower_bound(ext);
 	MapWriterModeleProjection::const_iterator it = it_ext;
 
-	// D'abord ceux qui gÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¨rent ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ  peu prÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¨s la mÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂªme extension
+	// D'abord ceux qui gèrent à peu près la même extension
 	for (it = it_ext; it != GetWriters().end(); ++it)
 	{
 		if ((*it).second(ori, filename))

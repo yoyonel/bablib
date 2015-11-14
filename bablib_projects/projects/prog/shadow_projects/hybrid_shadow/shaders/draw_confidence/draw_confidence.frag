@@ -85,7 +85,7 @@ float compute_confidence( vec4 _v4_texel_in_light_texture, vec2 _sizeTexture )
 	float tex_width = _sizeTexture.x;
 	float tex_height = _sizeTexture.y;
 	
-	// Grille de projection de la shadow map (i.e grille de rasterisation projetÃÂÃÂ©e sur la scene)
+	// Grille de projection de la shadow map (i.e grille de rasterisation projetée sur la scene)
 
 	vec2 v2_confidence_sm = vec2(_v4_texel_in_light_texture) * _sizeTexture;
 	vec2 v2_confidence_sm_bias = v2_confidence_sm - vec2(0.5) * 0;	// erreur de MERDE: pas de bias !!!
@@ -147,7 +147,7 @@ vec4 filterColor( in float coef_shadow )
 {
 	vec4 iso_color;
 	
-//	// exhibe 3 frontiÃÂÃÂ¨res (3 courbes iso)
+//	// exhibe 3 frontières (3 courbes iso)
 //	const float fCoef_Width = 1./3.;
 	const float fCoef_Width = 0.25;
 

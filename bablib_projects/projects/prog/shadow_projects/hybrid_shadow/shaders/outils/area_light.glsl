@@ -12,14 +12,14 @@ float shd_polygonal(in int nv,in vec3 v[MAX_VERTICES_IN_LIGHT_SOURCE],in vec3 p,
 --------------------------------------------------------------------------------
 cosine_sine_power_integral_sum
 Computes the sum
-Tsum(theta,n,a,b) = Sum_{i=0}ÃÂ{n/2} T(theta,2i,a,b), if n is even
-Sum_{i=0}ÃÂ{(n-1)/2} T(theta,2i+1,a,b), if n is odd
+Tsum(theta,n,a,b) = Sum_{i=0}�{n/2} T(theta,2i,a,b), if n is even
+Sum_{i=0}�{(n-1)/2} T(theta,2i+1,a,b), if n is odd
 where the function T is defined as
-T(theta,n,a,b) = integral( [a cos(theta) + b sin(theta)]ÃÂn d theta )
+T(theta,n,a,b) = integral( [a cos(theta) + b sin(theta)]�n d theta )
 and where T(0,n,a,b) = 0 (i.e., integral is from 0 to theta).
 The recurrence relation is
-T(theta,n,a,b) = 1/n [ (a sin(theta) - b cos(theta)) (a cos(theta) + b sin(theta))ÃÂ(n-1) +
-aÃÂ(n-1) b + (n-1) (aÃÂ2 + bÃÂ2) T(theta,n-2,a,b) ]
+T(theta,n,a,b) = 1/n [ (a sin(theta) - b cos(theta)) (a cos(theta) + b sin(theta))�(n-1) +
+a�(n-1) b + (n-1) (a�2 + b�2) T(theta,n-2,a,b) ]
 --------------------------------------------------------------------------------
 */
 float cosine_sine_power_integral_sum(in float theta,in float cos_theta,in float sin_theta,in int n,in float a,in float b)
@@ -98,7 +98,7 @@ float shd_edge_contribution(in vec3 v0,in vec3 v1,in vec3 n,in int e)
 /*
     Computes the surface integral over the solid angle subtended by a polygon as seen
     from the point p in the direction n of
-     max(0,dot(n,l))ÃÂe dl
+     max(0,dot(n,l))�e dl
     where l is the projection of the light polygon into the hemisphere surrounding p
     with zenith direction n, and e is an exponent (1 for diffuse shading, > 1 for specular).
 
@@ -114,7 +114,7 @@ float shd_polygonal(in int nv,in vec3 v[MAX_VERTICES_IN_LIGHT_SOURCE],in vec3 p,
     float sum = 0.0;
     vec3 ui0,ui1; /* unnormalized vertices of edge */
     vec3 vi0,vi1; /* unit-length vector vertices of edge */
-    bool belowi0,belowi1; /* flag for whether last vertex was below pointÃÂs "horizon" */
+    bool belowi0,belowi1; /* flag for whether last vertex was below point�s "horizon" */
 
     /* find first vertex above horizon */
     for (j = 0; j < nv; j++) {
@@ -154,7 +154,7 @@ float shd_polygonal(in int nv,in vec3 v[MAX_VERTICES_IN_LIGHT_SOURCE],in vec3 p,
             seg_plane_intersection(ui0,ui1,n,vinter);
             vinter = normalize(vinter);
             /* add contribution from last vertex to intersection */
-            /* donÃÂt need to add for exponents > 1 since
+            /* don�t need to add for exponents > 1 since
             contribution is 0 on boundary for such exponents */
             sum += shd_edge_contribution(vi0,vinter,n,1);
             vi0 = vinter;
@@ -166,7 +166,7 @@ float shd_polygonal(in int nv,in vec3 v[MAX_VERTICES_IN_LIGHT_SOURCE],in vec3 p,
         }
         /* compute contribution from edge */
         if (!belowi0 || !belowi1) sum += shd_edge_contribution(vi0,vi1,n,e);
-        /* set next iterationÃÂs starting vertex to this iterationÃÂs ending vertex */
+        /* set next iteration�s starting vertex to this iteration�s ending vertex */
         ui0 = ui1;
         vi0 = vi1;
         belowi0 = belowi1;

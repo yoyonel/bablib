@@ -20,7 +20,7 @@ Image3D<Color>::Image3D(int w, int h, int d, Color* inputData) : AbstractImage3D
     else if (inputData == NULL) {
         data = new Color[w * h * d];
         if (data == NULL) {
-            Message::error("l'allocation memoire pour l'image a echouÃÂ©");
+            Message::error("l'allocation memoire pour l'image a echou�");
             w = h = d = 0;
             }
         }
@@ -38,7 +38,7 @@ Image3D<Color> Image3D<Color>::clone() const {
     if (data == NULL) return Image3D<Color>();
     Color *clonedData = new Color[w * h * d];
     if (clonedData == NULL) {
-        Message::error("l'allocation memoire pour l'image a echouÃÂ©");
+        Message::error("l'allocation memoire pour l'image a echou�");
         return Image3D<Color>();
         }
     for (int c=0; c<w*h*d; c++)
@@ -121,7 +121,7 @@ Image3D<Color>::Image3D(QString fileName) : AbstractImage3D(0,0,0), data(NULL), 
     //@@@ utiliser Dir
     Dir dir(defaultDirName, fileName);
     if (!dir.exists()) {
-        Message::error(QString("le sous-rÃÂ©pertoire '%1' n'existe pas").arg(fileName));
+        Message::error(QString("le sous-r�pertoire '%1' n'existe pas").arg(fileName));
         return;
         }
     //dir.setNameFilters(QStringList("*.png"));
@@ -130,7 +130,7 @@ Image3D<Color>::Image3D(QString fileName) : AbstractImage3D(0,0,0), data(NULL), 
     
     d = fileNamesList.size();
     if (d == 0) {
-        Message::error(QString("aucun fichier image dans le rÃÂ©pertoire '%1'").arg(fileName));
+        Message::error(QString("aucun fichier image dans le r�pertoire '%1'").arg(fileName));
         return;
         }
     
@@ -146,15 +146,15 @@ Image3D<Color>::Image3D(QString fileName) : AbstractImage3D(0,0,0), data(NULL), 
 
     for (int k=0; k<d; k++) {
         QImage slice(dir.filePath(fileNamesList[k]));
-        // on vÃÂ©rifie que les slices ont bien la mÃÂªme taille :
+        // on v�rifie que les slices ont bien la m�me taille :
         if (slice.width() != w || slice.height() != h) {
-            Message::error("les slices d'une image 3D doivent avoir toutes la mÃÂªme taille");
+            Message::error("les slices d'une image 3D doivent avoir toutes la m�me taille");
             destroy();
             return;
             }
         // on recopie la slice dans l'image 3D :
         for (int i=0; i<w; i++) for (int j=0; j<h; j++)
-            texel(i,j,k) = Color(slice.pixel(i, h-1-j));    // inversion des ordonnÃÂ©es
+            texel(i,j,k) = Color(slice.pixel(i, h-1-j));    // inversion des ordonn�es
         }
     }
 
@@ -166,13 +166,13 @@ void Image3D<Color>::save(QString fileName) const {
         }
     
     Dir root(defaultDirName);
-    Dir dir = root.writingDir(fileName, true, true);   // les ÃÂ©ventuels fichiers que contient le sous-rÃÂ©pertoire sont effacÃÂ©s
+    Dir dir = root.writingDir(fileName, true, true);   // les �ventuels fichiers que contient le sous-r�pertoire sont effac�s
     if (!dir.isDefined()) return;
     
     for (int k=0; k<d; k++) {
         QImage slice(w, h, QImage::Format_ARGB32);
         for (int i=0; i<w; i++) for (int j=0; j<h; j++)
-            slice.setPixel(i, h-1-j, texel(i,j,k).toQRgb());    // inversion des ordonnÃÂ©es
+            slice.setPixel(i, h-1-j, texel(i,j,k).toQRgb());    // inversion des ordonn�es
         dir.saveImage(slice, QString("slice%1.png").arg(k, 3, 10, QLatin1Char('0')));
         }
     }
@@ -187,7 +187,7 @@ void Image3D<Color>::subSample(int N) {
         d = depth() / N;
     Image3D<Color> res(w, h, d);
 
-    // sous-ÃÂ©chantillonnage uniforme :
+    // sous-�chantillonnage uniforme :
     ColorAdder<Color> pix;
     for (int i=0; i<w; i++) for (int j=0; j<h; j++) for (int k=0; k<d; k++) {
         pix.reset();
@@ -207,7 +207,7 @@ void Image3D<Color>::subSample(int N, Pix3DEvaluator &pixeval) {
         d = depth() / N;
     Image3D<Color> res(w, h, d);
     
-    // sous-ÃÂ©chantillonnage en sÃÂ©parant les pixels de l'image en diffÃÂ©rentes classes :
+    // sous-�chantillonnage en s�parant les pixels de l'image en diff�rentes classes :
     int M = pixeval.valuesNumber();
     ColorAdder<Color> *pix = new ColorAdder<Color>[M];
     
@@ -221,7 +221,7 @@ void Image3D<Color>::subSample(int N, Pix3DEvaluator &pixeval) {
             }
 
         int mMax = 0;
-        for (int m=0; m<M; m++) if (pix[m].n > pix[mMax].n) mMax = m;   // la classe la plus reprÃÂ©sentÃÂ©e
+        for (int m=0; m<M; m++) if (pix[m].n > pix[mMax].n) mMax = m;   // la classe la plus repr�sent�e
         res(i,j,k) = pix[mMax].getColor();
         }
     
@@ -247,7 +247,7 @@ void Image3D<Color>::growClass(Pix3DEvaluator &pixeval, int value) {
     
         pix.reset();
         if (pixeval.evaluate(i,j,k) != value) {
-            // on ajoute les ÃÂ©ventuels pixels du voisinage qui s'ÃÂ©valuent ÃÂ  'value' :
+            // on ajoute les �ventuels pixels du voisinage qui s'�valuent � 'value' :
             for (int a=a1; a<=a2; a++) for (int b=b1; b<=b2; b++) for (int c=c1; c<=c2; c++)
                 if (pixeval.evaluate(i+a,j+b,k+c) == value)
                     pix.add(texel(i+a, j+b, k+c));

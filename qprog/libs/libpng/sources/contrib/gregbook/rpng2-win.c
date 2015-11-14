@@ -868,4 +868,358 @@ static int rpng2_win_load_bg_image()
             g2_inv = g2_min + (g2_diff * (yidx_max-yidx)) / yidx_max;
             b2_inv = b2_min + (b2_diff * (yidx_max-yidx)) / yidx_max;
 
-            dest = bg_data + row*bg_r
+            dest = bg_data + row*bg_rowbytes;
+            for (i = 0;  i < rpng2_info.width;  ++i) {
+                even_odd_horiz = (i / bgscale) & 1;
+                even_odd = even_odd_vert ^ even_odd_horiz;
+                invert_column =
+                  (even_odd_horiz && (bg[pat].type & 0x10));
+                if (even_odd == 0) {         /* gradient #1 */
+                    if (invert_column) {
+                        *dest++ = r1_inv;
+                        *dest++ = g1_inv;
+                        *dest++ = b1_inv;
+                    } else {
+                        *dest++ = r1;
+                        *dest++ = g1;
+                        *dest++ = b1;
+                    }
+                } else {                     /* gradient #2 */
+                    if ((invert_column && invert_gradient2) ||
+                        (!invert_column && !invert_gradient2))
+                    {
+                        *dest++ = r2;        /* not inverted or */
+                        *dest++ = g2;        /*  doubly inverted */
+                        *dest++ = b2;
+                    } else {
+                        *dest++ = r2_inv;
+                        *dest++ = g2_inv;    /* singly inverted */
+                        *dest++ = b2_inv;
+                    }
+                }
+            }
+        }
+
+/*---------------------------------------------------------------------------
+    Soft gradient-diamonds with scale = bgscale.  Code contributed by Adam
+    M. Costello.
+  ---------------------------------------------------------------------------*/
+
+    } else if ((bg[pat].type & 0x07) == 1) {
+
+        hmax = (bgscale-1)/2;   /* half the max weight of a color */
+        max = 2*hmax;           /* the max weight of a color */
+
+        r1 = rgb[bg[pat].rgb1_max].r;
+        g1 = rgb[bg[pat].rgb1_max].g;
+        b1 = rgb[bg[pat].rgb1_max].b;
+        r2 = rgb[bg[pat].rgb2_max].r;
+        g2 = rgb[bg[pat].rgb2_max].g;
+        b2 = rgb[bg[pat].rgb2_max].b;
+
+        for (row = 0;  row < rpng2_info.height;  ++row) {
+            yidx = row % bgscale;
+            if (yidx > hmax)
+                yidx = bgscale-1 - yidx;
+            dest = bg_data + row*bg_rowbytes;
+            for (i = 0;  i < rpng2_info.width;  ++i) {
+                xidx = i % bgscale;
+                if (xidx > hmax)
+                    xidx = bgscale-1 - xidx;
+                k = xidx + yidx;
+                *dest++ = (k*r1 + (max-k)*r2) / max;
+                *dest++ = (k*g1 + (max-k)*g2) / max;
+                *dest++ = (k*b1 + (max-k)*b2) / max;
+            }
+        }
+
+/*---------------------------------------------------------------------------
+    Radial "starburst" with azimuthal sinusoids; [eventually number of sinu-
+    soids will equal bgscale?].  This one is slow but very cool.  Code con-
+    tributed by Pieter S. van der Meulen (originally in Smalltalk).
+  ---------------------------------------------------------------------------*/
+
+    } else if ((bg[pat].type & 0x07) == 2) {
+        uch ch;
+        int ii, x, y, hw, hh, grayspot;
+        double freq, rotate, saturate, gray, intensity;
+        double angle=0.0, aoffset=0.0, maxDist, dist;
+        double red=0.0, green=0.0, blue=0.0, hue, s, v, f, p, q, t;
+
+        fprintf(stderr, "%s:  computing radial background...",
+          PROGNAME);
+        fflush(stderr);
+
+        hh = rpng2_info.height / 2;
+        hw = rpng2_info.width / 2;
+
+        /* variables for radial waves:
+         *   aoffset:  number of degrees to rotate hue [CURRENTLY NOT USED]
+         *   freq:  number of color beams originating from the center
+         *   grayspot:  size of the graying center area (anti-alias)
+         *   rotate:  rotation of the beams as a function of radius
+         *   saturate:  saturation of beams' shape azimuthally
+         */
+        angle = CLIP(angle, 0.0, 360.0);
+        grayspot = CLIP(bg[pat].bg_gray, 1, (hh + hw));
+        freq = MAX((double)bg[pat].bg_freq, 0.0);
+        saturate = (double)bg[pat].bg_bsat * 0.1;
+        rotate = (double)bg[pat].bg_brot * 0.1;
+        gray = 0.0;
+        intensity = 0.0;
+        maxDist = (double)((hw*hw) + (hh*hh));
+
+        for (row = 0;  row < rpng2_info.height;  ++row) {
+            y = row - hh;
+            dest = bg_data + row*bg_rowbytes;
+            for (i = 0;  i < rpng2_info.width;  ++i) {
+                x = i - hw;
+                angle = (x == 0)? PI_2 : atan((double)y / (double)x);
+                gray = (double)MAX(ABS(y), ABS(x)) / grayspot;
+                gray = MIN(1.0, gray);
+                dist = (double)((x*x) + (y*y)) / maxDist;
+                intensity = cos((angle+(rotate*dist*PI)) * freq) *
+                  gray * saturate;
+                intensity = (MAX(MIN(intensity,1.0),-1.0) + 1.0) * 0.5;
+                hue = (angle + PI) * INV_PI_360 + aoffset;
+                s = gray * ((double)(ABS(x)+ABS(y)) / (double)(hw + hh));
+                s = MIN(MAX(s,0.0), 1.0);
+                v = MIN(MAX(intensity,0.0), 1.0);
+
+                if (s == 0.0) {
+                    ch = (uch)(v * 255.0);
+                    *dest++ = ch;
+                    *dest++ = ch;
+                    *dest++ = ch;
+                } else {
+                    if ((hue < 0.0) || (hue >= 360.0))
+                        hue -= (((int)(hue / 360.0)) * 360.0);
+                    hue /= 60.0;
+                    ii = (int)hue;
+                    f = hue - (double)ii;
+                    p = (1.0 - s) * v;
+                    q = (1.0 - (s * f)) * v;
+                    t = (1.0 - (s * (1.0 - f))) * v;
+                    if      (ii == 0) { red = v; green = t; blue = p; }
+                    else if (ii == 1) { red = q; green = v; blue = p; }
+                    else if (ii == 2) { red = p; green = v; blue = t; }
+                    else if (ii == 3) { red = p; green = q; blue = v; }
+                    else if (ii == 4) { red = t; green = p; blue = v; }
+                    else if (ii == 5) { red = v; green = p; blue = q; }
+                    *dest++ = (uch)(red * 255.0);
+                    *dest++ = (uch)(green * 255.0);
+                    *dest++ = (uch)(blue * 255.0);
+                }
+            }
+        }
+        fprintf(stderr, "done.\n");
+        fflush(stderr);
+    }
+
+/*---------------------------------------------------------------------------
+    Blast background image to display buffer before beginning PNG decode;
+    calling function will handle invalidation and UpdateWindow() call.
+  ---------------------------------------------------------------------------*/
+
+    for (row = 0;  row < rpng2_info.height;  ++row) {
+        src = bg_data + row*bg_rowbytes;
+        dest = wimage_data + row*wimage_rowbytes;
+        for (i = rpng2_info.width;  i > 0;  --i) {
+            r1 = *src++;
+            g1 = *src++;
+            b1 = *src++;
+            *dest++ = b1;
+            *dest++ = g1;   /* note reverse order */
+            *dest++ = r1;
+        }
+    }
+
+    return 0;
+
+} /* end function rpng2_win_load_bg_image() */
+
+
+
+
+
+static void rpng2_win_display_row(ulg row)
+{
+    uch bg_red   = rpng2_info.bg_red;
+    uch bg_green = rpng2_info.bg_green;
+    uch bg_blue  = rpng2_info.bg_blue;
+    uch *src, *src2=NULL, *dest;
+    uch r, g, b, a;
+    ulg i;
+    static int rows=0;
+    static ulg firstrow;
+
+/*---------------------------------------------------------------------------
+    rows and firstrow simply track how many rows (and which ones) have not
+    yet been displayed; alternatively, we could call InvalidateRect() for
+    every row and not bother with the records-keeping.
+  ---------------------------------------------------------------------------*/
+
+    Trace((stderr, "beginning rpng2_win_display_row()\n"))
+
+    if (rows == 0)
+        firstrow = row;   /* first row not yet displayed */
+
+    ++rows;   /* count of rows received but not yet displayed */
+
+/*---------------------------------------------------------------------------
+    Aside from the use of the rpng2_info struct and the lack of an outer
+    loop (over rows), this routine is identical to rpng_win_display_image()
+    in the non-progressive version of the program.
+  ---------------------------------------------------------------------------*/
+
+    src = rpng2_info.image_data + row*rpng2_info.rowbytes;
+    if (bg_image)
+        src2 = bg_data + row*bg_rowbytes;
+    dest = wimage_data + row*wimage_rowbytes;
+
+    if (rpng2_info.channels == 3) {
+        for (i = rpng2_info.width;  i > 0;  --i) {
+            r = *src++;
+            g = *src++;
+            b = *src++;
+            *dest++ = b;
+            *dest++ = g;   /* note reverse order */
+            *dest++ = r;
+        }
+    } else /* if (rpng2_info.channels == 4) */ {
+        for (i = rpng2_info.width;  i > 0;  --i) {
+            r = *src++;
+            g = *src++;
+            b = *src++;
+            a = *src++;
+            if (bg_image) {
+                bg_red   = *src2++;
+                bg_green = *src2++;
+                bg_blue  = *src2++;
+            }
+            if (a == 255) {
+                *dest++ = b;
+                *dest++ = g;
+                *dest++ = r;
+            } else if (a == 0) {
+                *dest++ = bg_blue;
+                *dest++ = bg_green;
+                *dest++ = bg_red;
+            } else {
+                /* this macro (copied from png.h) composites the
+                 * foreground and background values and puts the
+                 * result into the first argument; there are no
+                 * side effects with the first argument */
+                alpha_composite(*dest++, b, a, bg_blue);
+                alpha_composite(*dest++, g, a, bg_green);
+                alpha_composite(*dest++, r, a, bg_red);
+            }
+        }
+    }
+
+/*---------------------------------------------------------------------------
+    Display after every 16 rows or when on last row.  (Region may include
+    previously displayed lines due to interlacing--i.e., not contiguous.)
+  ---------------------------------------------------------------------------*/
+
+    if ((rows & 0xf) == 0 || row == rpng2_info.height-1) {
+        RECT rect;
+
+        rect.left = 0L;
+        rect.top = (LONG)firstrow;
+        rect.right = (LONG)rpng2_info.width;       /* possibly off by one? */
+        rect.bottom = (LONG)row + 1L;              /* possibly off by one? */
+        InvalidateRect(global_hwnd, &rect, FALSE);
+        UpdateWindow(global_hwnd);                 /* similar to XFlush() */
+        rows = 0;
+    }
+
+} /* end function rpng2_win_display_row() */
+
+
+
+
+
+static void rpng2_win_finish_display()
+{
+    Trace((stderr, "beginning rpng2_win_finish_display()\n"))
+
+    /* last row has already been displayed by rpng2_win_display_row(), so
+     * we have nothing to do here except set a flag and let the user know
+     * that the image is done */
+
+    rpng2_info.state = kDone;
+    printf(
+      "Done.  Press Q, Esc or mouse button 1 (within image window) to quit.\n");
+    fflush(stdout);
+}
+
+
+
+
+
+static void rpng2_win_cleanup()
+{
+    if (bg_image && bg_data) {
+        free(bg_data);
+        bg_data = NULL;
+    }
+
+    if (rpng2_info.image_data) {
+        free(rpng2_info.image_data);
+        rpng2_info.image_data = NULL;
+    }
+
+    if (rpng2_info.row_pointers) {
+        free(rpng2_info.row_pointers);
+        rpng2_info.row_pointers = NULL;
+    }
+
+    if (dib) {
+        free(dib);
+        dib = NULL;
+    }
+}
+
+
+
+
+
+LRESULT CALLBACK rpng2_win_wndproc(HWND hwnd, UINT iMsg, WPARAM wP, LPARAM lP)
+{
+    HDC         hdc;
+    PAINTSTRUCT ps;
+    int rc;
+
+    switch (iMsg) {
+        case WM_CREATE:
+            /* one-time processing here, if any */
+            return 0;
+
+        case WM_PAINT:
+            hdc = BeginPaint(hwnd, &ps);
+            rc = StretchDIBits(hdc, 0, 0, rpng2_info.width, rpng2_info.height,
+                                    0, 0, rpng2_info.width, rpng2_info.height,
+                                    wimage_data, (BITMAPINFO *)bmih,
+                                    0, SRCCOPY);
+            EndPaint(hwnd, &ps);
+            return 0;
+
+        /* wait for the user to tell us when to quit */
+        case WM_CHAR:
+            switch (wP) {       /* only need one, so ignore repeat count */
+                case 'q':
+                case 'Q':
+                case 0x1B:      /* Esc key */
+                    PostQuitMessage(0);
+            }
+            return 0;
+
+        case WM_LBUTTONDOWN:    /* another way of quitting */
+        case WM_DESTROY:
+            PostQuitMessage(0);
+            return 0;
+    }
+
+    return DefWindowProc(hwnd, iMsg, wP, lP);
+}

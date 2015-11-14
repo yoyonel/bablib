@@ -8,7 +8,7 @@ int main (int argc, char **argv)
 	for (int i=1;i<argc; ++i)
 	{
         std::cout << "Testing " << argv[i] << std::endl;
-        std::cerr << "Fichier en entrÃÂÃÂÃÂÃÂ©e de ModeleProjection::ReadFile : " << argv[i] << std::endl;
+        std::cerr << "Fichier en entrée de ModeleProjection::ReadFile : " << argv[i] << std::endl;
 		shared_ptr<ModeleProjection> ori = ModeleProjection::ReadFile(argv[i]);
 		if (ori == 00)
 		{

@@ -90,7 +90,7 @@ BABLIB_NAMESPACE_BEGIN
                     : MULTI_CHANNEL_EXPAND_COMMA(channels, COMPOUNED_GLTYPE_MACRO_INIT) {           \
                     }                                                                   \
                                                                                         \
-                /** opÃÂ©rateurs arithmÃÂ©tiques binaires (membres ÃÂ  membres) : **/         \
+                /** op�rateurs arithm�tiques binaires (membres � membres) : **/         \
                 friend COMPOUNED_GLTYPE_BINARY_OPERATOR_NAME(type, channels, +);        \
                 friend COMPOUNED_GLTYPE_BINARY_OPERATOR_NAME(type, channels, -);        \
                 friend COMPOUNED_GLTYPE_BINARY_OPERATOR_NAME(type, channels, *);        \
@@ -168,7 +168,7 @@ class Float1 {
         Float1(const float *c);   // tableau de 1 valeur
         Float1(QRgb c);
     
-        // opÃÂ©rateurs de conversion :
+        // op�rateurs de conversion :
         inline operator const float* () const {return c;}     // cast du Float1 en const float*
         inline operator       float* ()       {return c;}     // cast du Float1 en float*
         //inline operator const float  () const {return r;}     // cast du Float1 en const float
@@ -176,22 +176,22 @@ class Float1 {
         QRgb toQRgb() const;
         QString toQString() const { return QString("(%1)").arg(r); }
 
-        //opÃÂ©rateurs arithmÃÂ©tiques unaires :
+        //op�rateurs arithm�tiques unaires :
         friend Float1 operator-(const Float1 &a);
     
-        // opÃÂ©rateurs arithmÃÂ©tiques binaires (membres ÃÂ  membres) :
+        // op�rateurs arithm�tiques binaires (membres � membres) :
         friend Float1 operator+(const Float1 &a, const Float1 &b);
         friend Float1 operator-(const Float1 &a, const Float1 &b);
         friend Float1 operator*(const Float1 &a, const Float1 &b);
         friend Float1 operator/(const Float1 &a, const Float1 &b);
             
-        // opÃÂ©rations avec un scalaire :
+        // op�rations avec un scalaire :
         friend Float1 operator*(float s, const Float1 &a);
         friend Float1 operator*(const Float1 &a, float s);
         friend Float1 operator/(float s, const Float1 &a);
         friend Float1 operator/(const Float1 &a, float s);
         
-        // opÃÂ©rateurs de modification :
+        // op�rateurs de modification :
         Float1 operator+=(const Float1 &a);
         Float1 operator-=(const Float1 &a);
         Float1 operator*=(const Float1 &a);
@@ -220,28 +220,28 @@ class Float2 {
         Float2(const float *c);   // tableau de 2 valeurs
         Float2(QRgb c);
     
-        // opÃÂ©rateurs de conversion :
+        // op�rateurs de conversion :
         inline operator const float* () const {return c;}     // cast du Float2 en const float*
         inline operator       float* ()       {return c;}     // cast du Float2 en float*
         QRgb toQRgb() const;
         QString toQString() const { return QString("(%1, %2)").arg(r).arg(g); }
 
-        //opÃÂ©rateurs arithmÃÂ©tiques unaires :
+        //op�rateurs arithm�tiques unaires :
         friend Float2 operator-(const Float2 &a);
     
-        // opÃÂ©rateurs arithmÃÂ©tiques binaires (membres ÃÂ  membres) :
+        // op�rateurs arithm�tiques binaires (membres � membres) :
         friend Float2 operator+(const Float2 &a, const Float2 &b);
         friend Float2 operator-(const Float2 &a, const Float2 &b);
         friend Float2 operator*(const Float2 &a, const Float2 &b);
         friend Float2 operator/(const Float2 &a, const Float2 &b);
             
-        // opÃÂ©rations avec un scalaire :
+        // op�rations avec un scalaire :
         friend Float2 operator*(float s, const Float2 &a);
         friend Float2 operator*(const Float2 &a, float s);
         friend Float2 operator/(float s, const Float2 &a);
         friend Float2 operator/(const Float2 &a, float s);
         
-        // opÃÂ©rateurs de modification :
+        // op�rateurs de modification :
         Float2 operator+=(const Float2 &a);
         Float2 operator-=(const Float2 &a);
         Float2 operator*=(const Float2 &a);
@@ -270,28 +270,28 @@ class Float3 {
         Float3(const float *c);   // tableau de 3 valeurs
         Float3(QRgb c);
     
-        // opÃÂ©rateurs de conversion :
+        // op�rateurs de conversion :
         inline operator const float* () const {return c;}     // cast du Float3 en const float*
         inline operator       float* ()       {return c;}     // cast du Float3 en float*
         QRgb toQRgb() const;
         QString toQString() const { return QString("(%1, %2, %3)").arg(r).arg(g).arg(b); }
 
-        //opÃÂ©rateurs arithmÃÂ©tiques unaires :
+        //op�rateurs arithm�tiques unaires :
         friend Float3 operator-(const Float3 &a);
     
-        // opÃÂ©rateurs arithmÃÂ©tiques binaires (membres ÃÂ  membres) :
+        // op�rateurs arithm�tiques binaires (membres � membres) :
         friend Float3 operator+(const Float3 &a, const Float3 &b);
         friend Float3 operator-(const Float3 &a, const Float3 &b);
         friend Float3 operator*(const Float3 &a, const Float3 &b);
         friend Float3 operator/(const Float3 &a, const Float3 &b);
             
-        // opÃÂ©rations avec un scalaire :
+        // op�rations avec un scalaire :
         friend Float3 operator*(float s, const Float3 &a);
         friend Float3 operator*(const Float3 &a, float s);
         friend Float3 operator/(float s, const Float3 &a);
         friend Float3 operator/(const Float3 &a, float s);
         
-        // opÃÂ©rateurs de modification :
+        // op�rateurs de modification :
         Float3 operator+=(const Float3 &a);
         Float3 operator-=(const Float3 &a);
         Float3 operator*=(const Float3 &a);
@@ -321,28 +321,28 @@ class Float4 {
         Float4(const float *xy, const float *zw);   // 2 tableaux de 2 valeurs
         Float4(QRgb c);
         
-        // opÃÂ©rateurs de conversion :
+        // op�rateurs de conversion :
         inline operator const float* () const {return c;}     // cast du Float4 en const float*
         inline operator       float* ()       {return c;}     // cast du Float4 en float*
         QRgb toQRgb() const;
         QString toQString() const { return QString("(%1, %2, %3, %4)").arg(r).arg(g).arg(b).arg(a); }
 
-        //opÃÂ©rateurs arithmÃÂ©tiques unaires :
+        //op�rateurs arithm�tiques unaires :
         friend Float4 operator-(const Float4 &a);
     
-        // opÃÂ©rateurs arithmÃÂ©tiques binaires (membres ÃÂ  membres) :
+        // op�rateurs arithm�tiques binaires (membres � membres) :
         friend Float4 operator+(const Float4 &a, const Float4 &b);
         friend Float4 operator-(const Float4 &a, const Float4 &b);
         friend Float4 operator*(const Float4 &a, const Float4 &b);
         friend Float4 operator/(const Float4 &a, const Float4 &b);
             
-        // opÃÂ©rations avec un scalaire :
+        // op�rations avec un scalaire :
         friend Float4 operator*(float s, const Float4 &a);
         friend Float4 operator*(const Float4 &a, float s);
         friend Float4 operator/(float s, const Float4 &a);
         friend Float4 operator/(const Float4 &a, float s);
         
-        // opÃÂ©rateurs de modification :
+        // op�rateurs de modification :
         Float4 operator+=(const Float4 &a);
         Float4 operator-=(const Float4 &a);
         Float4 operator*=(const Float4 &a);
@@ -375,25 +375,25 @@ class UInt1 {
         UInt1(const GLuint *c);   // tableau de 1 valeur
         /*UInt1(QRgb c);*/
     
-        // opÃÂ©rateurs de conversion :
+        // op�rateurs de conversion :
         inline operator const GLuint* () const {return c;}     // cast du UInt1 en const GLuint*
         inline operator       GLuint* ()       {return c;}     // cast du UInt1 en GLuint*
         QRgb toQRgb() const;
         QString toQString() const { return QString("(%1)").arg(r); }
 
-        // opÃÂ©rateurs arithmÃÂ©tiques binaires (membres ÃÂ  membres) :
+        // op�rateurs arithm�tiques binaires (membres � membres) :
         friend UInt1 operator+(const UInt1 &a, const UInt1 &b);
         friend UInt1 operator-(const UInt1 &a, const UInt1 &b);
         friend UInt1 operator*(const UInt1 &a, const UInt1 &b);
         friend UInt1 operator/(const UInt1 &a, const UInt1 &b);
             
-        // opÃÂ©rations avec un scalaire :
+        // op�rations avec un scalaire :
         friend UInt1 operator*(float s, const UInt1 &a);
         friend UInt1 operator*(const UInt1 &a, float s);
         friend UInt1 operator/(float s, const UInt1 &a);
         friend UInt1 operator/(const UInt1 &a, float s);
         
-        // opÃÂ©rateurs de modification :
+        // op�rateurs de modification :
         UInt1 operator+=(const UInt1 &a);
         UInt1 operator-=(const UInt1 &a);
         UInt1 operator*=(const UInt1 &a);
@@ -417,7 +417,7 @@ class UInt1 {
         //static const GLenum DATA_FORMAT = GL_LUMINANCE;
         static const GLenum DATA_FORMAT = GL_LUMINANCE_INTEGER_EXT;     // pour utiliser EXT_texture_integer (usampler dans shaders GLSL)
         //@@@@ plutot GL_RED_INTEGER_EXT
-        //@@@ dÃÂ©finir DATA_FORMAT et DATA_FORMAT_INTEGER, puis dans Image*.loadToGPU, tester si l'internal format est un format entier
+        //@@@ d�finir DATA_FORMAT et DATA_FORMAT_INTEGER, puis dans Image*.loadToGPU, tester si l'internal format est un format entier
         static const GLenum DATA_TYPE = GL_UNSIGNED_INT;
     };
 
@@ -428,25 +428,25 @@ class UInt2 {
         UInt2(const GLuint *c);   // tableau de 2 valeurs
         UInt2(QRgb c);
     
-        // opÃÂ©rateurs de conversion :
+        // op�rateurs de conversion :
         inline operator const GLuint* () const {return c;}     // cast du UInt2 en const GLuint*
         inline operator       GLuint* ()       {return c;}     // cast du UInt2 en GLuint*
         QRgb toQRgb() const;
         QString toQString() const { return QString("(%1, %2)").arg(r).arg(g); }
 
-        // opÃÂ©rateurs arithmÃÂ©tiques binaires (membres ÃÂ  membres) :
+        // op�rateurs arithm�tiques binaires (membres � membres) :
         friend UInt2 operator+(const UInt2 &a, const UInt2 &b);
         friend UInt2 operator-(const UInt2 &a, const UInt2 &b);
         friend UInt2 operator*(const UInt2 &a, const UInt2 &b);
         friend UInt2 operator/(const UInt2 &a, const UInt2 &b);
             
-        // opÃÂ©rations avec un scalaire :
+        // op�rations avec un scalaire :
         friend UInt2 operator*(float s, const UInt2 &a);
         friend UInt2 operator*(const UInt2 &a, float s);
         friend UInt2 operator/(float s, const UInt2 &a);
         friend UInt2 operator/(const UInt2 &a, float s);
         
-        // opÃÂ©rateurs de modification :
+        // op�rateurs de modification :
         UInt2 operator+=(const UInt2 &a);
         UInt2 operator-=(const UInt2 &a);
         UInt2 operator*=(const UInt2 &a);
@@ -478,25 +478,25 @@ class UInt3 {
         UInt3(const GLuint *c);   // tableau de 3 valeurs
         UInt3(QRgb c);
     
-        // opÃÂ©rateurs de conversion :
+        // op�rateurs de conversion :
         inline operator const GLuint* () const {return c;}     // cast du UInt3 en const GLuint*
         inline operator       GLuint* ()       {return c;}     // cast du UInt3 en GLuint*
         QRgb toQRgb() const;
         QString toQString() const { return QString("(%1, %2, %3)").arg(r).arg(g).arg(b); }
 
-        // opÃÂ©rateurs arithmÃÂ©tiques binaires (membres ÃÂ  membres) :
+        // op�rateurs arithm�tiques binaires (membres � membres) :
         friend UInt3 operator+(const UInt3 &a, const UInt3 &b);
         friend UInt3 operator-(const UInt3 &a, const UInt3 &b);
         friend UInt3 operator*(const UInt3 &a, const UInt3 &b);
         friend UInt3 operator/(const UInt3 &a, const UInt3 &b);
             
-        // opÃÂ©rations avec un scalaire :
+        // op�rations avec un scalaire :
         friend UInt3 operator*(float s, const UInt3 &a);
         friend UInt3 operator*(const UInt3 &a, float s);
         friend UInt3 operator/(float s, const UInt3 &a);
         friend UInt3 operator/(const UInt3 &a, float s);
         
-        // opÃÂ©rateurs de modification :
+        // op�rateurs de modification :
         UInt3 operator+=(const UInt3 &a);
         UInt3 operator-=(const UInt3 &a);
         UInt3 operator*=(const UInt3 &a);
@@ -531,25 +531,25 @@ class UInt4 {
         UInt4(const GLuint *c);   // tableau de 4 valeurs
         UInt4(QRgb c);
     
-        // opÃÂ©rateurs de conversion :
+        // op�rateurs de conversion :
         inline operator const GLuint* () const {return c;}     // cast du UInt4 en const GLuint*
         inline operator       GLuint* ()       {return c;}     // cast du UInt4 en GLuint*
         QRgb toQRgb() const;
         QString toQString() const { return QString("(%1, %2, %3, %4)").arg(r).arg(g).arg(b).arg(a); }
 
-        // opÃÂ©rateurs arithmÃÂ©tiques binaires (membres ÃÂ  membres) :
+        // op�rateurs arithm�tiques binaires (membres � membres) :
         friend UInt4 operator+(const UInt4 &a, const UInt4 &b);
         friend UInt4 operator-(const UInt4 &a, const UInt4 &b);
         friend UInt4 operator*(const UInt4 &a, const UInt4 &b);
         friend UInt4 operator/(const UInt4 &a, const UInt4 &b);
             
-        // opÃÂ©rations avec un scalaire :
+        // op�rations avec un scalaire :
         friend UInt4 operator*(float s, const UInt4 &a);
         friend UInt4 operator*(const UInt4 &a, float s);
         friend UInt4 operator/(float s, const UInt4 &a);
         friend UInt4 operator/(const UInt4 &a, float s);
         
-        // opÃÂ©rateurs de modification :
+        // op�rateurs de modification :
         UInt4 operator+=(const UInt4 &a);
         UInt4 operator-=(const UInt4 &a);
         UInt4 operator*=(const UInt4 &a);
@@ -583,25 +583,25 @@ class UByte1 {
         UByte1(const GLubyte *c);   // tableau de 3 valeurs
         UByte1(QRgb c);
     
-        // opÃÂ©rateurs de conversion :
+        // op�rateurs de conversion :
         inline operator const GLubyte* () const {return c;}     // cast du UByte1 en const GLubyte*
         inline operator       GLubyte* ()       {return c;}     // cast du UByte1 en GLubyte*
         QRgb toQRgb() const;
         QString toQString() const { return QString("(%1)").arg(r); }
 
-        // opÃÂ©rateurs arithmÃÂ©tiques binaires (membres ÃÂ  membres) :
+        // op�rateurs arithm�tiques binaires (membres � membres) :
         friend UByte1 operator+(const UByte1 &a, const UByte1 &b);
         friend UByte1 operator-(const UByte1 &a, const UByte1 &b);
         friend UByte1 operator*(const UByte1 &a, const UByte1 &b);
         friend UByte1 operator/(const UByte1 &a, const UByte1 &b);
             
-        // opÃÂ©rations avec un scalaire :
+        // op�rations avec un scalaire :
         friend UByte1 operator*(float s, const UByte1 &a);
         friend UByte1 operator*(const UByte1 &a, float s);
         friend UByte1 operator/(float s, const UByte1 &a);
         friend UByte1 operator/(const UByte1 &a, float s);
         
-        // opÃÂ©rateurs de modification :
+        // op�rateurs de modification :
         UByte1 operator+=(const UByte1 &a);
         UByte1 operator-=(const UByte1 &a);
         UByte1 operator*=(const UByte1 &a);
@@ -634,25 +634,25 @@ class UByte3 {
         UByte3(const GLubyte *c);   // tableau de 3 valeurs
         UByte3(QRgb c);
     
-        // opÃÂ©rateurs de conversion :
+        // op�rateurs de conversion :
         inline operator const GLubyte* () const {return c;}     // cast du UByte3 en const GLubyte*
         inline operator       GLubyte* ()       {return c;}     // cast du UByte3 en GLubyte*
         QRgb toQRgb() const;
         QString toQString() const { return QString("(%1, %2, %3)").arg(r).arg(g).arg(b); }
 
-        // opÃÂ©rateurs arithmÃÂ©tiques binaires (membres ÃÂ  membres) :
+        // op�rateurs arithm�tiques binaires (membres � membres) :
         friend UByte3 operator+(const UByte3 &a, const UByte3 &b);
         friend UByte3 operator-(const UByte3 &a, const UByte3 &b);
         friend UByte3 operator*(const UByte3 &a, const UByte3 &b);
         friend UByte3 operator/(const UByte3 &a, const UByte3 &b);
             
-        // opÃÂ©rations avec un scalaire :
+        // op�rations avec un scalaire :
         friend UByte3 operator*(float s, const UByte3 &a);
         friend UByte3 operator*(const UByte3 &a, float s);
         friend UByte3 operator/(float s, const UByte3 &a);
         friend UByte3 operator/(const UByte3 &a, float s);
         
-        // opÃÂ©rateurs de modification :
+        // op�rateurs de modification :
         UByte3 operator+=(const UByte3 &a);
         UByte3 operator-=(const UByte3 &a);
         UByte3 operator*=(const UByte3 &a);
@@ -683,25 +683,25 @@ class UByte4 {
         UByte4(const GLubyte *c);   // tableau de 4 valeurs
         UByte4(QRgb c);
     
-        // opÃÂ©rateurs de conversion :
+        // op�rateurs de conversion :
         inline operator const GLubyte* () const {return c;}     // cast du UByte4 en const GLubyte*
         inline operator       GLubyte* ()       {return c;}     // cast du UByte4 en GLubyte*
         QRgb toQRgb() const;
         QString toQString() const { return QString("(%1, %2, %3, %4)").arg(r).arg(g).arg(b).arg(a); }
 
-        // opÃÂ©rateurs arithmÃÂ©tiques binaires (membres ÃÂ  membres) :
+        // op�rateurs arithm�tiques binaires (membres � membres) :
         friend UByte4 operator+(const UByte4 &a, const UByte4 &b);
         friend UByte4 operator-(const UByte4 &a, const UByte4 &b);
         friend UByte4 operator*(const UByte4 &a, const UByte4 &b);
         friend UByte4 operator/(const UByte4 &a, const UByte4 &b);
             
-        // opÃÂ©rations avec un scalaire :
+        // op�rations avec un scalaire :
         friend UByte4 operator*(float s, const UByte4 &a);
         friend UByte4 operator*(const UByte4 &a, float s);
         friend UByte4 operator/(float s, const UByte4 &a);
         friend UByte4 operator/(const UByte4 &a, float s);
         
-        // opÃÂ©rateurs de modification :
+        // op�rateurs de modification :
         UByte4 operator+=(const UByte4 &a);
         UByte4 operator-=(const UByte4 &a);
         UByte4 operator*=(const UByte4 &a);

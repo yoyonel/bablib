@@ -1061,4 +1061,225 @@ png_set_unknown_chunks(png_structp png_ptr,
       png_unknown_chunkp from = unknowns + i;
 
       png_memcpy((png_charp)to->name,
-                
+                 (png_charp)from->name,
+                 png_sizeof(from->name));
+      to->name[png_sizeof(to->name)-1] = '\0';
+      to->size = from->size;
+      /* Note our location in the read or write sequence */
+      to->location = (png_byte)(png_ptr->mode & 0xff);
+
+      if (from->size == 0)
+         to->data=NULL;
+      else
+      {
+         to->data = (png_bytep)png_malloc_warn(png_ptr,
+           (png_uint_32)from->size);
+         if (to->data == NULL)
+         {
+            png_warning(png_ptr,
+             "Out of memory while processing unknown chunk.");
+            to->size = 0;
+         }
+         else
+            png_memcpy(to->data, from->data, from->size);
+      }
+   }
+
+   info_ptr->unknown_chunks = np;
+   info_ptr->unknown_chunks_num += num_unknowns;
+#ifdef PNG_FREE_ME_SUPPORTED
+   info_ptr->free_me |= PNG_FREE_UNKN;
+#endif
+}
+void PNGAPI
+png_set_unknown_chunk_location(png_structp png_ptr, png_infop info_ptr,
+   int chunk, int location)
+{
+   if (png_ptr != NULL && info_ptr != NULL && chunk >= 0 && chunk <
+         (int)info_ptr->unknown_chunks_num)
+      info_ptr->unknown_chunks[chunk].location = (png_byte)location;
+}
+#endif
+
+#if defined(PNG_1_0_X) || defined(PNG_1_2_X)
+#if defined(PNG_READ_EMPTY_PLTE_SUPPORTED) || \
+    defined(PNG_WRITE_EMPTY_PLTE_SUPPORTED)
+void PNGAPI
+png_permit_empty_plte (png_structp png_ptr, int empty_plte_permitted)
+{
+   /* This function is deprecated in favor of png_permit_mng_features()
+      and will be removed from libpng-1.3.0 */
+
+   png_debug(1, "in png_permit_empty_plte, DEPRECATED.");
+
+   if (png_ptr == NULL)
+      return;
+   png_ptr->mng_features_permitted = (png_byte)
+     ((png_ptr->mng_features_permitted & (~PNG_FLAG_MNG_EMPTY_PLTE)) |
+     ((empty_plte_permitted & PNG_FLAG_MNG_EMPTY_PLTE)));
+}
+#endif
+#endif
+
+#if defined(PNG_MNG_FEATURES_SUPPORTED)
+png_uint_32 PNGAPI
+png_permit_mng_features (png_structp png_ptr, png_uint_32 mng_features)
+{
+   png_debug(1, "in png_permit_mng_features");
+
+   if (png_ptr == NULL)
+      return (png_uint_32)0;
+   png_ptr->mng_features_permitted =
+     (png_byte)(mng_features & PNG_ALL_MNG_FEATURES);
+   return (png_uint_32)png_ptr->mng_features_permitted;
+}
+#endif
+
+#if defined(PNG_UNKNOWN_CHUNKS_SUPPORTED)
+void PNGAPI
+png_set_keep_unknown_chunks(png_structp png_ptr, int keep, png_bytep
+   chunk_list, int num_chunks)
+{
+   png_bytep new_list, p;
+   int i, old_num_chunks;
+   if (png_ptr == NULL)
+      return;
+   if (num_chunks == 0)
+   {
+      if (keep == PNG_HANDLE_CHUNK_ALWAYS || keep == PNG_HANDLE_CHUNK_IF_SAFE)
+         png_ptr->flags |= PNG_FLAG_KEEP_UNKNOWN_CHUNKS;
+      else
+         png_ptr->flags &= ~PNG_FLAG_KEEP_UNKNOWN_CHUNKS;
+
+      if (keep == PNG_HANDLE_CHUNK_ALWAYS)
+         png_ptr->flags |= PNG_FLAG_KEEP_UNSAFE_CHUNKS;
+      else
+         png_ptr->flags &= ~PNG_FLAG_KEEP_UNSAFE_CHUNKS;
+      return;
+   }
+   if (chunk_list == NULL)
+      return;
+   old_num_chunks = png_ptr->num_chunk_list;
+   new_list=(png_bytep)png_malloc(png_ptr,
+      (png_uint_32)
+      (5*(num_chunks + old_num_chunks)));
+   if (png_ptr->chunk_list != NULL)
+   {
+      png_memcpy(new_list, png_ptr->chunk_list,
+         (png_size_t)(5*old_num_chunks));
+      png_free(png_ptr, png_ptr->chunk_list);
+      png_ptr->chunk_list=NULL;
+   }
+   png_memcpy(new_list + 5*old_num_chunks, chunk_list,
+      (png_size_t)(5*num_chunks));
+   for (p = new_list + 5*old_num_chunks + 4, i = 0; i<num_chunks; i++, p += 5)
+      *p=(png_byte)keep;
+   png_ptr->num_chunk_list = old_num_chunks + num_chunks;
+   png_ptr->chunk_list = new_list;
+#ifdef PNG_FREE_ME_SUPPORTED
+   png_ptr->free_me |= PNG_FREE_LIST;
+#endif
+}
+#endif
+
+#if defined(PNG_READ_USER_CHUNKS_SUPPORTED)
+void PNGAPI
+png_set_read_user_chunk_fn(png_structp png_ptr, png_voidp user_chunk_ptr,
+   png_user_chunk_ptr read_user_chunk_fn)
+{
+   png_debug(1, "in png_set_read_user_chunk_fn");
+
+   if (png_ptr == NULL)
+      return;
+
+   png_ptr->read_user_chunk_fn = read_user_chunk_fn;
+   png_ptr->user_chunk_ptr = user_chunk_ptr;
+}
+#endif
+
+#if defined(PNG_INFO_IMAGE_SUPPORTED)
+void PNGAPI
+png_set_rows(png_structp png_ptr, png_infop info_ptr, png_bytepp row_pointers)
+{
+   png_debug1(1, "in %s storage function", "rows");
+
+   if (png_ptr == NULL || info_ptr == NULL)
+      return;
+
+   if (info_ptr->row_pointers && (info_ptr->row_pointers != row_pointers))
+      png_free_data(png_ptr, info_ptr, PNG_FREE_ROWS, 0);
+   info_ptr->row_pointers = row_pointers;
+   if (row_pointers)
+      info_ptr->valid |= PNG_INFO_IDAT;
+}
+#endif
+
+#ifdef PNG_WRITE_SUPPORTED
+void PNGAPI
+png_set_compression_buffer_size(png_structp png_ptr,
+    png_uint_32 size)
+{
+    if (png_ptr == NULL)
+       return;
+    png_free(png_ptr, png_ptr->zbuf);
+    png_ptr->zbuf_size = (png_size_t)size;
+    png_ptr->zbuf = (png_bytep)png_malloc(png_ptr, size);
+    png_ptr->zstream.next_out = png_ptr->zbuf;
+    png_ptr->zstream.avail_out = (uInt)png_ptr->zbuf_size;
+}
+#endif
+
+void PNGAPI
+png_set_invalid(png_structp png_ptr, png_infop info_ptr, int mask)
+{
+   if (png_ptr && info_ptr)
+      info_ptr->valid &= ~mask;
+}
+
+
+#ifndef PNG_1_0_X
+#ifdef PNG_ASSEMBLER_CODE_SUPPORTED
+/* Function was added to libpng 1.2.0 and should always exist by default */
+void PNGAPI
+png_set_asm_flags (png_structp png_ptr, png_uint_32 asm_flags)
+{
+/* Obsolete as of libpng-1.2.20 and will be removed from libpng-1.4.0 */
+    if (png_ptr != NULL)
+    png_ptr->asm_flags = 0;
+    asm_flags = asm_flags; /* Quiet the compiler */
+}
+
+/* This function was added to libpng 1.2.0 */
+void PNGAPI
+png_set_mmx_thresholds (png_structp png_ptr,
+                        png_byte mmx_bitdepth_threshold,
+                        png_uint_32 mmx_rowbytes_threshold)
+{
+/* Obsolete as of libpng-1.2.20 and will be removed from libpng-1.4.0 */
+    if (png_ptr == NULL)
+       return;
+    /* Quiet the compiler */
+    mmx_bitdepth_threshold = mmx_bitdepth_threshold;
+    mmx_rowbytes_threshold = mmx_rowbytes_threshold;
+}
+#endif /* ?PNG_ASSEMBLER_CODE_SUPPORTED */
+
+#ifdef PNG_SET_USER_LIMITS_SUPPORTED
+/* This function was added to libpng 1.2.6 */
+void PNGAPI
+png_set_user_limits (png_structp png_ptr, png_uint_32 user_width_max,
+    png_uint_32 user_height_max)
+{
+   /* Images with dimensions larger than these limits will be
+    * rejected by png_set_IHDR().  To accept any PNG datastream
+    * regardless of dimensions, set both limits to 0x7ffffffL.
+    */
+   if (png_ptr == NULL)
+      return;
+   png_ptr->user_width_max = user_width_max;
+   png_ptr->user_height_max = user_height_max;
+}
+#endif /* ?PNG_SET_USER_LIMITS_SUPPORTED */
+
+#endif /* ?PNG_1_0_X */
+#endif /* PNG_READ_SUPPORTED || PNG_WRITE_SUPPORTED */

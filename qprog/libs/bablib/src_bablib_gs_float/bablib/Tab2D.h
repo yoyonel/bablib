@@ -30,7 +30,7 @@ class Tab2D {
         inline       Object&  operator()(int i, int j)       { return value(i,j); }
         inline const Object&  operator()(int i, int j) const { return value(i,j); }
         
-        inline Tab1D<Object> col(int j) { return Tab1D<Object>(n1, data + n1*j); }    // la jÃÂ¨me colonne
+        inline Tab1D<Object> col(int j) { return Tab1D<Object>(n1, data + n1*j); }    // la j�me colonne
         
         inline int N1() const { return n1; }
         inline int N2() const { return n2; }

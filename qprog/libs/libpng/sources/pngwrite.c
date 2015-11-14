@@ -999,4 +999,563 @@ png_write_flush(png_structp png_ptr)
       }
    } while(wrote_IDAT == 1);
 
-   /* If there is any data left
+   /* If there is any data left to be output, write it into a new IDAT */
+   if (png_ptr->zbuf_size != png_ptr->zstream.avail_out)
+   {
+      /* Write the IDAT and reset the zlib output buffer */
+      png_write_IDAT(png_ptr, png_ptr->zbuf,
+                     png_ptr->zbuf_size - png_ptr->zstream.avail_out);
+      png_ptr->zstream.next_out = png_ptr->zbuf;
+      png_ptr->zstream.avail_out = (uInt)png_ptr->zbuf_size;
+   }
+   png_ptr->flush_rows = 0;
+   png_flush(png_ptr);
+}
+#endif /* PNG_WRITE_FLUSH_SUPPORTED */
+
+/* Free all memory used by the write */
+void PNGAPI
+png_destroy_write_struct(png_structpp png_ptr_ptr, png_infopp info_ptr_ptr)
+{
+   png_structp png_ptr = NULL;
+   png_infop info_ptr = NULL;
+#ifdef PNG_USER_MEM_SUPPORTED
+   png_free_ptr free_fn = NULL;
+   png_voidp mem_ptr = NULL;
+#endif
+
+   png_debug(1, "in png_destroy_write_struct");
+   if (png_ptr_ptr != NULL)
+   {
+      png_ptr = *png_ptr_ptr;
+#ifdef PNG_USER_MEM_SUPPORTED
+      free_fn = png_ptr->free_fn;
+      mem_ptr = png_ptr->mem_ptr;
+#endif
+   }
+
+#ifdef PNG_USER_MEM_SUPPORTED
+   if (png_ptr != NULL)
+   {
+      free_fn = png_ptr->free_fn;
+      mem_ptr = png_ptr->mem_ptr;
+   }
+#endif
+
+   if (info_ptr_ptr != NULL)
+      info_ptr = *info_ptr_ptr;
+
+   if (info_ptr != NULL)
+   {
+      if (png_ptr != NULL)
+      {
+        png_free_data(png_ptr, info_ptr, PNG_FREE_ALL, -1);
+
+#if defined(PNG_UNKNOWN_CHUNKS_SUPPORTED)
+        if (png_ptr->num_chunk_list)
+        {
+           png_free(png_ptr, png_ptr->chunk_list);
+           png_ptr->chunk_list=NULL;
+           png_ptr->num_chunk_list = 0;
+        }
+#endif
+      }
+
+#ifdef PNG_USER_MEM_SUPPORTED
+      png_destroy_struct_2((png_voidp)info_ptr, (png_free_ptr)free_fn,
+         (png_voidp)mem_ptr);
+#else
+      png_destroy_struct((png_voidp)info_ptr);
+#endif
+      *info_ptr_ptr = NULL;
+   }
+
+   if (png_ptr != NULL)
+   {
+      png_write_destroy(png_ptr);
+#ifdef PNG_USER_MEM_SUPPORTED
+      png_destroy_struct_2((png_voidp)png_ptr, (png_free_ptr)free_fn,
+         (png_voidp)mem_ptr);
+#else
+      png_destroy_struct((png_voidp)png_ptr);
+#endif
+      *png_ptr_ptr = NULL;
+   }
+}
+
+
+/* Free any memory used in png_ptr struct (old method) */
+void /* PRIVATE */
+png_write_destroy(png_structp png_ptr)
+{
+#ifdef PNG_SETJMP_SUPPORTED
+   jmp_buf tmp_jmp; /* Save jump buffer */
+#endif
+   png_error_ptr error_fn;
+   png_error_ptr warning_fn;
+   png_voidp error_ptr;
+#ifdef PNG_USER_MEM_SUPPORTED
+   png_free_ptr free_fn;
+#endif
+
+   png_debug(1, "in png_write_destroy");
+   /* Free any memory zlib uses */
+   deflateEnd(&png_ptr->zstream);
+
+   /* Free our memory.  png_free checks NULL for us. */
+   png_free(png_ptr, png_ptr->zbuf);
+   png_free(png_ptr, png_ptr->row_buf);
+#ifndef PNG_NO_WRITE_FILTER
+   png_free(png_ptr, png_ptr->prev_row);
+   png_free(png_ptr, png_ptr->sub_row);
+   png_free(png_ptr, png_ptr->up_row);
+   png_free(png_ptr, png_ptr->avg_row);
+   png_free(png_ptr, png_ptr->paeth_row);
+#endif
+
+#if defined(PNG_TIME_RFC1123_SUPPORTED)
+   png_free(png_ptr, png_ptr->time_buffer);
+#endif
+
+#if defined(PNG_WRITE_WEIGHTED_FILTER_SUPPORTED)
+   png_free(png_ptr, png_ptr->prev_filters);
+   png_free(png_ptr, png_ptr->filter_weights);
+   png_free(png_ptr, png_ptr->inv_filter_weights);
+   png_free(png_ptr, png_ptr->filter_costs);
+   png_free(png_ptr, png_ptr->inv_filter_costs);
+#endif
+
+#ifdef PNG_SETJMP_SUPPORTED
+   /* Reset structure */
+   png_memcpy(tmp_jmp, png_ptr->jmpbuf, png_sizeof(jmp_buf));
+#endif
+
+   error_fn = png_ptr->error_fn;
+   warning_fn = png_ptr->warning_fn;
+   error_ptr = png_ptr->error_ptr;
+#ifdef PNG_USER_MEM_SUPPORTED
+   free_fn = png_ptr->free_fn;
+#endif
+
+   png_memset(png_ptr, 0, png_sizeof(png_struct));
+
+   png_ptr->error_fn = error_fn;
+   png_ptr->warning_fn = warning_fn;
+   png_ptr->error_ptr = error_ptr;
+#ifdef PNG_USER_MEM_SUPPORTED
+   png_ptr->free_fn = free_fn;
+#endif
+
+#ifdef PNG_SETJMP_SUPPORTED
+   png_memcpy(png_ptr->jmpbuf, tmp_jmp, png_sizeof(jmp_buf));
+#endif
+}
+
+/* Allow the application to select one or more row filters to use. */
+void PNGAPI
+png_set_filter(png_structp png_ptr, int method, int filters)
+{
+   png_debug(1, "in png_set_filter");
+   if (png_ptr == NULL)
+      return;
+#if defined(PNG_MNG_FEATURES_SUPPORTED)
+   if ((png_ptr->mng_features_permitted & PNG_FLAG_MNG_FILTER_64) &&
+      (method == PNG_INTRAPIXEL_DIFFERENCING))
+         method = PNG_FILTER_TYPE_BASE;
+#endif
+   if (method == PNG_FILTER_TYPE_BASE)
+   {
+      switch (filters & (PNG_ALL_FILTERS | 0x07))
+      {
+#ifndef PNG_NO_WRITE_FILTER
+         case 5:
+         case 6:
+         case 7: png_warning(png_ptr, "Unknown row filter for method 0");
+#endif /* PNG_NO_WRITE_FILTER */
+         case PNG_FILTER_VALUE_NONE:
+              png_ptr->do_filter=PNG_FILTER_NONE; break;
+#ifndef PNG_NO_WRITE_FILTER
+         case PNG_FILTER_VALUE_SUB:
+              png_ptr->do_filter=PNG_FILTER_SUB; break;
+         case PNG_FILTER_VALUE_UP:
+              png_ptr->do_filter=PNG_FILTER_UP; break;
+         case PNG_FILTER_VALUE_AVG:
+              png_ptr->do_filter=PNG_FILTER_AVG; break;
+         case PNG_FILTER_VALUE_PAETH:
+              png_ptr->do_filter=PNG_FILTER_PAETH; break;
+         default: png_ptr->do_filter = (png_byte)filters; break;
+#else
+         default: png_warning(png_ptr, "Unknown row filter for method 0");
+#endif /* PNG_NO_WRITE_FILTER */
+      }
+
+      /* If we have allocated the row_buf, this means we have already started
+       * with the image and we should have allocated all of the filter buffers
+       * that have been selected.  If prev_row isn't already allocated, then
+       * it is too late to start using the filters that need it, since we
+       * will be missing the data in the previous row.  If an application
+       * wants to start and stop using particular filters during compression,
+       * it should start out with all of the filters, and then add and
+       * remove them after the start of compression.
+       */
+      if (png_ptr->row_buf != NULL)
+      {
+#ifndef PNG_NO_WRITE_FILTER
+         if ((png_ptr->do_filter & PNG_FILTER_SUB) && png_ptr->sub_row == NULL)
+         {
+            png_ptr->sub_row = (png_bytep)png_malloc(png_ptr,
+              (png_ptr->rowbytes + 1));
+            png_ptr->sub_row[0] = PNG_FILTER_VALUE_SUB;
+         }
+
+         if ((png_ptr->do_filter & PNG_FILTER_UP) && png_ptr->up_row == NULL)
+         {
+            if (png_ptr->prev_row == NULL)
+            {
+               png_warning(png_ptr, "Can't add Up filter after starting");
+               png_ptr->do_filter &= ~PNG_FILTER_UP;
+            }
+            else
+            {
+               png_ptr->up_row = (png_bytep)png_malloc(png_ptr,
+                  (png_ptr->rowbytes + 1));
+               png_ptr->up_row[0] = PNG_FILTER_VALUE_UP;
+            }
+         }
+
+         if ((png_ptr->do_filter & PNG_FILTER_AVG) && png_ptr->avg_row == NULL)
+         {
+            if (png_ptr->prev_row == NULL)
+            {
+               png_warning(png_ptr, "Can't add Average filter after starting");
+               png_ptr->do_filter &= ~PNG_FILTER_AVG;
+            }
+            else
+            {
+               png_ptr->avg_row = (png_bytep)png_malloc(png_ptr,
+                  (png_ptr->rowbytes + 1));
+               png_ptr->avg_row[0] = PNG_FILTER_VALUE_AVG;
+            }
+         }
+
+         if ((png_ptr->do_filter & PNG_FILTER_PAETH) &&
+             png_ptr->paeth_row == NULL)
+         {
+            if (png_ptr->prev_row == NULL)
+            {
+               png_warning(png_ptr, "Can't add Paeth filter after starting");
+               png_ptr->do_filter &= (png_byte)(~PNG_FILTER_PAETH);
+            }
+            else
+            {
+               png_ptr->paeth_row = (png_bytep)png_malloc(png_ptr,
+                  (png_ptr->rowbytes + 1));
+               png_ptr->paeth_row[0] = PNG_FILTER_VALUE_PAETH;
+            }
+         }
+
+         if (png_ptr->do_filter == PNG_NO_FILTERS)
+#endif /* PNG_NO_WRITE_FILTER */
+            png_ptr->do_filter = PNG_FILTER_NONE;
+      }
+   }
+   else
+      png_error(png_ptr, "Unknown custom filter method");
+}
+
+/* This allows us to influence the way in which libpng chooses the "best"
+ * filter for the current scanline.  While the "minimum-sum-of-absolute-
+ * differences metric is relatively fast and effective, there is some
+ * question as to whether it can be improved upon by trying to keep the
+ * filtered data going to zlib more consistent, hopefully resulting in
+ * better compression.
+ */
+#if defined(PNG_WRITE_WEIGHTED_FILTER_SUPPORTED)      /* GRR 970116 */
+void PNGAPI
+png_set_filter_heuristics(png_structp png_ptr, int heuristic_method,
+   int num_weights, png_doublep filter_weights,
+   png_doublep filter_costs)
+{
+   int i;
+
+   png_debug(1, "in png_set_filter_heuristics");
+   if (png_ptr == NULL)
+      return;
+   if (heuristic_method >= PNG_FILTER_HEURISTIC_LAST)
+   {
+      png_warning(png_ptr, "Unknown filter heuristic method");
+      return;
+   }
+
+   if (heuristic_method == PNG_FILTER_HEURISTIC_DEFAULT)
+   {
+      heuristic_method = PNG_FILTER_HEURISTIC_UNWEIGHTED;
+   }
+
+   if (num_weights < 0 || filter_weights == NULL ||
+      heuristic_method == PNG_FILTER_HEURISTIC_UNWEIGHTED)
+   {
+      num_weights = 0;
+   }
+
+   png_ptr->num_prev_filters = (png_byte)num_weights;
+   png_ptr->heuristic_method = (png_byte)heuristic_method;
+
+   if (num_weights > 0)
+   {
+      if (png_ptr->prev_filters == NULL)
+      {
+         png_ptr->prev_filters = (png_bytep)png_malloc(png_ptr,
+            (png_uint_32)(png_sizeof(png_byte) * num_weights));
+
+         /* To make sure that the weighting starts out fairly */
+         for (i = 0; i < num_weights; i++)
+         {
+            png_ptr->prev_filters[i] = 255;
+         }
+      }
+
+      if (png_ptr->filter_weights == NULL)
+      {
+         png_ptr->filter_weights = (png_uint_16p)png_malloc(png_ptr,
+            (png_uint_32)(png_sizeof(png_uint_16) * num_weights));
+
+         png_ptr->inv_filter_weights = (png_uint_16p)png_malloc(png_ptr,
+            (png_uint_32)(png_sizeof(png_uint_16) * num_weights));
+         for (i = 0; i < num_weights; i++)
+         {
+            png_ptr->inv_filter_weights[i] =
+            png_ptr->filter_weights[i] = PNG_WEIGHT_FACTOR;
+         }
+      }
+
+      for (i = 0; i < num_weights; i++)
+      {
+         if (filter_weights[i] < 0.0)
+         {
+            png_ptr->inv_filter_weights[i] =
+            png_ptr->filter_weights[i] = PNG_WEIGHT_FACTOR;
+         }
+         else
+         {
+            png_ptr->inv_filter_weights[i] =
+               (png_uint_16)((double)PNG_WEIGHT_FACTOR*filter_weights[i]+0.5);
+            png_ptr->filter_weights[i] =
+               (png_uint_16)((double)PNG_WEIGHT_FACTOR/filter_weights[i]+0.5);
+         }
+      }
+   }
+
+   /* If, in the future, there are other filter methods, this would
+    * need to be based on png_ptr->filter.
+    */
+   if (png_ptr->filter_costs == NULL)
+   {
+      png_ptr->filter_costs = (png_uint_16p)png_malloc(png_ptr,
+         (png_uint_32)(png_sizeof(png_uint_16) * PNG_FILTER_VALUE_LAST));
+
+      png_ptr->inv_filter_costs = (png_uint_16p)png_malloc(png_ptr,
+         (png_uint_32)(png_sizeof(png_uint_16) * PNG_FILTER_VALUE_LAST));
+
+      for (i = 0; i < PNG_FILTER_VALUE_LAST; i++)
+      {
+         png_ptr->inv_filter_costs[i] =
+         png_ptr->filter_costs[i] = PNG_COST_FACTOR;
+      }
+   }
+
+   /* Here is where we set the relative costs of the different filters.  We
+    * should take the desired compression level into account when setting
+    * the costs, so that Paeth, for instance, has a high relative cost at low
+    * compression levels, while it has a lower relative cost at higher
+    * compression settings.  The filter types are in order of increasing
+    * relative cost, so it would be possible to do this with an algorithm.
+    */
+   for (i = 0; i < PNG_FILTER_VALUE_LAST; i++)
+   {
+      if (filter_costs == NULL || filter_costs[i] < 0.0)
+      {
+         png_ptr->inv_filter_costs[i] =
+         png_ptr->filter_costs[i] = PNG_COST_FACTOR;
+      }
+      else if (filter_costs[i] >= 1.0)
+      {
+         png_ptr->inv_filter_costs[i] =
+            (png_uint_16)((double)PNG_COST_FACTOR / filter_costs[i] + 0.5);
+         png_ptr->filter_costs[i] =
+            (png_uint_16)((double)PNG_COST_FACTOR * filter_costs[i] + 0.5);
+      }
+   }
+}
+#endif /* PNG_WRITE_WEIGHTED_FILTER_SUPPORTED */
+
+void PNGAPI
+png_set_compression_level(png_structp png_ptr, int level)
+{
+   png_debug(1, "in png_set_compression_level");
+   if (png_ptr == NULL)
+      return;
+   png_ptr->flags |= PNG_FLAG_ZLIB_CUSTOM_LEVEL;
+   png_ptr->zlib_level = level;
+}
+
+void PNGAPI
+png_set_compression_mem_level(png_structp png_ptr, int mem_level)
+{
+   png_debug(1, "in png_set_compression_mem_level");
+   if (png_ptr == NULL)
+      return;
+   png_ptr->flags |= PNG_FLAG_ZLIB_CUSTOM_MEM_LEVEL;
+   png_ptr->zlib_mem_level = mem_level;
+}
+
+void PNGAPI
+png_set_compression_strategy(png_structp png_ptr, int strategy)
+{
+   png_debug(1, "in png_set_compression_strategy");
+   if (png_ptr == NULL)
+      return;
+   png_ptr->flags |= PNG_FLAG_ZLIB_CUSTOM_STRATEGY;
+   png_ptr->zlib_strategy = strategy;
+}
+
+void PNGAPI
+png_set_compression_window_bits(png_structp png_ptr, int window_bits)
+{
+   if (png_ptr == NULL)
+      return;
+   if (window_bits > 15)
+      png_warning(png_ptr, "Only compression windows <= 32k supported by PNG");
+   else if (window_bits < 8)
+      png_warning(png_ptr, "Only compression windows >= 256 supported by PNG");
+#ifndef WBITS_8_OK
+   /* Avoid libpng bug with 256-byte windows */
+   if (window_bits == 8)
+     {
+       png_warning(png_ptr, "Compression window is being reset to 512");
+       window_bits=9;
+     }
+#endif
+   png_ptr->flags |= PNG_FLAG_ZLIB_CUSTOM_WINDOW_BITS;
+   png_ptr->zlib_window_bits = window_bits;
+}
+
+void PNGAPI
+png_set_compression_method(png_structp png_ptr, int method)
+{
+   png_debug(1, "in png_set_compression_method");
+   if (png_ptr == NULL)
+      return;
+   if (method != 8)
+      png_warning(png_ptr, "Only compression method 8 is supported by PNG");
+   png_ptr->flags |= PNG_FLAG_ZLIB_CUSTOM_METHOD;
+   png_ptr->zlib_method = method;
+}
+
+void PNGAPI
+png_set_write_status_fn(png_structp png_ptr, png_write_status_ptr write_row_fn)
+{
+   if (png_ptr == NULL)
+      return;
+   png_ptr->write_row_fn = write_row_fn;
+}
+
+#if defined(PNG_WRITE_USER_TRANSFORM_SUPPORTED)
+void PNGAPI
+png_set_write_user_transform_fn(png_structp png_ptr, png_user_transform_ptr
+   write_user_transform_fn)
+{
+   png_debug(1, "in png_set_write_user_transform_fn");
+   if (png_ptr == NULL)
+      return;
+   png_ptr->transformations |= PNG_USER_TRANSFORM;
+   png_ptr->write_user_transform_fn = write_user_transform_fn;
+}
+#endif
+
+
+#if defined(PNG_INFO_IMAGE_SUPPORTED)
+void PNGAPI
+png_write_png(png_structp png_ptr, png_infop info_ptr,
+              int transforms, voidp params)
+{
+   if (png_ptr == NULL || info_ptr == NULL)
+      return;
+#if defined(PNG_WRITE_INVERT_ALPHA_SUPPORTED)
+   /* Invert the alpha channel from opacity to transparency */
+   if (transforms & PNG_TRANSFORM_INVERT_ALPHA)
+      png_set_invert_alpha(png_ptr);
+#endif
+
+   /* Write the file header information. */
+   png_write_info(png_ptr, info_ptr);
+
+   /* ------ these transformations don't touch the info structure ------- */
+
+#if defined(PNG_WRITE_INVERT_SUPPORTED)
+   /* Invert monochrome pixels */
+   if (transforms & PNG_TRANSFORM_INVERT_MONO)
+      png_set_invert_mono(png_ptr);
+#endif
+
+#if defined(PNG_WRITE_SHIFT_SUPPORTED)
+   /* Shift the pixels up to a legal bit depth and fill in
+    * as appropriate to correctly scale the image.
+    */
+   if ((transforms & PNG_TRANSFORM_SHIFT)
+               && (info_ptr->valid & PNG_INFO_sBIT))
+      png_set_shift(png_ptr, &info_ptr->sig_bit);
+#endif
+
+#if defined(PNG_WRITE_PACK_SUPPORTED)
+   /* Pack pixels into bytes */
+   if (transforms & PNG_TRANSFORM_PACKING)
+       png_set_packing(png_ptr);
+#endif
+
+#if defined(PNG_WRITE_SWAP_ALPHA_SUPPORTED)
+   /* Swap location of alpha bytes from ARGB to RGBA */
+   if (transforms & PNG_TRANSFORM_SWAP_ALPHA)
+      png_set_swap_alpha(png_ptr);
+#endif
+
+#if defined(PNG_WRITE_FILLER_SUPPORTED)
+   /* Pack XRGB/RGBX/ARGB/RGBA into * RGB (4 channels -> 3 channels) */
+   if (transforms & PNG_TRANSFORM_STRIP_FILLER_AFTER)
+      png_set_filler(png_ptr, 0, PNG_FILLER_AFTER);
+   else if (transforms & PNG_TRANSFORM_STRIP_FILLER_BEFORE)
+      png_set_filler(png_ptr, 0, PNG_FILLER_BEFORE);
+#endif
+
+#if defined(PNG_WRITE_BGR_SUPPORTED)
+   /* Flip BGR pixels to RGB */
+   if (transforms & PNG_TRANSFORM_BGR)
+      png_set_bgr(png_ptr);
+#endif
+
+#if defined(PNG_WRITE_SWAP_SUPPORTED)
+   /* Swap bytes of 16-bit files to most significant byte first */
+   if (transforms & PNG_TRANSFORM_SWAP_ENDIAN)
+      png_set_swap(png_ptr);
+#endif
+
+#if defined(PNG_WRITE_PACKSWAP_SUPPORTED)
+   /* Swap bits of 1, 2, 4 bit packed pixel formats */
+   if (transforms & PNG_TRANSFORM_PACKSWAP)
+      png_set_packswap(png_ptr);
+#endif
+
+   /* ----------------------- end of transformations ------------------- */
+
+   /* Write the bits */
+   if (info_ptr->valid & PNG_INFO_IDAT)
+       png_write_image(png_ptr, info_ptr->row_pointers);
+
+   /* It is REQUIRED to call this to finish writing the rest of the file */
+   png_write_end(png_ptr, info_ptr);
+
+   transforms = transforms; /* Quiet compiler warnings */
+   params = params;
+}
+#endif
+#endif /* PNG_WRITE_SUPPORTED */

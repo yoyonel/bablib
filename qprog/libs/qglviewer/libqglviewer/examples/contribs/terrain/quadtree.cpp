@@ -475,7 +475,7 @@ void QUADTREE::RefineNode( float x, float z, int edgeLength )
 			   fabs(pZ-( z *scaleSize /sizeHeightMap ) ) );
 
 
-  //f: valeur qui decide si on subdivise un noeud ou non (selon l'article de Stefan RÃÂÃÂ¶ttger sur le quadtree algo)
+  //f: valeur qui decide si on subdivise un noeud ou non (selon l'article de Stefan Röttger sur le quadtree algo)
   f= viewDistance/( ( float )edgeLength*minResolution*	/*/sizeHeightMap* */
 		    MAX( ( float )GetQuadMatrixData( ( int )x-1, ( int )z )/3*detailLevel, 1.0f ) );
   if (debugger) printf("f: %f\n",f);
@@ -783,7 +783,7 @@ void QUADTREE::RenderNode( float x, float z, int edgeLength, bool multiTextures,
 	    }
 
 	  //il reste les suites partielles a afficher; on utilise les codes pour faciliter le choix de triang.
-	  //cette partie est quasiment directement copie de l'article de Stefan RÃÂÃÂ¶ttger;
+	  //cette partie est quasiment directement copie de l'article de Stefan Röttger;
 	  //.. les codes des suites partielles sont pas evidents.. (code binaire pour representer un quadtree)
 	  //suite partielle = repartition non-symmetrique entre enfants recursifs et feuilles
 	  start= suiteStart[code];
@@ -935,4 +935,238 @@ void QUADTREE::RenderNode( float x, float z, int edgeLength, bool multiTextures,
 /*
   void bruteForce::Render(void)
   {
-  float t
+  float texLeft, texBottom, texTop;
+  int	x, z;
+  unsigned char color, shadeLow, shadeHigh;
+
+  // optimiser en ne pas affichant terrain hors camera
+  glEnable( GL_CULL_FACE );
+
+  //la machine dispose de multitextures (dessiner plusieurs textures sur le meme triangle en meme temps)
+  //.. et l'utilisateur veut les textures
+  if( haveMultitexture && paintTextures )
+  {
+  glDisable( GL_BLEND );	//pas de combinaison de couleurs avec MULTITEXTURES,
+  //.. la combi des deux textures se fait automatiquement en hardware
+
+  //selectionner comme premiere unite de texture la texture de base (couleur selon hauteur)
+  glActiveTexture( GL_TEXTURE0 );
+  glEnable( GL_TEXTURE_2D );
+  glBindTexture( GL_TEXTURE_2D, textureColorID );
+
+  //selectionner commer deuxieme unite de texture la texture de detail (structure)
+  glActiveTexture( GL_TEXTURE1 );
+  glEnable( GL_TEXTURE_2D );
+  glBindTexture( GL_TEXTURE_2D, textureDetailID );
+
+  //definir la maniere dont les couleurs des triangles sont crees en fct. des couleurs des textures
+  glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE );		//mode de combination des deux
+  glTexEnvi( GL_TEXTURE_ENV, GL_RGB_SCALE, 2 );		//augmenter la luminosite des couleurs
+
+  //axe z
+  for( z=0; z<sizeHeightMap-1; z++ )
+  {
+  //suite de triangles
+  glBegin( GL_TRIANGLE_STRIP );
+  //axe x
+  for( x=0; x<sizeHeightMap-1; x++ )
+  {
+  //calculer les coordonnees sur la texture qui seront "mappees" sur le terrain
+  //.. entre ces valeurs, opengl interpole
+  texLeft  = ( float )x/sizeHeightMap;
+  texBottom= ( float )z/sizeHeightMap;
+  texTop	  = ( float )( z+1 )/sizeHeightMap;
+
+  //creation d'ombrages en modifiant la couleur de base
+  shadeLow = GetBrightnessAtPoint( x, z );
+  shadeHigh= GetBrightnessAtPoint( x, z+1 );
+
+  if (paintLighting)
+  glColor3ub( ( unsigned char )( shadeLow*rLight ),
+  ( unsigned char )( shadeLow*gLight ),
+  ( unsigned char )( shadeLow*bLight ) );
+  else
+  glColor3ub( 255, 255, 255 );
+
+
+  glMultiTexCoord2f( GL_TEXTURE0, texLeft, texBottom );
+  glMultiTexCoord2f( GL_TEXTURE1, texLeft*repeatDetailMap, 											       texBottom*repeatDetailMap );
+  glVertex3f( ( float )x/sizeHeightMap,
+  GetScaledHeightAtPoint( x, z )/sizeHeightMap,
+  ( float )z/sizeHeightMap );
+
+  //meme chose pour deuxieme vertex
+  if (paintLighting)
+  glColor3ub( ( unsigned char )( shadeHigh*rLight ),
+  ( unsigned char )( shadeHigh*gLight ),
+  ( unsigned char )( shadeHigh*bLight ) );
+  else
+  glColor3ub( 255, 255, 255 );
+
+
+  glMultiTexCoord2f( GL_TEXTURE0, texLeft, texTop );
+  glMultiTexCoord2f( GL_TEXTURE1, texLeft*repeatDetailMap, 											       texTop*repeatDetailMap );
+  glVertex3f( ( float )x/sizeHeightMap,
+  GetScaledHeightAtPoint( x, z+1 )/sizeHeightMap,
+  ( float )(z+1)/sizeHeightMap );
+  }
+  glEnd( );
+  }
+
+  //liberer la deuxieme texture
+  glActiveTexture( GL_TEXTURE1 );
+  glDisable( GL_TEXTURE_2D );
+  glBindTexture( GL_TEXTURE_2D, 0 );
+
+  //liberer la premiere texture
+  glActiveTexture( GL_TEXTURE0 );
+  glDisable( GL_TEXTURE_2D );
+  glBindTexture( GL_TEXTURE_2D, 0 );
+  }
+
+  //la machine ne dispose pas de fonction multitextures, il faut alors faire deux parcours du terrain,
+  //.. un premier parcours pour les textures de base (couleurs en fct. d'hauteur), le deuxieme pour le detail
+  // .. mais seulement SI l'utilisateur souhaite des textures
+  else if( paintTextures )
+  {
+  //PREMIER PARCOURS: couleurs
+  //selectionner comme unite de texture la texture de base (couleur selon hauteur)
+  glActiveTexture( GL_TEXTURE0 );
+  glEnable( GL_TEXTURE_2D );
+  glBindTexture( GL_TEXTURE_2D, textureColorID );
+
+  for( z=0; z<sizeHeightMap-1; z++ )
+  {
+  glBegin( GL_TRIANGLE_STRIP );
+  for( x=0; x<sizeHeightMap-1; x++ )
+  {
+  //calculer la position sur la texture qui correspond a la pos. ds la carte
+  // .. et afficher premier vertex
+  texLeft  = ( float )x/sizeHeightMap;
+  texBottom= ( float )z/sizeHeightMap;
+  texTop	  = ( float )( z+1 )/sizeHeightMap;
+
+  //creation d'ombrages en modifiant la couleur de base
+  shadeLow = GetBrightnessAtPoint( x, z );
+  shadeHigh= GetBrightnessAtPoint( x, z+1 );
+
+  if (paintLighting)
+  glColor3ub( ( unsigned char )( shadeLow*rLight ),
+  ( unsigned char )( shadeLow*gLight ),
+  ( unsigned char )( shadeLow*bLight ) );
+  else
+  glColor3ub( 255, 255, 255 );
+
+  glMultiTexCoord2f( GL_TEXTURE0, texLeft, texBottom );
+  glVertex3f( ( float )x/sizeHeightMap,
+  GetScaledHeightAtPoint( x, z )/sizeHeightMap,
+  ( float )z/sizeHeightMap );
+
+  //..deuxieme vertex
+  if (paintLighting)
+  glColor3ub( ( unsigned char )( shadeHigh*rLight ),
+  ( unsigned char )( shadeHigh*gLight ),
+  ( unsigned char )( shadeHigh*bLight ) );
+  else
+  glColor3ub( 255, 255, 255 );
+
+  glMultiTexCoord2f( GL_TEXTURE0, texLeft, texTop );
+  glVertex3f( ( float )x/sizeHeightMap,
+  GetScaledHeightAtPoint( x, z+1 )/sizeHeightMap,
+  ( float )(z+1)/sizeHeightMap );
+  }
+  glEnd( );
+  }
+
+  //DEUXIEME PARCOURS: DETAIL
+  //preparer la texture de detail
+  glActiveTexture( GL_TEXTURE0 );
+  glEnable( GL_TEXTURE_2D );
+  glBindTexture( GL_TEXTURE_2D, textureDetailID );
+
+  //activer la combinaison entre couleur existant (premier parcours) et couleur ajoutee (detail)
+  glEnable( GL_BLEND );
+  glBlendFunc( GL_ZERO, GL_SRC_COLOR );
+
+  for( z=0; z<sizeHeightMap-1; z++ )
+  {
+  glBegin( GL_TRIANGLE_STRIP );
+  for( x=0; x<sizeHeightMap-1; x++ )
+  {
+  //calcul de coord. texture de detail
+  texLeft  = ( float )x/sizeHeightMap;
+  texBottom= ( float )z/sizeHeightMap;
+  texTop	  = ( float )( z+1 )/sizeHeightMap;
+
+  //premier vertex, la texture de detail est repetee (ca ne se voit quasiment pas)
+  //creation d'ombrages en modifiant la couleur de base
+  shadeLow = GetBrightnessAtPoint( x, z );
+  shadeHigh= GetBrightnessAtPoint( x, z+1 );
+
+  if (paintLighting)
+  glColor3ub( ( unsigned char )( shadeLow*rLight ),
+  ( unsigned char )( shadeLow*gLight ),
+  ( unsigned char )( shadeLow*bLight ) );
+  else
+  glColor3ub( 255, 255, 255 );
+
+  glMultiTexCoord2f( GL_TEXTURE0, texLeft*repeatDetailMap, texBottom*repeatDetailMap );
+  glVertex3f( ( float )x/sizeHeightMap,
+  GetScaledHeightAtPoint( x, z )/sizeHeightMap,
+  ( float )z/sizeHeightMap );
+
+  //deuxieme vertex
+  if (paintLighting)
+  glColor3ub( ( unsigned char )( shadeHigh*rLight ),
+  ( unsigned char )( shadeHigh*gLight ),
+  ( unsigned char )( shadeHigh*bLight ) );
+  else
+  glColor3ub( 255, 255, 255 );
+
+  glMultiTexCoord2f( GL_TEXTURE0, texLeft*repeatDetailMap, texTop*repeatDetailMap );
+  glVertex3f( ( float )x/sizeHeightMap,
+  GetScaledHeightAtPoint( x, z+1 )/sizeHeightMap,
+  ( float )(z+1)/sizeHeightMap );
+  }
+  glEnd( );
+  }
+  glDisable( GL_BLEND );
+  //liberer l'unite de texture
+  glActiveTexture( GL_TEXTURE0 );
+  glDisable( GL_TEXTURE_2D );
+  glBindTexture( GL_TEXTURE_2D, 0 );
+  }
+  //l'utilisateur ne souhaite pas de textures: on fait un parcours de rendering sans textures
+  else
+  {
+  //axe z
+  for( z=0; z<sizeHeightMap-1; z++ )
+  {
+  glBegin( GL_TRIANGLE_STRIP );
+  //x-axe
+  for( x=0; x<sizeHeightMap-1; x++ )
+  {
+  //premier coord vertex
+  //choisir couleur en fct. de heightmap-valeur
+  color= GetTrueHeightAtPoint( x, z );
+  //ici, pas d'ombrages, mais colorisation en fct. de l'hauteur
+  glColor3ub( color, color, color );
+
+  glVertex3f( 	( float )x/sizeHeightMap,
+  GetScaledHeightAtPoint( x, z )/sizeHeightMap,
+  ( float )z/sizeHeightMap );
+
+  //deuxieme coord vertex
+  color= GetTrueHeightAtPoint( x, z+1 );
+  glColor3ub( color, color, color );
+
+  glVertex3f( 	( float )x/sizeHeightMap,
+  GetScaledHeightAtPoint( x, z+1 )/sizeHeightMap,
+  ( float )(z+1)/sizeHeightMap );
+  }
+  glEnd( );
+  }
+  }
+  }
+
+*/

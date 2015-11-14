@@ -32,8 +32,8 @@ class UniformSampler : public Uniform {
 template<class baseType, void (UniformGLSL::*setUniform)(const baseType*) const>
 class UniformGen : public Uniform {
     public:
-        UniformGen(QString name, const baseType *value) : Uniform(name), value(value) {}    // prÃÂ©condition : value != NULL
-        virtual void update(const UniformGLSL &u) const { (u.*setUniform)(value); }         // prÃÂ©condition : u != NULL
+        UniformGen(QString name, const baseType *value) : Uniform(name), value(value) {}    // pr�condition : value != NULL
+        virtual void update(const UniformGLSL &u) const { (u.*setUniform)(value); }         // pr�condition : u != NULL
     private:
         const baseType *value;
     };
@@ -62,13 +62,13 @@ typedef UniformGen<float, &UniformGLSL::setUniformMatrix4fv>  UniformMat4;
 ///////////////////////////////////////////////////////////////////////////////////
 
 /*
-// version allouant de la mÃÂ©moire :
+// version allouant de la m�moire :
 template<class baseType, int N, void (UniformGLSL::*setUniform)(const baseType*) const>
 class UniformGenMem : public Uniform {
     public:
         UniformGenMem(QString name) : Uniform(name), value(new baseType[N]) {}
         ~UniformGenMem() { delete[] value; }
-        virtual void update(const UniformGLSL *u) const { (u->*setUniform)(value); }   // prÃÂ©condition : u != NULL
+        virtual void update(const UniformGLSL *u) const { (u->*setUniform)(value); }   // pr�condition : u != NULL
         baseType* operator*() { return value; }
     private:
         baseType *value;

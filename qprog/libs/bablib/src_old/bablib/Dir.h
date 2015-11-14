@@ -17,7 +17,7 @@ class Dir {
         Dir(QString dirName);               // absolute path or relative to current directory
         Dir(QDir root, QString dirName);    // <root>/<dirName>
     
-        bool isDefined() const;     // true ssi l'objet a ÃÂ©tÃÂ© crÃÂ©ÃÂ© avec le constructeur non vide
+        bool isDefined() const;     // true ssi l'objet a �t� cr�� avec le constructeur non vide
         bool exists() const;        // true iff the directory actually exists (on the disk)
         
         // operations on files and directories :

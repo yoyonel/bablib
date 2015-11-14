@@ -1202,4 +1202,1299 @@ void gpc_polygon_clip(gpc_op op, gpc_polygon *subj, gpc_polygon *clip,
   if (subj == result)
 	gpc_free_polygon(subj);
   if (clip == result)
-	gpc_free_polygon(c
+	gpc_free_polygon(clip);
+
+  /* Invert clip polygon for difference operation */
+  if (op == GPC_DIFF)
+	parity[CLIP]= RIGHT;
+
+  local_min= lmt;
+
+  /* Process each scanbeam */
+  while (scanbeam < sbt_entries)
+  {
+	/* Set yb and yt to the bottom and top of the scanbeam */
+	yb= sbt[scanbeam++];
+	if (scanbeam < sbt_entries)
+	{
+	  yt= sbt[scanbeam];
+	  dy= yt - yb;
+	}
+
+	/* === SCANBEAM BOUNDARY PROCESSING ================================ */
+
+	/* If LMT node corresponding to yb exists */
+	if (local_min)
+	{
+	  if (local_min->y == yb)
+	  {
+		/* Add edges starting at this local minimum to the AET */
+		for (edge= local_min->first_bound; edge; edge= edge->next_bound)
+		  add_edge_to_aet(&aet, edge, NULL);
+
+		local_min= local_min->next;
+	  }
+	}
+
+	/* Set dummy previous x value */
+	px= -DBL_MAX;
+
+	/* Create bundles within AET */
+	e0= aet;
+	e1= aet;
+
+	/* Set up bundle fields of first edge */
+	aet->bundle[ABOVE][ aet->type]= (aet->top.y != yb);
+	aet->bundle[ABOVE][!aet->type]= FALSE;
+	aet->bstate[ABOVE]= UNBUNDLED;
+
+	for (next_edge= aet->next; next_edge; next_edge= next_edge->next)
+	{
+	  /* Set up bundle fields of next edge */
+	  next_edge->bundle[ABOVE][ next_edge->type]= (next_edge->top.y != yb);
+	  next_edge->bundle[ABOVE][!next_edge->type]= FALSE;
+	  next_edge->bstate[ABOVE]= UNBUNDLED;
+
+	  /* Bundle edges above the scanbeam boundary if they coincide */
+	  if (next_edge->bundle[ABOVE][next_edge->type])
+	  {
+		if (EQ(e0->xb, next_edge->xb) && EQ(e0->dx, next_edge->dx)
+	 && (e0->top.y != yb))
+		{
+		  next_edge->bundle[ABOVE][ next_edge->type]^=
+			e0->bundle[ABOVE][ next_edge->type];
+		  next_edge->bundle[ABOVE][!next_edge->type]=
+			e0->bundle[ABOVE][!next_edge->type];
+		  next_edge->bstate[ABOVE]= BUNDLE_HEAD;
+		  e0->bundle[ABOVE][CLIP]= FALSE;
+		  e0->bundle[ABOVE][SUBJ]= FALSE;
+		  e0->bstate[ABOVE]= BUNDLE_TAIL;
+		}
+		e0= next_edge;
+	  }
+	}
+
+	horiz[CLIP]= NH;
+	horiz[SUBJ]= NH;
+
+	/* Process each edge at this scanbeam boundary */
+	for (edge= aet; edge; edge= edge->next)
+	{
+	  exists[CLIP]= edge->bundle[ABOVE][CLIP] +
+				   (edge->bundle[BELOW][CLIP] << 1);
+	  exists[SUBJ]= edge->bundle[ABOVE][SUBJ] +
+				   (edge->bundle[BELOW][SUBJ] << 1);
+
+	  if (exists[CLIP] || exists[SUBJ])
+	  {
+		/* Set bundle side */
+		edge->bside[CLIP]= parity[CLIP];
+		edge->bside[SUBJ]= parity[SUBJ];
+
+		/* Determine contributing status and quadrant occupancies */
+		switch (op)
+		{
+		case GPC_DIFF:
+		case GPC_INT:
+		  contributing= (exists[CLIP] && (parity[SUBJ] || horiz[SUBJ]))
+					 || (exists[SUBJ] && (parity[CLIP] || horiz[CLIP]))
+					 || (exists[CLIP] && exists[SUBJ]
+					 && (parity[CLIP] == parity[SUBJ]));
+		  br= (parity[CLIP])
+		   && (parity[SUBJ]);
+		  bl= (parity[CLIP] ^ edge->bundle[ABOVE][CLIP])
+		   && (parity[SUBJ] ^ edge->bundle[ABOVE][SUBJ]);
+		  tr= (parity[CLIP] ^ (horiz[CLIP]!=NH))
+		   && (parity[SUBJ] ^ (horiz[SUBJ]!=NH));
+		  tl= (parity[CLIP] ^ (horiz[CLIP]!=NH) ^ edge->bundle[BELOW][CLIP])
+		   && (parity[SUBJ] ^ (horiz[SUBJ]!=NH) ^ edge->bundle[BELOW][SUBJ]);
+		  break;
+		case GPC_XOR:
+		  contributing= exists[CLIP] || exists[SUBJ];
+		  br= (parity[CLIP])
+			^ (parity[SUBJ]);
+		  bl= (parity[CLIP] ^ edge->bundle[ABOVE][CLIP])
+			^ (parity[SUBJ] ^ edge->bundle[ABOVE][SUBJ]);
+		  tr= (parity[CLIP] ^ (horiz[CLIP]!=NH))
+			^ (parity[SUBJ] ^ (horiz[SUBJ]!=NH));
+		  tl= (parity[CLIP] ^ (horiz[CLIP]!=NH) ^ edge->bundle[BELOW][CLIP])
+			^ (parity[SUBJ] ^ (horiz[SUBJ]!=NH) ^ edge->bundle[BELOW][SUBJ]);
+		  break;
+		case GPC_UNION:
+		  contributing= (exists[CLIP] && (!parity[SUBJ] || horiz[SUBJ]))
+					 || (exists[SUBJ] && (!parity[CLIP] || horiz[CLIP]))
+					 || (exists[CLIP] && exists[SUBJ]
+					 && (parity[CLIP] == parity[SUBJ]));
+		  br= (parity[CLIP])
+		   || (parity[SUBJ]);
+		  bl= (parity[CLIP] ^ edge->bundle[ABOVE][CLIP])
+		   || (parity[SUBJ] ^ edge->bundle[ABOVE][SUBJ]);
+		  tr= (parity[CLIP] ^ (horiz[CLIP]!=NH))
+		   || (parity[SUBJ] ^ (horiz[SUBJ]!=NH));
+		  tl= (parity[CLIP] ^ (horiz[CLIP]!=NH) ^ edge->bundle[BELOW][CLIP])
+		   || (parity[SUBJ] ^ (horiz[SUBJ]!=NH) ^ edge->bundle[BELOW][SUBJ]);
+		  break;
+		}
+
+		/* Update parity */
+		parity[CLIP]^= edge->bundle[ABOVE][CLIP];
+		parity[SUBJ]^= edge->bundle[ABOVE][SUBJ];
+
+		/* Update horizontal state */
+		if (exists[CLIP])
+		  horiz[CLIP]=
+			next_h_state[horiz[CLIP]]
+						[((exists[CLIP] - 1) << 1) + parity[CLIP]];
+		if (exists[SUBJ])
+		  horiz[SUBJ]=
+			next_h_state[horiz[SUBJ]]
+						[((exists[SUBJ] - 1) << 1) + parity[SUBJ]];
+
+		vclass= tr + (tl << 1) + (br << 2) + (bl << 3);
+
+		if (contributing)
+		{
+		  xb= edge->xb;
+
+		  switch (vclass)
+		  {
+		  case EMN:
+		  case IMN:
+			add_local_min(&out_poly, edge, xb, yb);
+			px= xb;
+			cf= edge->outp[ABOVE];
+			break;
+		  case ERI:
+			if (xb != px)
+			{
+			  add_right(cf, xb, yb);
+			  px= xb;
+			}
+			edge->outp[ABOVE]= cf;
+			cf= NULL;
+			break;
+		  case ELI:
+			add_left(edge->outp[BELOW], xb, yb);
+			px= xb;
+			cf= edge->outp[BELOW];
+			break;
+		  case EMX:
+			if (xb != px)
+			{
+			  add_left(cf, xb, yb);
+			  px= xb;
+			}
+			merge_right(cf, edge->outp[BELOW], out_poly);
+			cf= NULL;
+			break;
+		  case ILI:
+			if (xb != px)
+			{
+			  add_left(cf, xb, yb);
+			  px= xb;
+			}
+			edge->outp[ABOVE]= cf;
+			cf= NULL;
+			break;
+		  case IRI:
+			add_right(edge->outp[BELOW], xb, yb);
+			px= xb;
+			cf= edge->outp[BELOW];
+			edge->outp[BELOW]= NULL;
+			break;
+		  case IMX:
+			if (xb != px)
+			{
+			  add_right(cf, xb, yb);
+			  px= xb;
+			}
+			merge_left(cf, edge->outp[BELOW], out_poly);
+			cf= NULL;
+			edge->outp[BELOW]= NULL;
+			break;
+		  case IMM:
+			if (xb != px)
+		{
+			  add_right(cf, xb, yb);
+			  px= xb;
+		}
+			merge_left(cf, edge->outp[BELOW], out_poly);
+			edge->outp[BELOW]= NULL;
+			add_local_min(&out_poly, edge, xb, yb);
+			cf= edge->outp[ABOVE];
+			break;
+		  case EMM:
+			if (xb != px)
+		{
+			  add_left(cf, xb, yb);
+			  px= xb;
+		}
+			merge_right(cf, edge->outp[BELOW], out_poly);
+			edge->outp[BELOW]= NULL;
+			add_local_min(&out_poly, edge, xb, yb);
+			cf= edge->outp[ABOVE];
+			break;
+		  case LED:
+			if (edge->bot.y == yb)
+			  add_left(edge->outp[BELOW], xb, yb);
+			edge->outp[ABOVE]= edge->outp[BELOW];
+			px= xb;
+			break;
+		  case RED:
+			if (edge->bot.y == yb)
+			  add_right(edge->outp[BELOW], xb, yb);
+			edge->outp[ABOVE]= edge->outp[BELOW];
+			px= xb;
+			break;
+		  default:
+			break;
+		  } /* End of switch */
+		} /* End of contributing conditional */
+	  } /* End of edge exists conditional */
+	} /* End of AET loop */
+
+	/* Delete terminating edges from the AET, otherwise compute xt */
+	for (edge= aet; edge; edge= edge->next)
+	{
+	  if (edge->top.y == yb)
+	  {
+		prev_edge= edge->prev;
+		next_edge= edge->next;
+		if (prev_edge)
+		  prev_edge->next= next_edge;
+		else
+		  aet= next_edge;
+		if (next_edge)
+		  next_edge->prev= prev_edge;
+
+		/* Copy bundle head state to the adjacent tail edge if required */
+		if ((edge->bstate[BELOW] == BUNDLE_HEAD) && prev_edge)
+	{
+		  if (prev_edge->bstate[BELOW] == BUNDLE_TAIL)
+		  {
+			prev_edge->outp[BELOW]= edge->outp[BELOW];
+			prev_edge->bstate[BELOW]= UNBUNDLED;
+			if (prev_edge->prev)
+			  if (prev_edge->prev->bstate[BELOW] == BUNDLE_TAIL)
+				prev_edge->bstate[BELOW]= BUNDLE_HEAD;
+	  }
+	}
+	  }
+	  else
+	  {
+		if (edge->top.y == yt)
+		  edge->xt= edge->top.x;
+		else
+		  edge->xt= edge->bot.x + edge->dx * (yt - edge->bot.y);
+	  }
+	}
+
+	if (scanbeam < sbt_entries)
+	{
+	  /* === SCANBEAM INTERIOR PROCESSING ============================== */
+
+	  build_intersection_table(&it, aet, dy);
+
+	  /* Process each node in the intersection table */
+	  for (intersect= it; intersect; intersect= intersect->next)
+	  {
+		e0= intersect->ie[0];
+		e1= intersect->ie[1];
+
+		/* Only generate output for contributing intersections */
+		if ((e0->bundle[ABOVE][CLIP] || e0->bundle[ABOVE][SUBJ])
+		 && (e1->bundle[ABOVE][CLIP] || e1->bundle[ABOVE][SUBJ]))
+	{
+		  p= e0->outp[ABOVE];
+		  q= e1->outp[ABOVE];
+		  ix= intersect->point.x;
+		  iy= intersect->point.y + yb;
+
+		  in[CLIP]= ( e0->bundle[ABOVE][CLIP] && !e0->bside[CLIP])
+				 || ( e1->bundle[ABOVE][CLIP] &&  e1->bside[CLIP])
+				 || (!e0->bundle[ABOVE][CLIP] && !e1->bundle[ABOVE][CLIP]
+					 && e0->bside[CLIP] && e1->bside[CLIP]);
+		  in[SUBJ]= ( e0->bundle[ABOVE][SUBJ] && !e0->bside[SUBJ])
+				 || ( e1->bundle[ABOVE][SUBJ] &&  e1->bside[SUBJ])
+				 || (!e0->bundle[ABOVE][SUBJ] && !e1->bundle[ABOVE][SUBJ]
+					 && e0->bside[SUBJ] && e1->bside[SUBJ]);
+
+		  /* Determine quadrant occupancies */
+		  switch (op)
+		  {
+		  case GPC_DIFF:
+		  case GPC_INT:
+			tr= (in[CLIP])
+			 && (in[SUBJ]);
+			tl= (in[CLIP] ^ e1->bundle[ABOVE][CLIP])
+			 && (in[SUBJ] ^ e1->bundle[ABOVE][SUBJ]);
+			br= (in[CLIP] ^ e0->bundle[ABOVE][CLIP])
+			 && (in[SUBJ] ^ e0->bundle[ABOVE][SUBJ]);
+			bl= (in[CLIP] ^ e1->bundle[ABOVE][CLIP] ^ e0->bundle[ABOVE][CLIP])
+			 && (in[SUBJ] ^ e1->bundle[ABOVE][SUBJ] ^ e0->bundle[ABOVE][SUBJ]);
+			break;
+		  case GPC_XOR:
+			tr= (in[CLIP])
+			  ^ (in[SUBJ]);
+			tl= (in[CLIP] ^ e1->bundle[ABOVE][CLIP])
+			  ^ (in[SUBJ] ^ e1->bundle[ABOVE][SUBJ]);
+			br= (in[CLIP] ^ e0->bundle[ABOVE][CLIP])
+			  ^ (in[SUBJ] ^ e0->bundle[ABOVE][SUBJ]);
+			bl= (in[CLIP] ^ e1->bundle[ABOVE][CLIP] ^ e0->bundle[ABOVE][CLIP])
+			  ^ (in[SUBJ] ^ e1->bundle[ABOVE][SUBJ] ^ e0->bundle[ABOVE][SUBJ]);
+			break;
+		  case GPC_UNION:
+			tr= (in[CLIP])
+			 || (in[SUBJ]);
+			tl= (in[CLIP] ^ e1->bundle[ABOVE][CLIP])
+			 || (in[SUBJ] ^ e1->bundle[ABOVE][SUBJ]);
+			br= (in[CLIP] ^ e0->bundle[ABOVE][CLIP])
+			 || (in[SUBJ] ^ e0->bundle[ABOVE][SUBJ]);
+			bl= (in[CLIP] ^ e1->bundle[ABOVE][CLIP] ^ e0->bundle[ABOVE][CLIP])
+			 || (in[SUBJ] ^ e1->bundle[ABOVE][SUBJ] ^ e0->bundle[ABOVE][SUBJ]);
+			break;
+		  }
+
+		  vclass= tr + (tl << 1) + (br << 2) + (bl << 3);
+
+		  switch (vclass)
+		  {
+		  case EMN:
+			add_local_min(&out_poly, e0, ix, iy);
+			e1->outp[ABOVE]= e0->outp[ABOVE];
+			break;
+		  case ERI:
+			if (p)
+			{
+			  add_right(p, ix, iy);
+			  e1->outp[ABOVE]= p;
+			  e0->outp[ABOVE]= NULL;
+			}
+			break;
+		  case ELI:
+			if (q)
+			{
+			  add_left(q, ix, iy);
+			  e0->outp[ABOVE]= q;
+			  e1->outp[ABOVE]= NULL;
+			}
+			break;
+		  case EMX:
+			if (p && q)
+			{
+			  add_left(p, ix, iy);
+			  merge_right(p, q, out_poly);
+			  e0->outp[ABOVE]= NULL;
+			  e1->outp[ABOVE]= NULL;
+			}
+			break;
+		  case IMN:
+			add_local_min(&out_poly, e0, ix, iy);
+			e1->outp[ABOVE]= e0->outp[ABOVE];
+			break;
+		  case ILI:
+			if (p)
+			{
+			  add_left(p, ix, iy);
+			  e1->outp[ABOVE]= p;
+			  e0->outp[ABOVE]= NULL;
+			}
+			break;
+		  case IRI:
+			if (q)
+			{
+			  add_right(q, ix, iy);
+			  e0->outp[ABOVE]= q;
+			  e1->outp[ABOVE]= NULL;
+			}
+			break;
+		  case IMX:
+			if (p && q)
+			{
+			  add_right(p, ix, iy);
+			  merge_left(p, q, out_poly);
+			  e0->outp[ABOVE]= NULL;
+			  e1->outp[ABOVE]= NULL;
+			}
+			break;
+		  case IMM:
+			if (p && q)
+			{
+			  add_right(p, ix, iy);
+			  merge_left(p, q, out_poly);
+			  add_local_min(&out_poly, e0, ix, iy);
+			  e1->outp[ABOVE]= e0->outp[ABOVE];
+			}
+			break;
+		  case EMM:
+			if (p && q)
+			{
+			  add_left(p, ix, iy);
+			  merge_right(p, q, out_poly);
+			  add_local_min(&out_poly, e0, ix, iy);
+			  e1->outp[ABOVE]= e0->outp[ABOVE];
+			}
+			break;
+		  default:
+			break;
+		  } /* End of switch */
+	} /* End of contributing intersection conditional */
+
+		/* Swap bundle sides in response to edge crossing */
+		if (e0->bundle[ABOVE][CLIP])
+	  e1->bside[CLIP]= !e1->bside[CLIP];
+		if (e1->bundle[ABOVE][CLIP])
+	  e0->bside[CLIP]= !e0->bside[CLIP];
+		if (e0->bundle[ABOVE][SUBJ])
+	  e1->bside[SUBJ]= !e1->bside[SUBJ];
+		if (e1->bundle[ABOVE][SUBJ])
+	  e0->bside[SUBJ]= !e0->bside[SUBJ];
+
+		/* Swap e0 and e1 bundles in the AET */
+		prev_edge= e0->prev;
+		next_edge= e1->next;
+		if (next_edge)
+		  next_edge->prev= e0;
+
+		if (e0->bstate[ABOVE] == BUNDLE_HEAD)
+		{
+		  search= TRUE;
+		  while (search)
+		  {
+			prev_edge= prev_edge->prev;
+			if (prev_edge)
+			{
+			  if (prev_edge->bstate[ABOVE] != BUNDLE_TAIL)
+				search= FALSE;
+			}
+			else
+			  search= FALSE;
+		  }
+		}
+		if (!prev_edge)
+		{
+		  aet->prev= e1;
+		  e1->next= aet;
+		  aet= e0->next;
+		}
+		else
+		{
+		  prev_edge->next->prev= e1;
+		  e1->next= prev_edge->next;
+		  prev_edge->next= e0->next;
+		}
+		  if(e0->next == NULL) throw runtime_error("GPC internal error.") ;
+		  if(e1->next == NULL) throw runtime_error("GPC internal error.") ;
+		e0->next->prev= prev_edge;
+		e1->next->prev= e1;
+		e0->next= next_edge;
+	  } /* End of IT loop*/
+
+	  /* Prepare for next scanbeam */
+	  for (edge= aet; edge; edge= next_edge)
+	  {
+		next_edge= edge->next;
+		succ_edge= edge->succ;
+
+		if ((edge->top.y == yt) && succ_edge)
+		{
+		  /* Replace AET edge by its successor */
+		  succ_edge->outp[BELOW]= edge->outp[ABOVE];
+		  succ_edge->bstate[BELOW]= edge->bstate[ABOVE];
+		  succ_edge->bundle[BELOW][CLIP]= edge->bundle[ABOVE][CLIP];
+		  succ_edge->bundle[BELOW][SUBJ]= edge->bundle[ABOVE][SUBJ];
+		  prev_edge= edge->prev;
+		  if (prev_edge)
+			prev_edge->next= succ_edge;
+		  else
+			aet= succ_edge;
+		  if (next_edge)
+			next_edge->prev= succ_edge;
+		  succ_edge->prev= prev_edge;
+		  succ_edge->next= next_edge;
+		}
+		else
+		{
+		  /* Update this edge */
+		  edge->outp[BELOW]= edge->outp[ABOVE];
+		  edge->bstate[BELOW]= edge->bstate[ABOVE];
+		  edge->bundle[BELOW][CLIP]= edge->bundle[ABOVE][CLIP];
+		  edge->bundle[BELOW][SUBJ]= edge->bundle[ABOVE][SUBJ];
+		  edge->xb= edge->xt;
+		  }
+		edge->outp[ABOVE]= NULL;
+	  }
+	}
+  } /* === END OF SCANBEAM PROCESSING ================================== */
+
+  /* Generate result polygon from out_poly */
+  result->contour= NULL;
+  result->hole= NULL;
+  result->num_contours= count_contours(out_poly);
+  if (result->num_contours > 0)
+  {
+	MALLOC(result->hole, result->num_contours
+		   * sizeof(int), "hole flag table creation", int);
+	MALLOC(result->contour, result->num_contours
+		   * sizeof(gpc_vertex_list), "contour creation", gpc_vertex_list);
+
+	c= 0;
+	for (poly= out_poly; poly; poly= npoly)
+	{
+	  npoly= poly->next;
+	  if (poly->active)
+	  {
+		result->hole[c]= poly->proxy->hole;
+		result->contour[c].num_vertices= poly->active;
+		MALLOC(result->contour[c].vertex,
+		  result->contour[c].num_vertices * sizeof(gpc_vertex),
+		  "vertex creation", gpc_vertex);
+
+		v= result->contour[c].num_vertices - 1;
+		for (vtx= poly->proxy->v[LEFT]; vtx; vtx= nv)
+		{
+		  nv= vtx->next;
+		  result->contour[c].vertex[v].x= vtx->x;
+		  result->contour[c].vertex[v].y= vtx->y;
+		  FREE(vtx);
+		  v--;
+		}
+		c++;
+	  }
+	  FREE(poly);
+	}
+  }
+  else
+  {
+	for (poly= out_poly; poly; poly= npoly)
+	{
+	  npoly= poly->next;
+	  FREE(poly);
+	}
+  }
+
+  /* Tidy up */
+  reset_it(&it);
+  reset_lmt(&lmt);
+  FREE(c_heap);
+  FREE(s_heap);
+  FREE(sbt);
+}
+
+
+void gpc_free_tristrip(gpc_tristrip *t)
+{
+  for (size_t s= 0; s < t->num_strips; s++)
+	FREE(t->strip[s].vertex);
+  FREE(t->strip);
+  t->num_strips= 0;
+}
+
+
+void gpc_polygon_to_tristrip(gpc_polygon *s, gpc_tristrip *t)
+{
+  gpc_polygon c;
+
+  c.num_contours= 0;
+  c.hole= NULL;
+  c.contour= NULL;
+  gpc_tristrip_clip(GPC_DIFF, s, &c, t);
+}
+
+
+void gpc_tristrip_clip(gpc_op op, gpc_polygon *subj, gpc_polygon *clip,
+					   gpc_tristrip *result)
+{
+  sb_tree       *sbtree= NULL;
+  it_node       *it= NULL, *intersect;
+  edge_node     *edge=0, *prev_edge=0, *next_edge=0, *succ_edge=0, *e0=0, *e1=0;
+  edge_node     *aet= NULL, *c_heap= NULL, *s_heap= NULL, *cf=0;
+  lmt_node      *lmt= NULL, *local_min;
+  polygon_node  *tlist= NULL, *tn, *tnn, *p, *q;
+  vertex_node   *lt, *ltn, *rt, *rtn;
+  h_state        horiz[2];
+  vertex_type    cft = NUL;
+  int            in[2], exists[2], parity[2]= {LEFT, LEFT};
+  int            s, v, contributing=0, search, scanbeam= 0, sbt_entries= 0;
+  int            vclass=0, bl=0, br=0, tl=0, tr=0;
+  double        *sbt= NULL, xb, px, nx, yb, yt=0.0, dy=0.0, ix, iy;
+
+  /* Test for trivial NULL result cases */
+  if (((subj->num_contours == 0) && (clip->num_contours == 0))
+   || ((subj->num_contours == 0) && ((op == GPC_INT) || (op == GPC_DIFF)))
+   || ((clip->num_contours == 0) &&  (op == GPC_INT)))
+  {
+	result->num_strips= 0;
+	result->strip= NULL;
+	return;
+  }
+
+  /* Identify potentialy contributing contours */
+  if (((op == GPC_INT) || (op == GPC_DIFF))
+   && (subj->num_contours > 0) && (clip->num_contours > 0))
+	minimax_test(subj, clip, op);
+
+  /* Build LMT */
+  if (subj->num_contours > 0)
+	s_heap= build_lmt(&lmt, &sbtree, &sbt_entries, subj, SUBJ, op);
+  if (clip->num_contours > 0)
+	c_heap= build_lmt(&lmt, &sbtree, &sbt_entries, clip, CLIP, op);
+
+  /* Return a NULL result if no contours contribute */
+  if (lmt == NULL)
+  {
+	result->num_strips= 0;
+	result->strip= NULL;
+	reset_lmt(&lmt);
+	FREE(s_heap);
+	FREE(c_heap);
+	return;
+  }
+
+  /* Build scanbeam table from scanbeam tree */
+  MALLOC(sbt, sbt_entries * sizeof(double), "sbt creation", double);
+  build_sbt(&scanbeam, sbt, sbtree);
+  scanbeam= 0;
+  free_sbtree(&sbtree);
+
+  /* Invert clip polygon for difference operation */
+  if (op == GPC_DIFF)
+	parity[CLIP]= RIGHT;
+
+  local_min= lmt;
+
+  /* Process each scanbeam */
+  while (scanbeam < sbt_entries)
+  {
+	/* Set yb and yt to the bottom and top of the scanbeam */
+	yb= sbt[scanbeam++];
+	if (scanbeam < sbt_entries)
+	{
+	  yt= sbt[scanbeam];
+	  dy= yt - yb;
+	}
+
+	/* === SCANBEAM BOUNDARY PROCESSING ================================ */
+
+	/* If LMT node corresponding to yb exists */
+	if (local_min)
+	{
+	  if (local_min->y == yb)
+	  {
+		/* Add edges starting at this local minimum to the AET */
+		for (edge= local_min->first_bound; edge; edge= edge->next_bound)
+		  add_edge_to_aet(&aet, edge, NULL);
+
+		local_min= local_min->next;
+	  }
+	}
+
+	/* Set dummy previous x value */
+	px= -DBL_MAX;
+
+	/* Create bundles within AET */
+	e0= aet;
+	e1= aet;
+
+	/* Set up bundle fields of first edge */
+	aet->bundle[ABOVE][ aet->type]= (aet->top.y != yb);
+	aet->bundle[ABOVE][!aet->type]= FALSE;
+	aet->bstate[ABOVE]= UNBUNDLED;
+
+	for (next_edge= aet->next; next_edge; next_edge= next_edge->next)
+	{
+	  /* Set up bundle fields of next edge */
+	  next_edge->bundle[ABOVE][ next_edge->type]= (next_edge->top.y != yb);
+	  next_edge->bundle[ABOVE][!next_edge->type]= FALSE;
+	  next_edge->bstate[ABOVE]= UNBUNDLED;
+
+	  /* Bundle edges above the scanbeam boundary if they coincide */
+	  if (next_edge->bundle[ABOVE][next_edge->type])
+	  {
+		if (EQ(e0->xb, next_edge->xb) && EQ(e0->dx, next_edge->dx)
+	 && (e0->top.y != yb))
+		{
+		  next_edge->bundle[ABOVE][ next_edge->type]^=
+			e0->bundle[ABOVE][ next_edge->type];
+		  next_edge->bundle[ABOVE][!next_edge->type]=
+			e0->bundle[ABOVE][!next_edge->type];
+		  next_edge->bstate[ABOVE]= BUNDLE_HEAD;
+		  e0->bundle[ABOVE][CLIP]= FALSE;
+		  e0->bundle[ABOVE][SUBJ]= FALSE;
+		  e0->bstate[ABOVE]= BUNDLE_TAIL;
+		}
+		e0= next_edge;
+	  }
+	}
+
+	horiz[CLIP]= NH;
+	horiz[SUBJ]= NH;
+
+	/* Process each edge at this scanbeam boundary */
+	for (edge= aet; edge; edge= edge->next)
+	{
+	  exists[CLIP]= edge->bundle[ABOVE][CLIP] +
+				   (edge->bundle[BELOW][CLIP] << 1);
+	  exists[SUBJ]= edge->bundle[ABOVE][SUBJ] +
+				   (edge->bundle[BELOW][SUBJ] << 1);
+
+	  if (exists[CLIP] || exists[SUBJ])
+	  {
+		/* Set bundle side */
+		edge->bside[CLIP]= parity[CLIP];
+		edge->bside[SUBJ]= parity[SUBJ];
+
+		/* Determine contributing status and quadrant occupancies */
+		switch (op)
+		{
+		case GPC_DIFF:
+		case GPC_INT:
+		  contributing= (exists[CLIP] && (parity[SUBJ] || horiz[SUBJ]))
+					 || (exists[SUBJ] && (parity[CLIP] || horiz[CLIP]))
+					 || (exists[CLIP] && exists[SUBJ]
+					 && (parity[CLIP] == parity[SUBJ]));
+		  br= (parity[CLIP])
+		   && (parity[SUBJ]);
+		  bl= (parity[CLIP] ^ edge->bundle[ABOVE][CLIP])
+		   && (parity[SUBJ] ^ edge->bundle[ABOVE][SUBJ]);
+		  tr= (parity[CLIP] ^ (horiz[CLIP]!=NH))
+		   && (parity[SUBJ] ^ (horiz[SUBJ]!=NH));
+		  tl= (parity[CLIP] ^ (horiz[CLIP]!=NH) ^ edge->bundle[BELOW][CLIP])
+		   && (parity[SUBJ] ^ (horiz[SUBJ]!=NH) ^ edge->bundle[BELOW][SUBJ]);
+		  break;
+		case GPC_XOR:
+		  contributing= exists[CLIP] || exists[SUBJ];
+		  br= (parity[CLIP])
+			^ (parity[SUBJ]);
+		  bl= (parity[CLIP] ^ edge->bundle[ABOVE][CLIP])
+			^ (parity[SUBJ] ^ edge->bundle[ABOVE][SUBJ]);
+		  tr= (parity[CLIP] ^ (horiz[CLIP]!=NH))
+			^ (parity[SUBJ] ^ (horiz[SUBJ]!=NH));
+		  tl= (parity[CLIP] ^ (horiz[CLIP]!=NH) ^ edge->bundle[BELOW][CLIP])
+			^ (parity[SUBJ] ^ (horiz[SUBJ]!=NH) ^ edge->bundle[BELOW][SUBJ]);
+		  break;
+		case GPC_UNION:
+		  contributing= (exists[CLIP] && (!parity[SUBJ] || horiz[SUBJ]))
+					 || (exists[SUBJ] && (!parity[CLIP] || horiz[CLIP]))
+					 || (exists[CLIP] && exists[SUBJ]
+					 && (parity[CLIP] == parity[SUBJ]));
+		  br= (parity[CLIP])
+		   || (parity[SUBJ]);
+		  bl= (parity[CLIP] ^ edge->bundle[ABOVE][CLIP])
+		   || (parity[SUBJ] ^ edge->bundle[ABOVE][SUBJ]);
+		  tr= (parity[CLIP] ^ (horiz[CLIP]!=NH))
+		   || (parity[SUBJ] ^ (horiz[SUBJ]!=NH));
+		  tl= (parity[CLIP] ^ (horiz[CLIP]!=NH) ^ edge->bundle[BELOW][CLIP])
+		   || (parity[SUBJ] ^ (horiz[SUBJ]!=NH) ^ edge->bundle[BELOW][SUBJ]);
+		  break;
+		}
+
+		/* Update parity */
+		parity[CLIP]^= edge->bundle[ABOVE][CLIP];
+		parity[SUBJ]^= edge->bundle[ABOVE][SUBJ];
+
+		/* Update horizontal state */
+		if (exists[CLIP])
+		  horiz[CLIP]=
+			next_h_state[horiz[CLIP]]
+						[((exists[CLIP] - 1) << 1) + parity[CLIP]];
+		if (exists[SUBJ])
+		  horiz[SUBJ]=
+			next_h_state[horiz[SUBJ]]
+						[((exists[SUBJ] - 1) << 1) + parity[SUBJ]];
+
+		vclass= tr + (tl << 1) + (br << 2) + (bl << 3);
+
+		if (contributing)
+		{
+		  xb= edge->xb;
+
+		  switch (vclass)
+		  {
+		  case EMN:
+			new_tristrip(&tlist, edge, xb, yb);
+			cf= edge;
+			break;
+		  case ERI:
+			edge->outp[ABOVE]= cf->outp[ABOVE];
+			if (xb != cf->xb)
+			  VERTEX(edge, ABOVE, RIGHT, xb, yb);
+			cf= NULL;
+			break;
+		  case ELI:
+			VERTEX(edge, BELOW, LEFT, xb, yb);
+			edge->outp[ABOVE]= NULL;
+			cf= edge;
+			break;
+		  case EMX:
+			if (xb != cf->xb)
+			  VERTEX(edge, BELOW, RIGHT, xb, yb);
+			edge->outp[ABOVE]= NULL;
+			cf= NULL;
+			break;
+		  case IMN:
+			if (cft == LED)
+		{
+			  if (cf->bot.y != yb)
+				VERTEX(cf, BELOW, LEFT, cf->xb, yb);
+			  new_tristrip(&tlist, cf, cf->xb, yb);
+		}
+			edge->outp[ABOVE]= cf->outp[ABOVE];
+			VERTEX(edge, ABOVE, RIGHT, xb, yb);
+			break;
+		  case ILI:
+			new_tristrip(&tlist, edge, xb, yb);
+			cf= edge;
+			cft= ILI;
+			break;
+		  case IRI:
+			if (cft == LED)
+		{
+			  if (cf->bot.y != yb)
+				VERTEX(cf, BELOW, LEFT, cf->xb, yb);
+			  new_tristrip(&tlist, cf, cf->xb, yb);
+		}
+			VERTEX(edge, BELOW, RIGHT, xb, yb);
+			edge->outp[ABOVE]= NULL;
+			break;
+		  case IMX:
+			VERTEX(edge, BELOW, LEFT, xb, yb);
+			edge->outp[ABOVE]= NULL;
+			cft= IMX;
+			break;
+	  case IMM:
+			VERTEX(edge, BELOW, LEFT, xb, yb);
+			edge->outp[ABOVE]= cf->outp[ABOVE];
+			if (xb != cf->xb)
+			  VERTEX(cf, ABOVE, RIGHT, xb, yb);
+			cf= edge;
+			break;
+		  case EMM:
+			VERTEX(edge, BELOW, RIGHT, xb, yb);
+			edge->outp[ABOVE]= NULL;
+			new_tristrip(&tlist, edge, xb, yb);
+			cf= edge;
+			break;
+		  case LED:
+			if (edge->bot.y == yb)
+			  VERTEX(edge, BELOW, LEFT, xb, yb);
+			edge->outp[ABOVE]= edge->outp[BELOW];
+			cf= edge;
+			cft= LED;
+			break;
+		  case RED:
+			edge->outp[ABOVE]= cf->outp[ABOVE];
+			if (cft == LED)
+		{
+			  if (cf->bot.y == yb)
+		  {
+				VERTEX(edge, BELOW, RIGHT, xb, yb);
+		  }
+			  else
+		  {
+				if (edge->bot.y == yb)
+		{
+				  VERTEX(cf, BELOW, LEFT, cf->xb, yb);
+				  VERTEX(edge, BELOW, RIGHT, xb, yb);
+		}
+		  }
+		}
+			else
+		{
+			  VERTEX(edge, BELOW, RIGHT, xb, yb);
+			  VERTEX(edge, ABOVE, RIGHT, xb, yb);
+		}
+			cf= NULL;
+			break;
+		  default:
+			break;
+		  } /* End of switch */
+		} /* End of contributing conditional */
+	  } /* End of edge exists conditional */
+	} /* End of AET loop */
+
+	/* Delete terminating edges from the AET, otherwise compute xt */
+	for (edge= aet; edge; edge= edge->next)
+	{
+	  if (edge->top.y == yb)
+	  {
+		prev_edge= edge->prev;
+		next_edge= edge->next;
+		if (prev_edge)
+		  prev_edge->next= next_edge;
+		else
+		  aet= next_edge;
+		if (next_edge)
+		  next_edge->prev= prev_edge;
+
+		/* Copy bundle head state to the adjacent tail edge if required */
+		if ((edge->bstate[BELOW] == BUNDLE_HEAD) && prev_edge)
+	{
+		  if (prev_edge->bstate[BELOW] == BUNDLE_TAIL)
+		  {
+			prev_edge->outp[BELOW]= edge->outp[BELOW];
+			prev_edge->bstate[BELOW]= UNBUNDLED;
+			if (prev_edge->prev)
+			  if (prev_edge->prev->bstate[BELOW] == BUNDLE_TAIL)
+				prev_edge->bstate[BELOW]= BUNDLE_HEAD;
+	  }
+	}
+	  }
+	  else
+	  {
+		if (edge->top.y == yt)
+		  edge->xt= edge->top.x;
+		else
+		  edge->xt= edge->bot.x + edge->dx * (yt - edge->bot.y);
+	  }
+	}
+
+	if (scanbeam < sbt_entries)
+	{
+	  /* === SCANBEAM INTERIOR PROCESSING ============================== */
+
+	  build_intersection_table(&it, aet, dy);
+
+	  /* Process each node in the intersection table */
+	  for (intersect= it; intersect; intersect= intersect->next)
+	  {
+		e0= intersect->ie[0];
+		e1= intersect->ie[1];
+
+		/* Only generate output for contributing intersections */
+		if ((e0->bundle[ABOVE][CLIP] || e0->bundle[ABOVE][SUBJ])
+		 && (e1->bundle[ABOVE][CLIP] || e1->bundle[ABOVE][SUBJ]))
+	{
+		  p= e0->outp[ABOVE];
+		  q= e1->outp[ABOVE];
+		  ix= intersect->point.x;
+		  iy= intersect->point.y + yb;
+
+		  in[CLIP]= ( e0->bundle[ABOVE][CLIP] && !e0->bside[CLIP])
+				 || ( e1->bundle[ABOVE][CLIP] &&  e1->bside[CLIP])
+				 || (!e0->bundle[ABOVE][CLIP] && !e1->bundle[ABOVE][CLIP]
+					 && e0->bside[CLIP] && e1->bside[CLIP]);
+		  in[SUBJ]= ( e0->bundle[ABOVE][SUBJ] && !e0->bside[SUBJ])
+				 || ( e1->bundle[ABOVE][SUBJ] &&  e1->bside[SUBJ])
+				 || (!e0->bundle[ABOVE][SUBJ] && !e1->bundle[ABOVE][SUBJ]
+					 && e0->bside[SUBJ] && e1->bside[SUBJ]);
+
+		  /* Determine quadrant occupancies */
+		  switch (op)
+		  {
+		  case GPC_DIFF:
+		  case GPC_INT:
+			tr= (in[CLIP])
+			 && (in[SUBJ]);
+			tl= (in[CLIP] ^ e1->bundle[ABOVE][CLIP])
+			 && (in[SUBJ] ^ e1->bundle[ABOVE][SUBJ]);
+			br= (in[CLIP] ^ e0->bundle[ABOVE][CLIP])
+			 && (in[SUBJ] ^ e0->bundle[ABOVE][SUBJ]);
+			bl= (in[CLIP] ^ e1->bundle[ABOVE][CLIP] ^ e0->bundle[ABOVE][CLIP])
+			 && (in[SUBJ] ^ e1->bundle[ABOVE][SUBJ] ^ e0->bundle[ABOVE][SUBJ]);
+			break;
+		  case GPC_XOR:
+			tr= (in[CLIP])
+			  ^ (in[SUBJ]);
+			tl= (in[CLIP] ^ e1->bundle[ABOVE][CLIP])
+			  ^ (in[SUBJ] ^ e1->bundle[ABOVE][SUBJ]);
+			br= (in[CLIP] ^ e0->bundle[ABOVE][CLIP])
+			  ^ (in[SUBJ] ^ e0->bundle[ABOVE][SUBJ]);
+			bl= (in[CLIP] ^ e1->bundle[ABOVE][CLIP] ^ e0->bundle[ABOVE][CLIP])
+			  ^ (in[SUBJ] ^ e1->bundle[ABOVE][SUBJ] ^ e0->bundle[ABOVE][SUBJ]);
+			break;
+		  case GPC_UNION:
+			tr= (in[CLIP])
+			 || (in[SUBJ]);
+			tl= (in[CLIP] ^ e1->bundle[ABOVE][CLIP])
+			 || (in[SUBJ] ^ e1->bundle[ABOVE][SUBJ]);
+			br= (in[CLIP] ^ e0->bundle[ABOVE][CLIP])
+			 || (in[SUBJ] ^ e0->bundle[ABOVE][SUBJ]);
+			bl= (in[CLIP] ^ e1->bundle[ABOVE][CLIP] ^ e0->bundle[ABOVE][CLIP])
+			 || (in[SUBJ] ^ e1->bundle[ABOVE][SUBJ] ^ e0->bundle[ABOVE][SUBJ]);
+			break;
+		  }
+
+		  vclass= tr + (tl << 1) + (br << 2) + (bl << 3);
+
+		  switch (vclass)
+		  {
+		  case EMN:
+			new_tristrip(&tlist, e1, ix, iy);
+			e0->outp[ABOVE]= e1->outp[ABOVE];
+			break;
+		  case ERI:
+			if (p)
+			{
+			  P_EDGE(prev_edge, e0, ABOVE, px, iy);
+			  VERTEX(prev_edge, ABOVE, LEFT, px, iy);
+			  VERTEX(e0, ABOVE, RIGHT, ix, iy);
+			  e1->outp[ABOVE]= e0->outp[ABOVE];
+			  e0->outp[ABOVE]= NULL;
+			}
+			break;
+		  case ELI:
+			if (q)
+			{
+			  N_EDGE(next_edge, e1, ABOVE, nx, iy);
+			  VERTEX(e1, ABOVE, LEFT, ix, iy);
+			  VERTEX(next_edge, ABOVE, RIGHT, nx, iy);
+			  e0->outp[ABOVE]= e1->outp[ABOVE];
+			  e1->outp[ABOVE]= NULL;
+			}
+			break;
+		  case EMX:
+			if (p && q)
+			{
+			  VERTEX(e0, ABOVE, LEFT, ix, iy);
+			  e0->outp[ABOVE]= NULL;
+			  e1->outp[ABOVE]= NULL;
+			}
+			break;
+		  case IMN:
+			P_EDGE(prev_edge, e0, ABOVE, px, iy);
+			VERTEX(prev_edge, ABOVE, LEFT, px, iy);
+			N_EDGE(next_edge, e1, ABOVE, nx, iy);
+			VERTEX(next_edge, ABOVE, RIGHT, nx, iy);
+			new_tristrip(&tlist, prev_edge, px, iy);
+			e1->outp[ABOVE]= prev_edge->outp[ABOVE];
+			VERTEX(e1, ABOVE, RIGHT, ix, iy);
+			new_tristrip(&tlist, e0, ix, iy);
+			next_edge->outp[ABOVE]= e0->outp[ABOVE];
+			VERTEX(next_edge, ABOVE, RIGHT, nx, iy);
+			break;
+		  case ILI:
+			if (p)
+			{
+			  VERTEX(e0, ABOVE, LEFT, ix, iy);
+			  N_EDGE(next_edge, e1, ABOVE, nx, iy);
+			  VERTEX(next_edge, ABOVE, RIGHT, nx, iy);
+			  e1->outp[ABOVE]= e0->outp[ABOVE];
+			  e0->outp[ABOVE]= NULL;
+			}
+			break;
+		  case IRI:
+			if (q)
+			{
+			  VERTEX(e1, ABOVE, RIGHT, ix, iy);
+			  P_EDGE(prev_edge, e0, ABOVE, px, iy);
+			  VERTEX(prev_edge, ABOVE, LEFT, px, iy);
+			  e0->outp[ABOVE]= e1->outp[ABOVE];
+			  e1->outp[ABOVE]= NULL;
+			}
+			break;
+		  case IMX:
+			if (p && q)
+			{
+			  VERTEX(e0, ABOVE, RIGHT, ix, iy);
+			  VERTEX(e1, ABOVE, LEFT, ix, iy);
+			  e0->outp[ABOVE]= NULL;
+			  e1->outp[ABOVE]= NULL;
+			  P_EDGE(prev_edge, e0, ABOVE, px, iy);
+			  VERTEX(prev_edge, ABOVE, LEFT, px, iy);
+			  new_tristrip(&tlist, prev_edge, px, iy);
+			  N_EDGE(next_edge, e1, ABOVE, nx, iy);
+			  VERTEX(next_edge, ABOVE, RIGHT, nx, iy);
+			  next_edge->outp[ABOVE]= prev_edge->outp[ABOVE];
+			  VERTEX(next_edge, ABOVE, RIGHT, nx, iy);
+			}
+			break;
+		  case IMM:
+			if (p && q)
+			{
+			  VERTEX(e0, ABOVE, RIGHT, ix, iy);
+			  VERTEX(e1, ABOVE, LEFT, ix, iy);
+			  P_EDGE(prev_edge, e0, ABOVE, px, iy);
+			  VERTEX(prev_edge, ABOVE, LEFT, px, iy);
+			  new_tristrip(&tlist, prev_edge, px, iy);
+			  N_EDGE(next_edge, e1, ABOVE, nx, iy);
+			  VERTEX(next_edge, ABOVE, RIGHT, nx, iy);
+			  e1->outp[ABOVE]= prev_edge->outp[ABOVE];
+			  VERTEX(e1, ABOVE, RIGHT, ix, iy);
+			  new_tristrip(&tlist, e0, ix, iy);
+			  next_edge->outp[ABOVE]= e0->outp[ABOVE];
+			  VERTEX(next_edge, ABOVE, RIGHT, nx, iy);
+			}
+			break;
+		  case EMM:
+			if (p && q)
+			{
+			  VERTEX(e0, ABOVE, LEFT, ix, iy);
+			  new_tristrip(&tlist, e1, ix, iy);
+			  e0->outp[ABOVE]= e1->outp[ABOVE];
+			}
+			break;
+		  default:
+			break;
+		  } /* End of switch */
+	} /* End of contributing intersection conditional */
+
+		/* Swap bundle sides in response to edge crossing */
+		if (e0->bundle[ABOVE][CLIP])
+	  e1->bside[CLIP]= !e1->bside[CLIP];
+		if (e1->bundle[ABOVE][CLIP])
+	  e0->bside[CLIP]= !e0->bside[CLIP];
+		if (e0->bundle[ABOVE][SUBJ])
+	  e1->bside[SUBJ]= !e1->bside[SUBJ];
+		if (e1->bundle[ABOVE][SUBJ])
+	  e0->bside[SUBJ]= !e0->bside[SUBJ];
+
+		/* Swap e0 and e1 bundles in the AET */
+		prev_edge= e0->prev;
+		next_edge= e1->next;
+		if (e1->next)
+		  e1->next->prev= e0;
+
+		if (e0->bstate[ABOVE] == BUNDLE_HEAD)
+		{
+		  search= TRUE;
+		  while (search)
+		  {
+			prev_edge= prev_edge->prev;
+			if (prev_edge)
+			{
+			  if (prev_edge->bundle[ABOVE][CLIP]
+			   || prev_edge->bundle[ABOVE][SUBJ]
+			   || (prev_edge->bstate[ABOVE] == BUNDLE_HEAD))
+				search= FALSE;
+			}
+			else
+			  search= FALSE;
+		  }
+		}
+		if (!prev_edge)
+		{
+		   e1->next= aet;
+		   aet= e0->next;
+		}
+		else
+		{
+		  e1->next= prev_edge->next;
+		  prev_edge->next= e0->next;
+		}
+		e0->next->prev= prev_edge;
+		e1->next->prev= e1;
+		e0->next= next_edge;
+	  } /* End of IT loop*/
+
+	  /* Prepare for next scanbeam */
+	  for (edge= aet; edge; edge= next_edge)
+	  {
+		next_edge= edge->next;
+		succ_edge= edge->succ;
+
+		if ((edge->top.y == yt) && succ_edge)
+		{
+		  /* Replace AET edge by its successor */
+		  succ_edge->outp[BELOW]= edge->outp[ABOVE];
+		  succ_edge->bstate[BELOW]= edge->bstate[ABOVE];
+		  succ_edge->bundle[BELOW][CLIP]= edge->bundle[ABOVE][CLIP];
+		  succ_edge->bundle[BELOW][SUBJ]= edge->bundle[ABOVE][SUBJ];
+		  prev_edge= edge->prev;
+		  if (prev_edge)
+			prev_edge->next= succ_edge;
+		  else
+			aet= succ_edge;
+		  if (next_edge)
+			next_edge->prev= succ_edge;
+		  succ_edge->prev= prev_edge;
+		  succ_edge->next= next_edge;
+		}
+		else
+		{
+		  /* Update this edge */
+		  edge->outp[BELOW]= edge->outp[ABOVE];
+		  edge->bstate[BELOW]= edge->bstate[ABOVE];
+		  edge->bundle[BELOW][CLIP]= edge->bundle[ABOVE][CLIP];
+		  edge->bundle[BELOW][SUBJ]= edge->bundle[ABOVE][SUBJ];
+		  edge->xb= edge->xt;
+		}
+		edge->outp[ABOVE]= NULL;
+	  }
+	}
+  } /* === END OF SCANBEAM PROCESSING ================================== */
+
+  /* Generate result tristrip from tlist */
+  result->strip= NULL;
+  result->num_strips= count_tristrips(tlist);
+  if (result->num_strips > 0)
+  {
+	MALLOC(result->strip, result->num_strips * sizeof(gpc_vertex_list),
+		   "tristrip list creation", gpc_vertex_list);
+
+	s= 0;
+	for (tn= tlist; tn; tn= tnn)
+	{
+	  tnn= tn->next;
+
+	  if (tn->active > 2)
+	  {
+		/* Valid tristrip: copy the vertices and free the heap */
+		result->strip[s].num_vertices= tn->active;
+		MALLOC(result->strip[s].vertex, tn->active * sizeof(gpc_vertex),
+			   "tristrip creation", gpc_vertex);
+		v= 0;
+		if (INVERT_TRISTRIPS)
+		{
+		  lt= tn->v[RIGHT];
+		  rt= tn->v[LEFT];
+		}
+		else
+		{
+		  lt= tn->v[LEFT];
+		  rt= tn->v[RIGHT];
+		}
+		while (lt || rt)
+		{
+		  if (lt)
+		  {
+			ltn= lt->next;
+			result->strip[s].vertex[v].x= lt->x;
+			result->strip[s].vertex[v].y= lt->y;
+			v++;
+			FREE(lt);
+			lt= ltn;
+		  }
+		  if (rt)
+		  {
+			rtn= rt->next;
+			result->strip[s].vertex[v].x= rt->x;
+			result->strip[s].vertex[v].y= rt->y;
+			v++;
+			FREE(rt);
+			rt= rtn;
+		  }
+		}
+		s++;
+	  }
+	  else
+	  {
+		/* Invalid tristrip: just free the heap */
+		for (lt= tn->v[LEFT]; lt; lt= ltn)
+		{
+		  ltn= lt->next;
+		  FREE(lt);
+		}
+		for (rt= tn->v[RIGHT]; rt; rt=rtn)
+		{
+		  rtn= rt->next;
+		  FREE(rt);
+		}
+	  }
+	  FREE(tn);
+	}
+  }
+
+  /* Tidy up */
+  reset_it(&it);
+  reset_lmt(&lmt);
+  FREE(c_heap);
+  FREE(s_heap);
+  FREE(sbt);
+}
+
+/*
+===========================================================================
+						   End of file: gpc.c
+===========================================================================
+*/

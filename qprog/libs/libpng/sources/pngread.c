@@ -1008,4 +1008,466 @@ png_read_end(png_structp png_ptr, png_infop info_ptr)
           * read, but not after other chunks have been read.
           */
          if ((length > 0) || (png_ptr->mode & PNG_HAVE_CHUNK_AFTER_IDAT))
-            png_error(png_ptr, "Too many
+            png_error(png_ptr, "Too many IDAT's found");
+         png_crc_finish(png_ptr, length);
+      }
+      else if (!png_memcmp(chunk_name, png_PLTE, 4))
+         png_handle_PLTE(png_ptr, info_ptr, length);
+#if defined(PNG_READ_bKGD_SUPPORTED)
+      else if (!png_memcmp(chunk_name, png_bKGD, 4))
+         png_handle_bKGD(png_ptr, info_ptr, length);
+#endif
+#if defined(PNG_READ_cHRM_SUPPORTED)
+      else if (!png_memcmp(chunk_name, png_cHRM, 4))
+         png_handle_cHRM(png_ptr, info_ptr, length);
+#endif
+#if defined(PNG_READ_gAMA_SUPPORTED)
+      else if (!png_memcmp(chunk_name, png_gAMA, 4))
+         png_handle_gAMA(png_ptr, info_ptr, length);
+#endif
+#if defined(PNG_READ_hIST_SUPPORTED)
+      else if (!png_memcmp(chunk_name, png_hIST, 4))
+         png_handle_hIST(png_ptr, info_ptr, length);
+#endif
+#if defined(PNG_READ_oFFs_SUPPORTED)
+      else if (!png_memcmp(chunk_name, png_oFFs, 4))
+         png_handle_oFFs(png_ptr, info_ptr, length);
+#endif
+#if defined(PNG_READ_pCAL_SUPPORTED)
+      else if (!png_memcmp(chunk_name, png_pCAL, 4))
+         png_handle_pCAL(png_ptr, info_ptr, length);
+#endif
+#if defined(PNG_READ_sCAL_SUPPORTED)
+      else if (!png_memcmp(chunk_name, png_sCAL, 4))
+         png_handle_sCAL(png_ptr, info_ptr, length);
+#endif
+#if defined(PNG_READ_pHYs_SUPPORTED)
+      else if (!png_memcmp(chunk_name, png_pHYs, 4))
+         png_handle_pHYs(png_ptr, info_ptr, length);
+#endif
+#if defined(PNG_READ_sBIT_SUPPORTED)
+      else if (!png_memcmp(chunk_name, png_sBIT, 4))
+         png_handle_sBIT(png_ptr, info_ptr, length);
+#endif
+#if defined(PNG_READ_sRGB_SUPPORTED)
+      else if (!png_memcmp(chunk_name, png_sRGB, 4))
+         png_handle_sRGB(png_ptr, info_ptr, length);
+#endif
+#if defined(PNG_READ_iCCP_SUPPORTED)
+      else if (!png_memcmp(chunk_name, png_iCCP, 4))
+         png_handle_iCCP(png_ptr, info_ptr, length);
+#endif
+#if defined(PNG_READ_sPLT_SUPPORTED)
+      else if (!png_memcmp(chunk_name, png_sPLT, 4))
+         png_handle_sPLT(png_ptr, info_ptr, length);
+#endif
+#if defined(PNG_READ_tEXt_SUPPORTED)
+      else if (!png_memcmp(chunk_name, png_tEXt, 4))
+         png_handle_tEXt(png_ptr, info_ptr, length);
+#endif
+#if defined(PNG_READ_tIME_SUPPORTED)
+      else if (!png_memcmp(chunk_name, png_tIME, 4))
+         png_handle_tIME(png_ptr, info_ptr, length);
+#endif
+#if defined(PNG_READ_tRNS_SUPPORTED)
+      else if (!png_memcmp(chunk_name, png_tRNS, 4))
+         png_handle_tRNS(png_ptr, info_ptr, length);
+#endif
+#if defined(PNG_READ_zTXt_SUPPORTED)
+      else if (!png_memcmp(chunk_name, png_zTXt, 4))
+         png_handle_zTXt(png_ptr, info_ptr, length);
+#endif
+#if defined(PNG_READ_iTXt_SUPPORTED)
+      else if (!png_memcmp(chunk_name, png_iTXt, 4))
+         png_handle_iTXt(png_ptr, info_ptr, length);
+#endif
+      else
+         png_handle_unknown(png_ptr, info_ptr, length);
+   } while (!(png_ptr->mode & PNG_HAVE_IEND));
+}
+#endif /* PNG_NO_SEQUENTIAL_READ_SUPPORTED */
+
+/* Free all memory used by the read */
+void PNGAPI
+png_destroy_read_struct(png_structpp png_ptr_ptr, png_infopp info_ptr_ptr,
+   png_infopp end_info_ptr_ptr)
+{
+   png_structp png_ptr = NULL;
+   png_infop info_ptr = NULL, end_info_ptr = NULL;
+#ifdef PNG_USER_MEM_SUPPORTED
+   png_free_ptr free_fn = NULL;
+   png_voidp mem_ptr = NULL;
+#endif
+
+   png_debug(1, "in png_destroy_read_struct");
+   if (png_ptr_ptr != NULL)
+      png_ptr = *png_ptr_ptr;
+   if (png_ptr == NULL)
+      return;
+
+#ifdef PNG_USER_MEM_SUPPORTED
+   free_fn = png_ptr->free_fn;
+   mem_ptr = png_ptr->mem_ptr;
+#endif
+
+   if (info_ptr_ptr != NULL)
+      info_ptr = *info_ptr_ptr;
+
+   if (end_info_ptr_ptr != NULL)
+      end_info_ptr = *end_info_ptr_ptr;
+
+   png_read_destroy(png_ptr, info_ptr, end_info_ptr);
+
+   if (info_ptr != NULL)
+   {
+#if defined(PNG_TEXT_SUPPORTED)
+      png_free_data(png_ptr, info_ptr, PNG_FREE_TEXT, -1);
+#endif
+
+#ifdef PNG_USER_MEM_SUPPORTED
+      png_destroy_struct_2((png_voidp)info_ptr, (png_free_ptr)free_fn,
+          (png_voidp)mem_ptr);
+#else
+      png_destroy_struct((png_voidp)info_ptr);
+#endif
+      *info_ptr_ptr = NULL;
+   }
+
+   if (end_info_ptr != NULL)
+   {
+#if defined(PNG_READ_TEXT_SUPPORTED)
+      png_free_data(png_ptr, end_info_ptr, PNG_FREE_TEXT, -1);
+#endif
+#ifdef PNG_USER_MEM_SUPPORTED
+      png_destroy_struct_2((png_voidp)end_info_ptr, (png_free_ptr)free_fn,
+         (png_voidp)mem_ptr);
+#else
+      png_destroy_struct((png_voidp)end_info_ptr);
+#endif
+      *end_info_ptr_ptr = NULL;
+   }
+
+   if (png_ptr != NULL)
+   {
+#ifdef PNG_USER_MEM_SUPPORTED
+      png_destroy_struct_2((png_voidp)png_ptr, (png_free_ptr)free_fn,
+          (png_voidp)mem_ptr);
+#else
+      png_destroy_struct((png_voidp)png_ptr);
+#endif
+      *png_ptr_ptr = NULL;
+   }
+}
+
+/* Free all memory used by the read (old method) */
+void /* PRIVATE */
+png_read_destroy(png_structp png_ptr, png_infop info_ptr, png_infop end_info_ptr)
+{
+#ifdef PNG_SETJMP_SUPPORTED
+   jmp_buf tmp_jmp;
+#endif
+   png_error_ptr error_fn;
+   png_error_ptr warning_fn;
+   png_voidp error_ptr;
+#ifdef PNG_USER_MEM_SUPPORTED
+   png_free_ptr free_fn;
+#endif
+
+   png_debug(1, "in png_read_destroy");
+   if (info_ptr != NULL)
+      png_info_destroy(png_ptr, info_ptr);
+
+   if (end_info_ptr != NULL)
+      png_info_destroy(png_ptr, end_info_ptr);
+
+   png_free(png_ptr, png_ptr->zbuf);
+   png_free(png_ptr, png_ptr->big_row_buf);
+   png_free(png_ptr, png_ptr->prev_row);
+   png_free(png_ptr, png_ptr->chunkdata);
+#if defined(PNG_READ_DITHER_SUPPORTED)
+   png_free(png_ptr, png_ptr->palette_lookup);
+   png_free(png_ptr, png_ptr->dither_index);
+#endif
+#if defined(PNG_READ_GAMMA_SUPPORTED)
+   png_free(png_ptr, png_ptr->gamma_table);
+#endif
+#if defined(PNG_READ_BACKGROUND_SUPPORTED)
+   png_free(png_ptr, png_ptr->gamma_from_1);
+   png_free(png_ptr, png_ptr->gamma_to_1);
+#endif
+#ifdef PNG_FREE_ME_SUPPORTED
+   if (png_ptr->free_me & PNG_FREE_PLTE)
+      png_zfree(png_ptr, png_ptr->palette);
+   png_ptr->free_me &= ~PNG_FREE_PLTE;
+#else
+   if (png_ptr->flags & PNG_FLAG_FREE_PLTE)
+      png_zfree(png_ptr, png_ptr->palette);
+   png_ptr->flags &= ~PNG_FLAG_FREE_PLTE;
+#endif
+#if defined(PNG_tRNS_SUPPORTED) || \
+    defined(PNG_READ_EXPAND_SUPPORTED) || defined(PNG_READ_BACKGROUND_SUPPORTED)
+#ifdef PNG_FREE_ME_SUPPORTED
+   if (png_ptr->free_me & PNG_FREE_TRNS)
+      png_free(png_ptr, png_ptr->trans);
+   png_ptr->free_me &= ~PNG_FREE_TRNS;
+#else
+   if (png_ptr->flags & PNG_FLAG_FREE_TRNS)
+      png_free(png_ptr, png_ptr->trans);
+   png_ptr->flags &= ~PNG_FLAG_FREE_TRNS;
+#endif
+#endif
+#if defined(PNG_READ_hIST_SUPPORTED)
+#ifdef PNG_FREE_ME_SUPPORTED
+   if (png_ptr->free_me & PNG_FREE_HIST)
+      png_free(png_ptr, png_ptr->hist);
+   png_ptr->free_me &= ~PNG_FREE_HIST;
+#else
+   if (png_ptr->flags & PNG_FLAG_FREE_HIST)
+      png_free(png_ptr, png_ptr->hist);
+   png_ptr->flags &= ~PNG_FLAG_FREE_HIST;
+#endif
+#endif
+#if defined(PNG_READ_GAMMA_SUPPORTED)
+   if (png_ptr->gamma_16_table != NULL)
+   {
+      int i;
+      int istop = (1 << (8 - png_ptr->gamma_shift));
+      for (i = 0; i < istop; i++)
+      {
+         png_free(png_ptr, png_ptr->gamma_16_table[i]);
+      }
+   png_free(png_ptr, png_ptr->gamma_16_table);
+   }
+#if defined(PNG_READ_BACKGROUND_SUPPORTED)
+   if (png_ptr->gamma_16_from_1 != NULL)
+   {
+      int i;
+      int istop = (1 << (8 - png_ptr->gamma_shift));
+      for (i = 0; i < istop; i++)
+      {
+         png_free(png_ptr, png_ptr->gamma_16_from_1[i]);
+      }
+   png_free(png_ptr, png_ptr->gamma_16_from_1);
+   }
+   if (png_ptr->gamma_16_to_1 != NULL)
+   {
+      int i;
+      int istop = (1 << (8 - png_ptr->gamma_shift));
+      for (i = 0; i < istop; i++)
+      {
+         png_free(png_ptr, png_ptr->gamma_16_to_1[i]);
+      }
+   png_free(png_ptr, png_ptr->gamma_16_to_1);
+   }
+#endif
+#endif
+#if defined(PNG_TIME_RFC1123_SUPPORTED)
+   png_free(png_ptr, png_ptr->time_buffer);
+#endif
+
+   inflateEnd(&png_ptr->zstream);
+#ifdef PNG_PROGRESSIVE_READ_SUPPORTED
+   png_free(png_ptr, png_ptr->save_buffer);
+#endif
+
+#ifdef PNG_PROGRESSIVE_READ_SUPPORTED
+#ifdef PNG_TEXT_SUPPORTED
+   png_free(png_ptr, png_ptr->current_text);
+#endif /* PNG_TEXT_SUPPORTED */
+#endif /* PNG_PROGRESSIVE_READ_SUPPORTED */
+
+   /* Save the important info out of the png_struct, in case it is
+    * being used again.
+    */
+#ifdef PNG_SETJMP_SUPPORTED
+   png_memcpy(tmp_jmp, png_ptr->jmpbuf, png_sizeof(jmp_buf));
+#endif
+
+   error_fn = png_ptr->error_fn;
+   warning_fn = png_ptr->warning_fn;
+   error_ptr = png_ptr->error_ptr;
+#ifdef PNG_USER_MEM_SUPPORTED
+   free_fn = png_ptr->free_fn;
+#endif
+
+   png_memset(png_ptr, 0, png_sizeof(png_struct));
+
+   png_ptr->error_fn = error_fn;
+   png_ptr->warning_fn = warning_fn;
+   png_ptr->error_ptr = error_ptr;
+#ifdef PNG_USER_MEM_SUPPORTED
+   png_ptr->free_fn = free_fn;
+#endif
+
+#ifdef PNG_SETJMP_SUPPORTED
+   png_memcpy(png_ptr->jmpbuf, tmp_jmp, png_sizeof(jmp_buf));
+#endif
+
+}
+
+void PNGAPI
+png_set_read_status_fn(png_structp png_ptr, png_read_status_ptr read_row_fn)
+{
+   if (png_ptr == NULL)
+      return;
+   png_ptr->read_row_fn = read_row_fn;
+}
+
+
+#ifndef PNG_NO_SEQUENTIAL_READ_SUPPORTED
+#if defined(PNG_INFO_IMAGE_SUPPORTED)
+void PNGAPI
+png_read_png(png_structp png_ptr, png_infop info_ptr,
+                           int transforms,
+                           voidp params)
+{
+   int row;
+
+   if (png_ptr == NULL)
+      return;
+#if defined(PNG_READ_INVERT_ALPHA_SUPPORTED)
+   /* Invert the alpha channel from opacity to transparency
+    */
+   if (transforms & PNG_TRANSFORM_INVERT_ALPHA)
+       png_set_invert_alpha(png_ptr);
+#endif
+
+   /* png_read_info() gives us all of the information from the
+    * PNG file before the first IDAT (image data chunk).
+    */
+   png_read_info(png_ptr, info_ptr);
+   if (info_ptr->height > PNG_UINT_32_MAX/png_sizeof(png_bytep))
+      png_error(png_ptr, "Image is too high to process with png_read_png()");
+
+   /* -------------- image transformations start here ------------------- */
+
+#if defined(PNG_READ_16_TO_8_SUPPORTED)
+   /* Tell libpng to strip 16 bit/color files down to 8 bits per color.
+    */
+   if (transforms & PNG_TRANSFORM_STRIP_16)
+      png_set_strip_16(png_ptr);
+#endif
+
+#if defined(PNG_READ_STRIP_ALPHA_SUPPORTED)
+   /* Strip alpha bytes from the input data without combining with
+    * the background (not recommended).
+    */
+   if (transforms & PNG_TRANSFORM_STRIP_ALPHA)
+      png_set_strip_alpha(png_ptr);
+#endif
+
+#if defined(PNG_READ_PACK_SUPPORTED) && !defined(PNG_READ_EXPAND_SUPPORTED)
+   /* Extract multiple pixels with bit depths of 1, 2, or 4 from a single
+    * byte into separate bytes (useful for paletted and grayscale images).
+    */
+   if (transforms & PNG_TRANSFORM_PACKING)
+      png_set_packing(png_ptr);
+#endif
+
+#if defined(PNG_READ_PACKSWAP_SUPPORTED)
+   /* Change the order of packed pixels to least significant bit first
+    * (not useful if you are using png_set_packing).
+    */
+   if (transforms & PNG_TRANSFORM_PACKSWAP)
+      png_set_packswap(png_ptr);
+#endif
+
+#if defined(PNG_READ_EXPAND_SUPPORTED)
+   /* Expand paletted colors into true RGB triplets
+    * Expand grayscale images to full 8 bits from 1, 2, or 4 bits/pixel
+    * Expand paletted or RGB images with transparency to full alpha
+    * channels so the data will be available as RGBA quartets.
+    */
+   if (transforms & PNG_TRANSFORM_EXPAND)
+      if ((png_ptr->bit_depth < 8) ||
+          (png_ptr->color_type == PNG_COLOR_TYPE_PALETTE) ||
+          (png_get_valid(png_ptr, info_ptr, PNG_INFO_tRNS)))
+         png_set_expand(png_ptr);
+#endif
+
+   /* We don't handle background color or gamma transformation or dithering.
+    */
+
+#if defined(PNG_READ_INVERT_SUPPORTED)
+   /* Invert monochrome files to have 0 as white and 1 as black
+    */
+   if (transforms & PNG_TRANSFORM_INVERT_MONO)
+      png_set_invert_mono(png_ptr);
+#endif
+
+#if defined(PNG_READ_SHIFT_SUPPORTED)
+   /* If you want to shift the pixel values from the range [0,255] or
+    * [0,65535] to the original [0,7] or [0,31], or whatever range the
+    * colors were originally in:
+    */
+   if ((transforms & PNG_TRANSFORM_SHIFT)
+       && png_get_valid(png_ptr, info_ptr, PNG_INFO_sBIT))
+   {
+      png_color_8p sig_bit;
+
+      png_get_sBIT(png_ptr, info_ptr, &sig_bit);
+      png_set_shift(png_ptr, sig_bit);
+   }
+#endif
+
+#if defined(PNG_READ_BGR_SUPPORTED)
+   /* Flip the RGB pixels to BGR (or RGBA to BGRA)
+    */
+   if (transforms & PNG_TRANSFORM_BGR)
+      png_set_bgr(png_ptr);
+#endif
+
+#if defined(PNG_READ_SWAP_ALPHA_SUPPORTED)
+   /* Swap the RGBA or GA data to ARGB or AG (or BGRA to ABGR)
+    */
+   if (transforms & PNG_TRANSFORM_SWAP_ALPHA)
+       png_set_swap_alpha(png_ptr);
+#endif
+
+#if defined(PNG_READ_SWAP_SUPPORTED)
+   /* Swap bytes of 16 bit files to least significant byte first
+    */
+   if (transforms & PNG_TRANSFORM_SWAP_ENDIAN)
+      png_set_swap(png_ptr);
+#endif
+
+   /* We don't handle adding filler bytes */
+
+   /* Optional call to gamma correct and add the background to the palette
+    * and update info structure.  REQUIRED if you are expecting libpng to
+    * update the palette for you (i.e., you selected such a transform above).
+    */
+   png_read_update_info(png_ptr, info_ptr);
+
+   /* -------------- image transformations end here ------------------- */
+
+#ifdef PNG_FREE_ME_SUPPORTED
+   png_free_data(png_ptr, info_ptr, PNG_FREE_ROWS, 0);
+#endif
+   if (info_ptr->row_pointers == NULL)
+   {
+      info_ptr->row_pointers = (png_bytepp)png_malloc(png_ptr,
+         info_ptr->height * png_sizeof(png_bytep));
+      png_memset(info_ptr->row_pointers, 0, info_ptr->height
+         * png_sizeof(png_bytep));
+#ifdef PNG_FREE_ME_SUPPORTED
+      info_ptr->free_me |= PNG_FREE_ROWS;
+#endif
+      for (row = 0; row < (int)info_ptr->height; row++)
+         info_ptr->row_pointers[row] = (png_bytep)png_malloc(png_ptr,
+            png_get_rowbytes(png_ptr, info_ptr));
+   }
+
+   png_read_image(png_ptr, info_ptr->row_pointers);
+   info_ptr->valid |= PNG_INFO_IDAT;
+
+   /* Read rest of file, and get additional chunks in info_ptr - REQUIRED */
+   png_read_end(png_ptr, info_ptr);
+
+   transforms = transforms; /* Quiet compiler warnings */
+   params = params;
+
+}
+#endif /* PNG_INFO_IMAGE_SUPPORTED */
+#endif /* PNG_NO_SEQUENTIAL_READ_SUPPORTED */
+#endif /* PNG_READ_SUPPORTED */

@@ -207,7 +207,7 @@ shared_ptr<ModeleProjection> xml_reader(const std::string &filename)
 	std::string cam_name ;
 	if (pElem->GetText())
 		cam_name = pElem->GetText();
-//	std::cout<<"hey aprÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¨s !"<<std::endl;
+//	std::cout<<"hey après !"<<std::endl;
 //	std::cout << "cam_name : " << cam_name << std::endl;
 
 	// Lecture <ppa> <c> <l> <focale>

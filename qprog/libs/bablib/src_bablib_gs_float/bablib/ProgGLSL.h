@@ -15,11 +15,11 @@
 BABLIB_NAMESPACE_BEGIN
 
 //@@ gestion uniforms:
-//@ structure dÃÂ©finie par macro avec un membre par uniform + sets
-//@ ou hash-map avec clÃÂ©s=noms uniforms, + crÃÂ©ation auto par listage des uniforms avec fonction GL [+ pareil pour attribs]
-//@ --> classe ProgState + vÃÂ©rifs auto prog activate...
-//@ --> par contre enlever la possibilitÃÂ© de dÃÂ©finir des Uniform indÃÂ©pendant d'un prog (inutile)
-//@@ a voir : passage de valeurs d'uniforms sans accÃÂ¨s au prog.. (ou accÃÂ¨s au prog mais pas au activate/deactivate)
+//@ structure d�finie par macro avec un membre par uniform + sets
+//@ ou hash-map avec cl�s=noms uniforms, + cr�ation auto par listage des uniforms avec fonction GL [+ pareil pour attribs]
+//@ --> classe ProgState + v�rifs auto prog activate...
+//@ --> par contre enlever la possibilit� de d�finir des Uniform ind�pendant d'un prog (inutile)
+//@@ a voir : passage de valeurs d'uniforms sans acc�s au prog.. (ou acc�s au prog mais pas au activate/deactivate)
 
 
 class ProgGLSL {
@@ -34,7 +34,7 @@ class ProgGLSL {
                 Source(ShaderGLSL::Type type);      //@ possibilite deduire type des noms de fichers inclus / verif
                 Source(ShaderGLSL::Type type, QString source, bool isFileName=true);
             
-                //@@ gestion associations numÃÂ©rotations messages d'erreur / source
+                //@@ gestion associations num�rotations messages d'erreur / source
                 //  --> associer noms aux portions de codes, defines..
                 
                 void addFile(QString fileName, bool forceName=false);       // resolves potential includes
@@ -70,14 +70,14 @@ class ProgGLSL {
         void bindShader(Source source);
         void bindShaders(SourceSet sources);
         void link();
-        void activate();        // active le programme et actualise les variables liÃÂ©es
+        void activate();        // active le programme et actualise les variables li�es
         void deactivate();
         void destroy();         // supprime le programme
 
         bool isLinked() const;          // true ssi le prog a ete linke correctement
-        void activateTextures() const;  // doit ÃÂªtre appelÃÂ© pendant que le programme est activÃÂ©, si les textures attachÃÂ©es ont ÃÂ©tÃÂ© changÃÂ©es
+        void activateTextures() const;  // doit �tre appel� pendant que le programme est activ�, si les textures attach�es ont �t� chang�es
         
-    // mÃÂ©thodes de chargment automatique :
+    // m�thodes de chargment automatique :
     //------------------------------------
         void load(SourceSet sources);                   // creates, compiles and links the GLSL program
 	
@@ -97,10 +97,10 @@ class ProgGLSL {
         
         static void addLocation(QString name, QString dir);     // adds a mapping for filenames with prefix [<name>] to directory <dir>
                 
-    // mÃÂ©thodes d'actualisation de variables (a faire apres le linkage et avant la premiere activation) :
+    // m�thodes d'actualisation de variables (a faire apres le linkage et avant la premiere activation) :
     //---------------------------------------------------------------------------------------------------
-        // les variables seront automatiquement actualisÃÂ©es ÃÂ  l'activation du programme en utilisant la valeur pointÃÂ©e juste avant l'activation
-        // si warn==true et la variable n'existe pas, un message de warning est affichÃÂ© (utiliser warn=false pour les variables optionnelles)
+        // les variables seront automatiquement actualis�es � l'activation du programme en utilisant la valeur point�e juste avant l'activation
+        // si warn==true et la variable n'existe pas, un message de warning est affich� (utiliser warn=false pour les variables optionnelles)
         void addUniform(Uniform *uniform, bool warn=true, bool ownUniform=true);    // si ownUniform==true, la suppression de <uniform> est prise en charge
         void addUniform(QString name, const double *value, bool warn=true);
         void addUniform(QString name, const float  *value, bool warn=true);
@@ -120,9 +120,9 @@ class ProgGLSL {
         void addUniformMat4(QString name, const float *value, bool warn=true);      // les coefficients de la matrice comme succession de colonnes (column-major order)
         void addTexture(QString name, Texture *texture, bool warn=true);
         
-    // mÃÂ©thodes pour changer la valeur d'une variable (a faire quand le programme est actif) :
+    // m�thodes pour changer la valeur d'une variable (a faire quand le programme est actif) :
     //----------------------------------------------------------------------------------------
-        // si warn==true et la variable n'existe pas, un message de warning est affichÃÂ© (utiliser warn=false pour les variables optionnelles)
+        // si warn==true et la variable n'existe pas, un message de warning est affich� (utiliser warn=false pour les variables optionnelles)
         void setUniform(QString name, int   value, bool warn=true);
         void setUniform(QString name, float value, bool warn=true);
         void setUniform(QString name, bool value, bool warn=true);
@@ -148,9 +148,9 @@ class ProgGLSL {
         void setUniformMat3(QString name, const float *value, bool warn=true);    // les coefficients de la matrice comme succession de colonnes (column-major order)
         void setUniformMat4(QString name, const float *value, bool warn=true);    // les coefficients de la matrice comme succession de colonnes (column-major order)
         
-    // autres mÃÂ©thodes pratiques :
+    // autres m�thodes pratiques :
     //----------------------------
-        // la liste des sources de type <shaderType> (noms de fichiers relatifs au rÃÂ©pertoire) :
+        // la liste des sources de type <shaderType> (noms de fichiers relatifs au r�pertoire) :
         static QStringList sourcesList(QString dirName, ShaderGLSL::Type shaderType);
         static QStringList sourcesList(QString dirName, ShaderGLSL::Type type, bool addPrefix = false, bool addExtension = false);
 
@@ -159,10 +159,10 @@ class ProgGLSL {
         void clearParameters();
     private:
         UniformGLSL createUniformGLSL(QString name, bool warn) const;   // retourne NULL si la variable <name> n'existe pas
-        void bindShaderDir(QString dirName, ShaderGLSL::Type shaderType);     // <dirName> relatif au rÃÂ©pertoire de base
+        void bindShaderDir(QString dirName, ShaderGLSL::Type shaderType);     // <dirName> relatif au r�pertoire de base
 
     public:
-        // mÃÂ©thodes spÃÂ©cifiques :
+        // m�thodes sp�cifiques :
         void validate();            // valide et affiche des infos de validation
         void printInfo() const;     // affiche la liste d'attributs et uniforms actifs
         void printActiveAttribs() const;    // affiche la liste d'attributs actifs
@@ -175,7 +175,7 @@ class ProgGLSL {
         void detach(ShaderGLSL shader);
         QString getInfoLog() const;
         GLint getVariable(GLenum paramName) const;
-        static QString typeEnumString(GLenum type);     // convertit en QString une enum reprÃÂ©sentant un type GLSL
+        static QString typeEnumString(GLenum type);     // convertit en QString une enum repr�sentant un type GLSL
 
     public:
         class Locator {
@@ -211,7 +211,7 @@ class ProgGLSL {
                 QString withSuffix(QString fileName, ShaderGLSL::Type type) const;
                 
                 QStringList subDirs(QString dirName) const;
-                QString getSubDir(QString dirName) const;   // ouvre une boÃÂ®te de dialogue pour choisir un sous-rÃÂ©pertoire de <dirName>
+                QString getSubDir(QString dirName) const;   // ouvre une bo�te de dialogue pour choisir un sous-r�pertoire de <dirName>
             
                 bool fileExists(QString fileName) const;
                 
@@ -225,7 +225,7 @@ class ProgGLSL {
             };
         
     private:
-        // cette classe sert ÃÂ  reprÃÂ©senter un couple (Uniform, UniformGLSL) :
+        // cette classe sert � repr�senter un couple (Uniform, UniformGLSL) :
         class Variable {
             public:
                 // la suppression de <value> est prise en charge si et seulement si <ownValue> == true
@@ -241,18 +241,18 @@ class ProgGLSL {
             };
             
     private:
-        QList<Variable*> parameters;    // la liste des variables attachÃÂ©es au programme
-        TextureSet textures;            // la liste des textures attachÃÂ©es au programme
+        QList<Variable*> parameters;    // la liste des variables attach�es au programme
+        TextureSet textures;            // la liste des textures attach�es au programme
         bool linked;
     private:
         GLuint id;
         bool created;
-        QList<ShaderGLSL> shaders;      // gardÃÂ©s pour la destruction
+        QList<ShaderGLSL> shaders;      // gard�s pour la destruction
     public:
         static Locator locator;
 	
     private:
-	// mÃÂ©thodes pour configurer le(s) geometry shader(s) :
+	// m�thodes pour configurer le(s) geometry shader(s) :
 	//----------------------------------------------------------------------------------------
 	void setGeometryInputType( GLenum glInputType );
 	void setGeometryOutputType( GLenum glOutputType );

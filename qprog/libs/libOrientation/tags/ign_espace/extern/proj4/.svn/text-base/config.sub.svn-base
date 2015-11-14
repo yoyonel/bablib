@@ -1619,3 +1619,40 @@ case $basic_machine in
 				vendor=ibm
 				;;
 			-ptx*)
+				vendor=sequent
+				;;
+			-tpf*)
+				vendor=ibm
+				;;
+			-vxsim* | -vxworks* | -windiss*)
+				vendor=wrs
+				;;
+			-aux*)
+				vendor=apple
+				;;
+			-hms*)
+				vendor=hitachi
+				;;
+			-mpw* | -macos*)
+				vendor=apple
+				;;
+			-*mint | -mint[0-9]* | -*MiNT | -MiNT[0-9]*)
+				vendor=atari
+				;;
+			-vos*)
+				vendor=stratus
+				;;
+		esac
+		basic_machine=`echo $basic_machine | sed "s/unknown/$vendor/"`
+		;;
+esac
+
+echo $basic_machine$os
+exit
+
+# Local variables:
+# eval: (add-hook 'write-file-hooks 'time-stamp)
+# time-stamp-start: "timestamp='"
+# time-stamp-format: "%:y-%02m-%02d"
+# time-stamp-end: "'"
+# End:

@@ -49,7 +49,7 @@ E      817717.80       N:212387.42     h:732.27
 
 int main(int argc, char **argv)
 {
-//on declare les projections Ã  utiliser
+//on declare les projections à utiliser
 	projPJ Lambert93;
 
 	std::cout.precision(9);
@@ -84,7 +84,7 @@ int main(int argc, char **argv)
 	
 
         //site SGN: 75056N A Immeuble : Terrasse superieure : Cheminee : Plaquette-cible collee
-        //2Â° 21' 48,9146'' E        48Â° 49' 55,4329'' N  161,92
+        //2° 21' 48,9146'' E        48° 49' 55,4329'' N  161,92
         //653 282,54     6 859 300,38   118.1
 
         char* lat_c="2d21'48.9146E";

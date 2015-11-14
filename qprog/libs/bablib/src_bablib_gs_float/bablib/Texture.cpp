@@ -151,7 +151,7 @@ int Texture::maxUnits() {
     }
 
 /***********************************************************************************************/
-//@@ a gÃÂ©rer : dans les fonctions suivantes, le 7eme argument (GL_RGBA) doit prendre
+//@@ a g�rer : dans les fonctions suivantes, le 7eme argument (GL_RGBA) doit prendre
 //  la valeur GL_DEPTH_COMPONENT pour les depth textures 
 
 Texture Texture::createTex1D(int w, GLint internalFormat, GLenum interpMode, GLenum wrapMode) {
@@ -258,7 +258,7 @@ Dim2D Texture::renderSize(GLenum target, int level) const {
 /***********************************************************************************************/
 
 void Texture::initAutoMipMapGeneration( GLenum _min_filter, GLenum _mag_filter, GLint _max_levels, GLuint _base_level, GLenum _hint_mode ) {
-	// @ faire, tester les modes de texture et la possibilitÃÂ© de les mipmapper
+	// @ faire, tester les modes de texture et la possibilit� de les mipmapper
 	bind();
 	// - 
     	glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE); // automatic mipmap

@@ -66,7 +66,7 @@ float	coef_diff_for_new_texel	= 0.8;
 //#define USE_EXPERIMENTAL_CORRECTION_FOR_MOVEMENT_DIFF_POS_OCC
 float 	coef_diff_pows = 0.001;
 
-// reliÃÂÃÂ© directement avec [draw_scene_with_scm.frag]
+// relié directement avec [draw_scene_with_scm.frag]
 //#define USE_EXPERIMENTAL_SUBPIXEL_SHADOWED
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -75,7 +75,7 @@ uniform sampler2DShadow	shadowMap;
 //uniform sampler2D	shadowContour;
 //uniform sampler2D	tex_depth;
 
-// - les textures tex_history_* pointent sur les rÃÂÃÂ©sultats prÃÂÃÂ©cÃÂÃÂ©dents
+// - les textures tex_history_* pointent sur les résultats précédents
 uniform sampler2D	tex_history_visibility, 
 			tex_history_positions,
 			tex_history_positions_occluders;
@@ -125,7 +125,7 @@ void main(void) {
 
 	#ifdef USE_SHADOW_PROJ
 		texel_in_texture_light_space = v_v4_texel_in_light;
-		// Bias Uniform (non normalisÃÂÃÂ©)
+		// Bias Uniform (non normalisé)
 		texel_in_texture_light_space.z	+= coef_depth_bias * v_v4_texel_in_light.w;
 	#else
 		// Normalisation manuelle (TODO: voir shadow2DProj)
@@ -182,7 +182,7 @@ void main(void) {
 	// - Visibility Receiver
 	vec4	texel_vis_prev	= texture2D( tex_history_visibility, 			v_v4_position_in_proj_eyes_prev_normalized.xy );	// previous visibility 		in WorldSpace
 
-	// - Positions Occluders (frame courante, et prÃÂÃÂ©cÃÂÃÂ©dente)
+	// - Positions Occluders (frame courante, et précédente)
 	vec4	texel_pows_prev	= texture2D( tex_history_positions_occluders, 		v_v4_position_in_proj_eyes_prev_normalized.xy );	// previous position occluder 	in WorldSpace
 	vec4	texel_pows	= texture2D( tex_sm_pows,				texel_in_texture_light_space.xy );	// actual   position occluder 	in WorldSpace	
 
@@ -243,7 +243,7 @@ void main(void) {
 		}
 		// ---- Calcul du poids
 		weight = pow( confidence_sm, coef_power_function );
-		// ---- Mix temporel de la visibilitÃÂÃÂ©
+		// ---- Mix temporel de la visibilité
 		tsm = mix( texel_vis_prev.x, shadow, weight );
 	}
 	// -------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -260,7 +260,7 @@ void main(void) {
 //	bool subtexel_shadowed;
 //	subtexel_shadowed = compute_subpixel( texel_in_texture_light_space, texel_in_projective_light_space, v2_sm_size);
 ////	if (IN_PENUMBRA(shadow, 0.0)) {
-////		// ombrÃÂÃÂ© ou dans la pÃÂÃÂ©nombre
+////		// ombré ou dans la pénombre
 ////		subtexel_shadowed = compute_subpixel( texel_in_texture_light_space, texel_in_projective_light_space, v2_sm_size);
 ////	}	
 ////	else {
@@ -276,7 +276,7 @@ void main(void) {
 //					confidence_sm < 0.0 ? BLUE	:
 //					confidence_color;
 //		*/
-//		// - on veut afficher la grille sur les texels ombrÃÂÃÂ©s
+//		// - on veut afficher la grille sur les texels ombrés
 //		out_color += shadow < (1-EPSILON) ? (1. - shadow) * confidence_color : vec4(0);
 //		//out_color = confidence_color;
 //	#endif
@@ -290,7 +290,7 @@ void main(void) {
 //		// - Visibility Receiver
 //		vec4	texel_vis_prev	= texture2D( tex_history_visibility, 			v_v4_position_in_proj_eyes_prev_normalized.xy );	// previous visibility 		in WorldSpace
 
-//		// - Positions Occluders (frame courante, et prÃÂÃÂ©cÃÂÃÂ©dente)
+//		// - Positions Occluders (frame courante, et précédente)
 //		vec4	texel_pows_prev	= texture2D( tex_history_positions_occluders, 		v_v4_position_in_proj_eyes_prev_normalized.xy );	// previous position occluder 	in WorldSpace
 //		vec4	texel_pows	= texture2D( tex_sm_pows,				texel_in_texture_light_space.xy );	// actual   position occluder 	in WorldSpace	
 
@@ -380,7 +380,7 @@ void main(void) {
 					confidence_sm < 0.0 ? BLUE	:
 					confidence_color;
 		*/
-		// - on veut afficher la grille sur les texels ombrÃÂÃÂ©s
+		// - on veut afficher la grille sur les texels ombrés
 		out_color += shadow < (1-EPSILON) ? (1. - shadow) * confidence_color : vec4(0);
 		//out_color = confidence_color;
 	#endif
@@ -398,7 +398,7 @@ void main(void) {
 		float grid_sm = Compute_Grid( vec2(texel_in_texture_light_space), v2_sm_size );
 		//out_color += coef_grid_color * ( /**(out_color.x >= -EPSILON) && /**/ (out_color.x <= EPSILON*20000 ) ? (BLUE + GREEN) * grid_sm : out_color);
 		vec4 grid_color = (BLUE + GREEN) * grid_sm * coef_grid_color;
-		// - on veut afficher la grille sur les texels ombrÃÂÃÂ©s
+		// - on veut afficher la grille sur les texels ombrés
 		out_color += shadow < (1-EPSILON) ? (1. - shadow) * grid_color : vec4(0);
 	#endif
 
@@ -483,8 +483,8 @@ float Compute_Confidence( vec4 texel_in_texture_light_space, vec2 _sizeTexture )
 	float tex_width = _sizeTexture.x;
 	float tex_height = _sizeTexture.y;
 	
-	// MOG: rÃÂÃÂ©flÃÂÃÂ©chir ÃÂÃÂ  ce que ÃÂÃÂ§a fait ce calcul !!!
-	// Grille de projection de la shadow map (i.e grille de rasterisation projetÃÂÃÂ©e sur la scene)
+	// MOG: réfléchir à ce que ça fait ce calcul !!!
+	// Grille de projection de la shadow map (i.e grille de rasterisation projetée sur la scene)
 	/**
 	vec2 confidence_sm = texel_in_texture_light_space * _sizeTexture;
 	confidence_sm = abs( floor(confidence_sm - vec2(0.5)) - 0.5);
@@ -493,7 +493,7 @@ float Compute_Confidence( vec4 texel_in_texture_light_space, vec2 _sizeTexture )
 	/**/
 	//
 	
-	// Grille de projection de la shadow map (i.e grille de rasterisation projetÃÂÃÂ©e sur la scene)
+	// Grille de projection de la shadow map (i.e grille de rasterisation projetée sur la scene)
 	/**/
 	vec2 confidence_sm 	= vec2(texel_in_texture_light_space) * _sizeTexture;
 	vec2 confidence_sm_bias = confidence_sm; //- vec2(0.5) * 0;	// erreur de MERDE: pas de bias !!!
@@ -645,7 +645,7 @@ float Compute_Grid( vec2 texel_in_texture_light_space, vec2 _sizeTexture )
 	float tex_width = _sizeTexture.x;
 	float tex_height = _sizeTexture.y;
 	
-	// Grille de projection de la shadow map (i.e grille de rasterisation projetÃÂÃÂ©e sur la scene)
+	// Grille de projection de la shadow map (i.e grille de rasterisation projetée sur la scene)
 	float grid_sm_x = texel_in_texture_light_space.x * tex_width;
 	//grid_sm_x -= 0.5;
 	grid_sm_x -= floor(grid_sm_x);
@@ -667,7 +667,7 @@ vec4 filterColor( in float coef_shadow )
 {
 	vec4 iso_color;
 	
-	// exhibe 3 frontiÃÂÃÂ¨res (3 courbes iso)
+	// exhibe 3 frontières (3 courbes iso)
 	/**/
 	//const float fCoef_Width = 0.5;
 	const float fCoef_Width = 0.1;
