@@ -27,11 +27,25 @@ bool Jeu::needDrawing(int i)
 
 void Jeu::placePiece(int select, Piece *p)
 {
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/quarto/jeu.cpp
   // on verifie que la piece n'ai pas �t� d�ja plac�e autre part
+||||||| parent of 57cec52... local change (ign)
+  // on verifie que la piece n'ai pas ÃÂÃÂ©tÃÂÃÂ© dÃÂÃÂ©ja placÃÂÃÂ©e autre part
+=======
+  // on verifie que la piece n'ai pas été déja placée autre part
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/contribs/quarto/jeu.cpp
   for(int i=0; i<16; i++)
     if(tab[i].piece==p) {
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/quarto/jeu.cpp
       if(i==select) return; // la piece a d�ja �t� plac�e au bon endroit
       // si oui, on l'enl�ve
+||||||| parent of 57cec52... local change (ign)
+      if(i==select) return; // la piece a dÃÂÃÂ©ja ÃÂÃÂ©tÃÂÃÂ© placÃÂÃÂ©e au bon endroit
+      // si oui, on l'enlÃÂÃÂ¨ve
+=======
+      if(i==select) return; // la piece a déja été placée au bon endroit
+      // si oui, on l'enlève
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/contribs/quarto/jeu.cpp
       tab[i].empty=true;
       tab[i].piece=NULL;
     }
@@ -40,7 +54,13 @@ void Jeu::placePiece(int select, Piece *p)
   tab[select].piece=p;
 }
 
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/quarto/jeu.cpp
 // Vrai ssi les 4 pieces ont unbe caract�ristique commune
+||||||| parent of 57cec52... local change (ign)
+// Vrai ssi les 4 pieces ont unbe caractÃÂÃÂ©ristique commune
+=======
+// Vrai ssi les 4 pieces ont unbe caractéristique commune
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/contribs/quarto/jeu.cpp
 bool Jeu::caracCommune(Piece* pieces[4])
 {
   for (int i=0; i<4; ++i)
@@ -68,7 +88,13 @@ bool Jeu::caracCommune(Piece* pieces[4])
   return false;
 }
 
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/quarto/jeu.cpp
 // Analyse si un alignement a �t� effectu�
+||||||| parent of 57cec52... local change (ign)
+// Analyse si un alignement a ÃÂÃÂ©tÃÂÃÂ© effectuÃÂÃÂ©
+=======
+// Analyse si un alignement a été effectué
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/contribs/quarto/jeu.cpp
 bool Jeu::analyze()
 {
   Piece* pieces[4];

@@ -526,7 +526,13 @@ void TERRAIN::GenerateTextureMap( unsigned int size )
 //..idee de la methode: si entre un point et la source de lumiere, dans la direction
 //..de la lumiere, il y a un autre element du terrain, ce point se trouve dans l'ombre
 //.. pour cela, on soustrait l'hauteur du vertex voisin de l'hauteur du vertex actuel
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/terrain/terrain.cpp
 //.. CEPENDANT, on est limite a des changements de position de lumiere par pas de 45�
+||||||| parent of 57cec52... local change (ign)
+//.. CEPENDANT, on est limite a des changements de position de lumiere par pas de 45ÃÂÃÂ°
+=======
+//.. CEPENDANT, on est limite a des changements de position de lumiere par pas de 45°
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/contribs/terrain/terrain.cpp
 //.. et on ne tient pas compte de l'hauteur de la source de lumiere! (seulement le vertex directement a cote compte)
 void TERRAIN::CalculateLighting( void )
 {
@@ -566,7 +572,13 @@ void TERRAIN::CalculateLighting( void )
     }
 }
 
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/terrain/terrain.cpp
 //tourner la lumiere par un pas de 45�
+||||||| parent of 57cec52... local change (ign)
+//tourner la lumiere par un pas de 45ÃÂÃÂ°
+=======
+//tourner la lumiere par un pas de 45°
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/contribs/terrain/terrain.cpp
 void TERRAIN::StepLightingDirection(void)
 {
   if ((directionX==-1)&&(directionZ==-1)) {directionX++;}

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
+<<<<<<< HEAD
 <!-- Written by QtCreator 3.5.1, 2015-11-16T01:15:46. -->
+||||||| parent of 57cec52... local change (ign)
+<!-- Written by QtCreator 3.0.1, 2015-11-12T13:48:14. -->
+=======
+<!-- Written by QtCreator 3.0.1, 2015-11-13T16:53:57. -->
+>>>>>>> 57cec52... local change (ign)
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>

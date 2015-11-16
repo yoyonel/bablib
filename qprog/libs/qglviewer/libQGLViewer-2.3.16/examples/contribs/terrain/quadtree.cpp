@@ -497,7 +497,13 @@ void QUADTREE::RefineNode( float x, float z, int edgeLength )
 			   fabs(pZ-( z *scaleSize /sizeHeightMap ) ) );
 
 
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/terrain/quadtree.cpp
   //f: valeur qui decide si on subdivise un noeud ou non (selon l'article de Stefan R�ttger sur le quadtree algo)
+||||||| parent of 57cec52... local change (ign)
+  //f: valeur qui decide si on subdivise un noeud ou non (selon l'article de Stefan RÃÂÃÂ¶ttger sur le quadtree algo)
+=======
+  //f: valeur qui decide si on subdivise un noeud ou non (selon l'article de Stefan Röttger sur le quadtree algo)
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/contribs/terrain/quadtree.cpp
   f= viewDistance/( ( float )edgeLength*minResolution*	/*/sizeHeightMap* */
 		    MAX( ( float )GetQuadMatrixData( ( int )x-1, ( int )z )/3*detailLevel, 1.0f ) );
   if (debugger) printf("f: %f\n",f);
@@ -805,7 +811,13 @@ void QUADTREE::RenderNode( float x, float z, int edgeLength, bool multiTextures,
 	    }
 
 	  //il reste les suites partielles a afficher; on utilise les codes pour faciliter le choix de triang.
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/terrain/quadtree.cpp
 	  //cette partie est quasiment directement copie de l'article de Stefan R�ttger;
+||||||| parent of 57cec52... local change (ign)
+	  //cette partie est quasiment directement copie de l'article de Stefan RÃÂÃÂ¶ttger;
+=======
+	  //cette partie est quasiment directement copie de l'article de Stefan Röttger;
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/contribs/terrain/quadtree.cpp
 	  //.. les codes des suites partielles sont pas evidents.. (code binaire pour representer un quadtree)
 	  //suite partielle = repartition non-symmetrique entre enfants recursifs et feuilles
 	  start= suiteStart[code];

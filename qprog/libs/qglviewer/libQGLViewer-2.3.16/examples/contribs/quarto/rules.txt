@@ -17,22 +17,66 @@ End of the game:
 
 
 
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/quarto/rules.txt
 	R�gles du Jeu de Quarto:
+||||||| parent of 57cec52... local change (ign)
+	RÃÂÃÂ¨gles du Jeu de Quarto:
+=======
+	Règles du Jeu de Quarto:
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/contribs/quarto/rules.txt
 
 Composants du jeu:
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/quarto/rules.txt
  Le jeu est compos� d'un plateau de quatre cases sur quatre et de 16 pi�ces.
  Une pi�ce est d�finie par quatres caract�ristiques, elle est grande ou
  petite, noire ou blanche, ronde ou carr�e, avec ou sans bosse sur le
+||||||| parent of 57cec52... local change (ign)
+ Le jeu est composÃÂÃÂ© d'un plateau de quatre cases sur quatre et de 16 piÃÂÃÂ¨ces.
+ Une piÃÂÃÂ¨ce est dÃÂÃÂ©finie par quatres caractÃÂÃÂ©ristiques, elle est grande ou
+ petite, noire ou blanche, ronde ou carrÃÂÃÂ©e, avec ou sans bosse sur le
+=======
+ Le jeu est composé d'un plateau de quatre cases sur quatre et de 16 pièces.
+ Une pièce est définie par quatres caractéristiques, elle est grande ou
+ petite, noire ou blanche, ronde ou carrée, avec ou sans bosse sur le
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/contribs/quarto/rules.txt
  dessus.
 
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/quarto/rules.txt
 D�roulement du jeu:
  A tour de r�le, chaque joueur choisit une pi�ce (fen�tre de droite) qu'il
  donne au joueur adverse. Le joueur adverse place alors la pi�ce (fen�tre
+||||||| parent of 57cec52... local change (ign)
+DÃÂÃÂ©roulement du jeu:
+ A tour de rÃÂÃÂ´le, chaque joueur choisit une piÃÂÃÂ¨ce (fenÃÂÃÂªtre de droite) qu'il
+ donne au joueur adverse. Le joueur adverse place alors la piÃÂÃÂ¨ce (fenÃÂÃÂªtre
+=======
+Déroulement du jeu:
+ A tour de rôle, chaque joueur choisit une pièce (fenêtre de droite) qu'il
+ donne au joueur adverse. Le joueur adverse place alors la pièce (fenêtre
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/contribs/quarto/rules.txt
  de gauche) et en choisit une autre pour le premier joueur.
 
 Principe du jeu:
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/quarto/rules.txt
  Le premier joueur qui aligne quatre pi�ces avec une caracteristique
+||||||| parent of 57cec52... local change (ign)
+ Le premier joueur qui aligne quatre piÃÂÃÂ¨ces avec une caracteristique
+=======
+ Le premier joueur qui aligne quatre pièces avec une caracteristique
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/contribs/quarto/rules.txt
  commune gagne la partie.
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/quarto/rules.txt
  Les alignements autoris�s sont les alignements selon les lignes, les
+||||||| parent of 57cec52... local change (ign)
+ Les alignements autorisÃÂÃÂ©s sont les alignements selon les lignes, les
+=======
+ Les alignements autorisés sont les alignements selon les lignes, les
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/contribs/quarto/rules.txt
  colonnes, et les diagonales, une variante autorise les alignement en
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/quarto/rules.txt
  carr�s.
+||||||| parent of 57cec52... local change (ign)
+ carrÃÂÃÂ©s.
+=======
+ carrés.
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/contribs/quarto/rules.txt

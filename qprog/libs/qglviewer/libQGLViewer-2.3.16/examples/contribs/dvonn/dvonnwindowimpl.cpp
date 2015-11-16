@@ -119,7 +119,13 @@ DvonnWindowImpl::help()
 void
 DvonnWindowImpl::about()
 {
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/dvonn/dvonnwindowimpl.cpp
   QMessageBox::about(this, " D v o n n",tr("D v o n n\nCreated by Xavier D�coret\nVersion 1.0 - August 2004"));
+||||||| parent of 57cec52... local change (ign)
+  QMessageBox::about(this, " D v o n n",tr("D v o n n\nCreated by Xavier DÃÂÃÂ©coret\nVersion 1.0 - August 2004"));
+=======
+  QMessageBox::about(this, " D v o n n",tr("D v o n n\nCreated by Xavier Décoret\nVersion 1.0 - August 2004"));
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/contribs/dvonn/dvonnwindowimpl.cpp
 }
 void
 DvonnWindowImpl::load()

@@ -278,7 +278,13 @@ void Viewer::keyPressEvent(QKeyEvent *e)
 	myTree.switchTree();
 	updateGL();
 	break;
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/terrain/viewer.cpp
       case Qt::Key_L:		//switch direction de lumiere (en pas de 45�)
+||||||| parent of 57cec52... local change (ign)
+      case Qt::Key_L:		//switch direction de lumiere (en pas de 45ÃÂÃÂ°)
+=======
+      case Qt::Key_L:		//switch direction de lumiere (en pas de 45°)
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/contribs/terrain/viewer.cpp
 	myQuadtree.StepLightingDirection();
 	myQuadtree.CalculateLighting( );
 	updateGL();
@@ -346,7 +352,13 @@ QString Viewer::helpString() const
   text += "You can toggle the display of water (<b>W</b>), trees (<b>T</b>) and sky (<b>S</b>).<br><br>";
   text += "Press <b>X</b> to switch texturing on and off.<br>";
   text += "Press <b>O</b> to switch shading on and off.<br>";
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/terrain/viewer.cpp
   text += "Press <b>L</b> to cycle through different light source positions (+45�).<br>";
+||||||| parent of 57cec52... local change (ign)
+  text += "Press <b>L</b> to cycle through different light source positions (+45ÃÂÃÂ°).<br>";
+=======
+  text += "Press <b>L</b> to cycle through different light source positions (+45°).<br>";
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/contribs/terrain/viewer.cpp
   text += "Press <b>M</b> to toggle wireframe mesh display.<br><br>";
   text += "Press <b>S</b> to toggle sky display.<br>";
   text += "Press <b>T</b> to toggle tree display.<br>";

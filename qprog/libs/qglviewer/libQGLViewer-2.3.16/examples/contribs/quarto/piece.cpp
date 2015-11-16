@@ -25,7 +25,13 @@
 SetOfPiece::SetOfPiece()
 {
   selected=-1;
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/quarto/piece.cpp
   // on cr�e et place chaque piece
+||||||| parent of 57cec52... local change (ign)
+  // on crÃÂÃÂ©e et place chaque piece
+=======
+  // on crée et place chaque piece
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/contribs/quarto/piece.cpp
   for(int i=0; i<16; i++)
     tab[i]=new Piece(i, i/8, (i/4)%2, (i/2)%2, i%2, (i%4)*4.5, (i/4)*4.5 );
 }
@@ -56,7 +62,13 @@ void SetOfPiece::setTexture(GLuint texture)
 
 void SetOfPiece::placeSelectedPiece(int select)
 {
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/quarto/piece.cpp
   // Si aucun objet n'est selectionn�, on ne fait rien
+||||||| parent of 57cec52... local change (ign)
+  // Si aucun objet n'est selectionnÃÂÃÂ©, on ne fait rien
+=======
+  // Si aucun objet n'est selectionné, on ne fait rien
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/contribs/quarto/piece.cpp
   if(selected==-1) return;
   tab[selected]->setFenetre(true);
   tab[selected]->setPos((select%4)*3.5+3.7, (select/4)*3.5+3.7);
@@ -74,7 +86,13 @@ Piece::Piece(int i, bool c, bool s, bool f, bool t, double x, double y) : id(i),
 {
   // La fenetre est au debut, celle de selection
   fenetre=false;
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/quarto/piece.cpp
   // La piece n'est pas selectionn�e
+||||||| parent of 57cec52... local change (ign)
+  // La piece n'est pas selectionnÃÂÃÂ©e
+=======
+  // La piece n'est pas selectionnée
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/contribs/quarto/piece.cpp
   selected=false;
   // On initialise les parametres de couleur
     for (int i=0; i<3; ++i)
@@ -87,7 +105,13 @@ Piece::Piece(int i, bool c, bool s, bool f, bool t, double x, double y) : id(i),
 
 void Piece::paint(bool fen)
 {
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/contribs/quarto/piece.cpp
   // Si l'objet ne doit pas etre affich� dans la fenetre, on sort
+||||||| parent of 57cec52... local change (ign)
+  // Si l'objet ne doit pas etre affichÃÂÃÂ© dans la fenetre, on sort
+=======
+  // Si l'objet ne doit pas etre affiché dans la fenetre, on sort
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/contribs/quarto/piece.cpp
   if(fenetre!=fen) return;
   // On place l'objet au bon endroit
   glPushMatrix();

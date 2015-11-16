@@ -30,10 +30,22 @@ using namespace std;
 
 QString Viewer::helpString() const
 {
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/luxo/luxo.cpp
   QString text("<h2>L u x o  �</h2>");
+||||||| parent of 57cec52... local change (ign)
+  QString text("<h2>L u x o  ÃÂÃÂ©</h2>");
+=======
+  QString text("<h2>L u x o  ©</h2>");
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/luxo/luxo.cpp
   text += "This example illustrates several functionnalities of QGLViewer, ";
   text += "showing how easy it is to create a moderately complex application.<br><br>";
+<<<<<<< HEAD:qprog/libs/qglviewer/libQGLViewer-2.3.16/examples/luxo/luxo.cpp
   text += "The famous luxo lamp (�Pixar) can interactively be manipulated ";
+||||||| parent of 57cec52... local change (ign)
+  text += "The famous luxo lamp (ÃÂÃÂ©Pixar) can interactively be manipulated ";
+=======
+  text += "The famous luxo lamp (©Pixar) can interactively be manipulated ";
+>>>>>>> 57cec52... local change (ign):qprog/libs/qglviewer/libqglviewer/examples/luxo/luxo.cpp
   text += "with the mouse. <b>Shift</b> left click on an a part of the lamp to select it, ";
   text += "and then move it with the mouse. Press the <b>Control</b> key or select the background ";
   text += "to move the camera instead.<br><br>";
