@@ -52,6 +52,7 @@ class Texture {
 		//
 		static Texture createTex2DRect(int w, int h,    GLint internalFormat = GL_RGBA, GLenum interpMode = GL_NEAREST, GLenum wrapMode = GL_CLAMP);
 		static Texture createTex2DShadow(int w, int h,  GLint internalFormat = GL_DEPTH_COMPONENT16, GLenum interpMode = GL_NEAREST, GLenum wrapMode = GL_CLAMP);
+        static Texture createTex2DInteger(int w, int h, GLint internalFormat = GL_RGBA8I, GLenum interpMode = GL_NEAREST, GLenum wrapMode = GL_CLAMP);
 
         // méthodes pratiques de création de textures :
         static Texture createTex1D(QString imageFileName, GLint internalFormat = GL_RGBA, GLenum interpMode = GL_NEAREST, GLenum wrapMode = GL_CLAMP);

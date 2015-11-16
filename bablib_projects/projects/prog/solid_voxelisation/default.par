@@ -1,0 +1,54 @@
+windowSize = 1024 768
+
+// - OBJ
+model.default		= ../data/models/OBJ/knot.obj
+
+shaderDir.vbo = [shaders]/vbo
+shaderDir.vbo_sv = [shaders]/vbo_sv
+shaderDir.draw_texture = [shaders]/draw_texture
+
+timer_query.print 		= false
+draw_debug_textures		= true
+
+//
+vbo.expand			= false
+//
+vbo.enable_cull_face		= true
+//
+vbo.coef_extrusion		= 0.05
+//
+vbo.enable_polygon_offset	= true
+vbo.polygon_offset_scale	= +0.05
+vbo.polygon_offset_bias		= +0.0
+//
+vbo.enable_blend_for_extrusion	= true
+vbo.coef_alpha			= 0.0
+//
+vbo.coef_seuil_iso		= -0.00
+
+light_camera.draw			= true
+light_camera.intensity_isNotManipulated	= 0.0
+light_camera.intensity_isManipulated	= 0.75
+
+stencil_buffer.enable		= true
+stencil_buffer.bits		= 8
+
+plane.nb_quad_patch		= 1		// nb_quad = plane.nb_quad_patch * plane.nb_quad_patch
+plane.render			= true
+
+// - SM - Depth Shadow Map
+texture.sv.width 		= 512
+texture.sv.height		= 512
+texture.sv.internalformat	= GL_RGBA32UI
+texture.sv.filter		= GL_NEAREST
+texture.sv.wrapmode		= GL_CLAMP_TO_BORDER
+texture.sv.border_color	= 1 0 0 0
+
+texture.sv.depth_format = GL_DEPTH_COMPONENT32
+
+vbo.render_caster = true
+
+shadow_map.use_shadow_proj = true
+
+shadow_volume.coef_alpha = 0.75
+shadow_map.use_back_face = true

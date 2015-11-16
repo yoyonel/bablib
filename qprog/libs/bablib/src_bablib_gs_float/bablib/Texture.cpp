@@ -206,6 +206,14 @@ Texture Texture::createTex2DShadow(int w, int h, GLint internalFormat, GLenum in
     return tex;
     }
 
+Texture Texture::createTex2DInteger(int w, int h, GLint internalFormat, GLenum interpMode, GLenum wrapMode) {
+    Texture tex(GL_TEXTURE_2D, interpMode, wrapMode);
+    tex.init();
+    glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, w, h, 0, GL_RGBA_INTEGER, GL_UNSIGNED_INT, NULL);   // arguments 7 et 8 quelconques
+    tex.loaded = true;
+    return tex;
+}
+
 /***********************************************************************************************/
 
 Texture Texture::createTex1D(QString imageFileName, GLint internalFormat, GLenum interpMode, GLenum wrapMode) {
