@@ -1,9 +1,8 @@
-#ifndef __HELPER_VIEWER_DRAW__
-#define __HELPER_VIEWER_DRAW__
+#include "viewer_sv.h"
 
+#include <Message.h>
 #include <TransfoGL.h>
-
-//#define __DRAW_CONFIDENCE__
+#include <Params.h>
 
 //
 void Viewer::drawScene() {
@@ -117,6 +116,15 @@ void Viewer::drawTexture(Texture tex, int x, int y, int w, int h) const {
 }
 
 void Viewer::drawTextures() {
+    const int i_screen_width = (*camera()).screenWidth();
+    const int i_screen_height = (*camera()).screenHeight();
+    const int i_texture_debug_width = int((float)(i_screen_width) / 6.f);
+    const int i_texture_debug_height = int((float)(i_screen_height) / 6.f);
+
+    prog_draw_texture.activate();
+    drawTexture( tex_sv, 0, 0, i_texture_debug_width, i_texture_debug_height );
+    prog_draw_texture.deactivate();
+
     MSG_CHECK_GL;
 }
 
@@ -136,6 +144,3 @@ void Viewer::drawLightCamera( float _fCoef_Alpha ) {
     // restore OpenGL attributes
     glPopAttrib();
 }
-
-#endif
-

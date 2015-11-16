@@ -1,15 +1,20 @@
-#ifndef __HELPER_VIEWER_INIT_H__
-#define __HELPER_VIEWER_INIT_H__
+#include "viewer_sv.h"
 
+#include <Params.h>
+#include <Message.h>
 #include <ColorTypes.h>
 #include <Message.h>
-
 // trisoup/
 #include <scene3d/Tri.h>
 //#include <TriSoup.h>
 //#include "TriSoup_AOV.h"
 #include <VertexBuffer.h>
 #include <FrameBuffer.h>
+//
+#include <ColorTypes.h>
+#include <Image1D.h>
+#include <Texture.h>
+
 
 void Viewer::initAll( bool bDestroy )
 {
@@ -46,6 +51,42 @@ void Viewer::initTextures( bool bDestroy )
                 PARAM(GLenum, texture.sv.wrapmode)
                 );
 
+    int resZ = 128;
+
+    Image1DUInt4 img(resZ, 0);
+    GLuint* lookup = (GLuint*)(img.ptrData());
+    for( int i = 1; i < resZ; i++ ) {
+        if ( i < 32 ) {
+            lookup[ 4 * i + 3 ] = ( 1U << std::min( 32, i ) ) - 1;
+        } else if( i == 32 ) {
+            lookup[ 4 * i + 3 ] = 0xFFFFFFFF;
+        } else if ( i < 64 ) {
+            lookup[ 4 * i + 3 ] = 0xFFFFFFFF;
+            lookup[ 4 * i + 2 ] = ( 1U << std::min( 32, ( i - 32 ) ) ) - 1;
+        } else if( i == 64 ) {
+            lookup[ 4 * i + 3 ] = 0xFFFFFFFF;
+            lookup[ 4 * i + 2 ] = 0xFFFFFFFF;
+        } else if ( i < 96 ) {
+            lookup[ 4 * i + 3 ] = 0xFFFFFFFF;
+            lookup[ 4 * i + 2 ] = 0xFFFFFFFF;
+            lookup[ 4 * i + 1 ] = ( 1U << std::min( 32, ( i - 64 ) ) ) - 1;
+        } else if( i == 96 ) {
+            lookup[ 4 * i + 3 ] = 0xFFFFFFFF;
+            lookup[ 4 * i + 2 ] = 0xFFFFFFFF;
+            lookup[ 4 * i + 1 ] = 0xFFFFFFFF;
+        } else {
+            lookup[ 4 * i + 3 ] = 0xFFFFFFFF;
+            lookup[ 4 * i + 2 ] = 0xFFFFFFFF;
+            lookup[ 4 * i + 1 ] = 0xFFFFFFFF;
+            lookup[ 4 * i + 0 ] = ( 1U << std::min( 32, ( i - 96 ) ) ) - 1;
+        }
+    }
+    tex_bitmask = Texture(&img, GL_NEAREST, GL_CLAMP_TO_EDGE);
+    tex_bitmask.load(GL_RGBA32UI);
+    img.destroy();
+
+    img_sv = Image2DUInt4(tex_sv.getWidth(), tex_sv.getHeight());
+
     MSG_CHECK_GL;
 }
 
@@ -70,6 +111,9 @@ void Viewer::initShaders( bool bDestroy )
 
     LOADDIRSHADER( PARAM(QString, shaderDir.vbo), prog_vbo );
     LOADDIRSHADER( PARAM(QString, shaderDir.vbo_sv), prog_vbo_sv );
+    prog_vbo_sv.addTexture("bitmask", &tex_bitmask);
+
+    LOADDIRSHADER( PARAM(QString, shaderDir.draw_texture), prog_draw_texture );
 
     MSG_CHECK_GL;
 }
@@ -88,9 +132,9 @@ void Viewer::initTriSoup( bool bDestroy )
         destroyTriSoup();
     }
 
-    ts = TriSoup::load(PARAM(QString, model.default));
+    ts = TriSoup2::load(PARAM(QString, model.default));
 
-    //ts->fitToUnitSphere();
+    ts->fitToUnitSphere();
 
     MSG_CHECK_GL;
 }
@@ -142,4 +186,3 @@ void Viewer::initVBO( bool bDestroy )
     MSG_CHECK_GL;
 }
 
-#endif

@@ -5,7 +5,8 @@ CONFIG *= bablib
 CONFIG *= scene3d
 CONFIG *= gsl
 
-HEADERS = sources/*.h
+HEADERS = sources/*.h \
+    sources/TriSoup2.h
 SOURCES = sources/*.cpp
 
 OTHER_FILES +=                                              \

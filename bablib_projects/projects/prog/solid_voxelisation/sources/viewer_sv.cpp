@@ -27,7 +27,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #include <ProjTransfo.h>
 #include <Params.h>
 #include <OpenGL.h>
-#include "helpers.h"
 #include <QKeyEvent>
 
 Viewer::Viewer() : bFirstInit(true) { };

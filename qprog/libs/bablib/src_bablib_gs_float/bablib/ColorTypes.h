@@ -570,7 +570,8 @@ class UInt4 {
         static const int SIZE = 4;
         static const GLint  TEX_FORMAT = 4;  // = GL_RGBA
         //static const GLenum DATA_FORMAT = GL_RGBA;
-        static const GLenum DATA_FORMAT = GL_RGBA_INTEGER_EXT;      //@@ a voir
+        //static const GLenum DATA_FORMAT = GL_RGBA_INTEGER_EXT;      //@@ a voir
+        static const GLenum DATA_FORMAT = GL_RGBA_INTEGER;      //@@ a voir
         static const GLenum DATA_TYPE = GL_UNSIGNED_INT;
     };
 

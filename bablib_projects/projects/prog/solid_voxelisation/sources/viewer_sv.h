@@ -42,6 +42,8 @@ using namespace std;
 
 #include <ProgGLSL.h>
 #include <Texture.h>
+#include <Image1D.h>
+#include <Image2D.h>
 #include <FrameBuffer.h>
 #include <ProjTransfo.h>
 
@@ -50,10 +52,19 @@ using namespace std;
 
 #include "TimerQueryNV.h"
 //
-#include <scene3d/TriSoup.h>
+//#include <scene3d/TriSoup.h>
+#include "TriSoup2.h"
 //
 #include <VertexBuffer.h>
 
+
+typedef Image1D<UInt4> Image1DUInt4;
+typedef Image2D<UInt4> Image2DUInt4;
+
+
+/**
+ * @brief The Viewer class
+ */
 class Viewer : public QGLViewer {
 public:
     Viewer();
@@ -121,9 +132,11 @@ private :
     // FRAMEBUFFERS/TEXTURES BabLib
     FrameBuffer fb_sv;
     Texture     tex_sv;
+    Image2DUInt4 img_sv;
+    Texture     tex_bitmask;
 
     // SHADERS BabLib
-    //ProgGLSL prog_draw_texture;
+    ProgGLSL prog_draw_texture;
     ProgGLSL prog_vbo;
     ProgGLSL prog_vbo_sv;
 
@@ -136,7 +149,7 @@ private :
 
     // VBO
     // - loader
-    TriSoup *ts;
+    TriSoup2 *ts;
 
     // - VBO OpenGL
     VertexDataBufferGL 	*vbo;

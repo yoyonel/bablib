@@ -1,7 +1,9 @@
 windowSize = 1024 768
 
 // - OBJ
-model.default		= ../data/models/OBJ/knot.obj
+model.default		= ../data/models/OBJ/box.obj
+//model.default		= ../data/models/OBJ/knot.obj
+//model.default		= ../data/models/OBJ/elephal.obj
 
 shaderDir.vbo = [shaders]/vbo
 shaderDir.vbo_sv = [shaders]/vbo_sv
@@ -37,8 +39,8 @@ plane.nb_quad_patch		= 1		// nb_quad = plane.nb_quad_patch * plane.nb_quad_patch
 plane.render			= true
 
 // - SM - Depth Shadow Map
-texture.sv.width 		= 512
-texture.sv.height		= 512
+texture.sv.width 		= 32
+texture.sv.height		= 32
 texture.sv.internalformat	= GL_RGBA32UI
 texture.sv.filter		= GL_NEAREST
 texture.sv.wrapmode		= GL_CLAMP_TO_BORDER

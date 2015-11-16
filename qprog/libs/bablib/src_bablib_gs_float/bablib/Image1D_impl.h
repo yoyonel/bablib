@@ -15,20 +15,20 @@ Image1D<Color>::Image1D(int w, Color* inputData, WrapMode wrap, Color border) : 
     if (w <= 0) {
         w = 0;
         data = NULL;
-        }
+    }
     else if (inputData == NULL) {
         data = new Color[w];
         if (data == NULL) {
             Message::error("l'allocation memoire pour l'image a echoué");
             w = 0;
-            }
         }
     }
+}
 
 template<class Color>
 Image1D<Color>::Image1D(QImage image) : AbstractImage1D(0), data(NULL), wrapMode(CLAMP_TO_EDGE) {
     initialize(image);
-    }
+}
 
 template<class Color>
 Image1D<Color>::Image1D(QString fileName) : AbstractImage1D(0), data(NULL), wrapMode(CLAMP_TO_EDGE) {
@@ -37,14 +37,14 @@ Image1D<Color>::Image1D(QString fileName) : AbstractImage1D(0), data(NULL), wrap
         Message::error(QString("probleme lors du chargement du fichier '%1'").arg(fileName));
     else
         initialize(image);
-    }
+}
 
 template<class Color>
 void Image1D<Color>::destroy() {
     if (data != NULL) delete[] data;
     data = NULL;
     w = 0;
-    }
+}
 
 template<class Color>
 void Image1D<Color>::initialize(QImage image) {
@@ -57,12 +57,12 @@ void Image1D<Color>::initialize(QImage image) {
         if (data == NULL) {
             Message::error("l'allocation memoire pour l'image a echoué");
             w = 0;
-            }
+        }
         else
             for (int i=0; i<w; i++)
                 texel(i) = Color(image.pixel(i, 0));
-        }
     }
+}
 
 template<class Color>
 QImage Image1D<Color>::toQImage() const {
@@ -70,7 +70,7 @@ QImage Image1D<Color>::toQImage() const {
     for (int i=0; i<w; i++)
         image.setPixel(i, 0, texel(i).toQRgb());
     return image;
-    }
+}
 
 template<class Color>
 void Image1D<Color>::copy(const Image1D<Color> &image) {
@@ -83,8 +83,8 @@ void Image1D<Color>::copy(const Image1D<Color> &image) {
         wrapMode = image.wrapMode;
         borderColor = image.borderColor;
         //@ voir : copie wrap parametrable par bool?
-        }
     }
+}
 
 template<class Color>
 Image1D<Color> Image1D<Color>::clone() const {
@@ -93,45 +93,45 @@ Image1D<Color> Image1D<Color>::clone() const {
     if (clonedData == NULL) {
         Message::error("l'allocation memoire pour l'image a echoué");
         return Image1D<Color>();
-        }
+    }
     for (int c=0; c<w; c++)
         clonedData[c] = data[c];
     return Image1D<Color>(w, clonedData, wrapMode, borderColor);
-    }
+}
 
 template<class Color>
 void Image1D<Color>::setBorderColor(Color c) {
     borderColor = c;
-    }
+}
 
 template<class Color>
 void Image1D<Color>::setWrapMode(WrapMode mode) {
     wrapMode = mode;
-    }
+}
 
 template<class Color>
 void Image1D<Color>::setupBorder(WrapMode mode, Color c) {
     wrapMode = mode;
     borderColor = c;
-    }
+}
 
 template<class Color>
 Color Image1D<Color>::sample(int i) const {
     switch (wrapMode) {
-        case CLAMP_TO_BORDER :  return contains(i) ? texel(i) : borderColor;
-        case REPEAT :           return texel(modulo(i, w));
-        case MIRRORED_REPEAT :  return texel(mirror(i, w));
-        case CLAMP_TO_EDGE :
-        default :               return texel(clamp(i, 0, w-1));
-        };
-    }
+    case CLAMP_TO_BORDER :  return contains(i) ? texel(i) : borderColor;
+    case REPEAT :           return texel(modulo(i, w));
+    case MIRRORED_REPEAT :  return texel(mirror(i, w));
+    case CLAMP_TO_EDGE :
+    default :               return texel(clamp(i, 0, w-1));
+    };
+}
 
 template<class Color>
 Color Image1D<Color>::interp(float x) const {
     int i0 = (int)(floorf(x - 0.5));
     float a = x - 0.5 - i0;
     return (1 - a) * sample(i0) + a * sample(i0 + 1);
-    }
+}
 
 /*********************************************************************************************/
 // fonctions de lecture/écriture de buffer OpenGL :
@@ -139,7 +139,7 @@ Color Image1D<Color>::interp(float x) const {
 template<class Color>
 void Image1D<Color>::loadTexture1D(GLint texFormat, GLenum target) const {
     glTexImage1D(target, 0, texFormat, w, 0, Color::DATA_FORMAT, Color::DATA_TYPE, data);
-    }
+}
 
 template<class Color>
 Image1D<Color> Image1D<Color>::readTexture(Texture *tex) {
@@ -150,9 +150,9 @@ Image1D<Color> Image1D<Color>::readTexture(Texture *tex) {
     else {
         tex->bind();
         glGetTexImage(GL_TEXTURE_1D, 0, Color::DATA_FORMAT, Color::DATA_TYPE, res.data);
-        }
-    return res;
     }
+    return res;
+}
 
 
 /*********************************************************************************************/
@@ -170,11 +170,11 @@ void Image1D<Color>::subSample(int N) {
         for (int a=0; a<N; a++)
             pix.add(texel(N*i+a));
         res(i) = pix.getColor();
-        }
+    }
     
     destroy();
     *this = res;
-    }
+}
 
 template<class Color>
 void Image1D<Color>::subSample(int N, Pix1DEvaluator &pixeval) {
@@ -192,18 +192,18 @@ void Image1D<Color>::subSample(int N, Pix1DEvaluator &pixeval) {
         for (int a=0; a<N; a++) {
             int k = pixeval.evaluate(N*i + a);
             pix[k].add(texel(N*i+a));
-            }
+        }
 
         int kMax = 0;
         for (int k=0; k<M; k++) if (pix[k].n > pix[kMax].n) kMax = k;   // la classe la plus représentée
         res(i) = pix[kMax].getColor();
-        }
+    }
     
     delete pix;
 
     destroy();
     *this = res;
-    }
+}
 
 
 template<class Color>
@@ -213,42 +213,42 @@ void Image1D<Color>::growClass(Pix1DEvaluator &pixeval, int value) {
     ColorAdder<Color> pix;
     for (int i=0; i<w; i++) {
         int a1 = i > 0   ? -1 : 0,
-            a2 = i < w-1 ?  1 : 0;
-    
+                a2 = i < w-1 ?  1 : 0;
+
         pix.reset();
         if (pixeval.evaluate(i) != value) {
             // on ajoute les éventuels pixels du voisinage qui s'évaluent à <value> :
             for (int a=a1; a<=a2; a++)
                 if (pixeval.evaluate(i+a) == value)
                     pix.add(texel(i+a));
-            }
+        }
         if (pix.n == 0) pix.add(texel(i));
         
         res(i) = pix.getColor();
-        }
+    }
 
     destroy();
     *this = res;
-    }
+}
 
 template<class Color>
 void Image1D<Color>::applyFilter(ColorFilter<Color> &filter) {
     for (int i=0; i<w; i++)
         filter.apply(texel(i));
-    }
+}
 
 template<class Color>
 void Image1D<Color>::applyFilter(Pix1DEvaluator &pixeval, int value, ColorFilter<Color> &filter) {
     for (int i=0; i<w; i++)
         if (pixeval.evaluate(i) == value)
             filter.apply(texel(i));
-    }
+}
 
 template<class Color>
 void Image1D<Color>::applyFilter(Pix1DEvaluator &pixeval, int value, ColorFilter<Color> &filter1, ColorFilter<Color> &filter2) {
     for (int i=0; i<w; i++)
         (pixeval.evaluate(i) == value ? filter1 : filter2).apply(texel(i));
-    }
+}
 
 template<class Color>
 void Image1D<Color>::applyKernel(Kernel1D kernel, bool ignoreBorders) {
@@ -261,13 +261,13 @@ void Image1D<Color>::applyKernel(Kernel1D kernel, bool ignoreBorders) {
             int i1 = i + a;
             if (!ignoreBorders || contains(i1))
                 pix.add(texel(i1), kernel(a));
-            }
+        }
         //res(i) = pix.getColor();
         res(i) = pix.getSum();
-        }
+    }
     destroy();
     *this = res;
-    }
+}
 
 template<class Color>
 int* Image1D<Color>::histogram(Pix1DEvaluator &pixeval) const {
@@ -277,7 +277,7 @@ int* Image1D<Color>::histogram(Pix1DEvaluator &pixeval) const {
     for (int i=0; i<w; i++)
         res[pixeval.evaluate(i)] ++;
     return res;
-    }
+}
 
 BABLIB_NAMESPACE_END
 
