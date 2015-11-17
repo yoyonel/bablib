@@ -1,3 +1,0 @@
-ARGSTREAM_DIR = $$LIBS_PATH/argstream
-HEADERS      += $$ARGSTREAM_DIR/argstream.h
-INCLUDEPATH  += $$ARGSTREAM_DIR

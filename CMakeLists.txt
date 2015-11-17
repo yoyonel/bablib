@@ -26,20 +26,4 @@ ExternalProject_Add(QGLViewer
 find_package(OpenGL)
 include_directories(${OPENGL_INCLUDE_DIR})
 
-ADD_SUBDIRECTORY(external)
 
-add_executable(
-	Bablib 
-	${BABLIB_SRC}
-)
-
-add_dependencies(
-	Bablib 
-	QGLViewer
-	GLEW
-)
-
-target_link_libraries(
-	Bablib 
-	${OPENGL_LIBRAIRIES}
-)
