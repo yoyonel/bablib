@@ -1,7 +1,0 @@
-        static FrameBuffer create_RGBA8_Z(int w, int h, GLenu |	        static FrameBuffer create_Color_Z(int w, int h, GLenu
-							      >	        static FrameBuffer create_Color(int w, int h, GLenum 
-							      >	        static FrameBuffer create_Z(int w, int h, GLenum dept
-							      >	        static FrameBuffer create_RGBA8_Z(int w, int h, GLenu
-        static FrameBuffer create_RGBA16(int w, int h);       |	        static FrameBuffer create_RGBA16(int w, int h)      {
-        static FrameBuffer create_RGBA8(int w, int h);        |	        static FrameBuffer create_RGBA8(int w, int h)       {
-        static FrameBuffer create_Z(int w, int h, GLenum dept <

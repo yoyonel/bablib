@@ -1,5 +1,0 @@
-							      >	#ifndef fminf
-							      >	#define fminf(_a, _b) (_a) < (_b) ? (_a) : (_b)
-							      >	#define fmaxf(_a, _b) fminf(_b, _a)
-							      >	#endif
-							      >

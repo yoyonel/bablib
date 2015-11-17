@@ -1,7 +1,0 @@
-							      >	#define for3D(tab, index1, index2, index3) \
-							      >	    for (int index1 = 0; index1 < tab.N1(); index1++)   \
-							      >	    for (int index2 = 0; index2 < tab.N2(); index2++)   \
-							      >	    for (int index3 = 0; index3 < tab.N3(); index3++)   
-							      >
-        inline void set(int i, int j, int k, float _value)    <
-							      <
