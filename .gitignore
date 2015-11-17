@@ -9,3 +9,5 @@ projects/**
 
 # libQGLViewer
 qprog/libs/qglviewer/**
+
+Makefile
