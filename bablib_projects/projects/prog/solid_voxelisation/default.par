@@ -1,13 +1,14 @@
 windowSize = 1024 768
 
 // - OBJ
+//model.default		= ../data/models/OBJ/sphere.obj
 //model.default		= ../data/models/OBJ/box.obj
 //model.default		= ../data/models/OBJ/knot.obj
 //model.default		= ../data/models/OBJ/elephal.obj
 //model.default		= ../data/models/OBJ/polhemus_hand.obj
 //model.default		= ../data/models/OBJ/elephant-poses/elephant-01.obj
-//model.default		= ../data/models/OFF/ref_chinese_dragon.off
-model.default		= ../data/models/OFF/camel.off
+model.default		= ../data/models/OFF/ref_chinese_dragon.off
+//model.default		= ../data/models/OFF/camel.off
 
 shaderDir.vbo = [shaders]/vbo
 shaderDir.vbo_sv = [shaders]/vbo_sv
@@ -40,7 +41,7 @@ stencil_buffer.enable		= true
 stencil_buffer.bits		= 8
 
 plane.nb_quad_patch		= 1		// nb_quad = plane.nb_quad_patch * plane.nb_quad_patch
-plane.render			= true
+plane.render			= false
 
 // - SM - Depth Shadow Map
 texture.sv.width 		= 32
@@ -58,3 +59,6 @@ shadow_map.use_shadow_proj = true
 
 shadow_volume.coef_alpha = 0.75
 shadow_map.use_back_face = true
+
+sv.render_voxels_set = true
+sv.render_voxels_unset = true

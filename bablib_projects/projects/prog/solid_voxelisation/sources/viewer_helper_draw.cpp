@@ -37,6 +37,10 @@ void Viewer::drawScene() {
         glPushAttrib(GL_ALL_ATTRIB_BITS);
         PARAM(bool, vbo.enable_cull_face) ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
 
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glBlendEquation(GL_FUNC_ADD);
+
         if ( PARAM(bool, vbo.render_caster) ) {
             //
             vbo->setProg(prog_vbo);

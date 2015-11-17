@@ -14,6 +14,8 @@
 #include <ColorTypes.h>
 #include <Image1D.h>
 #include <Texture.h>
+//
+#include <bitset>   // url: http://stackoverflow.com/questions/7349689/c-how-to-print-using-cout-the-way-a-number-is-stored-in-memory
 
 
 void Viewer::initAll( bool bDestroy )
@@ -55,8 +57,9 @@ void Viewer::initTextures( bool bDestroy )
 
     Image1DUInt4 img(resZ, 0);
     GLuint* lookup = (GLuint*)(img.ptrData());
+    memset(lookup, 0U, sizeof(GLuint)*resZ);
     for( int i = 1; i < resZ; i++ ) {
-        if ( i < 32 ) {
+       if ( i < 32 ) {
             lookup[ 4 * i + 3 ] = ( 1U << std::min( 32, i ) ) - 1;
         } else if( i == 32 ) {
             lookup[ 4 * i + 3 ] = 0xFFFFFFFF;
@@ -80,6 +83,13 @@ void Viewer::initTextures( bool bDestroy )
             lookup[ 4 * i + 1 ] = 0xFFFFFFFF;
             lookup[ 4 * i + 0 ] = ( 1U << std::min( 32, ( i - 96 ) ) ) - 1;
         }
+        std::cout << "bits field: sample " << i << " -> " << \
+                     std::bitset<32>(lookup[ 4 * i + 0 ]) << \
+                     std::bitset<32>(lookup[ 4 * i + 1 ]) << \
+                     std::bitset<32>(lookup[ 4 * i + 2 ]) << \
+                     std::bitset<32>(lookup[ 4 * i + 3 ]) << \
+                     std::endl;
+                                                     ;
     }
     tex_bitmask = Texture(&img, GL_NEAREST, GL_CLAMP_TO_EDGE);
     tex_bitmask.load(GL_RGBA32UI);
