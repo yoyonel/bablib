@@ -8,5 +8,6 @@ uniform float farClipPlane;
 void main(void) {
     gl_Position = ftransform();
     vec4 transformed = gl_ModelViewMatrix * gl_Vertex;
-    depth = (-transformed.z / transformed.w ) / ( farClipPlane - nearClipPlane );
+    float z_camera_view = -(transformed.z / transformed.w) - nearClipPlane;
+    depth = z_camera_view / ( farClipPlane - nearClipPlane );
 }

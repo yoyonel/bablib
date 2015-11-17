@@ -34,10 +34,10 @@ void Viewer::update_matrix()
 
     // -- PLANE
     // OBJECT -> WORLD
-        pt_object_to_world_plane =
-                ProjTransfo::rotation( -(M_PI/2), Vec3(0, 0, 1), true ) *
-                ProjTransfo::scaling( Vec3(5, 5, 1) ) *
-                ProjTransfo::translation( Vec3(-0.5, -0.5, -1) );
+    pt_object_to_world_plane =
+            ProjTransfo::rotation( -(M_PI/2), Vec3(0, 0, 1), true ) *
+            ProjTransfo::scaling( Vec3(5, 5, 1) ) *
+            ProjTransfo::translation( Vec3(-0.5, -0.5, -1) );
     // WORLD -> OBJECT
     pt_world_to_object_plane = pt_object_to_world_plane.inv();
     // -----------------------------------------------
