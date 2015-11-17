@@ -7,16 +7,21 @@
 #include <bitset>   // url: http://stackoverflow.com/questions/7349689/c-how-to-print-using-cout-the-way-a-number-is-stored-in-memory
 #include <iostream>
 #include <iomanip>  // url: http://stackoverflow.com/questions/2650244/formatting-an-integer-output-using-ostream
+//
+//#include <groupby.hpp>
+//#include <vector>
 
 
 void debug_solid_voxelisation(const Image2DUInt4& _img_sv);
+void debug_solid_voxelisation_text_mode_1_column(const Image2DUInt4& _img_sv);
+void debug_solid_voxelisation_text_mode_full_image(const Image2DUInt4& _img_sv);
 
 
 void Viewer::updateFrameBuffers() {
     update_matrix();
     MSG_CHECK_GL;
 
-    // - FRAME_BUFFERS: Maj des FBs et Render-Textures associées
+    // - FRAME_BUFFERS: Maj des FBs et Render-Textures associÃ©es
     updateSolidVoxelisation( fb_sv );
 
     // - TIMER_QUERY
@@ -103,58 +108,57 @@ void Viewer::updateSolidVoxelisation(FrameBuffer& _framebuffer) {
 }
 
 void debug_solid_voxelisation(const Image2DUInt4& _img_sv) {
-    //UInt4 sample = _img_sv.texel(tex_sv.getWidth()/2, tex_sv.getHeight()/2);
+    //debug_solid_voxelisation_text_mode_1_column(_img_sv);
+    debug_solid_voxelisation_text_mode_full_image(_img_sv);
+}
+
+void debug_solid_voxelisation_text_mode_1_column(const Image2DUInt4& _img_sv) {
+    UInt4 sample = _img_sv.texel(_img_sv.width()/2, _img_sv.height()/2);
+
     /**
     std::cout << "bits field: sample.r = " << std::bitset<32>(sample.r)  << std::endl;
     std::cout << "bits field: sample.g = " << std::bitset<32>(sample.g)  << std::endl;
     std::cout << "bits field: sample.b = " << std::bitset<32>(sample.b)  << std::endl;
     std::cout << "bits field: sample.a = " << std::bitset<32>(sample.a)  << std::endl;
     /**/
+
     //
-    /**
     std::cout << "bits field: sample = " << \
                  std::bitset<32>(sample.r) << \
                  std::bitset<32>(sample.g) << \
                  std::bitset<32>(sample.b) << \
                  std::bitset<32>(sample.a) << \
                  std::endl;
-    /**/
-    const UInt4* data = _img_sv.mem();
-    { // dump voxels
-        const unsigned int resX = _img_sv.width();
-        const unsigned int resY = _img_sv.height();
+}
 
-        for( int y = 0; y < resY; y++ ) {
-            for( int x = 0; x < resX; x++ ) {
+void debug_solid_voxelisation_text_mode_full_image(const Image2DUInt4& _img_sv) {
+    //const UInt4* data = _img_sv.mem();
+    // dump voxels
+    const unsigned int resX = _img_sv.width();
+    const unsigned int resY = _img_sv.height();
 
-                unsigned int nb_voxels_in_column = 0;
-                for( int i = 3; i >= 0; i-- ) {
-                    const unsigned int &col = data[x + y * resX].c[i];
+    std::bitset<32> bs_sample;
 
-                    if ( col == 0 ) continue;
+    for( unsigned int y = 0; y < resY; y++ ) {
+        for( unsigned int x = 0; x < resX; x++ ) {
+            const UInt4& sample = _img_sv.texel(x, y);
 
-                    bool last_test_voxel = false;
-                    for( int z = 0; z < 32; z++ ) { // unpack color data
+            unsigned int nb_voxels_in_column = 0;
+            bool last_test_voxel = false;
 
-                        const bool is_activ_voxel = ( col & ( 1 << z ) ) != 0;
-                        if ( is_activ_voxel ) { // if the z-th bit is set, create a voxel
-                            /**
-                            MPoint bbMin( bounds.min().x + x * deltaX, bounds.min().y + y * deltaY, bounds.max().z - ( 32 * ( 3 - i ) + z ) * deltaZ );
-                            MPoint bbMax( bbMin.x + deltaX, bbMin.y + deltaY, bbMin.z + deltaZ );
-                            bbMin += halfVoxel;
-                            bbMax += halfVoxel;
-                            voxels.append( bbMin );
-                            voxels.append( bbMax );
-                            /**/
-                        }
-                        //nb_voxels_in_column += (last_test_voxel != is_activ_voxel);
-                        //last_test_voxel = is_activ_voxel;
-                        nb_voxels_in_column += is_activ_voxel;
-                    }
+            //url: https://www.daniweb.com/programming/software-development/threads/31958/bitset
+            //std::vector<std::bitset<32>> vec_bs(sample.c, sample.c + 4);
+
+            for( int i=3; i>=0; i-- ) {
+                bs_sample = std::bitset<32>(sample[i]);
+                for( int z =0; z < 32; z++ ) {
+                    const bool & cur_bit = bs_sample[z];
+                    nb_voxels_in_column += (cur_bit) && (!last_test_voxel);
+                    last_test_voxel = cur_bit;
                 }
-               std::cout << setfill('0') << setw(2) << nb_voxels_in_column << "_";
             }
-            std::cout << std::endl;
+            std::cout << setfill('0') << setw(2) << nb_voxels_in_column << "_";
         }
+        std::cout << std::endl;
     }
 }

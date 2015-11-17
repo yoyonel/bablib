@@ -1,9 +1,13 @@
 windowSize = 1024 768
 
 // - OBJ
-model.default		= ../data/models/OBJ/box.obj
+//model.default		= ../data/models/OBJ/box.obj
 //model.default		= ../data/models/OBJ/knot.obj
 //model.default		= ../data/models/OBJ/elephal.obj
+//model.default		= ../data/models/OBJ/polhemus_hand.obj
+//model.default		= ../data/models/OBJ/elephant-poses/elephant-01.obj
+//model.default		= ../data/models/OFF/ref_chinese_dragon.off
+model.default		= ../data/models/OFF/camel.off
 
 shaderDir.vbo = [shaders]/vbo
 shaderDir.vbo_sv = [shaders]/vbo_sv
