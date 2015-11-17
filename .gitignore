@@ -11,3 +11,8 @@ projects/**
 qprog/libs/qglviewer/**
 
 Makefile
+
+
+.qglviewer.xml
+View
+
