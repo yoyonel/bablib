@@ -1,4 +1,5 @@
 #version 130
+//#version 150
 #extension GL_EXT_geometry_shader4 : enable         
 
 #bablib_include "../outils/defines.glsl"

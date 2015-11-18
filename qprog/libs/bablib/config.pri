@@ -51,3 +51,4 @@ CONFIG *= boost_pp
 QT *= xml opengl
 
 QMAKE_CXXFLAGS += -fpermissive
+QMAKE_CXXFLAGS += -std=c++11 -Wall -Wextra

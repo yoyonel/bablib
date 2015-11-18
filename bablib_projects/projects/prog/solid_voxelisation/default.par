@@ -5,9 +5,9 @@ windowSize = 1024 768
 //model.default		= ../data/models/OBJ/box.obj
 //model.default		= ../data/models/OBJ/knot.obj
 //model.default		= ../data/models/OBJ/elephal.obj
-//model.default		= ../data/models/OBJ/polhemus_hand.obj
+model.default		= ../data/models/OBJ/polhemus_hand.obj
 //model.default		= ../data/models/OBJ/elephant-poses/elephant-01.obj
-model.default		= ../data/models/OFF/ref_chinese_dragon.off
+//model.default		= ../data/models/OFF/ref_chinese_dragon.off
 //model.default		= ../data/models/OFF/camel.off
 
 shaderDir.vbo = [shaders]/vbo
@@ -32,6 +32,8 @@ vbo.enable_blend_for_extrusion	= true
 vbo.coef_alpha			= 0.0
 //
 vbo.coef_seuil_iso		= -0.00
+//
+vbo.enable_blend = true
 
 light_camera.draw			= true
 light_camera.intensity_isNotManipulated	= 0.0
@@ -44,8 +46,8 @@ plane.nb_quad_patch		= 1		// nb_quad = plane.nb_quad_patch * plane.nb_quad_patch
 plane.render			= false
 
 // - SM - Depth Shadow Map
-texture.sv.width 		= 32
-texture.sv.height		= 32
+texture.sv.width 		= 64
+texture.sv.height		= 64
 texture.sv.internalformat	= GL_RGBA32UI
 texture.sv.filter		= GL_NEAREST
 texture.sv.wrapmode		= GL_CLAMP_TO_BORDER
@@ -62,4 +64,4 @@ shadow_map.use_back_face = true
 
 sv.render_voxels_set = true
 sv.render_voxels_unset = true
-sv.use_ortho_camera = true
+sv.use_ortho_camera = false

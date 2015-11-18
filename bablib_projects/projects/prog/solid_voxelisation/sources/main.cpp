@@ -54,7 +54,7 @@ int main(int argc, char** argv)
     // Set the viewer as the application main widget.
     application.setMainWidget(&viewer);
 #else
-    viewer.setWindowTitle("### Hybrid Shadow - (QGLViewer+BabLib) ###");
+    viewer.setWindowTitle("### Solid Voxelisation (by GPU) - (QGLViewer+BabLib) ###");
 #endif
 
     viewer.setFocus();

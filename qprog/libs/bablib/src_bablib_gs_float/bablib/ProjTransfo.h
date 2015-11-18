@@ -27,9 +27,12 @@ class ProjTransfo {
         ProjTransfo(Vec4 O, Vec4 X, Vec4 Y, Vec4 Z, bool relative=false);    // transfo affine
         ProjTransfo(Vec3 O, Vec3 X, Vec3 Y, Vec3 Z, bool relative=false);    // transfo affine
         ProjTransfo(float xmin, float xmax, float ymin, float ymax, float zmin, float zmax); // [xmin,xmax]*[ymin,ymax]*[zmin,zmax] --> [0,1]³
+        // url: https://en.wikipedia.org/wiki/C%2B%2B11#Object_construction_improvement
+        // fonctionnalitée C++11 -> rajouter dans le config.pri: QMAKE_CXXFLAGS += -std=c++11 -Wall -Wextra
+        ProjTransfo(Vec3 _min, Vec3 _max) : ProjTransfo(_min.x, _max.x, _min.y, _max.y, _min.z, _max.z) {}
         
 		//
-		ProjTransfo( const qglviewer::Camera &camera );
+        ProjTransfo( const qglviewer::Camera &camera );
 		
     // transfomations courantes :
     //---------------------------

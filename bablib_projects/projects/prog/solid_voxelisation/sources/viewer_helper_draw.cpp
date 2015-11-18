@@ -4,6 +4,8 @@
 #include <TransfoGL.h>
 #include <Params.h>
 
+extern void debug_solid_voxelisation_graphic_mode_full_image(const Image2DUInt4& _img_sv,  const FrameBuffer& _fb, const qglviewer::Camera& _cam);
+
 //
 void Viewer::drawScene() {
     //
@@ -37,9 +39,15 @@ void Viewer::drawScene() {
         glPushAttrib(GL_ALL_ATTRIB_BITS);
         PARAM(bool, vbo.enable_cull_face) ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
 
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glBlendEquation(GL_FUNC_ADD);
+        if (PARAM(bool, vbo.enable_blend)) {
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            glBlendEquation(GL_FUNC_ADD);
+            glDepthMask(GL_FALSE);
+        }
+        else {
+            glDisable(GL_BLEND);
+        }
 
         if ( PARAM(bool, vbo.render_caster) ) {
             //
@@ -58,6 +66,8 @@ void Viewer::drawScene() {
 
         glPopAttrib();
         glPopMatrix();
+
+        debug_solid_voxelisation_graphic_mode_full_image(img_sv, fb_sv, qgl_cam_light_mf);
     }
 }
 

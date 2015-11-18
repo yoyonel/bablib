@@ -21,7 +21,8 @@ OTHER_FILES +=                                              \
                 default.par                                 \
                 notes.txt \
     shaders/outils/defines.glsl \
-    shaders/outils/area_light.glsl
+    shaders/outils/area_light.glsl \
+    screenshots/*.png
 
 PROJECT_PATH = $$PWD
 

@@ -141,17 +141,21 @@ void Viewer::keyPressEvent(QKeyEvent *e) {
         updateGL();
         break;
     case Qt::Key_L:
+        displayMessage("Reload: Parameters with 'init'");
         Params::reload();
         init();
         updateGL();
         break;
     case Qt::Key_Z:
+        displayMessage("Switch Manipulated handler to VBO object");
         setManipulatedFrame( &qgl_mf_vbo );
         break;
     case Qt::Key_E:
+        displayMessage("Switch Manipulated handler to Camera Light");
         setManipulatedFrame( qgl_cam_light_mf.frame() );
         break;
     case Qt::Key_R:
+        displayMessage("Reload: Parameters, Shaders, Update Camera Light");
         Params::reload();
         initShaders( !bFirstInit );
         update_camera_light();
@@ -161,6 +165,3 @@ void Viewer::keyPressEvent(QKeyEvent *e) {
         QGLViewer::keyPressEvent(e);
     }
 }
-
-
-

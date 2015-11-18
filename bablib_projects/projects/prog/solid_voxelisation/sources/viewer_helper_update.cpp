@@ -16,6 +16,7 @@ void debug_solid_voxelisation(const Image2DUInt4& _img_sv);
 void debug_solid_voxelisation_text_mode_1_column(const Image2DUInt4& _img_sv);
 void debug_solid_voxelisation_text_mode_full_image(const Image2DUInt4& _img_sv);
 void debug_solid_voxelisation_graphic_mode_full_image(const Image2DUInt4& _img_sv,  const FrameBuffer& _fb, const qglviewer::Camera& _cam);
+void debug_drawbox(Vec3 _min, Vec3 _max);
 
 void Viewer::updateFrameBuffers() {
     update_matrix();
@@ -108,7 +109,7 @@ void Viewer::updateSolidVoxelisation(FrameBuffer& _framebuffer) {
     // For debugging (mode text debugging)
     //debug_solid_voxelisation(img_sv);
     //
-    debug_solid_voxelisation_graphic_mode_full_image(img_sv, fb_sv, qgl_cam_light_mf);
+    //debug_solid_voxelisation_graphic_mode_full_image(img_sv, fb_sv, qgl_cam_light_mf);
 
     MSG_CHECK_GL;
 }
@@ -179,117 +180,155 @@ void debug_solid_voxelisation_graphic_mode_full_image(const Image2DUInt4& _img_s
 
     glPushAttrib( GL_ALL_ATTRIB_BITS ); {
 
-        glDepthMask(GL_FALSE);
-
         // desactivation du culling face
         glDisable(GL_CULL_FACE);
 
-        // set blending mode
+        glDepthMask(GL_TRUE);
+
+        glEnable(GL_ALPHA_TEST);
+        glAlphaFunc(GL_NOTEQUAL, 0);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glBlendEquation(GL_FUNC_ADD);
+        glEnable( GL_POINT_SMOOTH );
+        glPointSize( 32.0 );
+        GLfloat distance_att[] = {1.f, 0.f, 0.f};
+        glPointParameterfv(GL_POINT_DISTANCE_ATTENUATION, distance_att);
 
         glDisable(GL_LIGHTING);
         glDisable(GL_LIGHT0);
 
         glMatrixMode(GL_MODELVIEW);
         glPushMatrix();
-        glMultMatrixd(_cam.frame()->worldMatrix());
+        //glMultMatrixd(_cam.frame()->worldMatrix());
 
         // 0 is the upper left coordinates of the near corner, 1 for the far one
-        qglviewer::Vec points[2];
-        const float scale = 1.f;
-        points[0].z = scale * _cam.zNear();
-        points[1].z = scale * _cam.zFar();
+        const qglviewer::Vec points[2] = {
+            _cam.unprojectedCoordinatesOf(qglviewer::Vec(0, 0, 0), _cam.frame()),
+            _cam.unprojectedCoordinatesOf(qglviewer::Vec(0, 0, 1), _cam.frame()),
+        };
 
-        points[0].y = points[0].z * tan(_cam.fieldOfView()/2.0);
-        points[0].x = points[0].y * _cam.aspectRatio();
+        const ViewportGL fb_viewport = _fb.viewport();
+        const GLuint* viewport = &fb_viewport.x;
 
-        const float ratio = points[1].z / points[0].z;
-
-        points[1].y = ratio * points[0].y;
-        points[1].x = ratio * points[0].x;
-
-        glPointSize(8);
-
-        glBegin(GL_POINTS);
-
-        const bool drawFarPlane = true;
-        const int farIndex = drawFarPlane?1:0;
-
-        // Near and (optionally) far plane(s)
-        glColor3f(0.0, 1.0, 0.0);
-        for (int i=farIndex; i>=0; --i) {
-            glVertex3f( points[i].x,  points[i].y, -points[i].z);
-            glVertex3f(-points[i].x,  points[i].y, -points[i].z);
-            glVertex3f(-points[i].x, -points[i].y, -points[i].z);
-            glVertex3f( points[i].x, -points[i].y, -points[i].z);
-        }
-
-        const float deltaX = (2.f*points[0].x) / (float)(resX);
-        const float deltaY = (2.f*points[0].y) / (float)(resY);
-        const float deltaZ = (points[1].z-points[0].z) / (float)(resZ);
-
-        glColor3f(1.0, 0.0, 0.0);
-
-        GLint viewport[4];
-        viewport[0] = _fb.viewport().x;
-        viewport[1] = _fb.viewport().y;
-        viewport[2] = _fb.viewport().w;
-        viewport[3] = _fb.viewport().h;
         GLdouble modelviewMatrix[16], projectionMatrix[16];
         _cam.getModelViewMatrix(modelviewMatrix);
         _cam.getProjectionMatrix(projectionMatrix);
-        //std::cout << "viewport: " << viewport[0] << viewport[1] << viewport[2] << viewport[3] << std::endl;
 
-        for( unsigned int y = 0; y < resY; y++ ) {
-            for( unsigned int x = 0; x < resX; x++ ) {
-                const UInt4& sample = _img_sv.texel(x, y);
+        const float scale_Z = 1.0f / float(resZ);
+        qglviewer::Vec point_in_screen_coordinate;
+        GLdouble world_x, world_y, world_z;
+        qglviewer::Vec voxel_minmax[2];
+        const float voxel_alphas[] = {10.f/256.f, 0.95f};
 
-                unsigned int nb_voxels_in_column = 0;
-                bool last_test_voxel = false;
+        glBegin(GL_POINTS); {
+            for( unsigned int y = 0; y < resY; y++ ) {
+                for( unsigned int x = 0; x < resX; x++ ) {
+                    const UInt4& sample = _img_sv.texel(x, y);
 
-                //url: https://www.daniweb.com/programming/software-development/threads/31958/bitset
-                //std::vector<std::bitset<32>> vec_bs(sample.c, sample.c + 4);
+                    unsigned int nb_voxels_in_column = 0;
+                    bool last_test_voxel = false;
 
-                for( int i=3; i>=0; i-- ) {
-                    bs_sample = std::bitset<32>(sample[i]);
-                    for( int z=0; z < 32; z++ ) {
-                        const bool & cur_bit = bs_sample[z];
-                        const bool new_voxel = (cur_bit) && (!last_test_voxel);
-                        nb_voxels_in_column += new_voxel;
-                        //if (new_voxel) {
-                        if( cur_bit ) {
-                            glColor4f(0.f, 1.0f, 0.0f, 0.95f);
+                    //url: https://www.daniweb.com/programming/software-development/threads/31958/bitset
+                    //std::vector<std::bitset<32>> vec_bs(sample.c, sample.c + 4);
+
+                    for( int i=3; i>=0; i-- ) {
+                        bs_sample = std::bitset<32>(sample[i]);
+                        for( int z=0; z < 32; z++ ) {
+                            const bool & cur_bit = bs_sample[z];
+                            const bool new_voxel = (cur_bit) && (!last_test_voxel);
+                            nb_voxels_in_column += new_voxel;
+                            if( cur_bit ) {
+                                for( int k=0; k <= 1; k++ ) {
+                                    point_in_screen_coordinate = qglviewer::Vec(x+k, y+k, ( ((z+0.5)+k) + 32*(3-i) ) * scale_Z);
+                                    // --------------------------------------------------------------------------------------------------------
+                                    // url: https://www.opengl.org/wiki/GluProject_and_gluUnProject_code
+                                    gluUnProject(point_in_screen_coordinate.x, point_in_screen_coordinate.y, point_in_screen_coordinate.z,
+                                                 modelviewMatrix, projectionMatrix,
+                                                 viewport,
+                                                 &voxel_minmax[k].x,&voxel_minmax[k].y,&voxel_minmax[k].z
+                                                 );
+                                }
+                                glColor4f(new_voxel*0.75f, cur_bit*0.5f, 1.f, voxel_alphas[cur_bit]);
+                                glVertex3dv( ((voxel_minmax[0]+voxel_minmax[1])*0.5) );
+                            }
+                            last_test_voxel = cur_bit;
                         }
-                        else
-                            glColor4f(0.15f, 0.05f, 1.0f, 0.05f);
+                    }
+                }
+            }
+        } glEnd();
 
-                        {
-                            const float z_cam = ( z + 32*(3-i) ) / float(resZ);
-                            qglviewer::Vec point_in_screen_coordinate(x, y, z_cam);
-                            // --------------------------------------------------------------------------------------------------------
-                            GLdouble x,y,z;
-                            // url: https://www.opengl.org/wiki/GluProject_and_gluUnProject_code
-                            gluUnProject(point_in_screen_coordinate.x, point_in_screen_coordinate.y, point_in_screen_coordinate.z,
-                                         modelviewMatrix, projectionMatrix,
-                                         viewport,
-                                         &x,&y,&z
-                                         );
-                            const qglviewer::Vec point = _cam.frame()->coordinatesOf(qglviewer::Vec(x,y,z));
-                            // --------------------------------------------------------------------------------------------------------
-                            glVertex3dv( &point.x );
+
+        // set blending mode
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glBlendEquation(GL_FUNC_ADD);
+
+        glDepthMask(GL_FALSE);
+
+        {
+            for( unsigned int y = 0; y < resY; y+=4 ) {
+                for( unsigned int x = 0; x < resX; x+=4 ) {
+                    const UInt4& sample = _img_sv.texel(x, y);
+                    for( int i=3; i>=0; i-- ) {
+                        bs_sample = std::bitset<32>(sample[i]);
+                        for( int z=0; z < 32; z+=4 ) {
+                            const bool & cur_bit = bs_sample[z];
+                            if( !cur_bit ) {
+                                for( int k=0; k <= 1; k++ ) {
+                                    point_in_screen_coordinate = qglviewer::Vec(x+k, y+k, ( ((z+0.5)+k) + 32*(3-i) ) * scale_Z);
+                                    // --------------------------------------------------------------------------------------------------------
+                                    // url: https://www.opengl.org/wiki/GluProject_and_gluUnProject_code
+                                    gluUnProject(point_in_screen_coordinate.x, point_in_screen_coordinate.y, point_in_screen_coordinate.z,
+                                                 modelviewMatrix, projectionMatrix,
+                                                 viewport,
+                                                 &voxel_minmax[k].x,&voxel_minmax[k].y,&voxel_minmax[k].z
+                                                 );
+                                }
+                                glColor4f(0.15f, 0.80, 0.1f, voxel_alphas[0]);
+                                debug_drawbox(Vec3(voxel_minmax[0]), Vec3(voxel_minmax[1]));
+                            }
                         }
-
-                        last_test_voxel = cur_bit;
                     }
                 }
             }
         }
-        glEnd();
 
         glPopMatrix();
     } glPopAttrib();
+}
+
+void debug_drawbox(Vec3 _min, Vec3 _max) {
+    const GLfloat &xMin = _min.x;
+    const GLfloat &yMin = _min.y;
+    const GLfloat &zMin = _min.z;
+    const GLfloat &xMax = _max.x;
+    const GLfloat &yMax = _max.y;
+    const GLfloat &zMax = _max.z;
+
+    // face bas :
+    glBegin(GL_LINE_LOOP);
+        glVertex3f(xMin, yMin, zMin);
+        glVertex3f(xMax, yMin, zMin);
+        glVertex3f(xMax, yMax, zMin);
+        glVertex3f(xMin, yMax, zMin);
+    glEnd();
+
+    // face haut :
+    glBegin(GL_LINE_LOOP);
+        glVertex3f(xMin, yMin, zMax);
+        glVertex3f(xMax, yMin, zMax);
+        glVertex3f(xMax, yMax, zMax);
+        glVertex3f(xMin, yMax, zMax);
+    glEnd();
+
+    // segments verticaux :
+    glBegin(GL_LINES);
+        glVertex3f(xMin, yMin, zMin); glVertex3f(xMin, yMin, zMax);
+        glVertex3f(xMax, yMin, zMin); glVertex3f(xMax, yMin, zMax);
+        glVertex3f(xMax, yMax, zMin); glVertex3f(xMax, yMax, zMax);
+        glVertex3f(xMin, yMax, zMin); glVertex3f(xMin, yMax, zMax);
+    glEnd();
 }
 
 void Viewer::update_camera_light() {

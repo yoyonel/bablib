@@ -127,6 +127,17 @@ private :
     void drawLightCamera( float _fCoef_Alpha = 0.5f );
     //
 
+    // --------------------------------------------------------
+    // Rajouter une gestion de messages avec piles
+    // --------------------------------------------------------
+    // on peut realiser l'operation avec une surchage sur postDraw de QGLViewer
+    // ou est géré l'affichage de message (une seule à la fois)
+    // Il y a une utilisation de QTimer pour desactiver après un certain temps l'affichage des messages
+    // On peut (doit) s'inspirer de cette approche pour gérer une pile de messages.
+    // Ca peut être une bon plus pour QGLViewer, à envoyer à Gilles après (et reprendre contact).
+    virtual void postDraw() { QGLViewer::postDraw(); }
+    //void addMessage(const QString& message, int delay);
+
 private :
     bool bFirstInit;
 
