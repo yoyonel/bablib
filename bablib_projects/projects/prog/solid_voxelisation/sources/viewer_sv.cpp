@@ -66,7 +66,7 @@ void Viewer::init()
 
         qgl_cam_light_mf.fitBoundingBox( qglviewer::Vec(-1, -1, -1), qglviewer::Vec(+1, +1, +1) );
         //		qgl_cam_light_mf.frame()->setPosition( qglviewer::Vec(0, +1, 0) );
-        qgl_cam_light_mf.setType(qglviewer::Camera::ORTHOGRAPHIC);
+        update_camera_light();
 
         // Add a manipulated frame to the viewer.
         setManipulatedFrame( qgl_cam_light_mf.frame() );
@@ -154,6 +154,7 @@ void Viewer::keyPressEvent(QKeyEvent *e) {
     case Qt::Key_R:
         Params::reload();
         initShaders( !bFirstInit );
+        update_camera_light();
         updateGL();
         break;
     default:

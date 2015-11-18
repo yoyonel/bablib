@@ -78,8 +78,8 @@ void Viewer::updateSolidVoxelisation(FrameBuffer& _framebuffer) {
         vbo->setProg( prog_vbo_sv );
         prog_vbo_sv.activate();
         // Send camera light informations: Near&Far distances
-        prog_vbo_sv.setUniform("nearClipPlane", qgl_cam_light_mf.zNear());
-        prog_vbo_sv.setUniform("farClipPlane", qgl_cam_light_mf.zFar());
+        //prog_vbo_sv.setUniform("nearClipPlane", qgl_cam_light_mf.zNear());
+        //prog_vbo_sv.setUniform("farClipPlane", qgl_cam_light_mf.zFar());
         // RENDER
         if ( !PARAM(bool, vbo.enable_cull_face) )
             glDisable(GL_CULL_FACE);
@@ -254,10 +254,8 @@ void debug_solid_voxelisation_graphic_mode_full_image(const Image2DUInt4& _img_s
 
                 for( int i=3; i>=0; i-- ) {
                     bs_sample = std::bitset<32>(sample[i]);
-                    for( int z =0; z < 32; z++ ) {
-                        //const bool & cur_bit = bs_sample[z];
-                        bool cur_bit = bs_sample[z];
-                        //cur_bit &= (x == resX / 2) && (y == resY / 2);
+                    for( int z=0; z < 32; z++ ) {
+                        const bool & cur_bit = bs_sample[z];
                         const bool new_voxel = (cur_bit) && (!last_test_voxel);
                         nb_voxels_in_column += new_voxel;
                         //if (new_voxel) {
@@ -266,16 +264,20 @@ void debug_solid_voxelisation_graphic_mode_full_image(const Image2DUInt4& _img_s
                         }
                         else
                             glColor4f(0.15f, 0.05f, 1.0f, 0.05f);
+
                         {
-                            const float z_norm = ( z + 32*(3-i) ) / float(resZ);
-                            qglviewer::Vec point_in_screen_coordinate(x, y, z_norm);
+                            const float z_cam = ( z + 32*(3-i) ) / float(resZ);
+                            qglviewer::Vec point_in_screen_coordinate(x, y, z_cam);
+                            // --------------------------------------------------------------------------------------------------------
                             GLdouble x,y,z;
+                            // url: https://www.opengl.org/wiki/GluProject_and_gluUnProject_code
                             gluUnProject(point_in_screen_coordinate.x, point_in_screen_coordinate.y, point_in_screen_coordinate.z,
-                                         modelviewMatrix,  projectionMatrix,
+                                         modelviewMatrix, projectionMatrix,
                                          viewport,
                                          &x,&y,&z
                                          );
                             const qglviewer::Vec point = _cam.frame()->coordinatesOf(qglviewer::Vec(x,y,z));
+                            // --------------------------------------------------------------------------------------------------------
                             glVertex3dv( &point.x );
                         }
 
@@ -288,4 +290,10 @@ void debug_solid_voxelisation_graphic_mode_full_image(const Image2DUInt4& _img_s
 
         glPopMatrix();
     } glPopAttrib();
+}
+
+void Viewer::update_camera_light() {
+    qgl_cam_light_mf.setType( PARAM(bool, sv.use_ortho_camera) ? qglviewer::Camera::ORTHOGRAPHIC : qglviewer::Camera::PERSPECTIVE );
+    qgl_cam_light_mf.computeProjectionMatrix();
+    qgl_cam_light_mf.computeModelViewMatrix();
 }

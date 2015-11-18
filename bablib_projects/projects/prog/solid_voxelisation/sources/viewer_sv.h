@@ -103,6 +103,7 @@ private :
     void destroyTriSoup();
 
     // - UPDATE
+    void update_camera_light();
     void update_matrix();
     //
     void updateFrameBuffers();
