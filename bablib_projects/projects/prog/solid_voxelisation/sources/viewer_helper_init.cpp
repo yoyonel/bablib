@@ -120,6 +120,7 @@ void Viewer::initShaders( bool bDestroy )
     }
 
     LOADDIRSHADER( PARAM(QString, shaderDir.vbo), prog_vbo );
+    LOADDIRSHADER( PARAM(QString, shaderDir.vbo_wire), prog_vbo_wire );
     LOADDIRSHADER( PARAM(QString, shaderDir.vbo_sv), prog_vbo_sv );
     prog_vbo_sv.addTexture("bitmask", &tex_bitmask);
 

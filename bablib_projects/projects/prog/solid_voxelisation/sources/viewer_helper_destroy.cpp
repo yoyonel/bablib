@@ -20,6 +20,7 @@ void Viewer::destroyAll()
 void Viewer::destroyShaders()
 {
     prog_vbo.destroy();
+    prog_vbo_wire.destroy();
     prog_vbo_sv.destroy();
     prog_draw_texture.destroy();
 }

@@ -150,6 +150,7 @@ private :
     // SHADERS BabLib
     ProgGLSL prog_draw_texture;
     ProgGLSL prog_vbo;
+    ProgGLSL prog_vbo_wire;
     ProgGLSL prog_vbo_sv;
 
     // CAMERAS QGLViewer

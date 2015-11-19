@@ -89,7 +89,8 @@ void compute_edge(in float f_coef_lighting, out bool b_is_edge, out float f_coef
     //float f_ecart_iso = 0.0275;
     //
     float f_seuil_iso = 0.0;
-    float f_ecart_iso = 0.0275;
+    //float f_ecart_iso = 0.0275;
+    float f_ecart_iso = 0.005;
     //
     float f_max_seuil = f_seuil_iso + f_ecart_iso / 2.;
     float f_min_seuil = f_max_seuil - f_ecart_iso / 2.;

@@ -12,6 +12,8 @@ SOURCES = sources/*.cpp
 OTHER_FILES +=                                              \
                 shaders/vbo/vbo.frag                        \
                 shaders/vbo/vbo.vert                        \
+		shaders/vbo_wire/vbo_wire.frag              \
+		shaders/vbo_wire/vbo_wire.vert              \
                 shaders/vbo_sv/vbo_sv.frag                  \
                 shaders/vbo_sv/vbo_sv.vert                  \
                 shaders/draw_texture/draw_texture.frag      \

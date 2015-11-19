@@ -220,73 +220,76 @@ void debug_solid_voxelisation_graphic_mode_full_image(const Image2DUInt4& _img_s
         qglviewer::Vec voxel_minmax[2];
         const float voxel_alphas[] = {10.f/256.f, 0.95f};
 
-        glBegin(GL_POINTS); {
-            for( unsigned int y = 0; y < resY; y++ ) {
-                for( unsigned int x = 0; x < resX; x++ ) {
-                    const UInt4& sample = _img_sv.texel(x, y);
+        if( PARAM(bool, sv.render_voxels_set) ) {
+            glBegin(GL_POINTS); {
+                for( unsigned int y = 0; y < resY; y++ ) {
+                    for( unsigned int x = 0; x < resX; x++ ) {
+                        const UInt4& sample = _img_sv.texel(x, y);
 
-                    unsigned int nb_voxels_in_column = 0;
-                    bool last_test_voxel = false;
+                        unsigned int nb_voxels_in_column = 0;
+                        bool last_test_voxel = false;
 
-                    //url: https://www.daniweb.com/programming/software-development/threads/31958/bitset
-                    //std::vector<std::bitset<32>> vec_bs(sample.c, sample.c + 4);
+                        //url: https://www.daniweb.com/programming/software-development/threads/31958/bitset
+                        //std::vector<std::bitset<32>> vec_bs(sample.c, sample.c + 4);
 
-                    for( int i=3; i>=0; i-- ) {
-                        bs_sample = std::bitset<32>(sample[i]);
-                        for( int z=0; z < 32; z++ ) {
-                            const bool & cur_bit = bs_sample[z];
-                            const bool new_voxel = (cur_bit) && (!last_test_voxel);
-                            nb_voxels_in_column += new_voxel;
-                            if( cur_bit ) {
-                                for( int k=0; k <= 1; k++ ) {
-                                    point_in_screen_coordinate = qglviewer::Vec(x+k, y+k, ( ((z+0.5)+k) + 32*(3-i) ) * scale_Z);
-                                    // --------------------------------------------------------------------------------------------------------
-                                    // url: https://www.opengl.org/wiki/GluProject_and_gluUnProject_code
-                                    gluUnProject(point_in_screen_coordinate.x, point_in_screen_coordinate.y, point_in_screen_coordinate.z,
-                                                 modelviewMatrix, projectionMatrix,
-                                                 viewport,
-                                                 &voxel_minmax[k].x,&voxel_minmax[k].y,&voxel_minmax[k].z
-                                                 );
+                        for( int i=3; i>=0; i-- ) {
+                            bs_sample = std::bitset<32>(sample[i]);
+                            for( int z=0; z < 32; z++ ) {
+                                const bool & cur_bit = bs_sample[z];
+                                const bool new_voxel = (cur_bit) && (!last_test_voxel);
+                                nb_voxels_in_column += new_voxel;
+                                if( cur_bit ) {
+                                    for( int k=0; k <= 1; k++ ) {
+                                        point_in_screen_coordinate = qglviewer::Vec(x+k, y+k, ( ((z+0.5)+k) + 32*(3-i) ) * scale_Z);
+                                        // --------------------------------------------------------------------------------------------------------
+                                        // url: https://www.opengl.org/wiki/GluProject_and_gluUnProject_code
+                                        gluUnProject(point_in_screen_coordinate.x, point_in_screen_coordinate.y, point_in_screen_coordinate.z,
+                                                     modelviewMatrix, projectionMatrix,
+                                                     viewport,
+                                                     &voxel_minmax[k].x,&voxel_minmax[k].y,&voxel_minmax[k].z
+                                                     );
+                                    }
+                                    glColor4f(new_voxel*0.75f, cur_bit*0.5f, 1.f, voxel_alphas[cur_bit]);
+                                    glVertex3dv( ((voxel_minmax[0]+voxel_minmax[1])*0.5) );
                                 }
-                                glColor4f(new_voxel*0.75f, cur_bit*0.5f, 1.f, voxel_alphas[cur_bit]);
-                                glVertex3dv( ((voxel_minmax[0]+voxel_minmax[1])*0.5) );
+                                last_test_voxel = cur_bit;
                             }
-                            last_test_voxel = cur_bit;
                         }
                     }
                 }
-            }
-        } glEnd();
+            } glEnd();
+        }
 
+        if( PARAM(bool, sv.render_voxels_unset) ) {
+            // set blending mode
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            glBlendEquation(GL_FUNC_ADD);
 
-        // set blending mode
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glBlendEquation(GL_FUNC_ADD);
+            glDepthMask(GL_FALSE);
 
-        glDepthMask(GL_FALSE);
-
-        {
-            for( unsigned int y = 0; y < resY; y+=4 ) {
-                for( unsigned int x = 0; x < resX; x+=4 ) {
-                    const UInt4& sample = _img_sv.texel(x, y);
-                    for( int i=3; i>=0; i-- ) {
-                        bs_sample = std::bitset<32>(sample[i]);
-                        for( int z=0; z < 32; z+=4 ) {
-                            const bool & cur_bit = bs_sample[z];
-                            if( !cur_bit ) {
-                                for( int k=0; k <= 1; k++ ) {
-                                    point_in_screen_coordinate = qglviewer::Vec(x+k, y+k, ( ((z+0.5)+k) + 32*(3-i) ) * scale_Z);
-                                    // --------------------------------------------------------------------------------------------------------
-                                    // url: https://www.opengl.org/wiki/GluProject_and_gluUnProject_code
-                                    gluUnProject(point_in_screen_coordinate.x, point_in_screen_coordinate.y, point_in_screen_coordinate.z,
-                                                 modelviewMatrix, projectionMatrix,
-                                                 viewport,
-                                                 &voxel_minmax[k].x,&voxel_minmax[k].y,&voxel_minmax[k].z
-                                                 );
+            {
+                for( unsigned int y = 0; y < resY; y+=4 ) {
+                    for( unsigned int x = 0; x < resX; x+=4 ) {
+                        const UInt4& sample = _img_sv.texel(x, y);
+                        for( int i=3; i>=0; i-- ) {
+                            bs_sample = std::bitset<32>(sample[i]);
+                            for( int z=0; z < 32; z+=4 ) {
+                                const bool & cur_bit = bs_sample[z];
+                                if( !cur_bit ) {
+                                    for( int k=0; k <= 1; k++ ) {
+                                        point_in_screen_coordinate = qglviewer::Vec(x+k, y+k, ( ((z+0.5)+k) + 32*(3-i) ) * scale_Z);
+                                        // --------------------------------------------------------------------------------------------------------
+                                        // url: https://www.opengl.org/wiki/GluProject_and_gluUnProject_code
+                                        gluUnProject(point_in_screen_coordinate.x, point_in_screen_coordinate.y, point_in_screen_coordinate.z,
+                                                     modelviewMatrix, projectionMatrix,
+                                                     viewport,
+                                                     &voxel_minmax[k].x,&voxel_minmax[k].y,&voxel_minmax[k].z
+                                                     );
+                                    }
+                                    glColor4f(0.15f, 0.80, 0.1f, voxel_alphas[0]);
+                                    debug_drawbox(Vec3(voxel_minmax[0]), Vec3(voxel_minmax[1]));
                                 }
-                                glColor4f(0.15f, 0.80, 0.1f, voxel_alphas[0]);
-                                debug_drawbox(Vec3(voxel_minmax[0]), Vec3(voxel_minmax[1]));
                             }
                         }
                     }

@@ -12,6 +12,7 @@ model.default		= ../data/models/OBJ/polhemus_hand.obj
 
 shaderDir.vbo = [shaders]/vbo
 shaderDir.vbo_sv = [shaders]/vbo_sv
+shaderDir.vbo_wire = [shaders]/vbo_wire
 shaderDir.draw_texture = [shaders]/draw_texture
 
 timer_query.print 		= false
@@ -19,21 +20,19 @@ draw_debug_textures		= true
 
 //
 vbo.expand			= false
-//
 vbo.enable_cull_face		= true
-//
 vbo.coef_extrusion		= 0.05
-//
 vbo.enable_polygon_offset	= true
-vbo.polygon_offset_scale	= +0.05
-vbo.polygon_offset_bias		= +0.0
-//
+vbo.polygon_offset_scale	= -2.0
+vbo.polygon_offset_bias		= -2.0
 vbo.enable_blend_for_extrusion	= true
 vbo.coef_alpha			= 0.0
-//
 vbo.coef_seuil_iso		= -0.00
 //
-vbo.enable_blend = true
+vbo.enable_blend = false
+vbo.render_caster = true
+vbo.render_solid = true
+vbo.render_wire = true
 
 light_camera.draw			= true
 light_camera.intensity_isNotManipulated	= 0.0
@@ -55,13 +54,11 @@ texture.sv.border_color	= 1 0 0 0
 
 texture.sv.depth_format = GL_DEPTH_COMPONENT32
 
-vbo.render_caster = true
-
 shadow_map.use_shadow_proj = true
 
 shadow_volume.coef_alpha = 0.75
 shadow_map.use_back_face = true
 
-sv.render_voxels_set = true
+sv.render_voxels_set = false
 sv.render_voxels_unset = true
 sv.use_ortho_camera = false

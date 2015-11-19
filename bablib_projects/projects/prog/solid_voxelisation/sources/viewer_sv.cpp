@@ -65,11 +65,11 @@ void Viewer::init()
         setSceneRadius(10.f);
 
         qgl_cam_light_mf.fitBoundingBox( qglviewer::Vec(-1, -1, -1), qglviewer::Vec(+1, +1, +1) );
-        //		qgl_cam_light_mf.frame()->setPosition( qglviewer::Vec(0, +1, 0) );
-        update_camera_light();
 
         // Add a manipulated frame to the viewer.
         setManipulatedFrame( qgl_cam_light_mf.frame() );
+
+        update_camera_light();
 
         setTextIsEnabled();
     }

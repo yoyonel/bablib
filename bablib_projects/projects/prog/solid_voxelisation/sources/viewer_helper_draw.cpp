@@ -39,29 +39,44 @@ void Viewer::drawScene() {
         glPushAttrib(GL_ALL_ATTRIB_BITS);
         PARAM(bool, vbo.enable_cull_face) ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
 
-        if (PARAM(bool, vbo.enable_blend)) {
-            glEnable(GL_BLEND);
-            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-            glBlendEquation(GL_FUNC_ADD);
-            glDepthMask(GL_FALSE);
-        }
-        else {
-            glDisable(GL_BLEND);
-        }
-
         if ( PARAM(bool, vbo.render_caster) ) {
-            //
-            vbo->setProg(prog_vbo);
-            prog_vbo.activate();
-            prog_vbo.setUniformVec3( "u_v3_light_pos_in_object", v4_light_position_in_object_vbo, false);
-            prog_vbo.setUniform( "u_f_coef_ambient_lighting", f_coef_ambient_light, false );
-            vbo->render(GL_TRIANGLES, indexBuffer);
-            prog_vbo.deactivate();
-        }
+            if (PARAM(bool, vbo.render_solid)) {
+                if (PARAM(bool, vbo.enable_blend)) {
+                    glEnable(GL_BLEND);
+                    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                    glBlendEquation(GL_FUNC_ADD);
+                    glDepthMask(GL_FALSE);
+                }
+                else {
+                    glDisable(GL_BLEND);
+                }
 
-        if (PARAM(bool, vbo.enable_polygon_offset)) {
-            glEnable(GL_POLYGON_OFFSET_FILL);
-            glPolygonOffset( PARAM(float, vbo.polygon_offset_scale), PARAM(float, vbo.polygon_offset_bias) );
+                glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+                //
+                vbo->setProg(prog_vbo);
+                prog_vbo.activate(); {
+                    prog_vbo.setUniformVec3( "u_v3_light_pos_in_object", v4_light_position_in_object_vbo, false);
+                    prog_vbo.setUniform( "u_f_coef_ambient_lighting", f_coef_ambient_light, false );
+                    vbo->render(GL_TRIANGLES, indexBuffer);
+                } prog_vbo.deactivate();
+            }
+
+            if (PARAM(bool, vbo.render_wire)) {
+                glDisable(GL_BLEND);
+                glEnable(GL_POLYGON_OFFSET_LINE);
+                glPolygonOffset( PARAM(float, vbo.polygon_offset_scale), PARAM(float, vbo.polygon_offset_bias) );
+
+                glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+                //
+                vbo->setProg(prog_vbo_wire);
+                prog_vbo_wire.activate(); {
+                    prog_vbo_wire.setUniformVec3( "u_v3_light_pos_in_object", v4_light_position_in_object_vbo, false);
+                    prog_vbo_wire.setUniform( "u_f_coef_ambient_lighting", f_coef_ambient_light, false );
+                    vbo->render(GL_TRIANGLES, indexBuffer);
+                } prog_vbo_wire.deactivate();
+
+                glDisable(GL_POLYGON_OFFSET_FILL);
+            }
         }
 
         glPopAttrib();
