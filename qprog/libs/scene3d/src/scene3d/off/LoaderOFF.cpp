@@ -9,7 +9,7 @@ TriSoup* LoaderOFF::loadRaw(QString fileName) const {
     int nv = 0, nf = 0;
     
     if (fileName.isEmpty()) {
-        Message::error(QString("le nom de fichier spécifié est vide"));
+        Message::error(QString("le nom de fichier spÃ©cifiÃ© est vide"));
         return NULL;
         }
     QFile file(fileName);
@@ -41,8 +41,8 @@ TriSoup* LoaderOFF::loadRaw(QString fileName) const {
         
     if (words.size() > 1) {
         file.close();
-        if (words[1] != "BINARY") FORMAT_ERROR("le deuxième mot (optionnel) doit être BINARY");
-        if (words.size() > 2)     FORMAT_ERROR("mots inconnus présents après BINARY");
+        if (words[1] != "BINARY") FORMAT_ERROR("le deuxiÃ¨me mot (optionnel) doit Ãªtre BINARY");
+        if (words.size() > 2)     FORMAT_ERROR("mots inconnus prÃ©sents aprÃ¨s BINARY");
 
         // BINARY mode
         //------------
@@ -54,7 +54,7 @@ TriSoup* LoaderOFF::loadRaw(QString fileName) const {
             char c = '\0';
             while (c != '\n') datastream.readRawData(&c, 1); 
         
-            int ne;     // nombre d'arêtes, pas utilisé
+            int ne;     // nombre d'arÃªtes, pas utilisÃ©
             datastream >> nv;
             datastream >> nf;
             datastream >> ne;
@@ -71,7 +71,7 @@ TriSoup* LoaderOFF::loadRaw(QString fileName) const {
                 datastream >> n;
                 //int *index = new int[n];
                 if (n != 3) {
-                    Message::error("faces autres que triangles non supportées");
+                    Message::error("faces autres que triangles non supportÃ©es");
                     delete res;
                     file.close();
                     return NULL;
@@ -91,7 +91,7 @@ TriSoup* LoaderOFF::loadRaw(QString fileName) const {
         SPLIT_LINE
         bool ok1; nv = word[0].toInt(&ok1);
         bool ok2; nf = word[1].toInt(&ok2);
-        if (!(ok1 && ok2)) FORMAT_ERROR("problème de lecture des entiers sur la deuxième ligne");
+        if (!(ok1 && ok2)) FORMAT_ERROR("problÃ¨me de lecture des entiers sur la deuxiÃ¨me ligne");
 
         /*
         vertex = new Vec3[nv];
@@ -120,7 +120,7 @@ TriSoup* LoaderOFF::loadRaw(QString fileName) const {
             bool ok; int n = word[0].toInt(&ok); if (!ok) FORMAT_ERROR("probleme format face");
             if (n < 3) FORMAT_ERROR("face a moins de 3 aretes");
             if (n != 3) {
-                Message::error("faces autres que triangles non supportées");
+                Message::error("faces autres que triangles non supportÃ©es");
                 delete res;
                 file.close();
                 return NULL;

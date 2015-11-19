@@ -11,7 +11,7 @@ class Scene3D {
     public:
         Scene3D(QString fileName) : fileName(fileName), initialized(false) {}
         virtual ~Scene3D() {}
-        virtual void init() = 0;            // à appeler avant tout appel à <render>, dans un contexte OpenGL
+        virtual void init() = 0;            // Ã  appeler avant tout appel Ã  <render>, dans un contexte OpenGL
         virtual void render() const = 0;
         void renderUnlit()   const;
         void renderNormals() const;

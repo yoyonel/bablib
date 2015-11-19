@@ -15,7 +15,7 @@ SceneOFF::SceneOFF(QString fileName) : Scene3D(fileName), geometry(NULL) {
     nv = 0;
     
     if (fileName.isEmpty()) {
-        Message::error(QString("le nom de fichier spécifié est vide"));
+        Message::error(QString("le nom de fichier spÃ©cifiÃ© est vide"));
         return;
         }
     QFile file(fileName);
@@ -41,8 +41,8 @@ SceneOFF::SceneOFF(QString fileName) : Scene3D(fileName), geometry(NULL) {
             
         if (words.size() > 1) {
             file.close();
-            if (words[1] != "BINARY") FORMAT_ERROR("le deuxième mot (optionnel) doit être BINARY");
-            if (words.size() > 2)     FORMAT_ERROR("mots inconnus présents après BINARY");
+            if (words[1] != "BINARY") FORMAT_ERROR("le deuxiÃ¨me mot (optionnel) doit Ãªtre BINARY");
+            if (words.size() > 2)     FORMAT_ERROR("mots inconnus prÃ©sents aprÃ¨s BINARY");
 
             // BINARY mode
             //------------
@@ -54,7 +54,7 @@ SceneOFF::SceneOFF(QString fileName) : Scene3D(fileName), geometry(NULL) {
                 char c = '\0';
                 while (c != '\n') datastream.readRawData(&c, 1); 
             
-                int ne;     // nombre d'arêtes, pas utilisé
+                int ne;     // nombre d'arÃªtes, pas utilisÃ©
                 datastream >> nv;
                 datastream >> nf;
                 datastream >> ne;
@@ -81,7 +81,7 @@ SceneOFF::SceneOFF(QString fileName) : Scene3D(fileName), geometry(NULL) {
             SPLIT_LINE
             bool ok1; nv = word[0].toInt(&ok1);
             bool ok2; nf = word[1].toInt(&ok2);
-            if (!(ok1 && ok2)) FORMAT_ERROR("problème de lecture des entiers sur la deuxième ligne");
+            if (!(ok1 && ok2)) FORMAT_ERROR("problÃ¨me de lecture des entiers sur la deuxiÃ¨me ligne");
     
             vertex = new Vec3[nv];
             normal = new Vec3[nv];
@@ -172,7 +172,7 @@ void SceneOFF::init() {
             indexes += face[i].index[2];
             }
         else
-            Message::info(QString("- attention : le modele contient des polygones à %1 cotés (pas supporté pour l'instant)").arg(face[i].nv));
+            Message::info(QString("- attention : le modele contient des polygones Ã  %1 cotÃ©s (pas supportÃ© pour l'instant)").arg(face[i].nv));
         }
 
     geometry = new GLAsset::Mesh(GL_TRIANGLES, vertexArray.mappedToGPU(), indexes.mappedToGPU());

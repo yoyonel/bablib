@@ -15,7 +15,7 @@ struct VertexOBJ {
 
 TriSoup* LoaderOBJ::loadRaw(QString fileName) const {
     if (fileName.isEmpty()) {
-        Message::error(QString("le nom de fichier spécifié est vide"));
+        Message::error(QString("le nom de fichier spÃ©cifiÃ© est vide"));
         return NULL;
         }
     
@@ -72,7 +72,7 @@ TriSoup* LoaderOBJ::loadRaw(QString fileName) const {
                 FLOAT_REQ(ok1, u, 1)
                 FLOAT_REQ(ok2, v, 2)
                 FLOAT_OPT(ok3, w, 3, 0.0f)
-                if (!(ok1 && ok2 && ok3)) FORMAT_ERROR("ligne pas au format coordonnées de texture : 'vt u v [w]'");
+                if (!(ok1 && ok2 && ok3)) FORMAT_ERROR("ligne pas au format coordonnÃ©es de texture : 'vt u v [w]'");
                 vt << Vec3(u,v,w);
                 }
             else if (token == "vn") {
@@ -119,7 +119,7 @@ TriSoup* LoaderOBJ::loadRaw(QString fileName) const {
     for (int i=0; i<nv; i++) res->vertex[i] = v[i];
     for (int i=0; i<nf; i++) {
         if (f[i].size() != 3) {
-            Message::error("faces autres que triangles non supportées");
+            Message::error("faces autres que triangles non supportÃ©es");
             delete res;
             return NULL;
             }

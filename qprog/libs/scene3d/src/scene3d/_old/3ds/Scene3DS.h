@@ -7,7 +7,7 @@
 //struct Lib3dsFile;
 //struct Lib3dsNode;
 
-// basé sur la version 1.3.0 de lib3ds (http://lib3ds.sourceforge.net)
+// basÃ© sur la version 1.3.0 de lib3ds (http://lib3ds.sourceforge.net)
 class Scene3DS : public Scene3D {
     public:
         class Loader : public Scene3DLoader {

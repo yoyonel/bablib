@@ -163,7 +163,7 @@ TriSoup* LoaderPLY::loadRaw(QString fileName) const {
             res->tri[i].index[2] = object->flist[i]->verts[2];
             }
         else {
-            Message::info(QString("- attention : le modele contient des polygones à %1 cotés (pas supporté pour l'instant)").arg(object->flist[i]->nverts));
+            Message::info(QString("- attention : le modele contient des polygones Ã  %1 cotÃ©s (pas supportÃ© pour l'instant)").arg(object->flist[i]->nverts));
             delete object;
             delete res;
             return NULL;
