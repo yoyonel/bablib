@@ -17,6 +17,7 @@ void debug_solid_voxelisation_text_mode_1_column(const Image2DUInt4& _img_sv);
 void debug_solid_voxelisation_text_mode_full_image(const Image2DUInt4& _img_sv);
 void debug_solid_voxelisation_graphic_mode_full_image(const Image2DUInt4& _img_sv,  const FrameBuffer& _fb, const qglviewer::Camera& _cam);
 void debug_drawbox(Vec3 _min, Vec3 _max);
+void draw_objects_for_solid_voxelisation(ProgGLSL _prog);
 
 void Viewer::updateFrameBuffers() {
     update_matrix();
@@ -32,6 +33,7 @@ void Viewer::updateFrameBuffers() {
 }
 
 void Viewer::updateSolidVoxelisation(FrameBuffer& _framebuffer) {
+    /**
     // ----------
     const GLenum clearBufferBits = GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT;
     const GLboolean GL_ALL_BITS = GLboolean(~0x0);
@@ -77,20 +79,20 @@ void Viewer::updateSolidVoxelisation(FrameBuffer& _framebuffer) {
         // Draw scene occluders
         // Activate shader for rendering
         vbo->setProg( prog_vbo_sv );
-        prog_vbo_sv.activate();
-        // Send camera light informations: Near&Far distances
-        //prog_vbo_sv.setUniform("nearClipPlane", qgl_cam_light_mf.zNear());
-        //prog_vbo_sv.setUniform("farClipPlane", qgl_cam_light_mf.zFar());
-        // RENDER
-        if ( !PARAM(bool, vbo.enable_cull_face) )
-            glDisable(GL_CULL_FACE);
-        glMatrixMode(GL_MODELVIEW);
-        glPushMatrix();
-        // MODEL_SPACE -> WORLD_SPACE
-        pt_object_to_world_vbo.glMultModelView();
-        vbo->render(GL_TRIANGLES, indexBuffer);
-        glPopMatrix();
-        prog_vbo_sv.deactivate();
+        prog_vbo_sv.activate(); {
+            // Send camera light informations: Near&Far distances
+            //prog_vbo_sv.setUniform("nearClipPlane", qgl_cam_light_mf.zNear());
+            //prog_vbo_sv.setUniform("farClipPlane", qgl_cam_light_mf.zFar());
+            // RENDER
+            if ( !PARAM(bool, vbo.enable_cull_face) )
+                glDisable(GL_CULL_FACE);
+            glMatrixMode(GL_MODELVIEW);
+            glPushMatrix();
+            // MODEL_SPACE -> WORLD_SPACE
+            pt_object_to_world_vbo.glMultModelView();
+            vbo->render(GL_TRIANGLES, indexBuffer);
+            glPopMatrix();
+        } prog_vbo_sv.deactivate();
 
         // Restore the OpenGL Matrix
         glMatrixMode(GL_PROJECTION);
@@ -110,6 +112,32 @@ void Viewer::updateSolidVoxelisation(FrameBuffer& _framebuffer) {
     //debug_solid_voxelisation(img_sv);
     //
     //debug_solid_voxelisation_graphic_mode_full_image(img_sv, fb_sv, qgl_cam_light_mf);
+
+    /**/
+
+    // utilisation d'une lambda fonction pour l'affichage de la scene a voxeliser
+    // pour le '[&]' -> url: http://stackoverflow.com/questions/4940259/lambdas-require-capturing-this-to-call-static-member-function
+    // Penser a placer le corps d'implémentation du template dictement accessible via le .h du prototype
+    // => mettre en place des fichiers _impl.h comme dans la bablib
+    solid_voxelisation->update( [&](ProgGLSL _prog) {
+        // Draw scene occluders
+        // Activate shader for rendering
+        vbo->setProg( _prog );
+        // RENDER
+        if ( !PARAM(bool, vbo.enable_cull_face) )
+            glDisable(GL_CULL_FACE);
+        glMatrixMode(GL_MODELVIEW);
+        glPushMatrix();
+        // MODEL_SPACE -> WORLD_SPACE
+        pt_object_to_world_vbo.glMultModelView();
+        vbo->render(GL_TRIANGLES, indexBuffer);
+        glPopMatrix();
+    });
+
+    // gather the resulting texture data
+    solid_voxelisation->texture().bind();
+    glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
+    img_sv.readTexture(solid_voxelisation->ptrTexture());
 
     MSG_CHECK_GL;
 }

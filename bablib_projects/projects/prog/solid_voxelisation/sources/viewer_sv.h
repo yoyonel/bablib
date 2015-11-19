@@ -56,6 +56,8 @@ using namespace std;
 #include "TriSoup2.h"
 //
 #include <VertexBuffer.h>
+//
+#include "SolidVoxelisation.h"
 
 
 typedef Image1D<UInt4> Image1DUInt4;
@@ -201,6 +203,8 @@ private :
 
     GLint i_stencil_bits;
     GLint i_init_stencil;
+
+    SolidVoxelisation* solid_voxelisation;
 };
 
 #endif

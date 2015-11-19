@@ -59,6 +59,6 @@ shadow_map.use_shadow_proj = true
 shadow_volume.coef_alpha = 0.75
 shadow_map.use_back_face = true
 
-sv.render_voxels_set = false
+sv.render_voxels_set = true
 sv.render_voxels_unset = true
 sv.use_ortho_camera = false

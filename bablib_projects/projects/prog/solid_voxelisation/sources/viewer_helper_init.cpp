@@ -35,6 +35,13 @@ void Viewer::initAll( bool bDestroy )
 
     f_scale_vbo = 1.f;
 
+    solid_voxelisation = new SolidVoxelisation(
+                PARAM(int, texture.sv.width),
+                PARAM(int, texture.sv.height),
+                128
+                );
+    solid_voxelisation->setCamera(qgl_cam_light_mf);
+
     b_is_init = true;
 }
 

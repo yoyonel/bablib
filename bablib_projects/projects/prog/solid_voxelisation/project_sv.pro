@@ -6,7 +6,9 @@ CONFIG *= scene3d
 CONFIG *= gsl
 
 HEADERS = sources/*.h \
-    sources/TriSoup2.h
+    sources/TriSoup2.h \
+    sources/SolidVoxelisation.h
+
 SOURCES = sources/*.cpp
 
 OTHER_FILES +=                                              \
@@ -32,3 +34,4 @@ PROJECT_PATH = $$PWD
 QMAKE_CXXFLAGS_RELEASE -= -Wint-to-pointer-cast
 
 include($$[QPROG]/config_project.pri)
+QMAKE_CXXFLAGS += -std=c++11 -Wall -Wextra
