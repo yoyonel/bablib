@@ -6,13 +6,13 @@
 
 BABLIB_NAMESPACE_BEGIN
 
-// Cette classe repr�sente une cam�ra qui affiche le carr� [0,1]� � l'�cran
+// Cette classe reprï¿½sente une camï¿½ra qui affiche le carrï¿½ [0,1]ï¿½ ï¿½ l'ï¿½cran
 // sur le rectangle ayant un rapport largeur/hauteur = <aspectRatio> et plus
-// grand possible en laissant un marge de <borderPixels> aux bords de l'�cran.
-// La cam�ra ne peut �tre ni translat�e ni tourn�e.
+// grand possible en laissant un marge de <borderPixels> aux bords de l'ï¿½cran.
+// La camï¿½ra ne peut ï¿½tre ni translatï¿½e ni tournï¿½e.
 class UnitSquareCamera : public qglviewer::Camera {
     public:
-        UnitSquareCamera(int borderPixels = 20, float aspectRatio = 1);     // si aspectRatio <= 0, le ratio n'est pas fix�
+        UnitSquareCamera(int borderPixels = 20, float aspectRatio = 1);     // si aspectRatio <= 0, le ratio n'est pas fixï¿½
         ~UnitSquareCamera();
 
         virtual float 	zNear() const { return -1.; }

@@ -6,8 +6,8 @@ varying vec3 dx1;
 varying vec3 dy0;
 varying vec3 dy1;
 
-//const float unit = 1.0;           // taille d'une unité de la grille
-const float unit = 10.0;           // taille d'une unité de la grille
+//const float unit = 1.0;           // taille d'une unitÃ© de la grille
+const float unit = 10.0;           // taille d'une unitÃ© de la grille
 const float thickness = 1.1;
 
 //#define FOCUS_RADIUS 500.0
@@ -48,7 +48,7 @@ void main() {
         
         // dessin de la  grille :
         //-----------------------
-            // le calcul suivant marche ssi le near plane et le far plane sont parallèles
+            // le calcul suivant marche ssi le near plane et le far plane sont parallÃ¨les
             float alpha = -p0.z / (p1.z - p0.z);
             vec3 dx = mix(dx0, dx1, alpha);     // vecteur pixel vertical
             vec3 dy = mix(dy0, dy1, alpha);     // vecteur pixel horizontal
@@ -60,7 +60,7 @@ void main() {
             vec2 s = sqrt(dx * dx + dy * dy);
             //@ revoir ce calcul : convolution ellipse * grille + calcul exact de l'ellipse + offset de g car ellipse decentree ..
             
-            vec2 g = fract(q.xy / unit);      // point ramené à [0,1]²
+            vec2 g = fract(q.xy / unit);      // point ramenÃ© Ã  [0,1]Â²
             //g.x = fract(degrees(atan(q.y,q.x)) / (20 * unit));
             //g.y = fract(length(q) / unit);
             vec2 d = thickness * s / unit;
@@ -108,7 +108,7 @@ void main() {
         #endif
         
         /*
-        // affichage hemisphère supérieure :
+        // affichage hemisphÃ¨re supÃ©rieure :
         float grid = 1.0f;
         //float dist = (worldViewDir.z / length(worldViewDir));
         //float dist = 0.02 * length(q - p0) / (abs(worldViewDir.z) / length(worldViewDir));

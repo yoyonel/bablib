@@ -19,7 +19,7 @@ Image2D<Color>::Image2D(int w, int h, Color* inputData) : AbstractImage2D(w, h),
     else if (inputData == NULL) {
         data = new Color[w * h];
         if (data == NULL) {
-            Message::error("l'allocation memoire pour l'image a echoué");
+            Message::error("l'allocation memoire pour l'image a echouÃ©");
             w = h = 0;
             }
         }
@@ -50,19 +50,19 @@ template<class Color>
 void Image2D<Color>::initialize(QImage image) {
     destroy();
     if (image.isNull())
-        Message::error("l'image fournie ne contient pas de données");
+        Message::error("l'image fournie ne contient pas de donnÃ©es");
     else {
         w = image.width();
         h = image.height();
         data = new Color[w * h];
         if (data == NULL) {
-            Message::error("l'allocation memoire pour l'image a echoué");
+            Message::error("l'allocation memoire pour l'image a echouÃ©");
             w = h = 0;
             }
         else
             for (int i=0; i<w; i++)
                 for (int j=0; j<h; j++)
-                    texel(i,j) = Color(image.pixel(i, h-1-j));  // inversion des ordonnées
+                    texel(i,j) = Color(image.pixel(i, h-1-j));  // inversion des ordonnÃ©es
         }
     }
 
@@ -71,7 +71,7 @@ QImage Image2D<Color>::toQImage() const {
     QImage image(w, h, QImage::Format_ARGB32);
     for (int i=0; i<w; i++)
         for (int j=0; j<h; j++)
-            image.setPixel(i, j, texel(i,h-1-j).toQRgb());      // inversion des ordonnées
+            image.setPixel(i, j, texel(i,h-1-j).toQRgb());      // inversion des ordonnÃ©es
     return image;
     }
 
@@ -93,7 +93,7 @@ Image2D<Color> Image2D<Color>::clone() const {
     if (data == NULL) return Image2D<Color>();
     Color *clonedData = new Color[w * h];
     if (clonedData == NULL) {
-        Message::error("l'allocation memoire pour l'image a echoué");
+        Message::error("l'allocation memoire pour l'image a echouÃ©");
         return Image2D<Color>();
         }
     for (int c=0; c<w*h; c++)
@@ -171,7 +171,7 @@ void Image2D<Color>::clear(Color c) {
 
 
 /*********************************************************************************************/
-// fonctions de lecture/écriture de buffer OpenGL :
+// fonctions de lecture/Ã©criture de buffer OpenGL :
 template<class Color>
 void Image2D<Color>::loadTexture2D(GLenum texFormat, GLenum target) const {
     glTexImage2D(target, 0, texFormat, w, h, 0, Color::DATA_FORMAT, Color::DATA_TYPE, data);
@@ -208,7 +208,7 @@ void Image2D<Color>::readTexture(const Texture *tex) {
 
 template<class Color>
 Image2D<Color> Image2D<Color>::getColorBuffer() {
-    ViewportGL view;    // récupère le viewport courant
+    ViewportGL view;    // rÃ©cupÃ¨re le viewport courant
     Image2D<Color> res(view.w, view.h, NULL);
     glReadPixels(0, 0, view.w, view.h, Color::DATA_FORMAT, Color::DATA_TYPE, res.data);
     return res;
@@ -216,7 +216,7 @@ Image2D<Color> Image2D<Color>::getColorBuffer() {
 
 template<class Color>
 Image2D<Color> Image2D<Color>::getDepthBuffer() {
-    ViewportGL view;    // récupère le viewport courant
+    ViewportGL view;    // rÃ©cupÃ¨re le viewport courant
     Image2D<Color> res(view.w, view.h, NULL);
     glReadPixels(0, 0, view.w, view.h, GL_DEPTH_COMPONENT, Color::DATA_TYPE, res.data);
     return res;
@@ -271,7 +271,7 @@ void Image2D<Color>::subSample(int N) {
         h = height() / N;
     Image2D<Color> res(w, h);
 
-    // sous-échantillonnage uniforme :
+    // sous-Ã©chantillonnage uniforme :
     ColorAdder<Color> pix;
     for (int i=0; i<w; i++) for (int j=0; j<h; j++) {
         pix.reset();
@@ -290,7 +290,7 @@ void Image2D<Color>::subSample(int N, Pix2DEvaluator &pixeval) {
         h = height() / N;
     Image2D<Color> res(w, h);
     
-    // sous-échantillonnage en séparant les pixels de l'image en différentes classes :
+    // sous-Ã©chantillonnage en sÃ©parant les pixels de l'image en diffÃ©rentes classes :
     int M = pixeval.valuesNumber();
     ColorAdder<Color> *pix = new ColorAdder<Color>[M];
     
@@ -304,7 +304,7 @@ void Image2D<Color>::subSample(int N, Pix2DEvaluator &pixeval) {
             }
 
         int kMax = 0;
-        for (int k=0; k<M; k++) if (pix[k].n > pix[kMax].n) kMax = k;   // la classe la plus représentée
+        for (int k=0; k<M; k++) if (pix[k].n > pix[kMax].n) kMax = k;   // la classe la plus reprÃ©sentÃ©e
         res(i,j) = pix[kMax].getColor();
         }
     
@@ -328,7 +328,7 @@ void Image2D<Color>::growClass(Pix2DEvaluator &pixeval, int value) {
     
         pix.reset();
         if (pixeval.evaluate(i,j) != value) {
-            // on ajoute les éventuels pixels du voisinage qui s'évaluent à 'value' :
+            // on ajoute les Ã©ventuels pixels du voisinage qui s'Ã©valuent Ã  'value' :
             for (int a=a1; a<=a2; a++) for (int b=b1; b<=b2; b++)
                 if (pixeval.evaluate(i+a,j+b) == value)
                     pix.add(texel(i+a, j+b));
@@ -376,7 +376,7 @@ void Image2D<Color>::applyKernel(Kernel2D kernel, bool ignoreBorders) {
             }
         //res(i,j) = pix.getColor();
         res(i,j) = pix.getSum();
-        //@@ a voir: gestion des bords (plus simplement geré automatiquement par adder)
+        //@@ a voir: gestion des bords (plus simplement gerÃ© automatiquement par adder)
         }
     destroy();
     *this = res;

@@ -21,9 +21,9 @@ class AbstractImage1D : public TextureData {
         virtual void destroy() = 0;
 
         virtual QImage toQImage() const = 0;
-        virtual void initialize(QImage image) = 0;       // initialise l'image à partir de <image>
+        virtual void initialize(QImage image) = 0;       // initialise l'image Ã  partir de <image>
 
-        void save(QString fileName) const;              // sauvegarde l'image dans un format donné par l'extension du nom de fichier
+        void save(QString fileName) const;              // sauvegarde l'image dans un format donnÃ© par l'extension du nom de fichier
         
         int width() const { return w; }
         //int height() const { return h; }
@@ -59,9 +59,9 @@ class Image1D : public AbstractImage1D {
         virtual void destroy();
         
         virtual QImage toQImage() const;
-        virtual void initialize(QImage image);      // initialise l'image à partir de <image>
+        virtual void initialize(QImage image);      // initialise l'image Ã  partir de <image>
         Image1D<Color> clone() const;               // duplique l'image en une nouvelle image
-        void copy(const Image1D<Color> &image);     // initialise l'image à partir de <image>  (précondition : width() >= image.width())
+        void copy(const Image1D<Color> &image);     // initialise l'image Ã  partir de <image>  (prÃ©condition : width() >= image.width())
         
         virtual GLint defaultTexFormat() const { return Color::TEX_FORMAT; }
         virtual void loadTexture1D(GLint texFormat, GLenum target = GL_TEXTURE_1D) const;
@@ -69,20 +69,20 @@ class Image1D : public AbstractImage1D {
         // acquisition d'une texture 1D :
         static Image1D<Color> readTexture(Texture *tex);
 
-        // définition de l'échantillonnage aux bords de l'image :
+        // dÃ©finition de l'Ã©chantillonnage aux bords de l'image :
         void setBorderColor(Color border);
         void setWrapMode(WrapMode wrapMode);
         void setupBorder(WrapMode wrapMode, Color border);
         
         // fonctions d'acces aux pixels :
         //-------------------------------
-        inline       Color& texel(int i)       { return data[i]; }          // précondition : this->contains(i)
-        inline const Color& texel(int i) const { return data[i]; }          // précondition : this->contains(i)
+        inline       Color& texel(int i)       { return data[i]; }          // prÃ©condition : this->contains(i)
+        inline const Color& texel(int i) const { return data[i]; }          // prÃ©condition : this->contains(i)
         inline       Color& operator()(int i)       { return texel(i); }
         inline const Color& operator()(int i) const { return texel(i); }
-        Color sample(int i) const;                                  // si !this->contains(i), le résultat dépend de <borderColor> et de <wrapMode>
-        Color interp(float x) const;                                // interpolation linéaire : image mappée sur [0,w[
-        Color interpUnit(float x) const { return interp(x * w); }   // interpolation linéaire : image mappée sur [0,1[
+        Color sample(int i) const;                                  // si !this->contains(i), le rÃ©sultat dÃ©pend de <borderColor> et de <wrapMode>
+        Color interp(float x) const;                                // interpolation linÃ©aire : image mappÃ©e sur [0,w[
+        Color interpUnit(float x) const { return interp(x * w); }   // interpolation linÃ©aire : image mappÃ©e sur [0,1[
         Color operator()(float x) const { return interp(x); }
         inline const Color* mem() const { return data; }
         inline       Color* mem()       { return data; }
@@ -93,13 +93,13 @@ class Image1D : public AbstractImage1D {
 
         // fonctions de traitement de l'image :
         //-------------------------------------
-        void subSample(int factor);                             // précondition : <factor> divise 'width()'
-        void subSample(int factor, Pix1DEvaluator &pixeval);    // précondition : <factor> divise 'width()' et 'height()'
-        void growClass(Pix1DEvaluator &pixeval, int value);     // étend la classe de pixels <value>
-        void applyFilter(ColorFilter<Color> &filter);                                           // applique le filtre <filter> à tous les pixels
-        void applyFilter(Pix1DEvaluator &pixeval, int value, ColorFilter<Color> &filter);       // de même mais uniquement sur les pixels de classe <value>
-        void applyFilter(Pix1DEvaluator &pixeval, int value, ColorFilter<Color> &filter1, ColorFilter<Color> &filter2);   // de même avec <filter2> appliqué sur les pixels restants
-        void applyKernel(Kernel1D kernel, bool ignoreBorders = true);   // si <ignoreBorders>==false, les valeurs de bords sont spécifiées par le <wrapMode>
+        void subSample(int factor);                             // prÃ©condition : <factor> divise 'width()'
+        void subSample(int factor, Pix1DEvaluator &pixeval);    // prÃ©condition : <factor> divise 'width()' et 'height()'
+        void growClass(Pix1DEvaluator &pixeval, int value);     // Ã©tend la classe de pixels <value>
+        void applyFilter(ColorFilter<Color> &filter);                                           // applique le filtre <filter> Ã  tous les pixels
+        void applyFilter(Pix1DEvaluator &pixeval, int value, ColorFilter<Color> &filter);       // de mÃªme mais uniquement sur les pixels de classe <value>
+        void applyFilter(Pix1DEvaluator &pixeval, int value, ColorFilter<Color> &filter1, ColorFilter<Color> &filter2);   // de mÃªme avec <filter2> appliquÃ© sur les pixels restants
+        void applyKernel(Kernel1D kernel, bool ignoreBorders = true);   // si <ignoreBorders>==false, les valeurs de bords sont spÃ©cifiÃ©es par le <wrapMode>
         int* histogram(Pix1DEvaluator &pixeval) const;                  // retourne un tableau de taille pixeval->valuesNumber()
         
     private:

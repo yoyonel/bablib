@@ -8,7 +8,7 @@
 
 BABLIB_NAMESPACE_BEGIN
 
-// cette classe représente une texture attachable à un frame-buffer (avec les paramètres nécessaires) :
+// cette classe reprÃ©sente une texture attachable Ã  un frame-buffer (avec les paramÃ¨tres nÃ©cessaires) :
 class RenderTexture : public FrameBufferAttachable {
     public:
         RenderTexture(Texture *texture, GLenum texMode, int level = 0);

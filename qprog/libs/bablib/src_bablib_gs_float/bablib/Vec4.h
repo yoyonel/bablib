@@ -21,48 +21,48 @@ class Vec4 {
         
     // conversions :
     //--------------
-        // opérateurs de conversion automatique :
+        // opÃ©rateurs de conversion automatique :
         inline operator const float* () const { return v; }     // cast en const float*
         inline operator       float* ()       { return v; }     // cast en float*
         /*
-        // opérateurs de conversion automatique :
+        // opÃ©rateurs de conversion automatique :
         inline float& operator[](int i) { return v[i]; }
         inline operator const float* () const { return v; }       // cast du Vec4 en const float*
         */
         // autres conversions :
         Vec3    toVec3()    const;
         QString toQString() const;
-        // lecture / écriture d'un élément XML :
+        // lecture / Ã©criture d'un Ã©lÃ©ment XML :
         QDomElement domElement(const QString &name, QDomDocument &document) const;
         void initFromDOMElement(const QDomElement &element);
 
-    // opérations géométriques :
+    // opÃ©rations gÃ©omÃ©triques :
     //--------------------------
-        friend Vec4 dir(const Vec4 &a, const Vec4 &b);    // vecteur représentant la direction de <a> à <b>
-        void homogenize();      // division de toutes les composante par la dernière
-        // coordonnées normalisées :
+        friend Vec4 dir(const Vec4 &a, const Vec4 &b);    // vecteur reprÃ©sentant la direction de <a> Ã  <b>
+        void homogenize();      // division de toutes les composante par la derniÃ¨re
+        // coordonnÃ©es normalisÃ©es :
         float xn() const { return x / w; }
         float yn() const { return y / w; }
         float zn() const { return z / w; }
         
-    // opérateurs arithmétiques :
+    // opÃ©rateurs arithmÃ©tiques :
     //---------------------------
-        // opérateurs arithmétiques unaires :
+        // opÃ©rateurs arithmÃ©tiques unaires :
         friend Vec4 operator-(const Vec4 &a);
 
-        // opérateurs arithmétiques binaires :
+        // opÃ©rateurs arithmÃ©tiques binaires :
         friend Vec4 operator+(const Vec4 &a, const Vec4 &b);
         friend Vec4 operator-(const Vec4 &a, const Vec4 &b);
         friend Vec4 operator*(const Vec4 &a, const Vec4 &b);
         friend Vec4 operator/(const Vec4 &a, const Vec4 &b);
             
-        // opérations avec un scalaire :
+        // opÃ©rations avec un scalaire :
         friend Vec4 operator*(float s, const Vec4 &a);
         friend Vec4 operator*(const Vec4 &a, float s);
         friend Vec4 operator/(float s, const Vec4 &a);
         friend Vec4 operator/(const Vec4 &a, float s);
         
-        // opérateurs de modification :
+        // opÃ©rateurs de modification :
         Vec4& operator+=(const Vec4 &a);
         Vec4& operator-=(const Vec4 &a);
         Vec4& operator*=(const Vec4 &a);
@@ -70,11 +70,11 @@ class Vec4 {
         Vec4& operator*=(float s);
         Vec4& operator/=(float s);
     
-    // opérateurs de comparaison :
+    // opÃ©rateurs de comparaison :
     //----------------------------
-        friend bool operator==(const Vec4 &a, const Vec4 &b);   // comparaison à 1e-10 près
-        friend bool operator!=(const Vec4 &a, const Vec4 &b);   // comparaison à 1e-10 près
-        // les comparaisons suivantes sont le <et> booléen des comparaisons sur les composantes :
+        friend bool operator==(const Vec4 &a, const Vec4 &b);   // comparaison Ã  1e-10 prÃ¨s
+        friend bool operator!=(const Vec4 &a, const Vec4 &b);   // comparaison Ã  1e-10 prÃ¨s
+        // les comparaisons suivantes sont le <et> boolÃ©en des comparaisons sur les composantes :
         friend bool operator>=(const Vec4 &a, const Vec4 &b);
         friend bool operator<=(const Vec4 &a, const Vec4 &b);
         friend bool operator>(const Vec4 &a, const Vec4 &b);
@@ -104,18 +104,18 @@ class Vec4 {
         friend float min(const Vec4 &a);    // minimum des composantes
         friend float max(const Vec4 &a);    // maximum des composantes
     
-    // opérateurs de swizzle :
+    // opÃ©rateurs de swizzle :
     //------------------------
         //Vec3 xyz() const { return Vec3(x,y,z); }
         Vec3 xyz() const; //{ return Vec3(x,y,z); }
         
-    // calcul de vecteurs aléatoires (variables uniformes) :
+    // calcul de vecteurs alÃ©atoires (variables uniformes) :
     //------------------------------------------------------
         static Vec4 random();                       // valeurs dans [0,1]
         static Vec4 random(float min, float max);   // valeurs dans [min,max]
         static Vec4 random(Vec4 min, Vec4 max);     // bornes par composantes
 
-    // opérations OpenGL :
+    // opÃ©rations OpenGL :
     //--------------------
         void glVertex() const;    // effectue le glVertex correspondant
         

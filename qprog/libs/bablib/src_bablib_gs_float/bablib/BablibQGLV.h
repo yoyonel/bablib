@@ -96,7 +96,7 @@ class BablibQGLV : public QGLViewer {
     //OpenGL::init();
     /*
     setBackgroundColor(QColor(90,90,90));
-    setSnapshotFormat("PNG");   // format par défaut pour les images sauvegardées
+    setSnapshotFormat("PNG");   // format par dÃ©faut pour les images sauvegardÃ©es
     setAnimationPeriod(PARAM(bool, anim.fps.fixed) ? (int)floorf(1000.0f / PARAM(int, anim.fps)) : 0);
     if (PARAM(bool, anim.autostart)) startAnimation();
     */

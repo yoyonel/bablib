@@ -18,7 +18,7 @@ BABLIB_NAMESPACE_BEGIN
 
 class Proj3d {
     public:
-        Proj3d(double d = 1);       // matrice diagonale avec la valeur 'd' sur la diagonale (l'identité par défaut)
+        Proj3d(double d = 1);       // matrice diagonale avec la valeur 'd' sur la diagonale (l'identitÃ© par dÃ©faut)
         Proj3d(double m11, double m12, double m13, double m14,
                double m21, double m22, double m23, double m24,
                double m31, double m32, double m33, double m34,
@@ -27,7 +27,7 @@ class Proj3d {
         Proj3d(Vec4d O, Vec4d X, Vec4d Y, Vec4d Z, bool relative=false);    // transfo affine
         Proj3d(Vec3d O, Vec3d X, Vec3d Y, Vec3d Z, bool relative=false);    // transfo affine
         Proj3d(const Matrix3d &R, const Vec3d &T);      // affine transfo : translation * rotation
-        Proj3d(double xmin, double xmax, double ymin, double ymax, double zmin, double zmax); // [xmin,xmax]*[ymin,ymax]*[zmin,zmax] --> [0,1]³
+        Proj3d(double xmin, double xmax, double ymin, double ymax, double zmin, double zmax); // [xmin,xmax]*[ymin,ymax]*[zmin,zmax] --> [0,1]Â³
         Proj3d(const ProjTransfo &proj);
         
     // transfomations courantes :
@@ -44,30 +44,30 @@ class Proj3d {
         static Proj3d scalingAndTranslation(double sx, double sy, double sz, double tx, double ty, double tz);         // scaling, puis translation  (T * S)
         static Proj3d scalingAndTranslation(Vec3d s, Vec3d t);
         static Proj3d scalingAndTranslation(double s, double t);   // scaling puis translation uniformes
-        static Proj3d rotation(double theta, Vec3d n, bool isNormed = false);    // précondition : isNormed ou ||n||=1
+        static Proj3d rotation(double theta, Vec3d n, bool isNormed = false);    // prÃ©condition : isNormed ou ||n||=1
         static Proj3d rotation(Vec3d d);    // rotation autour de d, d'angle ||d||
         static Proj3d rotation(Vec3d src, Vec3d dst, bool normalized = true);    // rotation d'angle minimal faisant tourner la direction de <src> sur celle de <dst>
         static Proj3d rotationX(double theta);  // rotation around X axis
         static Proj3d rotationY(double theta);  // rotation around Y axis
         static Proj3d rotationZ(double theta);  // rotation around Z axis
         
-        static Proj3d U2C();   // unit [0,1]³ --> centered [-1,1]³
-        static Proj3d C2U();   // centered [-1,1]³ --> unit [0,1]³
+        static Proj3d U2C();   // unit [0,1]Â³ --> centered [-1,1]Â³
+        static Proj3d C2U();   // centered [-1,1]Â³ --> unit [0,1]Â³
         
-    // opérations matricielles :
+    // opÃ©rations matricielles :
     //--------------------------
         Proj3d operator*(Proj3d P) const;   // composition
-        Vec4d operator*(Vec4d v) const;     // application à un vecteur 4
-        Vec3d operator*(Vec3d v) const;     // application à un vecteur 3
+        Vec4d operator*(Vec4d v) const;     // application Ã  un vecteur 4
+        Vec3d operator*(Vec3d v) const;     // application Ã  un vecteur 3
         
         Proj3d inv() const;
         Proj3d transposed() const;
         void transpose();
         
-    // accès aux coefficients :
+    // accÃ¨s aux coefficients :
     //-------------------------
-        inline const double* coefs() const { return M; }  // le tableau en mémoire contentant les 16 coefficients, rangés par colonnes
-        inline       double* coefs()       { return M; }  // le tableau en mémoire contentant les 16 coefficients, rangés par colonnes
+        inline const double* coefs() const { return M; }  // le tableau en mÃ©moire contentant les 16 coefficients, rangÃ©s par colonnes
+        inline       double* coefs()       { return M; }  // le tableau en mÃ©moire contentant les 16 coefficients, rangÃ©s par colonnes
         
         inline double& coef(int i, int j)             { return M[i + 4*j]; }
         inline double  coef(int i, int j) const       { return M[i + 4*j]; }
@@ -83,7 +83,7 @@ class Proj3d {
     //----------------------------------------
         static Proj3d getModelViewGL();
         static Proj3d getProjectionGL();
-        static Proj3d getTransformGL();        // composée des deux précédentes
+        static Proj3d getTransformGL();        // composÃ©e des deux prÃ©cÃ©dentes
         void loadMatrixGL() const;
         void loadModelViewGL() const;
         void loadProjectionGL() const;
@@ -91,16 +91,16 @@ class Proj3d {
         void multModelViewGL() const;
         void multProjectionGL() const;
         
-    // récupération de transformations définies dans une qglviewer::Camera :
+    // rÃ©cupÃ©ration de transformations dÃ©finies dans une qglviewer::Camera :
     //----------------------------------------------------------------------
         void getModelViewFrom(const qglviewer::Camera &camera);
         void getProjectionFrom(const qglviewer::Camera &camera);
         
-    // autres méthodes pratiques :
+    // autres mÃ©thodes pratiques :
     //----------------------------
-        // le rapport largeur/hauteur d'une caméra utilisant cette transfo :
+        // le rapport largeur/hauteur d'une camÃ©ra utilisant cette transfo :
         double screenRatio(double xMin = -1, double xMax = 1, double yMin = -1, double yMax = 1, double z = 0) const;
-        // affichage de la transformation inverse d'une boîte rectangulaire :
+        // affichage de la transformation inverse d'une boÃ®te rectangulaire :
         void drawBox(double xMin = 0, double xMax = 1, double yMin = 0, double yMax = 1, double zMin = 0, double zMax = 1) const;
     
         ProjTransfo toProj3f() const;

@@ -33,7 +33,7 @@ void CubeMapParam<Color>::initialize(QString dirName) {
             }
         
         if (image.width() != w || image.height() != h) {
-            Message::error("les 6 faces d'une cube-map doivent avoir la même résolution");
+            Message::error("les 6 faces d'une cube-map doivent avoir la mÃªme rÃ©solution");
             destroy();
             return;
             }
@@ -84,7 +84,7 @@ QStringList CubeMapParam<Color>::namesList(QString first) {
     }
 
 /*********************************************************************************************/
-// fonction d'émulation de l'échantillonnage de cube-maps OpenGL (cf spec OpenGL 2.0, page 168) :
+// fonction d'Ã©mulation de l'Ã©chantillonnage de cube-maps OpenGL (cf spec OpenGL 2.0, page 168) :
 
 template<class Color>
 Color CubeMapParam<Color>::sample(Vec3 r) {

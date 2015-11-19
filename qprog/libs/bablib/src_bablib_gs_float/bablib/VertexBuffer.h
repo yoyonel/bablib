@@ -105,7 +105,7 @@ class VertexDataBufferGL : public BufferGL {
             unbind();
             
             //@@ mieux : faire fonctions begin/end par attrib
-            glClientActiveTexture(GL_TEXTURE0); // modifié par classes VBO, pas sauvegardé par glPushAttrib (mais ok si glPushClientAttrib)
+            glClientActiveTexture(GL_TEXTURE0); // modifiÃ© par classes VBO, pas sauvegardÃ© par glPushAttrib (mais ok si glPushClientAttrib)
             }
         
         int size() const { return n; }

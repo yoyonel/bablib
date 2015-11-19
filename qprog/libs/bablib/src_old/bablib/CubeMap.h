@@ -20,7 +20,7 @@ class CubeMapParam : public TextureData {
         void initialize(QString dirName);
         void destroy();
         
-        // émulation de l'échantillonnage de cube-maps OpenGL :
+        // Ã©mulation de l'Ã©chantillonnage de cube-maps OpenGL :
         Color sample(float rx, float ry, float rz) { return sample(Vec3(rx,ry,rz)); }
         Color sample(Vec3 r);
         
@@ -28,7 +28,7 @@ class CubeMapParam : public TextureData {
         virtual GLint defaultTexFormat() const { return face[0][0].defaultTexFormat(); }
         virtual void loadToGPU(GLint texFormat) const;
         
-        static QStringList namesList(QString first = QString::null);     // liste des cubemaps dans le répertoire <defaultDir>, avec éventuellement <first> en premier
+        static QStringList namesList(QString first = QString::null);     // liste des cubemaps dans le rÃ©pertoire <defaultDir>, avec Ã©ventuellement <first> en premier
         
     private:
         static GLenum targetName(int i, int j);       // i:{x=0,y=1,z=2}, j:{neg=0,pos=1}

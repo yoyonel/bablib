@@ -6,13 +6,13 @@
 
 BABLIB_NAMESPACE_BEGIN
 
-// cette classe représente un ensemble de textures destinées à être activées en même temps
+// cette classe reprÃ©sente un ensemble de textures destinÃ©es Ã  Ãªtre activÃ©es en mÃªme temps
 // la destruction des textures n'est pas prise en charge par la classe
 class TextureSet {
     public:
         TextureSet() {}
-        int add(Texture* texture);      // retourne le numéro de texture
-        void load() const;              // charge les textures de la liste en mémoire vidéo
+        int add(Texture* texture);      // retourne le numÃ©ro de texture
+        void load() const;              // charge les textures de la liste en mÃ©moire vidÃ©o
         void activate() const;          // active les textures
         void deactivate() const;        // desactive les textures
         void clear();                   // supprime toutes les textures de la liste

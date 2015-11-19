@@ -44,7 +44,7 @@ void FrameBuffer::attach(AttachedImage image) {
     deactivate();
     
     if (size.isDefined() && image.size().isDefined() && image.size() != size) {
-        Message::warning("l'image attachée n'a pas la taille spécifiée pour le framebuffer");
+        Message::warning("l'image attachÃ©e n'a pas la taille spÃ©cifiÃ©e pour le framebuffer");
         }
     }
 
@@ -72,7 +72,7 @@ void FrameBuffer::attachRenderBuffer(GLenum attachment, GLenum format) {
     if (size.isDefined())
         attach(attachment, new RenderBuffer(size, format), true);
     else
-        Message::error("dimensions du framebuffer indéfinies");
+        Message::error("dimensions du framebuffer indÃ©finies");
     }
 
 void FrameBuffer::checkCompleteness(bool messageOnSuccess) const {
@@ -87,22 +87,22 @@ void FrameBuffer::checkCompleteness(bool messageOnSuccess) const {
             Message::error("un des attachements est incomplet");
             break;
         case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_EXT :
-            Message::error("aucune image n'est attachée au framebuffer");
+            Message::error("aucune image n'est attachÃ©e au framebuffer");
             break;
         case GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT :
-            Message::error("les images attachées n'ont pas toutes la même dimension");
+            Message::error("les images attachÃ©es n'ont pas toutes la mÃªme dimension");
             break;
         case GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT :
-            Message::error("les images de couleurs n'ont pas toutes le même format interne");
+            Message::error("les images de couleurs n'ont pas toutes le mÃªme format interne");
             break;
         case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_EXT :
-            Message::error("un des DRAW_BUFFER<i> n'a pas d'image attachée");
+            Message::error("un des DRAW_BUFFER<i> n'a pas d'image attachÃ©e");
             break;
         case GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER_EXT :
-            Message::error("aucune image attachée au point désigné par READ_BUFFER");
+            Message::error("aucune image attachÃ©e au point dÃ©signÃ© par READ_BUFFER");
             break;
         case GL_FRAMEBUFFER_UNSUPPORTED_EXT :
-            Message::error("combinaison de formats non supportée par l'implémentation");
+            Message::error("combinaison de formats non supportÃ©e par l'implÃ©mentation");
             break;
         }
     if (oldBinding != id) bind(oldBinding);
@@ -147,7 +147,7 @@ FrameBuffer FrameBuffer::create_Tex2D_Z(Texture *texture, GLenum depthBufferForm
         return FrameBuffer();
         }
     if (!texture->isLoaded()) {
-        Message::error("la texture n'a pas de contenu (taille non définie)");
+        Message::error("la texture n'a pas de contenu (taille non dÃ©finie)");
         return FrameBuffer();
         }
     FrameBuffer fb(texture->renderSize());
@@ -164,7 +164,7 @@ FrameBuffer FrameBuffer::create_Tex2D(Texture *texture) {
         return FrameBuffer();
         }
     if (!texture->isLoaded()) {
-        Message::error("la texture n'a pas de contenu (taille non définie)");
+        Message::error("la texture n'a pas de contenu (taille non dÃ©finie)");
         return FrameBuffer();
         }
     FrameBuffer fb(texture->renderSize());
@@ -181,7 +181,7 @@ FrameBuffer FrameBuffer::create_TexDepth(Texture *texture, bool deactiveDrawRead
 		}
 		
 	if (!texture->isLoaded()) {
-		Message::error("la texture n'a pas de contenu (taille non définie)");
+		Message::error("la texture n'a pas de contenu (taille non dÃ©finie)");
 		return FrameBuffer();
 		}
 		

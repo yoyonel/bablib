@@ -6,7 +6,7 @@
 #include <math.h>
 BABLIB_NAMESPACE_USE
 
-//@ a voir : sous linux stdlib.h contient une fonction random() a priori plus précise que rand() (retourne un long int au lieu d'un int), mais pas sous windows
+//@ a voir : sous linux stdlib.h contient une fonction random() a priori plus prÃ©cise que rand() (retourne un long int au lieu d'un int), mais pas sous windows
 #undef RANDOM
 //#define RANDOM() random()
 #define RANDOM() rand()

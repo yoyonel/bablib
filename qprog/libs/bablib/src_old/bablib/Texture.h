@@ -15,25 +15,25 @@ class Texture {
         Texture(const TextureData *texData, GLenum interpMode = GL_NEAREST, GLenum wrapMode = GL_CLAMP);
         Texture(GLenum texMode, GLenum interpMode = GL_NEAREST, GLenum wrapMode = GL_CLAMP);     // alloue un id de texture et initialize les params (interp, wrap)
         
-        // chargement de la texture en mémoire (doit etre appele dans un contexte GL) :
-        void load();                        // charge <texData> en mémoire GPU en utilisant le format par défaut de <texData>
-        void load(GLint internalFormat);    // de même mais avec le format précisé
+        // chargement de la texture en mÃ©moire (doit etre appele dans un contexte GL) :
+        void load();                        // charge <texData> en mÃ©moire GPU en utilisant le format par dÃ©faut de <texData>
+        void load(GLint internalFormat);    // de mÃªme mais avec le format prÃ©cisÃ©
         bool isLoaded() const { return loaded; }
         
         // utilisation de la texture :
-        void bind() const;      // attache cette texture comme texture courante (associée à TEX_MODE)
+        void bind() const;      // attache cette texture comme texture courante (associÃ©e Ã  TEX_MODE)
         void destroy();         // pour supprimer le contenu de la texture :
         
         // pour appliquer la texture au rendu (sans shader):
         void activate(GLint mode = GL_REPLACE) const;   // modes possibles: GL_MODULATE, GL_DECAL, GL_BLEND, GL_REPLACE
         void deactivate() const;
         
-        // utilisation des unités de texture :
-        static void setActiveUnit(int unit);        // activation de l'unité <unit>
-        static int maxUnits();                      // nombre maximum d'unités accessibles par un shader
+        // utilisation des unitÃ©s de texture :
+        static void setActiveUnit(int unit);        // activation de l'unitÃ© <unit>
+        static int maxUnits();                      // nombre maximum d'unitÃ©s accessibles par un shader
         
-        // réglage des paramètres de la texture (un contexte GL doit etre actif) :
-        // la texture doit avoir été créée (méthode load())
+        // rÃ©glage des paramÃ¨tres de la texture (un contexte GL doit etre actif) :
+        // la texture doit avoir Ã©tÃ© crÃ©Ã©e (mÃ©thode load())
         void setInterpMode(GLenum interpMode);
         void setWrapMode(GLenum wrapMode);
         void setBorderColor(const float *color) const;
@@ -42,7 +42,7 @@ class Texture {
         GLuint getID()   const { return id; }
         GLenum getMode() const { return texMode; }
         
-        // méthodes de création de textures vides :
+        // mÃ©thodes de crÃ©ation de textures vides :
         // <internalFormat> : tables 3.15 et 3.16 de la spec OpenGL 2.0
         static Texture createTex1D(int w,                    GLint internalFormat = GL_RGBA, GLenum interpMode = GL_NEAREST, GLenum wrapMode = GL_CLAMP);
         static Texture createTex2D(int w, int h,             GLint internalFormat = GL_RGBA, GLenum interpMode = GL_NEAREST, GLenum wrapMode = GL_CLAMP);
@@ -50,27 +50,27 @@ class Texture {
         static Texture createTex2DArray(int w, int h, int d, GLint internalFormat = GL_RGBA, GLenum interpMode = GL_NEAREST, GLenum wrapMode = GL_CLAMP);
         static Texture createTexCube(int n,                  GLint internalFormat = GL_RGBA, GLenum interpMode = GL_NEAREST, GLenum wrapMode = GL_CLAMP);
         
-        // méthodes pratiques de création de textures :
+        // mÃ©thodes pratiques de crÃ©ation de textures :
         static Texture createTex1D(QString imageFileName, GLint internalFormat = GL_RGBA, GLenum interpMode = GL_NEAREST, GLenum wrapMode = GL_CLAMP);
         static Texture createTex2D(QString imageFileName, GLint internalFormat = GL_RGBA, GLenum interpMode = GL_NEAREST, GLenum wrapMode = GL_CLAMP);
 
         void copyReadBuffer(GLenum internalFormat, int w, int h, int x=0, int y=0);    // copie le contenu du render-buffer courant dans la texture
         
-        // méthodes utiles :
+        // mÃ©thodes utiles :
         int getParam(GLenum paramName) const;
         int getLevelParam(GLenum paramName, int level = 0) const { return getLevelParam(texMode, paramName, level); }
         int getLevelParam(int target, GLenum paramName, int level = 0) const;
         int getWidth() const  { return getLevelParam(GL_TEXTURE_WIDTH);  }
         int getHeight() const { return getLevelParam(GL_TEXTURE_HEIGHT); }
         int getDepth() const  { return getLevelParam(GL_TEXTURE_DEPTH);  }
-        // effets de bord : texture bindée
+        // effets de bord : texture bindÃ©e
         
-        // les méthodes suivantes calculent la taille 2D de l'image qui peut etre rendue dans cette texture avec un frame-buffer :
+        // les mÃ©thodes suivantes calculent la taille 2D de l'image qui peut etre rendue dans cette texture avec un frame-buffer :
         Dim2D renderSize(int level = 0) const { return renderSize(texMode, level); }
         Dim2D renderSize(GLenum target, int level = 0) const;
         
 		// MIPMAP
-		// ATTENTION: faire attention sur ATI/NVIDIA à la valeur de base de basel_level (0 ou 1)
+		// ATTENTION: faire attention sur ATI/NVIDIA Ã  la valeur de base de basel_level (0 ou 1)
         void initAutoMipMapGeneration( 
 			GLenum _min_filter = GL_NEAREST_MIPMAP_NEAREST, 
 			GLenum _mag_filter = GL_NEAREST, 
@@ -83,11 +83,11 @@ class Texture {
 		inline GLuint getTextureMaxLevel() const { return m_n_mipmaps; };
 
     private:
-        void generateID();              // alloue un nouvel identifiant. précondition : id <= 0
-        void init() const;              // initialise les paramètres de la texture (effet de bord : la texture est bindée)
+        void generateID();              // alloue un nouvel identifiant. prÃ©condition : id <= 0
+        void init() const;              // initialise les paramÃ¨tres de la texture (effet de bord : la texture est bindÃ©e)
         void updateInterpMode() const;
         void updateWrapMode() const;
-        bool hasContent() const;    // effet de bord : texture bindée
+        bool hasContent() const;    // effet de bord : texture bindÃ©e
         
     private:
         GLuint id;
@@ -96,7 +96,7 @@ class Texture {
                                     // + GL_TEXTURE_BUFFER_EXT, GL_TEXTURE_2D_ARRAY_EXT, GL_TEXTURE_RECTANGLE_ARB
                interpMode,  // GL_NEAREST, GL_LINEAR
                wrapMode;    // GL_REPEAT, GL_CLAMP, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT
-        bool loaded;    // true ssi le contenu de la texture est défini
+        bool loaded;    // true ssi le contenu de la texture est dÃ©fini
 		GLuint m_n_mipmaps;
     };
 

@@ -5,12 +5,12 @@ BABLIB_NAMESPACE_BEGIN
 
 class Kernel1D {
     public:
-        //Kernel1D(int R = -1, int* tab = NULL);   // précondition : <R> >= 0 et {<tab> == NULL ou <tab> est de taille (2R+1)*(2R+1)}
-        Kernel1D(int R = -1);   // précondition : <R> >= 0 et {<tab> == NULL ou <tab> est de taille (2R+1)}
+        //Kernel1D(int R = -1, int* tab = NULL);   // prÃ©condition : <R> >= 0 et {<tab> == NULL ou <tab> est de taille (2R+1)*(2R+1)}
+        Kernel1D(int R = -1);   // prÃ©condition : <R> >= 0 et {<tab> == NULL ou <tab> est de taille (2R+1)}
         void destroy();
         
         int radius() const { return R; }
-        float& operator()(int i) { return tab[i+R]; }    // précondition : tab != NULL
+        float& operator()(int i) { return tab[i+R]; }    // prÃ©condition : tab != NULL
         
         //@@ faire fonction convolution
         

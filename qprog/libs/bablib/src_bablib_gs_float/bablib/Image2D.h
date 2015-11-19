@@ -13,12 +13,12 @@
 BABLIB_NAMESPACE_BEGIN
 class Pix2DEvaluator;
 
-// système de coordonnées : comme OpenGL :
+// systÃ¨me de coordonnÃ©es : comme OpenGL :
 //----------------------------------------
-//  - i : abscisse, de gauche à droite
-//  - j : ordonnée, de bas en haut
-//  - origine en bas à gauche
-// ==> attention : système inversé par rapport à QImage (origine en haut à gauche)
+//  - i : abscisse, de gauche Ã  droite
+//  - j : ordonnÃ©e, de bas en haut
+//  - origine en bas Ã  gauche
+// ==> attention : systÃ¨me inversÃ© par rapport Ã  QImage (origine en haut Ã  gauche)
 
 #define for_all_pixels for (int i=0; i<w; i++) for (int j=0; j<h; j++)
 
@@ -27,13 +27,13 @@ class AbstractImage2D : public TextureData {
         AbstractImage2D(int w=0, int h=0) : w(w), h(h) {}
         virtual ~AbstractImage2D() {}
 
-        virtual bool loaded() const = 0;    // true ssi l'image contient des données
-        virtual void destroy() = 0;         // libère la mémoire éventuellement occupée par l'image
+        virtual bool loaded() const = 0;    // true ssi l'image contient des donnÃ©es
+        virtual void destroy() = 0;         // libÃ¨re la mÃ©moire Ã©ventuellement occupÃ©e par l'image
         
         virtual QImage toQImage() const = 0;
-        virtual void initialize(QImage image) = 0;      // initialise l'image à partir de <image>
+        virtual void initialize(QImage image) = 0;      // initialise l'image Ã  partir de <image>
         
-        void save(QString fileName) const;              // sauvegarde l'image dans un format donné par l'extension du nom de fichier
+        void save(QString fileName) const;              // sauvegarde l'image dans un format donnÃ© par l'extension du nom de fichier
 
         int width()  const { return w; }
         int height() const { return h; }
@@ -65,7 +65,7 @@ class Image2D : public AbstractImage2D {
         Image2D(QString fileName);
         virtual ~Image2D() {}
 
-        static Image2D<Color> loadPNG16(QString fileName); // seulement pour Color = Float*, PNG 1,2,4,8,16 bits, 1,2,3,4 canaux, format PNG_COLOR_TYPE_PALETTE non supporté
+        static Image2D<Color> loadPNG16(QString fileName); // seulement pour Color = Float*, PNG 1,2,4,8,16 bits, 1,2,3,4 canaux, format PNG_COLOR_TYPE_PALETTE non supportÃ©
         void savePNG16(QString fileName) const;            // seulement pour Color = Float*
         
         virtual bool loaded() const { return data != NULL; }
@@ -73,58 +73,58 @@ class Image2D : public AbstractImage2D {
         void clear(Color c = Color());
         
         virtual QImage toQImage() const;
-        virtual void initialize(QImage image);      // initialise l'image à partir de <image>
+        virtual void initialize(QImage image);      // initialise l'image Ã  partir de <image>
         Image2D<Color> clone() const;               // duplique l'image en une nouvelle image
-        Image2D<Color> subImage(int i, int j, int w, int h) const;  // précondition : i >= 0 && i+w <= width() && j >= 0 && j+h <= height()
-        Image2D<Color> supImage(int i, int j, int w, int h) const;  // précondition : i >= 0 && i+width() <= w && j >= 0 && j+height() <= h
+        Image2D<Color> subImage(int i, int j, int w, int h) const;  // prÃ©condition : i >= 0 && i+w <= width() && j >= 0 && j+h <= height()
+        Image2D<Color> supImage(int i, int j, int w, int h) const;  // prÃ©condition : i >= 0 && i+width() <= w && j >= 0 && j+height() <= h
         Image2D<Color> boundingPowerOfTwo() const;  // retourne l'image englobant l'image courante, ayant des dimensions puissances de 2
         
-        Image1D<Color> line(int j) const { return Image1D<Color>(w, data + j*w); }     // retourne l'Image1D référençant la ligne <j>
+        Image1D<Color> line(int j) const { return Image1D<Color>(w, data + j*w); }     // retourne l'Image1D rÃ©fÃ©renÃ§ant la ligne <j>
         
         virtual GLint defaultTexFormat() const { return Color::TEX_FORMAT; }
         virtual void loadTexture2D(GLenum texFormat, GLenum target = GL_TEXTURE_2D) const;
 
-        // lecture/écriture du buffer de couleurs OpenGL :
+        // lecture/Ã©criture du buffer de couleurs OpenGL :
         static Image2D<Color> getColorBuffer();
         static Image2D<Color> getDepthBuffer();         // ne marche correctement que si le format <Color> a une seule composante
-        void readColorBuffer(int i=0, int j=0);         // précondition : loaded() == true et le buffer contient le viewport (i,j,w,h)
-        void readDepthBuffer(int i=0, int j=0);         // de même mais le format <Color> doit avoir une seule composante
-        void drawColorBuffer(int i=0, int j=0) const;   // point (i,j) en unités de pixels, origine en bas à gauche
+        void readColorBuffer(int i=0, int j=0);         // prÃ©condition : loaded() == true et le buffer contient le viewport (i,j,w,h)
+        void readDepthBuffer(int i=0, int j=0);         // de mÃªme mais le format <Color> doit avoir une seule composante
+        void drawColorBuffer(int i=0, int j=0) const;   // point (i,j) en unitÃ©s de pixels, origine en bas Ã  gauche
         static Color readPixelColor(int i, int j);
         
         // acquisition d'une texture 2D :
         static Image2D<Color> getTexture(const Texture *tex);
-        void readTexture(const Texture *tex);           // précondition : l'image a la même taille que la texture
+        void readTexture(const Texture *tex);           // prÃ©condition : l'image a la mÃªme taille que la texture
         
         // chargment direct d'une texture :
         static Texture createTex2D(QString fileName, GLint internalFormat = GL_RGBA, GLenum interpMode = GL_NEAREST, GLenum wrapMode = GL_CLAMP);
 
-        // définition de l'échantillonnage aux bords de l'image :
+        // dÃ©finition de l'Ã©chantillonnage aux bords de l'image :
         void setBorderColor(Color border);
         void setWrapMode(WrapMode wrapMode);
         void setupBorder(WrapMode wrapMode, Color border);
         
         // fonctions d'acces aux pixels :
         //-------------------------------
-        inline       Color& texel(int i, int j)       { return data[i + j*w]; }    // précondition : this->contains(i,j)
-        inline const Color& texel(int i, int j) const { return data[i + j*w]; }    // précondition : this->contains(i,j)
+        inline       Color& texel(int i, int j)       { return data[i + j*w]; }    // prÃ©condition : this->contains(i,j)
+        inline const Color& texel(int i, int j) const { return data[i + j*w]; }    // prÃ©condition : this->contains(i,j)
         inline       Color& operator()(int i, int j)       { return texel(i,j); }
         inline const Color& operator()(int i, int j) const { return texel(i,j); }
-        Color sample(int i, int j) const;               // si !this->contains(i,j), le résultat dépend de <borderColor> et de <wrapMode>
-        Color interp(float x, float y) const;           // interpolation bilinéaire : image mappée sur [0,w[*[0,h[
+        Color sample(int i, int j) const;               // si !this->contains(i,j), le rÃ©sultat dÃ©pend de <borderColor> et de <wrapMode>
+        Color interp(float x, float y) const;           // interpolation bilinÃ©aire : image mappÃ©e sur [0,w[*[0,h[
         inline Color operator()(float x, float y) const { return interp(x,y); }
         inline const Color* mem() const { return data; }
         inline       Color* mem()       { return data; }
         
         // fonctions de traitement de l'image :
         //-------------------------------------
-        void subSample(int factor);                             // précondition : <factor> divise 'width()' et 'height()'
-        void subSample(int factor, Pix2DEvaluator &pixeval);    // précondition : <factor> divise 'width()' et 'height()'
-        void growClass(Pix2DEvaluator &pixeval, int value);     // étend la classe de pixels <value>
-        void applyFilter(ColorFilter<Color> &filter);                                                  // applique le filtre <filter> à tous les pixels
-        void applyFilter(Pix2DEvaluator &pixeval, int value, ColorFilter<Color> &filter);              // de même mais uniquement sur les pixels de classe <value>
-        void applyFilter(Pix2DEvaluator &pixeval, int value, ColorFilter<Color> &filter1, ColorFilter<Color> &filter2);   // de même avec <filter2> appliqué sur les pixels restants
-        void applyKernel(Kernel2D kernel, bool ignoreBorders = true);   // si <ignoreBorders>==false, les valeurs de bords sont spécifiées par le <wrapMode>
+        void subSample(int factor);                             // prÃ©condition : <factor> divise 'width()' et 'height()'
+        void subSample(int factor, Pix2DEvaluator &pixeval);    // prÃ©condition : <factor> divise 'width()' et 'height()'
+        void growClass(Pix2DEvaluator &pixeval, int value);     // Ã©tend la classe de pixels <value>
+        void applyFilter(ColorFilter<Color> &filter);                                                  // applique le filtre <filter> Ã  tous les pixels
+        void applyFilter(Pix2DEvaluator &pixeval, int value, ColorFilter<Color> &filter);              // de mÃªme mais uniquement sur les pixels de classe <value>
+        void applyFilter(Pix2DEvaluator &pixeval, int value, ColorFilter<Color> &filter1, ColorFilter<Color> &filter2);   // de mÃªme avec <filter2> appliquÃ© sur les pixels restants
+        void applyKernel(Kernel2D kernel, bool ignoreBorders = true);   // si <ignoreBorders>==false, les valeurs de bords sont spÃ©cifiÃ©es par le <wrapMode>
         int* histogram(Pix2DEvaluator &pixeval) const;                  // retourne un tableau de taille pixeval->valuesNumber()
 
     private:

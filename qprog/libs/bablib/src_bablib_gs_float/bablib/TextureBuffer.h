@@ -23,9 +23,9 @@ class TextureBuffer : public TextureData {
     };
 
 /*
-// valeurs acceptées pour <texFormat> :
+// valeurs acceptÃ©es pour <texFormat> :
 //-------------------------------------
-// (attention : le format de <source> (CPU) doit être le même que celui spécifié pour <texFormat> (GPU)
+// (attention : le format de <source> (CPU) doit Ãªtre le mÃªme que celui spÃ©cifiÃ© pour <texFormat> (GPU)
 //  car le buffer GPU est une simple copie du buffer CPU)
 
       ALPHA8                     ubyte         1        Y     A . . .

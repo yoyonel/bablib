@@ -10,7 +10,7 @@ void main() {
 
     normal = gl_Normal.xyz;
     
-    vec4 eye = gl_ModelViewProjectionMatrixInverse * vec4(0,0,-1,0);    // coordonnées de l'oeil dans le repère local
+    vec4 eye = gl_ModelViewProjectionMatrixInverse * vec4(0,0,-1,0);    // coordonnÃ©es de l'oeil dans le repÃ¨re local
     viewDir = (eye.w * gl_Vertex.xyz - eye.xyz);    //@ * sign(eye.w) ...
     gl_Position = ftransform();
     }

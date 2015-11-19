@@ -82,7 +82,7 @@ bool operator< (const Vec3d &a, double  b) { return a.x <  b && a.y <  b && a.z 
 
 /*********************************************************************************************/
 
-// définition de fonctions de base :
+// dÃ©finition de fonctions de base :
 namespace {
     double sign(double a) { return a > 0 ? 1 : (a < 0 ? -1 : 0); }
     double fract(double a) { return a - floor(a); }

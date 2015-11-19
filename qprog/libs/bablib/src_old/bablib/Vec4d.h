@@ -24,48 +24,48 @@ class Vec4d {
         
     // conversions :
     //--------------
-        // opérateurs de conversion automatique :
+        // opÃ©rateurs de conversion automatique :
         inline operator const double* () const { return v; }     // cast en const double*
         inline operator       double* ()       { return v; }     // cast en double*
         /*
-        // opérateurs de conversion automatique :
+        // opÃ©rateurs de conversion automatique :
         inline double& operator[](int i) { return v[i]; }
         inline operator const double* () const { return v; }       // cast du Vec4d en const double*
         */
         // autres conversions :
         Vec3d   toVec3d()   const;
         QString toQString() const;
-        // lecture / écriture d'un élément XML :
+        // lecture / Ã©criture d'un Ã©lÃ©ment XML :
         QDomElement domElement(const QString &name, QDomDocument &document) const;
         void initFromDOMElement(const QDomElement &element);
 
-    // opérations géométriques :
+    // opÃ©rations gÃ©omÃ©triques :
     //--------------------------
-        friend Vec4d dir(const Vec4d &a, const Vec4d &b);    // vecteur représentant la direction de <a> à <b>
-        void homogenize();      // division de toutes les composante par la dernière
-        // coordonnées normalisées :
+        friend Vec4d dir(const Vec4d &a, const Vec4d &b);    // vecteur reprÃ©sentant la direction de <a> Ã  <b>
+        void homogenize();      // division de toutes les composante par la derniÃ¨re
+        // coordonnÃ©es normalisÃ©es :
         double xn() const { return x / w; }
         double yn() const { return y / w; }
         double zn() const { return z / w; }
         
-    // opérateurs arithmétiques :
+    // opÃ©rateurs arithmÃ©tiques :
     //---------------------------
-        // opérateurs arithmétiques unaires :
+        // opÃ©rateurs arithmÃ©tiques unaires :
         friend Vec4d operator-(const Vec4d &a);
 
-        // opérateurs arithmétiques binaires :
+        // opÃ©rateurs arithmÃ©tiques binaires :
         friend Vec4d operator+(const Vec4d &a, const Vec4d &b);
         friend Vec4d operator-(const Vec4d &a, const Vec4d &b);
         friend Vec4d operator*(const Vec4d &a, const Vec4d &b);
         friend Vec4d operator/(const Vec4d &a, const Vec4d &b);
             
-        // opérations avec un scalaire :
+        // opÃ©rations avec un scalaire :
         friend Vec4d operator*(double s, const Vec4d &a);
         friend Vec4d operator*(const Vec4d &a, double s);
         friend Vec4d operator/(double s, const Vec4d &a);
         friend Vec4d operator/(const Vec4d &a, double s);
         
-        // opérateurs de modification :
+        // opÃ©rateurs de modification :
         Vec4d& operator+=(const Vec4d &a);
         Vec4d& operator-=(const Vec4d &a);
         Vec4d& operator*=(const Vec4d &a);
@@ -73,11 +73,11 @@ class Vec4d {
         Vec4d& operator*=(double s);
         Vec4d& operator/=(double s);
     
-    // opérateurs de comparaison :
+    // opÃ©rateurs de comparaison :
     //----------------------------
-        friend bool operator==(const Vec4d &a, const Vec4d &b);   // comparaison à 1e-10 près
-        friend bool operator!=(const Vec4d &a, const Vec4d &b);   // comparaison à 1e-10 près
-        // les comparaisons suivantes sont le <et> booléen des comparaisons sur les composantes :
+        friend bool operator==(const Vec4d &a, const Vec4d &b);   // comparaison Ã  1e-10 prÃ¨s
+        friend bool operator!=(const Vec4d &a, const Vec4d &b);   // comparaison Ã  1e-10 prÃ¨s
+        // les comparaisons suivantes sont le <et> boolÃ©en des comparaisons sur les composantes :
         friend bool operator>=(const Vec4d &a, const Vec4d &b);
         friend bool operator<=(const Vec4d &a, const Vec4d &b);
         friend bool operator>(const Vec4d &a, const Vec4d &b);
@@ -107,17 +107,17 @@ class Vec4d {
         //friend double min(const Vec4d &a);    // minimum des composantes
         //friend double max(const Vec4d &a);    // maximum des composantes
     
-    // opérateurs de swizzle :
+    // opÃ©rateurs de swizzle :
     //------------------------
         Vec3d xyz() const;  // { return Vec3d(x,y,z); }
         
-    // calcul de vecteurs aléatoires (variables uniformes) :
+    // calcul de vecteurs alÃ©atoires (variables uniformes) :
     //------------------------------------------------------
         static Vec4d random();                       // valeurs dans [0,1]
         static Vec4d random(double min, double max);   // valeurs dans [min,max]
         static Vec4d random(Vec4d min, Vec4d max);     // bornes par composantes
 
-    // opérations OpenGL :
+    // opÃ©rations OpenGL :
     //--------------------
         void glVertex() const;    // effectue le glVertex correspondant
         

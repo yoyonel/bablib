@@ -125,7 +125,7 @@ void ProgGLSL::destroy() {
 
 int ProgGLSL::getAttribID(QString name) const {
     if (!isLinked()) {
-        Message::error("le programme doit être linké avant de pouvoir accéder à ses attributs");
+        Message::error("le programme doit Ãªtre linkÃ© avant de pouvoir accÃ©der Ã  ses attributs");
         return -1;
         }
     GLint attribID = glGetAttribLocation(id, name.toAscii().constData());

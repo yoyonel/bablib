@@ -91,7 +91,7 @@ bool operator< (const Vec4 &a, float  b) { return a.x <  b && a.y <  b && a.z < 
 
 /*********************************************************************************************/
 
-// définition de fonctions de base :
+// dÃ©finition de fonctions de base :
 namespace {
     float sign(float a) { return a > 0 ? 1 : (a < 0 ? -1 : 0); }
     float fract(float a) { return a - floorf(a); }
@@ -126,7 +126,7 @@ Vec4 Vec4::random(float min, float max) { return min + (max - min) * random(); }
 Vec4 Vec4::random(Vec4  min, Vec4  max) { return min + (max - min) * random(); }
 
 /*********************************************************************************************/
-// lecture / écriture XML :
+// lecture / Ã©criture XML :
 
 Vec4::Vec4(const QDomElement &element) {
     initFromDOMElement(element);

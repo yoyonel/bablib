@@ -63,7 +63,7 @@ class AbstractVertexAttrib {
 
 #define VA_CLASS_NAME(attrib, type, channels) CONCAT3(VA, attrib, GLVEC_NAME(type, channels))
 
-// sous-parties generiques de la macro DEF_VERTEX_ATTRIB_TYPE, dépendant du méta type d'<attrib> :
+// sous-parties generiques de la macro DEF_VERTEX_ATTRIB_TYPE, dÃ©pendant du mÃ©ta type d'<attrib> :
 #define VA_DECL_SET_GL(attrib, type, channels)  CONCAT2(VA_DECL_SET_GL_, ATTRIB_META_TYPE(attrib))(attrib, type, channels)
 #define VA_DECL_CONSTR(attrib, type, channels)  CONCAT2(VA_DECL_CONSTR_, ATTRIB_META_TYPE(attrib))(attrib, type, channels)
 #define VA_DECL_MEMBER(attrib)      CONCAT2(VA_DECL_MEMBER_, ATTRIB_META_TYPE(attrib))(attrib)
@@ -75,12 +75,12 @@ class AbstractVertexAttrib {
 #define VA_DECL_SET_GL_TEX(attrib, type, channels)  CONCAT4(gl, MultiTexCoord, GLVEC_SUFFIX(type,channels), v)(tex, v)
 #define VA_DECL_SET_GL_VA(attrib, type, channels)   ATTRIB_SET_FUNC(attrib, type, channels)(attribID, v)
 
-// déclaration éventuelle d'un constructeur
+// dÃ©claration Ã©ventuelle d'un constructeur
 #define VA_DECL_CONSTR_GEN(attrib, type, channels)  
 #define VA_DECL_CONSTR_TEX(attrib, type, channels)  VA_CLASS_NAME(TexCoord, type, channels)(int tex=0) : tex(GL_TEXTURE0 + tex) {}
 #define VA_DECL_CONSTR_VA(attrib, type, channels)   VA_CLASS_NAME(VertexAttrib, type, channels)(GLuint attribID=0) : attribID(attribID) {}
 
-// déclaration éventuelle de membres
+// dÃ©claration Ã©ventuelle de membres
 #define VA_DECL_MEMBER_GEN(attrib)  
 #define VA_DECL_MEMBER_TEX(attrib)  GLenum tex;
 #define VA_DECL_MEMBER_VA(attrib)   GLuint attribID;
@@ -90,13 +90,13 @@ class AbstractVertexAttrib {
 #define VA_ENABLE_PTR_TEX(attrib)   glClientActiveTexture(tex); glEnableClientState(GL_TEXTURE_COORD_ARRAY)
 #define VA_ENABLE_PTR_VA(attrib)    glEnableVertexAttribArray(attribID)
 
-// declaration de la méthode setProg
+// declaration de la mÃ©thode setProg
 #define VA_DECL_SET_PROG_GEN(attrib)    void setProg(const ProgGLSL&, const char*) {}
 #define VA_DECL_SET_PROG_TEX(attrib)    void setProg(const ProgGLSL&, const char*) {}
 #define VA_DECL_SET_PROG_VA(attrib)     void setProg(const ProgGLSL& prog, const char* name) { attribID = prog.getAttribID(name); }
 
 #ifdef  VERTEX_ARRAY_INTERLEAVED
-    // attribs prédéfinis d'opengl : Vertex, Normal, Color, SecondaryColor, Index, [EdgeFlag], FogCoord
+    // attribs prÃ©dÃ©finis d'opengl : Vertex, Normal, Color, SecondaryColor, Index, [EdgeFlag], FogCoord
     #define DEF_VERTEX_ATTRIB_TYPE(attrib, type, channels)                                                  \
         class VA_CLASS_NAME(attrib, type, channels) : public AbstractVertexAttrib {                         \
             public:                                                                                         \
@@ -117,7 +117,7 @@ class AbstractVertexAttrib {
                 int stride;     \
             };
 #else
-    // attribs prédéfinis d'opengl : Vertex, Normal, Color, SecondaryColor, Index, [EdgeFlag], FogCoord
+    // attribs prÃ©dÃ©finis d'opengl : Vertex, Normal, Color, SecondaryColor, Index, [EdgeFlag], FogCoord
     #define DEF_VERTEX_ATTRIB_TYPE(attrib, type, channels)                                                  \
         class VA_CLASS_NAME(attrib, type, channels) : public AbstractVertexAttrib {                         \
             public:                                                                                         \
@@ -156,8 +156,8 @@ class AbstractVertexAttrib {
     DEF_VERTEX_ATTRIB_TYPES(VertexAttrib    , (1)(2)(3)     , (short)(float)(double)                                )
     DEF_VERTEX_ATTRIB_TYPES(VertexAttrib    , (4)           , (byte)(ubyte)(short)(ushort)(int)(uint)(float)(double))
     
-    // séparation en 2 car glVertexAttrib{123}{bi ubusui} n'existent pas
-    // a voir : limite les possibilites de vertex attribs (si setGL pas utilisé) --> definir des macros glVertexAttrib2i, etc. ?
+    // sÃ©paration en 2 car glVertexAttrib{123}{bi ubusui} n'existent pas
+    // a voir : limite les possibilites de vertex attribs (si setGL pas utilisÃ©) --> definir des macros glVertexAttrib2i, etc. ?
 
 #define ATTRIB_SEQ_MACRO(r,data,t) data t
 #define ATTRIB_SEQ_APPLY(macro, seq) BOOST_PP_SEQ_FOR_EACH(ATTRIB_SEQ_MACRO, macro, seq)
@@ -219,7 +219,7 @@ class AbstractVertexAttrib {
 #define DEF_ATTRIB_GENERIC(name, type, channels)    ((VA_CLASS_NAME(VertexAttrib,type,channels), name,                      ))
 //#define DEF_ATTRIB_GENERIC(name, type, channels)    ((VA_CLASS_NAME(VertexAttrib,type,channels), name,                      #name))
 //#define DEF_ATTRIB_GENERIC(name, type, channels, prog) ((VA_CLASS_NAME(VertexAttrib,type,channels), name, name))
-//@@ a voir : nom d'attrib : gen_... ou gl_... pour les non génériques?
+//@@ a voir : nom d'attrib : gen_... ou gl_... pour les non gÃ©nÃ©riques?
 //#define DEF_ATTRIB(attrib, type, channels) ((attrib,type,channels))
 
 #endif

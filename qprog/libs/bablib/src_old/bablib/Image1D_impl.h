@@ -19,7 +19,7 @@ Image1D<Color>::Image1D(int w, Color* inputData, WrapMode wrap, Color border) : 
     else if (inputData == NULL) {
         data = new Color[w];
         if (data == NULL) {
-            Message::error("l'allocation memoire pour l'image a echoué");
+            Message::error("l'allocation memoire pour l'image a echouÃ©");
             w = 0;
             }
         }
@@ -50,12 +50,12 @@ template<class Color>
 void Image1D<Color>::initialize(QImage image) {
     destroy();
     if (image.isNull())
-        Message::error("l'image fournie ne contient pas de données");
+        Message::error("l'image fournie ne contient pas de donnÃ©es");
     else {
         w = image.width();
         data = new Color[w];
         if (data == NULL) {
-            Message::error("l'allocation memoire pour l'image a echoué");
+            Message::error("l'allocation memoire pour l'image a echouÃ©");
             w = 0;
             }
         else
@@ -75,7 +75,7 @@ QImage Image1D<Color>::toQImage() const {
 template<class Color>
 void Image1D<Color>::copy(const Image1D<Color> &image) {
     if (!image.loaded())
-        Message::error("l'image fournie ne contient pas de données");
+        Message::error("l'image fournie ne contient pas de donnÃ©es");
     else if (w < image.width())
         Message::error("l'image source est plus grande que l'image destination");
     else {
@@ -91,7 +91,7 @@ Image1D<Color> Image1D<Color>::clone() const {
     if (data == NULL) return Image1D<Color>();
     Color *clonedData = new Color[w];
     if (clonedData == NULL) {
-        Message::error("l'allocation memoire pour l'image a echoué");
+        Message::error("l'allocation memoire pour l'image a echouÃ©");
         return Image1D<Color>();
         }
     for (int c=0; c<w; c++)
@@ -134,7 +134,7 @@ Color Image1D<Color>::interp(float x) const {
     }
 
 /*********************************************************************************************/
-// fonctions de lecture/écriture de buffer OpenGL :
+// fonctions de lecture/Ã©criture de buffer OpenGL :
 
 template<class Color>
 void Image1D<Color>::loadTexture1D(GLint texFormat, GLenum target) const {
@@ -163,7 +163,7 @@ void Image1D<Color>::subSample(int N) {
     int w = width() / N;
     Image1D<Color> res(w);
 
-    // sous-échantillonnage uniforme :
+    // sous-Ã©chantillonnage uniforme :
     ColorAdder<Color> pix;
     for (int i=0; i<w; i++) {
         pix.reset();
@@ -181,7 +181,7 @@ void Image1D<Color>::subSample(int N, Pix1DEvaluator &pixeval) {
     int w = width()  / N;
     Image1D<Color> res(w);
     
-    // sous-échantillonnage en séparant les pixels de l'image en différentes classes :
+    // sous-Ã©chantillonnage en sÃ©parant les pixels de l'image en diffÃ©rentes classes :
     int M = pixeval.valuesNumber();
     ColorAdder<Color> *pix = new ColorAdder<Color>[M];
     
@@ -195,7 +195,7 @@ void Image1D<Color>::subSample(int N, Pix1DEvaluator &pixeval) {
             }
 
         int kMax = 0;
-        for (int k=0; k<M; k++) if (pix[k].n > pix[kMax].n) kMax = k;   // la classe la plus représentée
+        for (int k=0; k<M; k++) if (pix[k].n > pix[kMax].n) kMax = k;   // la classe la plus reprÃ©sentÃ©e
         res(i) = pix[kMax].getColor();
         }
     
@@ -217,7 +217,7 @@ void Image1D<Color>::growClass(Pix1DEvaluator &pixeval, int value) {
     
         pix.reset();
         if (pixeval.evaluate(i) != value) {
-            // on ajoute les éventuels pixels du voisinage qui s'évaluent à <value> :
+            // on ajoute les Ã©ventuels pixels du voisinage qui s'Ã©valuent Ã  <value> :
             for (int a=a1; a<=a2; a++)
                 if (pixeval.evaluate(i+a) == value)
                     pix.add(texel(i+a));

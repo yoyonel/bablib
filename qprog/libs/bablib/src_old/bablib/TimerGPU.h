@@ -75,7 +75,7 @@ class TimerGPU {
             // period in miliseconds
             ChronoGPU(double period) : period(static_cast<GLuint64EXT>(period * 1e6)), n(0) {
                 if (period > TimerGPU::maxPeriod())
-                    MSG_ERROR("précision des timer queries (%1 bits) insuffisante pour la période spécifiée", (TimerGPU::precision()));
+                    MSG_ERROR("prÃ©cision des timer queries (%1 bits) insuffisante pour la pÃ©riode spÃ©cifiÃ©e", (TimerGPU::precision()));
                 }
             
             void begin() { timer.begin(); }
@@ -111,7 +111,7 @@ class TimerGPU {
             // periode in miliseconds
             ChronoGPU(float period) : period(period), n(0) {
                 if (period > TimerGPU::maxPeriod())
-                    MSG_WARNING("précision des timer queries (%1 bits) potientiellement insuffisante pour la période spécifiée", (TimerGPU::precision()));
+                    MSG_WARNING("prÃ©cision des timer queries (%1 bits) potientiellement insuffisante pour la pÃ©riode spÃ©cifiÃ©e", (TimerGPU::precision()));
                 // just a warning, because only the (a priori unknown) fraction of the period where the timer is activated matters
                 }
             
