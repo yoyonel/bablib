@@ -7,7 +7,7 @@ void Viewer::updateFrameBuffers() {
     update_matrix();
     MSG_CHECK_GL;
 
-    // - FRAME_BUFFERS: Maj des FBs et Render-Textures associÃÂ©es
+    // - FRAME_BUFFERS: Maj des FBs et Render-Textures associés
     updateSolidVoxelisation();
 
     // - TIMER_QUERY
