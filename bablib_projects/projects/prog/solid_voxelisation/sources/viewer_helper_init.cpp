@@ -41,6 +41,7 @@ void Viewer::initAll( bool bDestroy )
                 128
                 );
     solid_voxelisation->setCamera(qgl_cam_light_mf);
+    setManipulatedFrame( solid_voxelisation->camera().frame() );
 
     b_is_init = true;
 }

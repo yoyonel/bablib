@@ -1,4 +1,4 @@
-ï»¿#include "viewer_sv.h"
+#include "viewer_sv.h"
 //
 #include <Params.h>
 
@@ -46,4 +46,12 @@ void Viewer::update_camera_light() {
     qgl_cam_light_mf.setType( PARAM(bool, sv.use_ortho_camera) ? qglviewer::Camera::ORTHOGRAPHIC : qglviewer::Camera::PERSPECTIVE );
     qgl_cam_light_mf.computeProjectionMatrix();
     qgl_cam_light_mf.computeModelViewMatrix();
+}
+
+void Viewer::update_camera_sv() {
+    qglviewer::Camera camera = solid_voxelisation->camera();
+    camera.setType( PARAM(bool, sv.use_ortho_camera) ? qglviewer::Camera::ORTHOGRAPHIC : qglviewer::Camera::PERSPECTIVE );
+    camera.computeProjectionMatrix();
+    camera.computeModelViewMatrix();
+    solid_voxelisation->setCamera(camera);
 }

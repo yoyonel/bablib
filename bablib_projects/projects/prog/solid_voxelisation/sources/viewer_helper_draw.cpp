@@ -157,7 +157,7 @@ void Viewer::drawTextures() {
     MSG_CHECK_GL;
 }
 
-void Viewer::drawLightCamera( float _fCoef_Alpha ) {
+void Viewer::drawCamera( const qglviewer::Camera &_cam, float _fCoef_Alpha ) const {
     glPushAttrib(GL_ALL_ATTRIB_BITS);
     // Disable Culling
     glDisable(GL_CULL_FACE);
@@ -169,7 +169,7 @@ void Viewer::drawLightCamera( float _fCoef_Alpha ) {
     glLineWidth(4.0);
     glColor4f(1.0, 1.0, 1.0, _fCoef_Alpha );
     // Draws the light's camera
-    qgl_cam_light_mf.draw();
+    _cam.draw();
     // restore OpenGL attributes
     glPopAttrib();
 }

@@ -67,9 +67,8 @@ void Viewer::init()
         qgl_cam_light_mf.fitBoundingBox( qglviewer::Vec(-1, -1, -1), qglviewer::Vec(+1, +1, +1) );
 
         // Add a manipulated frame to the viewer.
-        setManipulatedFrame( qgl_cam_light_mf.frame() );
-
-        update_camera_light();
+        //setManipulatedFrame( qgl_cam_light_mf.frame() );
+        //update_camera_light();
 
         setTextIsEnabled();
     }
@@ -105,10 +104,15 @@ void Viewer::draw()
     // Dessine la camera attachÃ© Ã  la lumiÃ¨re
     if ( PARAM(bool, light_camera.draw) )
     {
-        if (qgl_cam_light_mf.frame()->isManipulated())
-            drawLightCamera( PARAM(float, light_camera.intensity_isManipulated) );
+//        if (qgl_cam_light_mf.frame()->isManipulated())
+//            drawLightCamera( PARAM(float, light_camera.intensity_isManipulated) );
+//        else {
+//            drawLightCamera( PARAM(float, light_camera.intensity_isNotManipulated) );
+//        }
+        if (solid_voxelisation->camera().frame()->isManipulated())
+            drawSolidVoxelisationCamera( PARAM(float, light_camera.intensity_isManipulated) );
         else {
-            drawLightCamera( PARAM(float, light_camera.intensity_isNotManipulated) );
+            drawSolidVoxelisationCamera( PARAM(float, light_camera.intensity_isNotManipulated) );
         }
 
         glPushAttrib(GL_ALL_ATTRIB_BITS);
@@ -152,13 +156,15 @@ void Viewer::keyPressEvent(QKeyEvent *e) {
         break;
     case Qt::Key_E:
         displayMessage("Switch Manipulated handler to Camera Light");
-        setManipulatedFrame( qgl_cam_light_mf.frame() );
+        //setManipulatedFrame( qgl_cam_light_mf.frame() );
+        setManipulatedFrame( solid_voxelisation->camera().frame() );
         break;
     case Qt::Key_R:
         displayMessage("Reload: Parameters, Shaders, Update Camera Light");
         Params::reload();
         initShaders( !bFirstInit );
-        update_camera_light();
+        //update_camera_light();
+        update_camera_sv();
         updateGL();
         break;
     default:

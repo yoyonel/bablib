@@ -35,7 +35,7 @@ vbo.render_solid = false
 vbo.render_wire = true
 
 light_camera.draw			= true
-light_camera.intensity_isNotManipulated	= 0.0
+light_camera.intensity_isNotManipulated	= 0.01
 light_camera.intensity_isManipulated	= 0.75
 
 stencil_buffer.enable		= true

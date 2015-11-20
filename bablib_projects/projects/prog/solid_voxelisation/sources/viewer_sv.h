@@ -106,6 +106,7 @@ private :
 
     // - UPDATE
     void update_camera_light();
+    void update_camera_sv();
     void update_matrix();
     //
     void updateFrameBuffers();
@@ -126,17 +127,19 @@ private :
     //
     void drawPlane();
     //
-    void drawLightCamera( float _fCoef_Alpha = 0.5f );
+    void drawCamera( const qglviewer::Camera &_cam, float _fCoef_Alpha = 0.5f ) const;
+    inline void drawLightCamera( float _fCoef_Alpha = 0.5f ) const { drawCamera(qgl_cam_light_mf, _fCoef_Alpha); }
+    inline void drawSolidVoxelisationCamera( float _fCoef_Alpha = 0.5f ) const { drawCamera(solid_voxelisation->camera(), _fCoef_Alpha); }
     //
 
     // --------------------------------------------------------
     // Rajouter une gestion de messages avec piles
     // --------------------------------------------------------
     // on peut realiser l'operation avec une surchage sur postDraw de QGLViewer
-    // ou est gÃ©rÃ© l'affichage de message (une seule Ã  la fois)
+    // ou est gÃ©rÃ© l'affichage de message (une seule Ã  la fois)
     // Il y a une utilisation de QTimer pour desactiver aprÃ¨s un certain temps l'affichage des messages
     // On peut (doit) s'inspirer de cette approche pour gÃ©rer une pile de messages.
-    // Ca peut Ãªtre une bon plus pour QGLViewer, Ã  envoyer Ã  Gilles aprÃ¨s (et reprendre contact).
+    // Ca peut Ãªtre une bon plus pour QGLViewer, Ã  envoyer Ã  Gilles aprÃ¨s (et reprendre contact).
     virtual void postDraw() { QGLViewer::postDraw(); }
     //void addMessage(const QString& message, int delay);
 
