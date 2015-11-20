@@ -5,6 +5,9 @@
 #include <Message.h>
 
 
+typedef Image1D<UInt4> Image1DUInt4;
+
+
 SolidVoxelisation::SolidVoxelisation(int w, int h, int d, const QString _path_to_shader) {
     m_size = Dim3D(w, h, d);
     //
@@ -72,14 +75,6 @@ bool SolidVoxelisation::initTextures(bool _reset) {
             lookup[ 4 * i + 1 ] = 0xFFFFFFFF;
             lookup[ 4 * i + 0 ] = ( 1U << std::min( 32, ( i - 96 ) ) ) - 1;
         }
-        /**
-        std::cout << "bits field: sample " << i << " -> " << \
-                     std::bitset<32>(lookup[ 4 * i + 0 ]) << \
-                     std::bitset<32>(lookup[ 4 * i + 1 ]) << \
-                     std::bitset<32>(lookup[ 4 * i + 2 ]) << \
-                     std::bitset<32>(lookup[ 4 * i + 3 ]) << \
-                     std::endl;
-        /**/
     }
     m_tex_bitmask = Texture(&img, GL_NEAREST, GL_CLAMP_TO_EDGE);
     m_tex_bitmask.load(GL_RGBA32UI);
@@ -132,4 +127,13 @@ void SolidVoxelisation::destroyFrameBuffers() {
 
 void SolidVoxelisation::destroyShaders() {
     m_prog_sv.destroy();
+}
+
+Image2DUInt4 SolidVoxelisation::getImage() const {
+    Image2DUInt4 img_sv(m_tex_sv.getWidth(), m_tex_sv.getHeight());
+    // gather the resulting texture data
+    m_tex_sv.bind();
+    glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
+    img_sv.readTexture(&m_tex_sv);
+    return img_sv;
 }

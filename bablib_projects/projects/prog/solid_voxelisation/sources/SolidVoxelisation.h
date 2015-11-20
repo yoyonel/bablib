@@ -18,133 +18,188 @@
 #include <Dim3D.h>
 
 
-typedef Image1D<UInt4> Image1DUInt4;
 typedef Image2D<UInt4> Image2DUInt4;
 
 
+///
+/// \brief The SolidVoxelisation class
+///
 class SolidVoxelisation {
 
 public:
+    ///
+    /// \brief SolidVoxelisation
+    /// \param w
+    /// \param h
+    /// \param d
+    /// \param path_to_shader
+    ///
     SolidVoxelisation(int w, int h, int d, const QString path_to_shader="[shaders]/solid_voxelisation");
+
+    ///
     ~SolidVoxelisation() { destroy(); }
 
+    ///
+    /// \brief width
+    /// \return
+    ///
     int width() const   { return m_size.width();  }
+    ///
+    /// \brief height
+    /// \return
+    ///
     int height() const  { return m_size.height(); }
+    ///
+    /// \brief depth
+    /// \return
+    ///
     int depth() const   { return m_size.depth();  }
 
+    ///
+    ///
+    ///
     template <typename F>
     bool update(F _meth_draw);
 
+    ///
+    /// \brief setCamera
+    /// \param _cam
+    ///
     void setCamera(const qglviewer::Camera& _cam) { m_cam = _cam; }
 
+    const qglviewer::Camera& camera() const { return m_cam; }
+
+    ///
+    /// \brief texture
+    /// \return
+    ///
     Texture texture() const { return m_tex_sv; }
+
+    ///
+    /// \brief ptrTexture
+    /// \return
+    ///
     const Texture* ptrTexture() const { return &m_tex_sv; }
+
+    ///
+    /// \brief framebuffer
+    /// \return
+    ///
     FrameBuffer framebuffer() const { return m_fb_sv; }
 
+    ///
+    /// \brief getImage
+    /// \return
+    ///
+    Image2DUInt4 getImage() const;
+
 protected:
+    ///
+    /// \brief init
+    /// \return
+    ///
     bool init();
-    //
+
+    ///
+    /// \brief initTextures
+    /// \param _reset
+    /// \return
+    ///
     bool initTextures(bool _reset = false);
+
+    ///
+    /// \brief initFrameBuffers
+    /// \param _reset
+    /// \return
+    ///
     bool initFrameBuffers(bool _reset = false);
+
+    ///
+    /// \brief initShaders
+    /// \param _reset
+    /// \return
+    ///
     bool initShaders(bool _reset = false);
-    //
+
+    ///
+    /// \brief destroy
+    ///
     inline void destroy() { destroyFrameBuffers(); destroyTextures(); destroyShaders(); }
-    //
+
+    ///
+    /// \brief destroyTextures
+    ///
     void destroyTextures();
+
+    ///
+    /// \brief destroyFrameBuffers
+    ///
     void destroyFrameBuffers();
+
+    ///
+    /// \brief destroyShaders
+    ///
     void destroyShaders();
 
 private:
+    ///
+    /// \brief m_size
+    ///
     Dim3D m_size;
 
+    ///
+    /// \brief m_cam
+    ///
     qglviewer::Camera m_cam;
 
+    ///
+    /// \brief m_fb_sv
+    ///
     FrameBuffer m_fb_sv;
+
+    ///
+    /// \brief m_tex_sv
+    ///
     Texture m_tex_sv;
-    //Image2DUInt4 m_img_sv;
+
+    ///
+    /// \brief m_tex_bitmask
+    ///
     Texture m_tex_bitmask;
+
+    ///
+    /// \brief m_prog_sv
+    ///
     ProgGLSL m_prog_sv;
 
+    ///
+    /// \brief m_isInit
+    ///
     bool m_isInit;
 
-    GLenum m_internalformat, m_filter, m_wrapmode;
+    ///
+    /// \brief m_internalformat
+    ///
+    GLenum m_internalformat;
+    ///
+    /// \brief m_filter
+    ///
+    GLenum m_filter;
+    ///
+    /// \brief m_wrapmode
+    ///
+    GLenum m_wrapmode;
+    ///
+    /// \brief m_depth_format
+    ///
     GLenum m_depth_format;
 
+    ///
+    /// \brief m_path_to_shader
+    ///
     QString m_path_to_shader;
 };
 
-
-template <typename F>
-bool SolidVoxelisation::update(F _meth_draw) {
-    // ----------
-    const GLenum clearBufferBits = GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT;
-    const GLboolean GL_ALL_BITS = GLboolean(~0x0);
-    const GLboolean colorMask[] = {GL_ALL_BITS, GL_ALL_BITS, GL_ALL_BITS, GL_ALL_BITS};
-
-    FrameBuffer& _framebuffer = m_fb_sv;
-    qglviewer::Camera& qgl_cam_light_mf = m_cam;
-
-    glPushAttrib( GL_ALL_ATTRIB_BITS ); {
-        _framebuffer.activate();
-        glViewport(0, 0, _framebuffer.width(), _framebuffer.height());
-
-        //setOpenGLStates();
-
-        glColorMask( colorMask[0], colorMask[1], colorMask[2], colorMask[3] );
-        glClearColor( 0x0, 0x0, 0x0, 0x0 );
-        glClear( clearBufferBits );
-
-        // desactivation du test de profondeur
-        glDisable( GL_DEPTH_TEST );
-
-        // desactivation du culling face
-        glDisable(GL_CULL_FACE);
-
-        // set blending mode
-        glEnable( GL_BLEND );
-        glLogicOp( GL_XOR );
-        glEnable( GL_COLOR_LOGIC_OP );
-
-        glDisable(GL_LIGHTING);
-
-        // -------
-
-        // Set light's camera (OpenGL 1.x style)
-        // Sauvegarde des matrices de transformations
-        glMatrixMode(GL_PROJECTION);
-        glPushMatrix();
-        qgl_cam_light_mf.loadProjectionMatrix();
-
-        glMatrixMode(GL_MODELVIEW);
-        glPushMatrix();
-        //pt_world_to_light.glLoadModelView();
-        qgl_cam_light_mf.loadModelViewMatrix();
-
-        // Draw scene
-        m_prog_sv.activate(); {
-            _meth_draw(m_prog_sv);
-        } m_prog_sv.deactivate();
-
-        // Restore the OpenGL Matrix
-        glMatrixMode(GL_PROJECTION);
-        glPopMatrix();
-        glMatrixMode(GL_MODELVIEW);
-        glPopMatrix();
-        //
-        _framebuffer.deactivate();
-    } glPopAttrib();
-
-    // gather the resulting texture data
-    //tex_sv.bind();
-    //glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
-    //img_sv.readTexture(&tex_sv);
-
-    // For debugging (mode text debugging)
-    //debug_solid_voxelisation(img_sv);
-    //
-    //debug_solid_voxelisation_graphic_mode_full_image(img_sv, fb_sv, qgl_cam_light_mf);
-
-    MSG_CHECK_GL;
-}
+#include "SolidVoxelisation_impl.h"
 
 #endif // SOLID_VOXELISATION_H

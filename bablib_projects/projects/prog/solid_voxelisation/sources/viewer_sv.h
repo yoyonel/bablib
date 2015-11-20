@@ -109,7 +109,7 @@ private :
     void update_matrix();
     //
     void updateFrameBuffers();
-    void updateSolidVoxelisation(FrameBuffer& _framebuffer);
+    void updateSolidVoxelisation();
     //
     void resetFrameBuffer( FrameBuffer& _fbo, ProgGLSL& _prog_reset );
     void resetFrameBuffers();

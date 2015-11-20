@@ -31,7 +31,7 @@ vbo.coef_seuil_iso		= -0.00
 //
 vbo.enable_blend = false
 vbo.render_caster = true
-vbo.render_solid = true
+vbo.render_solid = false
 vbo.render_wire = true
 
 light_camera.draw			= true
@@ -61,4 +61,4 @@ shadow_map.use_back_face = true
 
 sv.render_voxels_set = true
 sv.render_voxels_unset = true
-sv.use_ortho_camera = false
+sv.use_ortho_camera = true

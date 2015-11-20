@@ -1,12 +1,12 @@
 #include "viewer_sv.h"
-
+//
+#include "SolidVoxelisation_debug.h"
+//
 #include <Message.h>
 #include <TransfoGL.h>
 #include <Params.h>
 
-extern void debug_solid_voxelisation_graphic_mode_full_image(const Image2DUInt4& _img_sv,  const FrameBuffer& _fb, const qglviewer::Camera& _cam);
 
-//
 void Viewer::drawScene() {
     //
     if (b_is_init) {
@@ -82,7 +82,7 @@ void Viewer::drawScene() {
         glPopAttrib();
         glPopMatrix();
 
-        debug_solid_voxelisation_graphic_mode_full_image(img_sv, fb_sv, qgl_cam_light_mf);
+        SolidVoxelisation_Debug::debug_graphic_mode_full_image(solid_voxelisation);
     }
 }
 
