@@ -136,9 +136,9 @@ private :
     // Rajouter une gestion de messages avec piles
     // --------------------------------------------------------
     // on peut realiser l'operation avec une surchage sur postDraw de QGLViewer
-    // ou est gÃ©rÃ© l'affichage de message (une seule Ã  la fois)
+    // ou est géré l'affichage de message (une seule Ã  la fois)
     // Il y a une utilisation de QTimer pour desactiver aprÃ¨s un certain temps l'affichage des messages
-    // On peut (doit) s'inspirer de cette approche pour gÃ©rer une pile de messages.
+    // On peut (doit) s'inspirer de cette approche pour gérer une pile de messages.
     // Ca peut Ãªtre une bon plus pour QGLViewer, Ã  envoyer Ã  Gilles aprÃ¨s (et reprendre contact).
     virtual void postDraw() { QGLViewer::postDraw(); }
     //void addMessage(const QString& message, int delay);
@@ -147,10 +147,10 @@ private :
     bool bFirstInit;
 
     // FRAMEBUFFERS/TEXTURES BabLib
-    FrameBuffer fb_sv;
-    Texture     tex_sv;
-    Image2DUInt4 img_sv;
-    Texture     tex_bitmask;
+    //FrameBuffer fb_sv;
+    //Texture     tex_sv;
+    //Image2DUInt4 img_sv;
+    //Texture     tex_bitmask;
 
     // SHADERS BabLib
     ProgGLSL prog_draw_texture;

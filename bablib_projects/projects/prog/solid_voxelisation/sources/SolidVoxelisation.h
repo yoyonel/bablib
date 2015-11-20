@@ -57,7 +57,9 @@ public:
 
     ///
     ///
-    ///
+    /// \brief update
+    /// \param _meth_draw, F = [](ProgGLSL) -> void
+    /// \return bool
     template <typename F>
     bool update(F _meth_draw);
 
@@ -74,6 +76,8 @@ public:
     /// \return
     ///
     Texture texture() const { return m_tex_sv; }
+
+    explicit operator Texture() const { return m_tex_sv; }
 
     ///
     /// \brief ptrTexture

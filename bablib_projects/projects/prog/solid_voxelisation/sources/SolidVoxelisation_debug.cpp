@@ -84,13 +84,19 @@ void SolidVoxelisation_Debug::debug_graphic_mode_full_image(
             glPointParameterfv(GL_POINT_DISTANCE_ATTENUATION, distance_att);
 
             glBegin(GL_POINTS); {
+                // url: http://stackoverflow.com/questions/7627098/what-is-a-lambda-expression-in-c11
+                const auto & lambda_test = [](bool _bit_voxel) { return _bit_voxel; };
+                const auto & lambda_draw = [](const qglviewer::Vec voxel_minmax[2], bool set_voxel, bool new_voxel, GLuint){
+                    {
+                        glColor4f(new_voxel*0.75f, set_voxel*0.5f, 1.f, 0.95f);
+                        glVertex3dv( ((voxel_minmax[0]+voxel_minmax[1])*0.5) );
+                    }
+                };
+                //
                 SolidVoxelisation_Debug::parse_grid(
                             _img_sv, _fb, _cam,
-                            [](bool set_voxel) { return set_voxel; },
-                            [&](const qglviewer::Vec voxel_minmax[2], bool set_voxel, bool new_voxel, GLuint) {
-                                glColor4f(new_voxel*0.75f, set_voxel*0.5f, 1.f, 0.95f);
-                                glVertex3dv( ((voxel_minmax[0]+voxel_minmax[1])*0.5) );
-                            }
+                            lambda_test,
+                            lambda_draw
                 );
             } glEnd();
         }
@@ -105,13 +111,19 @@ void SolidVoxelisation_Debug::debug_graphic_mode_full_image(
 
             {
                 const GLuint offset_sparse_voxel = 4; // divide by 4 the resolution of the voxel grid
+                ///
+                const auto & lambda_test = [](bool _bit_voxel) { return !_bit_voxel; };
+                const auto & lambda_draw = [](const qglviewer::Vec voxel_minmax[2], bool, bool, GLuint) {
+                    {
+                        glColor4f(0.15f, 0.80, 0.1f, 0.05);
+                        debug_drawbox(Vec3(voxel_minmax[0]), Vec3(voxel_minmax[1]));
+                    }
+                };
+                //
                 SolidVoxelisation_Debug::parse_grid(
                             _img_sv, _fb, _cam,
-                            [](bool _bit_voxel) { return !_bit_voxel; },
-                            [](const qglviewer::Vec voxel_minmax[2], bool, bool, GLuint) {
-                                glColor4f(0.15f, 0.80, 0.1f, 0.05);
-                                debug_drawbox(Vec3(voxel_minmax[0]), Vec3(voxel_minmax[1]));
-                            },
+                            lambda_test,
+                            lambda_draw,
                             offset_sparse_voxel
                 );
             }

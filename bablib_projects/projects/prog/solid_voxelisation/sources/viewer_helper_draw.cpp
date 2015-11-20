@@ -10,7 +10,7 @@
 void Viewer::drawScene() {
     //
     if (b_is_init) {
-        // -- rÃ©cupÃ©ration des dimensions des textures
+        // -- récupération des dimensions des textures
         ViewportGL viewport;
         viewport.getGL();
 
@@ -151,7 +151,8 @@ void Viewer::drawTextures() {
     const int i_texture_debug_height = int((float)(i_screen_height) / 6.f);
 
     prog_draw_texture.activate();
-    drawTexture( tex_sv, 0, 0, i_texture_debug_width, i_texture_debug_height );
+    //drawTexture( tex_sv, 0, 0, i_texture_debug_width, i_texture_debug_height );
+    drawTexture( solid_voxelisation->texture(), 0, 0, i_texture_debug_width, i_texture_debug_height );
     prog_draw_texture.deactivate();
 
     MSG_CHECK_GL;

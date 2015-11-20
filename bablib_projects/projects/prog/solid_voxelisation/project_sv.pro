@@ -34,4 +34,6 @@ PROJECT_PATH = $$PWD
 QMAKE_CXXFLAGS_RELEASE -= -Wint-to-pointer-cast
 
 include($$[QPROG]/config_project.pri)
+
 QMAKE_CXXFLAGS += -std=c++11 -Wall -Wextra
+

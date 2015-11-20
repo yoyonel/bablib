@@ -52,59 +52,6 @@ void Viewer::initTextures( bool bDestroy )
         destroyTextures();
     }
 
-    //
-    tex_sv = Texture::createTex2DInteger(
-                PARAM(int, texture.sv.width),
-                PARAM(int, texture.sv.height),
-                PARAM(GLenum, texture.sv.internalformat),
-                PARAM(GLenum, texture.sv.filter),
-                PARAM(GLenum, texture.sv.wrapmode)
-                );
-
-    int resZ = 128;
-
-    Image1DUInt4 img(resZ, 0);
-    GLuint* lookup = (GLuint*)(img.ptrData());
-    memset(lookup, 0U, sizeof(GLuint)*resZ);
-    for( int i = 1; i < resZ; i++ ) {
-       if ( i < 32 ) {
-            lookup[ 4 * i + 3 ] = ( 1U << std::min( 32, i ) ) - 1;
-        } else if( i == 32 ) {
-            lookup[ 4 * i + 3 ] = 0xFFFFFFFF;
-        } else if ( i < 64 ) {
-            lookup[ 4 * i + 3 ] = 0xFFFFFFFF;
-            lookup[ 4 * i + 2 ] = ( 1U << std::min( 32, ( i - 32 ) ) ) - 1;
-        } else if( i == 64 ) {
-            lookup[ 4 * i + 3 ] = 0xFFFFFFFF;
-            lookup[ 4 * i + 2 ] = 0xFFFFFFFF;
-        } else if ( i < 96 ) {
-            lookup[ 4 * i + 3 ] = 0xFFFFFFFF;
-            lookup[ 4 * i + 2 ] = 0xFFFFFFFF;
-            lookup[ 4 * i + 1 ] = ( 1U << std::min( 32, ( i - 64 ) ) ) - 1;
-        } else if( i == 96 ) {
-            lookup[ 4 * i + 3 ] = 0xFFFFFFFF;
-            lookup[ 4 * i + 2 ] = 0xFFFFFFFF;
-            lookup[ 4 * i + 1 ] = 0xFFFFFFFF;
-        } else {
-            lookup[ 4 * i + 3 ] = 0xFFFFFFFF;
-            lookup[ 4 * i + 2 ] = 0xFFFFFFFF;
-            lookup[ 4 * i + 1 ] = 0xFFFFFFFF;
-            lookup[ 4 * i + 0 ] = ( 1U << std::min( 32, ( i - 96 ) ) ) - 1;
-        }
-        std::cout << "bits field: sample " << i << " -> " << \
-                     std::bitset<32>(lookup[ 4 * i + 0 ]) << \
-                     std::bitset<32>(lookup[ 4 * i + 1 ]) << \
-                     std::bitset<32>(lookup[ 4 * i + 2 ]) << \
-                     std::bitset<32>(lookup[ 4 * i + 3 ]) << \
-                     std::endl;
-                                                     ;
-    }
-    tex_bitmask = Texture(&img, GL_NEAREST, GL_CLAMP_TO_EDGE);
-    tex_bitmask.load(GL_RGBA32UI);
-    img.destroy();
-
-    img_sv = Image2DUInt4(tex_sv.getWidth(), tex_sv.getHeight());
-
     MSG_CHECK_GL;
 }
 
@@ -113,10 +60,6 @@ void Viewer::initFrameBuffers( bool bDestroy )
     if ( bDestroy ) {
         destroyFrameBuffers();
     }
-
-    fb_sv = FrameBuffer::create_Tex2D_Z(&tex_sv, PARAM(GLenum, texture.sv.depth_format));
-    //
-    fb_sv.checkCompleteness(true);
 
     MSG_CHECK_GL;
 }
@@ -129,8 +72,6 @@ void Viewer::initShaders( bool bDestroy )
 
     LOADDIRSHADER( PARAM(QString, shaderDir.vbo), prog_vbo );
     LOADDIRSHADER( PARAM(QString, shaderDir.vbo_wire), prog_vbo_wire );
-    LOADDIRSHADER( PARAM(QString, shaderDir.vbo_sv), prog_vbo_sv );
-    prog_vbo_sv.addTexture("bitmask", &tex_bitmask);
 
     LOADDIRSHADER( PARAM(QString, shaderDir.draw_texture), prog_draw_texture );
 
@@ -165,8 +106,8 @@ void Viewer::initVBO( bool bDestroy )
     }
 
     {
-        // definition VBO avec classes gÃ©nÃ©riques (bablib v2)
-        // pour une dÃ©finition "intÃ¨gre" OpenGL, il faut les customs attribs (gÃ©nÃ©riques attribs) soient prÃ©sents dans les shaders
+        // definition VBO avec classes génériques (bablib v2)
+        // pour une définition "intÃ¨gre" OpenGL, il faut les customs attribs (génériques attribs) soient présents dans les shaders
         // sinon il n'est pas possible d'attribuer un id pour les attributs (prog.getAttribID(#name) renvoie -1)
         VERTEX_DATA_SUBCLASS(VDataDef,
                              DEF_ATTRIB(Vertex, float, 3)

@@ -13,6 +13,10 @@ void Viewer::destroyAll()
     destroyVBO();
     //
     destroyTimerQueryNV();
+    //
+    if( solid_voxelisation ) {
+        delete solid_voxelisation;
+    }
 
     b_is_init = false;
 }
@@ -27,20 +31,14 @@ void Viewer::destroyShaders()
 
 void Viewer::destroyTextures()
 {
-    //printf("# destroyTexturesForShadowMap\n");
-    tex_sv.destroy();
 }
 
 void Viewer::destroyFrameBuffers()
 {
-    //printf("# destroyFrameBufferForShadowMap\n");
-    // - FrameBuffer pour rendre la Depth Shadow Map (render_to_depth_texture)
-    fb_sv.destroy();
 }
 
 void Viewer::destroyTimerQueryNV()
 {
-    //printf("# destroyTimerQueryNV\n");
 }
 
 void Viewer::destroyTriSoup()
@@ -52,8 +50,5 @@ void Viewer::destroyVBO()
 {
     delete vbo;
     delete indexBuffer;
-    //
-    //	delete indexBuffer_sv;
-    //	delete vbo_sv;	 //[MOG: segfault quand on recharge]
 }
 

@@ -1,4 +1,4 @@
-#include "viewer_sv.h"
+﻿#include "viewer_sv.h"
 //
 #include <Params.h>
 
@@ -19,9 +19,8 @@ void Viewer::updateFrameBuffers() {
 void Viewer::updateSolidVoxelisation() {
     // utilisation d'une lambda fonction pour l'affichage de la scene a voxeliser
     // pour le '[&]' -> url: http://stackoverflow.com/questions/4940259/lambdas-require-capturing-this-to-call-static-member-function
-    // Penser a placer le corps d'implÃ©mentation du template dictement accessible via le .h du prototype
-    // => mettre en place des fichiers _impl.h comme dans la bablib
-    solid_voxelisation->update( [&](ProgGLSL _prog) {
+    // url: http://stackoverflow.com/questions/8062608/vim-and-c11-lambda-auto-indentation
+    const auto & lambda_drawsceneforvoxelisation = [&](ProgGLSL _prog){
         // Draw scene occluders
         // Activate shader for rendering
         vbo->setProg( _prog );
@@ -34,10 +33,8 @@ void Viewer::updateSolidVoxelisation() {
         pt_object_to_world_vbo.glMultModelView();
         vbo->render(GL_TRIANGLES, indexBuffer);
         glPopMatrix();
-    });
-
-    img_sv = solid_voxelisation->getImage();
-    tex_sv = solid_voxelisation->texture();
+    };
+    solid_voxelisation->update(lambda_drawsceneforvoxelisation);
 
     MSG_CHECK_GL;
 }
