@@ -1,1 +1,3 @@
-cd qprog; source setup.linux; cd ..
+cd ~/Prog/bablib/qprog
+source setup.linux
+cd -

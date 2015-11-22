@@ -23,11 +23,11 @@ windowSize = 1024 768
 //
 //model.default		= ../../data/models/OBJ/tiny_triceratops.obj
 //model.default		= ../../data/models/OBJ/elephant-poses/elephant-01.obj
-model.default		= ../../data/models/OBJ/sphere.obj
+//model.default		= ../../data/models/OBJ/sphere.obj
 //model.default		= ../../data/models/OBJ/feline.obj	// griffon
 //model.default		= ../../data/models/OBJ/knot.obj
 //model.default		= ../../data/models/OBJ/santa.obj
-//model.default		= ../../data/models/OBJ/horse.obj
+model.default		= ../../data/models/OBJ/horse.obj
 // - OFF
 //model.default 	= ../../data/models/OFF/camel.off
 //model.default 	= ../../data/models/OFF/ref_chinese_dragon.off
