@@ -101,13 +101,15 @@ QString ProgGLSL::getInfoLog() const {
     return res;
     }
 
-void ProgGLSL::activate() {
+//void ProgGLSL::activate() {
+void ProgGLSL::activate() const {
     glUseProgram(id);
     updateVariables();
     textures.activate();
     }
 
-void ProgGLSL::deactivate() {
+//void ProgGLSL::deactivate() {
+void ProgGLSL::deactivate() const {
     glUseProgram(0);
     textures.deactivate();
     }

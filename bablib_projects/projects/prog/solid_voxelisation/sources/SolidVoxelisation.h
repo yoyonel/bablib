@@ -18,7 +18,10 @@
 #include <Dim3D.h>
 
 
+//class ProgGLSL;
+
 typedef Image2D<UInt4> Image2DUInt4;
+//typedef void(*unary_void_meth)(ProgGLSL*);
 
 
 ///

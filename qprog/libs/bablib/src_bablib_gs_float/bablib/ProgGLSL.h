@@ -70,8 +70,10 @@ class ProgGLSL {
         void bindShader(Source source);
         void bindShaders(SourceSet sources);
         void link();
-        void activate();        // active le programme et actualise les variables liées
-        void deactivate();
+//        void activate();        // active le programme et actualise les variables liées
+//        void deactivate();
+        void activate() const;        // active le programme et actualise les variables liées
+        void deactivate() const;
         void destroy();         // supprime le programme
 
         bool isLinked() const;          // true ssi le prog a ete linke correctement

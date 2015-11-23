@@ -20,7 +20,7 @@ void Viewer::updateSolidVoxelisation() {
     // utilisation d'une lambda fonction pour l'affichage de la scene a voxeliser
     // pour le '[&]' -> url: http://stackoverflow.com/questions/4940259/lambdas-require-capturing-this-to-call-static-member-function
     // url: http://stackoverflow.com/questions/8062608/vim-and-c11-lambda-auto-indentation
-    const auto & lambda_drawsceneforvoxelisation = [&](ProgGLSL _prog){
+    const auto & lambda_drawsceneforvoxelisation = [&](const ProgGLSL& _prog){
         // Draw scene occluders
         // Activate shader for rendering
         vbo->setProg( _prog );
@@ -34,6 +34,7 @@ void Viewer::updateSolidVoxelisation() {
         vbo->render(GL_TRIANGLES, indexBuffer);
         glPopMatrix();
     };
+
     solid_voxelisation->update(lambda_drawsceneforvoxelisation);
 
     MSG_CHECK_GL;
