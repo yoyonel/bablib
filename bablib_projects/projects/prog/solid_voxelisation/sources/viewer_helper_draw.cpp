@@ -62,11 +62,15 @@ void Viewer::drawScene() {
             }
 
             if (PARAM(bool, vbo.render_wire)) {
-                glDisable(GL_BLEND);
+//                glDisable(GL_BLEND);
+                glEnable(GL_BLEND);
+                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                glBlendEquation(GL_FUNC_ADD);
+                //glDepthMask(GL_FALSE);
                 glEnable(GL_POLYGON_OFFSET_LINE);
                 glPolygonOffset( PARAM(float, vbo.polygon_offset_scale), PARAM(float, vbo.polygon_offset_bias) );
-
                 glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+                glDisable(GL_CULL_FACE);
                 //
                 vbo->setProg(prog_vbo_wire);
                 prog_vbo_wire.activate(); {

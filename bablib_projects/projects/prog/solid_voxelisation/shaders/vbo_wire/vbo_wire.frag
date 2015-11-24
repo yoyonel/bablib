@@ -1,6 +1,6 @@
-#define GREEN		vec4( 0, 1, 0, 0 )
-#define RED		vec4( 1, 0, 0, 0 )
-#define BLUE		vec4( 0, 0, 1, 0 )
+#define GREEN		vec4( 0, 1, 0, 1 )
+#define RED		vec4( 1, 0, 0, 1 )
+#define BLUE		vec4( 0, 0, 1, 1 )
 //
 #define EPSILON		(0.000001)		//@@ trouver l'epsilon des floats (autour de 0.)
 
@@ -24,6 +24,7 @@ uniform vec3 	u_v3_light_pos_in_object;
 in vec4     v_v4_color;
 in vec3     v_v3_position;
 in vec3     v_v3_normal;
+in vec3     v_v3_normalEyeSpace;
 in float    v_f_diffuse_lighting;
 
 void    compute_edge(in float f_coef_lighting, out bool b_is_edge, out float f_coef_edge);
@@ -61,8 +62,14 @@ void main()
 #endif
 
     //out_color *= f_coef_lighting;
-    out_color *= f_coef_lighting < 0.0 ? (f_coef_lighting > -0.1 ? RED : RED+BLUE) : (f_coef_lighting < 0.1 ? GREEN : GREEN+BLUE);
+    out_color *= f_coef_lighting < 0.0 ? (f_coef_lighting > -0.1 ? RED : (RED+BLUE)) : (f_coef_lighting < 0.1 ? GREEN : GREEN+BLUE);
 #endif
+
+    if (v_v3_normalEyeSpace.z < 0.0) {
+        out_color.a = 0.15;
+    }
+//    else
+//        gl_FragDepth = gl_FragCoord.z;
 
     gl_FragData[0] = out_color;
 }
