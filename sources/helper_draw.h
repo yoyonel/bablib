@@ -36,7 +36,7 @@ void Viewer::drawTexture( int x, int y, int w, int h, ProgGLSL& _prog, Texture& 
 	
 	static float t = 0.0;
 	t += 1.f/60.f;
-	float coefLod = sin(t)*sin(t) * 5;
+    float coefLod = sin(t)*sin(t) * m_nb_levels_for_mipmap;
 	_prog.setUniform( "coefLod", coefLod, false);
 
 	float tex_width 	= _tex.getWidth();

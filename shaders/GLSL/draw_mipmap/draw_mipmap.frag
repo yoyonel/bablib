@@ -48,8 +48,8 @@ void main(void) {
 	vec4 frag_tricubic_lod = interpolate_tricubic_fast( tex_src, texelCoord, sizeTex );
 	
 	// - Resultat (color final)
-	//out_color = frag_tricubic_lod;
-	out_color = frag_bicubic_lod;
+	out_color = frag_tricubic_lod;
+	//out_color = frag_bicubic_lod;
 	//out_color = frag_bilinear_lod;
 	//
 	//out_color = abs( frag_bicubic_lod - frag_bilinear_lod) ;

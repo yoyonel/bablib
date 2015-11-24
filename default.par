@@ -1,7 +1,9 @@
 windowSize = 1024 1024
 
-texture.FileName = ../data/bitmap64.png
-//texture.FileName = ../data/leaf.png
+texture.FileName = ../../data/bitmap512.png
+//texture.FileName = ../../data/leaf.png
+//texture.FileName = ../../data/image-1024.png
+//texture.FileName = ../../data/vampbeauty_02.png
 //
 texture.interp_mode = GL_LINEAR
 #texture.wrap = GL_CLAMP_TO_BORDER
@@ -10,6 +12,9 @@ texture.border_color = 0 0 1 1
 //
 texture.mipmap.min_filter = GL_LINEAR_MIPMAP_LINEAR
 texture.mipmap.mag_filter = GL_LINEAR
+//
+//texture.mipmap.min_filter = GL_LINEAR_MIPMAP_NEAREST
+//texture.mipmap.mag_filter = GL_NEAREST
 
 shaderDir.prog_mipmap = [shaders]/GLSL/draw_mipmap
 

@@ -7,6 +7,14 @@ CONFIG *= bablib
 HEADERS = sources/*.h
 SOURCES = sources/*.cpp
 
+OTHER_FILES +=                                              \
+		shaders/GLSL/draw_mipmap/draw_mipmap.frag   \
+		shaders/GLSL/draw_mipmap/draw_mipmap.vert   \
+		default.par                                 \
+		docs/*					    \
+		../data/*.png
+
+
 #ajout pour compil avec mingw :
 win32 {
     SOURCE_LIBS *= bablib glew

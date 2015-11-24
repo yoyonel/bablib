@@ -37,7 +37,7 @@ void Viewer::initTextures( bool bDestroy )
     	imgTex.bind();
     	imgTex.setBorderColor( PARAM(Float4, texture.border_color) );
     	// init de la generation automatique de mipmap
-    	imgTex.initAutoMipMapGeneration( PARAM(GLenum, texture.mipmap.min_filter), PARAM(GLenum, texture.mipmap.mag_filter) );
+        m_nb_levels_for_mipmap = imgTex.initAutoMipMapGeneration( PARAM(GLenum, texture.mipmap.min_filter), PARAM(GLenum, texture.mipmap.mag_filter) );
     	//
 	qDebug() << "# Size texture: " << imgTex.getWidth() << "x" << imgTex.getHeight();
 	

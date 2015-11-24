@@ -63,6 +63,8 @@ private:
 	
 	// TEXTURES
 	Texture imgTex;
+
+    GLuint m_nb_levels_for_mipmap;
 	// SHADERS
 	ProgGLSL prog_mipmap;
 };
