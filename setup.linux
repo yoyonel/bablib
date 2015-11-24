@@ -1,0 +1,3 @@
+cd $BABLIBQPROG
+source setup.linux
+cd -
